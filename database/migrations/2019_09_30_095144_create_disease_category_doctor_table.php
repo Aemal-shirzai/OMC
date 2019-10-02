@@ -13,6 +13,7 @@ class CreateDiseaseCategoryDoctorTable extends Migration
      */
     public function up()
     {
+        // this is pivot table between tags and doctors
         Schema::create('disease_category_doctor', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger("doctor_id")->unsigned();

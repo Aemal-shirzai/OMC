@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAccountsTable extends Migration
+class CreatePostAndQuestionCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,17 @@ class CreateAccountsTable extends Migration
      */
     public function up()
     {
-        Schema::create('accounts', function (Blueprint $table) {
+        Schema::create('post_and_question_category', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('email')->unique();
-            $table->string("username")->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
-
-            // normal user or doctors
+            // category id
+            $table->bigInteger("disease_category_id")->unsigned();
+            
+            // post or question
             $table->string("owner_type");
             $table->bigInteger("owner_id")->unsigned();
+            $table->timestamps();
+
+            $table->foreign("disease_category_id")->references("id")->on("disease_categories")->onDelete("cascade");
         });
     }
 
@@ -35,6 +34,6 @@ class CreateAccountsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('accounts');
+        Schema::dropIfExists('post_and_question_category');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDoctorNormalUserTable extends Migration
+class CreateQuestionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateDoctorNormalUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('doctor_normal_user', function (Blueprint $table) {
+        Schema::create('questions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string("title");
+            $table->text("content");
             $table->bigInteger("normal_user_id")->unsigned();
-            $table->bigInteger("doctor_id")->unsigned();
             $table->timestamps();
 
             $table->foreign("normal_user_id")->references("id")->on("normal_users")->onDelete("cascade");
-            $table->foreign("doctor_id")->references("id")->on("doctors")->onDelete("cascade");
         });
     }
 
@@ -31,6 +31,6 @@ class CreateDoctorNormalUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('doctor_normal_user');
+        Schema::dropIfExists('questions');
     }
 }
