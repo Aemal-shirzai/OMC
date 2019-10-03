@@ -26,7 +26,7 @@ class CreateNormalUsersTable extends Migration
             $table->date("DateOfBirth");
             $table->timestamps();
 
-            $table->foreign("role_id")->references("id")->on("roles")->onDelete("set null");
+            $table->foreign("role_id")->references("id")->on("roles")->onDelete("set null")->onUpdate("cascade");
         });
     }
 

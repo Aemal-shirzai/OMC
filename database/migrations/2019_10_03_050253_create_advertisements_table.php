@@ -21,10 +21,10 @@ class CreateAdvertisementsTable extends Migration
 
             // add type
             $table->bigInteger("advertisement_category_id")->unsigned()->nullable();
-            $table->foreign("advertisement_category_id")->references("id")->on("advertisement_categories")->onDelete("set null");
+            $table->foreign("advertisement_category_id")->references("id")->on("advertisement_categories")->onDelete("set null")->onUpdate("cascade");
             // admin 
             $table->bigInteger("normal_user_id")->unsigned()->nullable();
-            $table->foreign("normal_user_id")->references("id")->on("normal_users")->onDelete("set null");
+            $table->foreign("normal_user_id")->references("id")->on("normal_users")->onDelete("set null")->onUpdate("cascade");
             $table->timestamps();
         });
     }

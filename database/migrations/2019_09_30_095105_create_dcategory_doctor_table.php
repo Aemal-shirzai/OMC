@@ -20,8 +20,8 @@ class CreateDcategoryDoctorTable extends Migration
             $table->bigInteger("dcategory_id")->unsigned();
             $table->timestamps();
 
-            $table->foreign("doctor_id")->references("id")->on("doctors")->onDelete("cascade");
-            $table->foreign("dcategory_id")->references("id")->on("dcategories")->onDelete("cascade");
+            $table->foreign("doctor_id")->references("id")->on("doctors")->onDelete("cascade")->onUpdate("cascade");
+            $table->foreign("dcategory_id")->references("id")->on("dcategories")->onDelete("cascade")->onUpdate("cascade");
         });
     }
 

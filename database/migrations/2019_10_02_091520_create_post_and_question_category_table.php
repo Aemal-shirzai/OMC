@@ -23,7 +23,7 @@ class CreatePostAndQuestionCategoryTable extends Migration
             $table->bigInteger("owner_id")->unsigned();
             $table->timestamps();
 
-            $table->foreign("disease_category_id")->references("id")->on("disease_categories")->onDelete("cascade");
+            $table->foreign("disease_category_id")->references("id")->on("disease_categories")->onDelete("cascade")->onUpdate("cascade");
         });
     }
 

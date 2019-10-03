@@ -20,7 +20,7 @@ class CreateQuestionsTable extends Migration
             $table->bigInteger("normal_user_id")->unsigned();
             $table->timestamps();
 
-            $table->foreign("normal_user_id")->references("id")->on("normal_users")->onDelete("cascade");
+            $table->foreign("normal_user_id")->references("id")->on("normal_users")->onDelete("cascade")->onUpdate("cascade");
         });
     }
 

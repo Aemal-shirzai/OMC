@@ -23,7 +23,7 @@ class CreateDoctorAchievementsTable extends Migration
             $table->bigInteger("doctor_id")->unsigned();
             $table->timestamps();
 
-            $table->foreign("doctor_id")->references("id")->on("doctors")->onDelete("cascade");
+            $table->foreign("doctor_id")->references("id")->on("doctors")->onDelete("cascade")->onUpdate("cascade");
         });
     }
 

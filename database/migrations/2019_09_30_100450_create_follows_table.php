@@ -19,8 +19,8 @@ class CreateFollowsTable extends Migration
             $table->bigInteger("doctor_id")->unsigned();
             $table->timestamps();
 
-            $table->foreign("normal_user_id")->references("id")->on("normal_users")->onDelete("cascade");
-            $table->foreign("doctor_id")->references("id")->on("doctors")->onDelete("cascade");
+            $table->foreign("normal_user_id")->references("id")->on("normal_users")->onDelete("cascade")->onUpdate("cascade");
+            $table->foreign("doctor_id")->references("id")->on("doctors")->onDelete("cascade")->onUpdate("cascade");
         });
     }
 
