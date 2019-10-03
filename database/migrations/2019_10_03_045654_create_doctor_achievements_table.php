@@ -17,7 +17,7 @@ class CreateDoctorAchievementsTable extends Migration
             $table->bigIncrements('id');
             $table->string("title");
             $table->text("content");
-            $table->date("Achievement_date");
+            $table->timestamp("Achievement_date");
 
             // for doctors
             $table->bigInteger("doctor_id")->unsigned();

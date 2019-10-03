@@ -23,7 +23,7 @@ class CreateNormalUsersTable extends Migration
             $table->string("district");
             $table->string("street");
             $table->boolean("gender");
-            $table->date("DateOfBirth");
+            $table->timestamp("DateOfBirth");
             $table->timestamps();
 
             $table->foreign("role_id")->references("id")->on("roles")->onDelete("set null")->onUpdate("cascade");

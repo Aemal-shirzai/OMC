@@ -22,7 +22,7 @@ class CreateDoctorsTable extends Migration
             $table->string("district");
             $table->string("street");
             $table->boolean("gender");
-            $table->date("DateOfBirth");
+            $table->timestamp("DateOfBirth");
             $table->timestamps();
         });
     }

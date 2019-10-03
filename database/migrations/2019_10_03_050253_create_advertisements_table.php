@@ -17,7 +17,7 @@ class CreateAdvertisementsTable extends Migration
             $table->bigIncrements('id');
             $table->string("title");
             $table->text("content");
-            $table->date("expire_date");
+            $table->timestamp("expire_date");
 
             // add type
             $table->bigInteger("advertisement_category_id")->unsigned()->nullable();
