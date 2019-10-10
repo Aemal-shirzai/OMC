@@ -1,0 +1,115 @@
+@font-face{
+	font-family: "Roboto-Black";
+	src:url("../fonts/roboto/Roboto-Black.ttf");
+}
+@font-face{
+	font-family: "Roboto-BlackItalic";
+	src:url("../fonts/roboto/Roboto-BlackItalic.ttf");
+}
+@font-face{
+	font-family: "Roboto-Bold";
+	src:url("../fonts/roboto/Roboto-Bold.ttf");
+}
+@font-face{
+	font-family: "Roboto-BoldItalic";
+	src:url("../fonts/roboto/Roboto-BoldItalic.ttf");
+}
+@font-face{
+	font-family: "Roboto-Italic";
+	src:url("../fonts/roboto/Roboto-Italic.ttf");
+}
+@font-face{
+	font-family: "Roboto-Light";
+	src:url("../fonts/roboto/Roboto-Light.ttf");
+}
+@font-face{
+	font-family: "Roboto-LightItalic";
+	src:url("../fonts/roboto/Roboto-LightItalic.ttf");
+}
+@font-face{
+	font-family: "Roboto-Medium";
+	src:url("../fonts/roboto/Roboto-Medium.ttf");
+}
+@font-face{
+	font-family: "Roboto-MediumItalic";
+	src:url("../fonts/roboto/Roboto-MediumItalic.ttf");
+}
+@font-face{
+	font-family: "Roboto-Regular";
+	src:url("../fonts/roboto/Roboto-Regular.ttf");
+}
+@font-face{
+	font-family: "Roboto-Thin";
+	src:url("../fonts/roboto/Roboto-Thin.ttf");
+}
+@font-face{
+	font-family: "Roboto-ThinItalic";
+	src:url("../fonts/roboto/Roboto-ThinItalic.ttf");
+}
+
+body{
+	font-family: Roboto-Thin;
+	padding-top: 118px;
+}
+div#header-div{
+	background-color: #3fbbc0;
+	padding: 10px;
+	max-height: 47px;
+	position: fixed;
+	top: 0;
+}
+a.login-register{
+	color:white;
+	font-size: 18px;
+	padding: 5px; 
+	
+}
+a.login-register:hover{
+	text-decoration: none;
+	border: 1px solid white;
+}
+a#search-icon{
+	color: white;
+	font-size: 18px;
+}
+a#search-icon:hover{
+	text-decoration: none;
+	font-size: 22px;
+}
+div#search-box-div{
+	width: 100%;
+	position: fixed;
+	top: 0;
+}
+.search-box-button{
+	display:none;
+}
+#search-box{
+	border-left: none;
+	border-top: none;
+	border-right: none;
+}
+#search-close-button{
+	color: #3fbbc0;
+	background-color: white;
+	border-bottom: 1px solid #ced4da;
+	padding-top: 9px;
+	font-size: 17px;
+}
+span#timeAndDate{
+	color: white;
+	font-family: "Roboto-Black";
+}
+
+@media screen and (max-width:640px){
+	span#timeAndDate{
+		display: none;
+	}
+	a.login-register{
+		color:white;
+		font-size: 15px;
+		padding: 5px; 
+	
+	}
+}
+
