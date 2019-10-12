@@ -25,16 +25,16 @@
 </div><!-- navbar for small screen div end  -->
 
 
-<div id="parent-dev"><!-- parent Div start-->
+<div id="parent-div"><!-- parent Div start-->
 	
 	<div class="col-12 text-right" id="header-div"> <!-- header div start -->
 
-		<div class="container"> <!-- header-content dev start -->
+		<div class="container"> <!-- header-content div start -->
 			<span class="float-left" id="timeAndDate">{{ Carbon\Carbon::now("Asia/kabul") }}</span>
 			<a href="#" class="far fa-search" id="search-icon"></a>&nbsp;
 			<a href="#" class="login-register">Login</a>
 			<a href="#" class="login-register">Register</a>	
-		</div> <!-- header-content dev end -->
+		</div> <!-- header-content div end -->
 
 	</div><!-- header div end -->
 
@@ -49,7 +49,7 @@
 
 	<div id="sidebar-large"> <!-- navbar for large screen div start  -->
 		<div class="container">
-		<div id="logodiv" class="float-left col-lg-2 col-sm-3">
+		<div id="logodiv" class="float-left">
 		<a href="#"><img src="{{asset('images/logo.png')}}" class="img-fluid"></a>
 		</div>
 		<a href="javascript:void(0)" class="btn btn-light btn-sm openbtn" onclick="openNav()"><i class="far fa-bars"></i></a>
@@ -71,7 +71,7 @@
 <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
 
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/script.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/script1.js')}}"></script>
 
 
 

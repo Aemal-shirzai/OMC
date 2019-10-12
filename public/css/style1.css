@@ -51,7 +51,7 @@ body{
 	font-family: Roboto-Thin;
 	padding-top: 118px;
 }
-div#parent-dev{
+div#parent-div{
 	transition: margin-left .5s;
 }
 div#header-div{
@@ -115,7 +115,7 @@ div#sidebar-large{
 	overflow: hidden;
 	box-shadow: 0 1px 6px rgba(0,0,0,.2);
 }
-div#sidebar-large a{
+div#sidebar-large a:not(:first-child){
 	color: #666;
 	padding: 25px 16px;
 	letter-spacing: 1px;
@@ -128,10 +128,11 @@ div#sidebar-large a{
 div#sidebar-large a:hover{
 	color:#3fbbc0; 
 }
-div#logodiv a{
-	margin-top: 5px;
+div#logodiv{
 	padding:10px;
+	width: 200px;
 }
+
 .active{
 	color: #3fbbc0 !important;
 }
@@ -189,22 +190,22 @@ div.sidebar-small
 		font-size: 15px;
 		padding: 5px; 
 	}
-	div#logodiv{
-		width: 50%;
-	}
 	div#sidebar-large a:not(:first-child){
 		display: none;
 	}
 	.openbtn{
 		display: block !important;
 		float: right;
+	}
+	div#logodiv{
+		width: 170px;
+	}
+	div#logodiv a img{
+		margin-top: 10px;
 	}
 }
 
 @media screen and (max-width:1000px) and (min-width: 641px){
-	div#logodiv{
-		width: 50%;
-	}
 	div#sidebar-large a:not(:first-child){
 		display: none;
 	}
@@ -212,4 +213,11 @@ div.sidebar-small
 		display: block !important;
 		float: right;
 	}
+	div#logodiv{
+		width: 170px;
+	}
+	div#logodiv a img{
+		margin-top: 10px;
+	}
 }
+
