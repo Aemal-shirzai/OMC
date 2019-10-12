@@ -51,6 +51,9 @@ body{
 	font-family: Roboto-Thin;
 	padding-top: 118px;
 }
+div#parent-dev{
+	transition: margin-left .5s;
+}
 div#header-div{
 	background-color: #3fbbc0;
 	padding: 10px;
@@ -101,6 +104,82 @@ span#timeAndDate{
 	font-family: "Roboto-Black";
 }
 
+
+div#sidebar-large{
+	width: 100%;
+	background-color: white;
+	height: 70px;
+	margin-top: -2px;
+	position: fixed;
+	top: 48px;
+	overflow: hidden;
+	box-shadow: 0 1px 6px rgba(0,0,0,.2);
+}
+div#sidebar-large a{
+	color: #666;
+	padding: 25px 16px;
+	letter-spacing: 1px;
+	font-size: 13px;
+	float: right;
+	font-family: "Roboto-Bold";
+	text-transform: uppercase;
+	text-decoration: none;
+}
+div#sidebar-large a:hover{
+	color:#3fbbc0; 
+}
+div#logodiv a{
+	margin-top: 5px;
+	padding:10px;
+}
+.active{
+	color: #3fbbc0 !important;
+}
+.openbtn{
+	margin-top: 14px;
+	padding: 12px 16px !important;
+	display: none;
+}
+
+div.sidebar-small
+{	
+	height: 100%;
+	width: 0;
+	background-color: white;
+	overflow-x: hidden;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	transition: 0.5s;
+	padding-top: 60px;
+}
+.sidebar-small a:nth-child(1){
+	text-decoration: none;
+	color: #818181;
+}
+.sidebar-small a:not(:first-child){
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 14px;
+	color: #818181;
+	display: block;
+	font-family: "Roboto-Black";
+	transition: 0.5s;
+}
+.sidebar-small a:hover {
+		color: #3fbbc0;
+}
+.sidebar-small a.closebtn{
+	position: absolute;
+	top: 0;
+	right: 25px;
+	font-size: 36px;
+	margin-left: 50px;
+}
+.sidebar-small-shadow{ /* added in javascript */
+	box-shadow : lightgrey 2px 13px 22px
+}
 @media screen and (max-width:640px){
 	span#timeAndDate{
 		display: none;
@@ -109,7 +188,28 @@ span#timeAndDate{
 		color:white;
 		font-size: 15px;
 		padding: 5px; 
-	
+	}
+	div#logodiv{
+		width: 50%;
+	}
+	div#sidebar-large a:not(:first-child){
+		display: none;
+	}
+	.openbtn{
+		display: block !important;
+		float: right;
 	}
 }
 
+@media screen and (max-width:1000px) and (min-width: 641px){
+	div#logodiv{
+		width: 50%;
+	}
+	div#sidebar-large a:not(:first-child){
+		display: none;
+	}
+	.openbtn{
+		display: block !important;
+		float: right;
+	}
+}
