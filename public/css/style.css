@@ -99,6 +99,9 @@ div#search-box-div{
 	padding-top: 9px;
 	font-size: 17px;
 }
+#search-close-button:hover{
+	cursor: pointer;	
+}
 span#timeAndDate{
 	color: white;
 	font-family: "Roboto-Black";

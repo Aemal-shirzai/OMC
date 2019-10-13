@@ -20,5 +20,15 @@ $("document").ready(function(){
 		$(".search-box-button").hide();
 		$("#header-div").show();
 	});
+
+$(window).resize(function(){
+
+	if($(window).width() > 1000){
+		$("#side").css("width","0px");
+		$("#parent-div").css("margin-left","0px");
+	}
 });
+
+});
+
 

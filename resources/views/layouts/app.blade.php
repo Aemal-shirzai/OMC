@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css fild -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/style1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
 
 	<!-- Linkt to fontawesome  -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/all.min.css')}}">
@@ -71,7 +71,7 @@
 <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
 
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/script1.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/script.js')}}"></script>
 
 
 
