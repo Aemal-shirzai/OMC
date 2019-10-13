@@ -62,11 +62,49 @@
 		</div>
 	</div><!-- navbar for large screen div end  -->
 
+
+<div class="container">
+	@yield("content")
+</div>
+
+<!-- footer div start -->
+<div id="footer">
+	<div class="container" id="footer-content">
+		<div class="row" >
+			<div class="col-lg-3 col-sm-3" id="omc">
+				<h5>omc</h5>
+				<a href="#">About OMC</a>
+				<a href="#">About Developers</a>
+				<a href="#">Contact Us</a>
+				<a href="#">Privacy and Policy</a>
+			</div>
+			<div class="col-lg-3 col-sm-3" id="general">
+				<h5>General</h5>
+				<a href="#">Quesions</a>
+				<a href="#">Addvertisements</a>
+				<a href="#">Jobs</a>
+			</div>
+			<div class="col-lg-3 col-sm-3" id="omc-network">
+				<h5>omc network</h5>
+				<a href="#">Doctors <span class="badge badge-secondary">2000</span></a>
+				<a href="#">Users <span class="badge badge-secondary">2000</span></a>
+				<a href="#">Tags <span class="badge badge-secondary">2000</span></a>
+			</div>
+			<div class="col-lg-3 col-sm-3" id="social-links">
+				<h5>Follow us</h5>
+				<a href="#" class="fab fa-facebook"></a>
+				<a href="#" class="fab fa-twitter"></a>
+				<a href="#" class="fab fa-linkedin"></a>
+				<a href="#" class="fab fa-github"></a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Footer div end -->
+
+
+
 </div><!-- Parent Div End -->
-
-
-
-
 <!-- link to boootstrap app.js -->
 <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
 

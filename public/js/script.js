@@ -1,3 +1,18 @@
+window.onscroll = function() {changeMenuSize()};
+function changeMenuSize(){
+	if(document.documentElement.scrollTop > 80){
+		document.getElementById("header-div").style.padding = "5px";
+		document.getElementById("sidebar-large").style.marginTop = "-14px";
+		document.getElementById("sidebar-large").style.height = "65x";
+		document.getElementById("logodiv").style.width = "190px";
+	}else{
+		document.getElementById("header-div").style.padding = "10px";
+		document.getElementById("sidebar-large").style.marginTop = "-4px";
+		document.getElementById("sidebar-large").style.height = "70x";
+		document.getElementById("logodiv").style.width = "200px";
+	}
+}
+// alert(document.documentElement.scrollTop);
 
 function openNav() {
 	document.getElementById("side").style.width = "230px";	
