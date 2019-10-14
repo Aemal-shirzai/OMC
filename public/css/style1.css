@@ -93,6 +93,8 @@ div#search-box-div{
 	border-left: none;
 	border-top: none;
 	border-right: none;
+	border-radius: 0px;
+	height: 46px;
 }
 #search-close-button{
 	color: #3fbbc0;
@@ -100,6 +102,7 @@ div#search-box-div{
 	border-bottom: 1px solid #ced4da;
 	padding-top: 9px;
 	font-size: 17px;
+	border-radius: 0px;
 }
 #search-close-button:hover{
 	cursor: pointer;	
@@ -138,9 +141,11 @@ div#sidebar-large a:hover{
 }
 div#logodiv{
 	padding:10px;
-	width: 200px;
+	margin-top: 0px;
+	width: 170px;
 	margin-left: -12px;
 	transition: width 0.5s;
+	transition: margin-top 0.5s;
 }
 
 .active{
@@ -202,7 +207,7 @@ div#footer-content{
 	padding: 12px;
 }
 div#footer-content h5{
-	font-size: 16px;
+	font-size: 14px;
 	font-family: "Roboto-Black";
 	color: #6e7071;
 	text-transform: uppercase;
@@ -261,7 +266,7 @@ div#social-links a:nth-child(5){
 		float: right;
 	}
 	div#logodiv{
-		width: 170px;
+		width: 140px;
 	}
 	div#logodiv a img{
 		margin-top: 10px;

@@ -4,12 +4,13 @@ function changeMenuSize(){
 		document.getElementById("header-div").style.padding = "5px";
 		document.getElementById("sidebar-large").style.marginTop = "-14px";
 		document.getElementById("sidebar-large").style.height = "65x";
-		document.getElementById("logodiv").style.width = "190px";
+		document.getElementById("logodiv").style.width = "150px";
+		document.getElementById("logodiv").style.marginTop= "6px";
 	}else{
 		document.getElementById("header-div").style.padding = "10px";
 		document.getElementById("sidebar-large").style.marginTop = "-4px";
 		document.getElementById("sidebar-large").style.height = "70x";
-		document.getElementById("logodiv").style.width = "200px";
+		document.getElementById("logodiv").style.width = "140px";
 	}
 }
 // alert(document.documentElement.scrollTop);
@@ -27,7 +28,6 @@ $("document").ready(function(){
 	$("#search-icon").click(function(){
 		$("#header-div").slideUp("fast");
 		$(".search-box-button").slideDown();
-		$("#search-box").focus();
 		event.preventDefault();
 	});
 

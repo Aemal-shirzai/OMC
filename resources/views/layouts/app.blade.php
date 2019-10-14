@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css fild -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/style1.css')}}">
 
 	<!-- Linkt to fontawesome  -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/all.min.css')}}">
@@ -42,7 +42,7 @@
 		{!! Form::open([]) !!}
 			<div class="d-flex">
 				<div class="btn btn-light search-box-button" id="search-close-button"><i class="far fa-arrow-left"></i></div>
-				{!! Form::text("search",null,["class"=>"form-control mr-1 form-control-lg search-box-button","placeholder"=>"Search here ...","id"=>"search-box","autofocus"]) !!}
+				{!! Form::text("search",null,["class"=>"form-control  form-control-lg search-box-button","placeholder"=>"Search here ...","id"=>"search-box"]) !!}
 			</div>
 		{!! Form::close() !!}
 	</div> <!-- search box div end -->
@@ -68,7 +68,7 @@
 </div>
 
 <!-- footer div start -->
-<div id="footer">
+<div id="footer" class="col-12">
 	<div class="container" id="footer-content">
 		<div class="row" >
 			<div class="col-lg-3 col-sm-3" id="omc">
@@ -109,7 +109,7 @@
 <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
 
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/script.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/script1.js')}}"></script>
 
 
 
