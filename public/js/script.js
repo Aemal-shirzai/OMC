@@ -19,6 +19,8 @@ function changeMenuSize(){
 		document.getElementById("search-close-button").style.paddingTop= "9px";
 	}
 }
+
+
 // alert(document.documentElement.scrollTop);
 
 function openNav() {

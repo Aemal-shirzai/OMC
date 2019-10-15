@@ -15,15 +15,14 @@ class CreateNormalUsersTable extends Migration
     {
         Schema::create('normal_users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string("firstName");
-            $table->string("lastName");
+            $table->string("fullName");
             $table->bigInteger("role_id")->unsigned()->nullable();
             $table->boolean("status");
-            $table->string("province");
-            $table->string("district");
-            $table->string("street");
+            $table->string("province")->nullable();
+            $table->string("district")->nullable();
+            $table->string("street")->nullable();
             $table->boolean("gender");
-            $table->timestamp("DateOfBirth");
+            $table->timestamp("DateOfBirth")->nullable();
             $table->timestamps();
 
             $table->foreign("role_id")->references("id")->on("roles")->onDelete("set null")->onUpdate("cascade");

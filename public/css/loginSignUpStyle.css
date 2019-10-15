@@ -2,15 +2,28 @@ div#loginForm-container{
 	background-color: white;
 	margin: 10px auto;
 	box-shadow: 0px 0px 1px 0px lightgray;
-	padding: 70px 32px;	
+	padding: 107px 32px;	
+	padding-top: 65px;
 	width: 349px;
 	color: #999;	
 }
-div#loginForm{
+div#signUpForm-container{
+	background-color: white;
+	margin: 10px auto;
+	box-shadow: 0px 0px 1px 0px lightgray;
+	padding: 70px 32px;	
+	padding-top: 25px;
+	color: #999;	
+}
+div#loginSignUpForm{
 	padding: 15px 12px !important;
 
 }
-div#signupButton{
+#form-title{
+	margin-top: 20px;
+}
+
+div#loginButton{
 	background-color: white;
 	margin: 10px auto;
 	box-shadow: 0px 0px 1px 0px lightgray;
@@ -18,20 +31,27 @@ div#signupButton{
 	width: 349px;
 	padding:12px 12px;
 }
+div#signUpButton{
+	background-color: white;
+	margin: 10px auto;
+	box-shadow: 0px 0px 1px 0px lightgray;
+	min-height: 50px;
+	padding:12px 12px;
+}
 div#forget{
 	margin-bottom: -49px;
 }
-div#login-logo{
+div#loginSignUp-logo{
 	width: 56px;
 	height: 55px;
 	background-color:#3fbbc0;
 	border-radius: 71%;
 	margin: 0 auto;
 }
-div#loginForm-container h5{
+div#loginSignUpForm-container h5{
 	margin-top: 15px;
 }
-.login_form_element{
+.form_element{
 	margin-bottom: 7px;
 	height: 38px;
 	border:1px solid #efefef; 
@@ -41,18 +61,18 @@ div#loginForm-container h5{
 ::placeholder{
 	color: #999 !important;
 }
-#login_form_button{
+#form_button{
 	border-radius: 4px;
 	margin-top: 14px;
 	background-color: #3fbbc0 !important;
 }
 
-div#login-footer ul{
+div#loginSignUp-footer ul{
 	text-transform: uppercase;
 	list-style-type: none;
 	padding: 12px 37px;
 }
-div#login-footer ul li{
+div#loginSignUp-footer ul li{
 	display: inline;
 	font-size: 12px;
 	margin-left: 6px;
@@ -70,15 +90,27 @@ a:hover{
 		box-shadow: 0px 0px 0px 0px lightgray;
 		width: 100%;
 	}
-	div#signupButton{
+	div#signUpForm-container{
 		background-color: #f8fafc;
 		box-shadow: 0px 0px 0px 0px lightgray;
 		width: 100%;
+	}
+	div#loginButton{
+		background-color: #f8fafc;
+		box-shadow: 0px 0px 0px 0px lightgray;
+		width: 100%;
+	}
+	div#signUpButton{
+		background-color: #f8fafc;
+		box-shadow: 0px 0px 0px 0px lightgray;
+		width: 100%;
+	}
+	.form_element{
+		width: 100% !important;
 	}
 
 }
 
 @media screen and (max-width: 1000px) and (min-width: 641px){
-	div#loginForm-container{
-	}
+	
 }

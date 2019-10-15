@@ -15,12 +15,11 @@ class CreateDoctorsTable extends Migration
     {
         Schema::create('doctors', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string("firstName");
-            $table->string("lastName");
+            $table->string("fullName");
             $table->boolean("status");
-            $table->string("province");
-            $table->string("district");
-            $table->string("street");
+            $table->string("province")->nullable();
+            $table->string("district")->nullable();
+            $table->string("street")->nullable();
             $table->boolean("gender");
             $table->timestamp("DateOfBirth");
             $table->timestamps();
