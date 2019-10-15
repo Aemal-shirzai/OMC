@@ -1,0 +1,84 @@
+div#loginForm-container{
+	background-color: white;
+	margin: 10px auto;
+	box-shadow: 0px 0px 1px 0px lightgray;
+	padding: 70px 32px;	
+	width: 349px;
+	color: #999;	
+}
+div#loginForm{
+	padding: 15px 12px !important;
+
+}
+div#signupButton{
+	background-color: white;
+	margin: 10px auto;
+	box-shadow: 0px 0px 1px 0px lightgray;
+	min-height: 50px;
+	width: 349px;
+	padding:12px 12px;
+}
+div#forget{
+	margin-bottom: -49px;
+}
+div#login-logo{
+	width: 56px;
+	height: 55px;
+	background-color:#3fbbc0;
+	border-radius: 71%;
+	margin: 0 auto;
+}
+div#loginForm-container h5{
+	margin-top: 15px;
+}
+.login_form_element{
+	margin-bottom: 7px;
+	height: 38px;
+	border:1px solid #efefef; 
+	background-color:#fafafa;
+	font-size: 12px;
+}
+::placeholder{
+	color: #999 !important;
+}
+#login_form_button{
+	border-radius: 4px;
+	margin-top: 14px;
+	background-color: #3fbbc0 !important;
+}
+
+div#login-footer ul{
+	text-transform: uppercase;
+	list-style-type: none;
+	padding: 12px 37px;
+}
+div#login-footer ul li{
+	display: inline;
+	font-size: 12px;
+	margin-left: 6px;
+}
+a{
+	color: #3fbbc0;
+}
+a:hover{
+	text-decoration: none;
+}
+
+@media screen and (max-width: 640px){
+	div#loginForm-container{
+		background-color: #f8fafc;
+		box-shadow: 0px 0px 0px 0px lightgray;
+		width: 100%;
+	}
+	div#signupButton{
+		background-color: #f8fafc;
+		box-shadow: 0px 0px 0px 0px lightgray;
+		width: 100%;
+	}
+
+}
+
+@media screen and (max-width: 1000px) and (min-width: 641px){
+	div#loginForm-container{
+	}
+}

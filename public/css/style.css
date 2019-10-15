@@ -59,9 +59,11 @@ div#header-div{
 	padding: 10px;
 	max-height: 47px;
 	position: fixed;
+	z-index: 1;
 	top: 0;
 	transition:padding 0.5s;
 }
+
 a.login-register{
 	color:white;
 	font-size: 18px;
@@ -89,12 +91,15 @@ div#search-box-div{
 .search-box-button{
 	display:none;
 }
+
 #search-box{
 	border-left: none;
 	border-top: none;
 	border-right: none;
 	border-radius: 0px;
 	height: 46px;
+	font-size: 15px;
+	transition: height 0.5s;
 }
 #search-close-button{
 	color: #3fbbc0;
@@ -103,6 +108,8 @@ div#search-box-div{
 	padding-top: 9px;
 	font-size: 17px;
 	border-radius: 0px;
+	transition: 0.5s !important;
+
 }
 #search-close-button:hover{
 	cursor: pointer;	
@@ -112,16 +119,16 @@ span#timeAndDate{
 	font-family: "Roboto-Black";
 }
 
-
 div#sidebar-large{
 	width: 100%;
 	background-color: white;
 	height: 70px;
 	margin-top: -2px;
 	position: fixed;
+	z-index: 1;
 	top: 48px;
 	overflow: hidden;
-	box-shadow: 0 1px 6px rgba(0,0,0,.2);
+	#box-shadow: 0 -3px 6px rgba(0,0,0,.2);
 	transition: margin-top 0.5s !important;
 	transition: height 0.5s;
 }
@@ -201,7 +208,7 @@ div.sidebar-small
 /*footer part*/
 div#footer{
 	background-color: #f2f2f2;
-	margin-top: 600px;
+	
 }
 div#footer-content{
 	padding: 12px;
@@ -272,7 +279,10 @@ div#social-links a:nth-child(5){
 		margin-top: 10px;
 	}
 	div#footer-content h5{
-		font-size: 12px;
+		font-size: 10px;
+	}
+	div#footer-content a{
+		font-size: 13px;
 	}
 	div#omc, div#general, div#omc-network, div#social-links{
 		width: 50%;
@@ -284,7 +294,6 @@ div#social-links a:nth-child(5){
 	
 
 }
-
 @media screen and (max-width:1000px) and (min-width: 641px){
 	div#sidebar-large a:not(:first-child){
 		display: none;

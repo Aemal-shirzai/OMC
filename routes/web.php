@@ -17,5 +17,8 @@ Route::get('/', function () {
 
 
 Route::get("/app",function(){
-	return view("layouts.app");
+	return view("layouts.app1");
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
