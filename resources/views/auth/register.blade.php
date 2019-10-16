@@ -1,19 +1,20 @@
 @extends("../layouts.login-signup")
 
-@extends("../layouts.login-signup")
+
 @section("title","Sign Up")
 
 @section("form-title","Sign up to OMC")
 @section("form")
-    {!! Form::open() !!}
+@include('../layouts.messages')
+    {!! Form::open(["method"=>"POST","action"=>"Auth\RegisterController@register"]) !!}
         {!! Form::text("fullName",null,["class"=>"form-control form_element","placeholder"=>"Full Name * ","required"]) !!}
         {!! Form::text("username",null,["class"=>"form-control form_element","placeholder"=>"Username *","required"]) !!}
         {!! Form::email("email",null,["class"=>"form-control form_element","placeholder"=>"Email Address *"]) !!}
-        {!! Form::select("role_id",[""=>"Sign up AS",0=>"Normal User",1=>"Doctor"],null,["class"=>"form-control form_element","required"]) !!}
-        <label>{!! Form::radio("gender","male",true) !!} Male</label>
-        <label>{!! Form::radio("gender","female",null) !!} Female</label>
+        {!! Form::select("registerAs",[""=>"Sign up AS",0=>"Normal User",1=>"Doctor"],null,["class"=>"form-control form_element","required"]) !!}
+        <label>{!! Form::radio("gender","0",true) !!} Male</label>
+        <label>{!! Form::radio("gender","1",null) !!} Female</label>
         {!! Form::password("password",["class"=>"form-control form_element","placeholder"=>"password *","required"]) !!}
-        {!! Form::password("password-confirmation",["class"=>"form-control form_element","placeholder"=>"re enter password *","required"]) !!}
+        {!! Form::password("password_confirmation",["class"=>"form-control form_element","placeholder"=>"re enter password *","required"]) !!}
         {!! Form::submit("Sign up",["class"=>"btn btn-primary btn-sm btn-block", "id" => "form_button"]) !!}
     {!! Form::close() !!}
 @endsection

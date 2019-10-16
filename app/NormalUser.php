@@ -3,7 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Role;
+use App\Account;
 class NormalUser extends Model
 {
     /*
@@ -11,8 +12,8 @@ class NormalUser extends Model
 	*/
 
     protected $fillable = [
-    	"firstName",
-    	"lastName",
+    	"fullName",
+        "role_id",
     	"status",
     	"province",
     	"district",
@@ -20,4 +21,19 @@ class NormalUser extends Model
     	"gender",
     	"DateOfBirth"
     ];
+
+    /*
+        Relationship with roles
+    */
+    public function role(){
+        return $this->belongsTo(Role::class);
+    }
+
+    /*
+        Relationship with accounts
+    */
+    public function account(){
+        return $this->morphOne(Account::class,"owner");
+    }
+
 }

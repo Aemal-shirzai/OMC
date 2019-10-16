@@ -35,4 +35,12 @@ class Account extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /*
+        Relationship with normalusers and doctors
+    */
+
+    public function account(){
+        return $this->morphTo("","owner_type","owner_id");
+    }
 }

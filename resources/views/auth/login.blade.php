@@ -4,7 +4,7 @@
 @section("form")
 @include('../layouts.messages')
     {!! Form::open(["method"=>"POST","action"=>"Auth\LoginController@login"]) !!}
-        {!! Form::text("email",null,["id"=>"email","class"=>"form-control form_element","placeholder"=>"Username or email"]) !!}
+        {!! Form::text("email_username",null,["id"=>"email_username","class"=>"form-control form_element","placeholder"=>"Username or email"]) !!}
         {!! Form::password("password",["class"=>"form-control form_element" ,"placeholder"=>"Password"]) !!}
         
         {!! Form::checkbox("remember",null,null,["style"=>"clear:both"]) !!} 

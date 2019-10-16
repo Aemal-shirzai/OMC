@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Account;
+use App\Doctor;
+use App\NormalUser;
+use App\Role;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -40,6 +43,10 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    // public function register(){
+    //     return request()->all();
+    // }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -49,7 +56,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'fullName' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255','unique:accounts'],
+            'registerAs' => ['required'],
+            'gender' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:accounts'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -63,12 +73,24 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return Account::create([
-            'name' => $data['name'],
+        if($data["registerAs"] == 0){ // if the user is trying to register as normal users
+            $role = Role::find(2);    // by default add the (normal user) role to the user
+            $owner = $role->users()->create([
+                'fullName' => $data["fullName"],
+                'status' => 1, // by defalut keep the user active 
+                'gender' => $data["gender"]
+            ]);
+        }else{ // if the user is trying to register as doctor
+             $owner = Doctor::create([
+                'fullName' => $data["fullName"],
+                'status' => 0, // by defalut keep the user not active 
+                'gender' => $data["gender"]
+            ]);
+        }
+
+        return $owner->account()->create([ // add data to account table from the account realtionship
             'email' => $data['email'],
-            'username' => "aemal1",
-            'owner_type' => "aaa",
-            'owner_id' => 1,
+            'username' => $data["username"],
             'password' => Hash::make($data['password']),
         ]);
     }

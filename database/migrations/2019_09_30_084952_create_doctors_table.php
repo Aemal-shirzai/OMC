@@ -21,7 +21,7 @@ class CreateDoctorsTable extends Migration
             $table->string("district")->nullable();
             $table->string("street")->nullable();
             $table->boolean("gender");
-            $table->timestamp("DateOfBirth");
+            $table->timestamp("DateOfBirth")->nullable();
             $table->timestamps();
         });
     }

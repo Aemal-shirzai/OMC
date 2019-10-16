@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\NormalUser;
 class Role extends Model
 {
 	/*
@@ -12,4 +12,11 @@ class Role extends Model
     protected $fillable = [
     	"role",
     ];
+
+    /*
+	 	relationship with normalusers 
+	*/
+	public function users(){
+		return $this->hasMany(NormalUser::class);
+	}
 }

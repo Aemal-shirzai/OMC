@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Account;
 class Doctor extends Model
 {
     /*
@@ -11,8 +11,7 @@ class Doctor extends Model
 	*/
 
     protected $fillable = [
-    	"firstName",
-    	"lastName",
+    	"fullName",
     	"status",
     	"province",
     	"district",
@@ -20,4 +19,12 @@ class Doctor extends Model
     	"gender",
     	"DateOfBirth"
     ];
+
+    /*
+        Relationship with accounts
+    */
+
+    public function account(){
+        return $this->morphOne(Account::class,"owner");
+    }
 }

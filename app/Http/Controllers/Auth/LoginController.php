@@ -18,6 +18,8 @@ class LoginController extends Controller
     |
     */
 
+    
+
     use AuthenticatesUsers;
 
     /**
@@ -32,12 +34,30 @@ class LoginController extends Controller
      *
      * @return void
      */
-
-    // protected function login(Request $req){
-    //     return $req->all();
-    // }
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+
     }
+
+    public function findUsername(){
+        $email_username = request()->input("email_username");
+
+        $fieldType = filter_var($email_username,FILTER_VALIDATE_EMAIL) ? "email" : "username";
+
+        request()->merge([$fieldType=>$email_username]);
+
+
+        return $fieldType;
+    }
+
+
+
+    protected function username(){
+
+        return $this->findUsername();
+
+    }
+
+
 }
