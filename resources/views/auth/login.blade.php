@@ -4,12 +4,12 @@
 @section("form")
 @include('../layouts.messages')
     {!! Form::open(["method"=>"POST","action"=>"Auth\LoginController@login"]) !!}
-        {!! Form::text("email_username",null,["id"=>"email_username","class"=>"form-control form_element","placeholder"=>"Username or email"]) !!}
-        {!! Form::password("password",["class"=>"form-control form_element" ,"placeholder"=>"Password"]) !!}
+        {!! Form::text("email_username",null,["id"=>"email_username","class"=>"form-control form_element","placeholder"=>"Username or email","onkeyup"=>"enableButton()","autofocus","required"]) !!}
+        {!! Form::password("password",["id"=>"password","class"=>"form-control form_element" ,"placeholder"=>"Password","onkeyup"=>"enableButton()","required"]) !!}
         
         {!! Form::checkbox("remember",null,null,["style"=>"clear:both"]) !!} 
         <label for="remember">keep me login</label>
-        {!! Form::submit("Log In",["class"=>"btn btn-primary btn-sm btn-block", "id" => "form_button"]) !!}
+        {!! Form::submit("Log In",["class"=>"btn btn-primary btn-sm btn-block", "id" => "form_button","disabled"=>"true"]) !!}
     {!! Form::close() !!}
 @endsection
 
@@ -28,6 +28,6 @@
 <!-- End login form div -->
 
 @section("secondOption")
-        Don't have an account? <a href="#">Sign Up</a>
+        Don't have an account? <a href="{{route('register')}}">Sign Up</a>
 @endsection
 

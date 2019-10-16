@@ -7,15 +7,15 @@
 @section("form")
 @include('../layouts.messages')
     {!! Form::open(["method"=>"POST","action"=>"Auth\RegisterController@register"]) !!}
-        {!! Form::text("fullName",null,["class"=>"form-control form_element","placeholder"=>"Full Name * ","required"]) !!}
-        {!! Form::text("username",null,["class"=>"form-control form_element","placeholder"=>"Username *","required"]) !!}
-        {!! Form::email("email",null,["class"=>"form-control form_element","placeholder"=>"Email Address *"]) !!}
-        {!! Form::select("registerAs",[""=>"Sign up AS",0=>"Normal User",1=>"Doctor"],null,["class"=>"form-control form_element","required"]) !!}
+        {!! Form::text("fullName",null,["class"=>"form-control form_element","id"=>"fullName","placeholder"=>"Full Name * ","required","onkeyup"=>"enableButtonSignup()","autofocus"]) !!}
+        {!! Form::text("username",null,["class"=>"form-control form_element","id"=>"username","placeholder"=>"Username min 5 charachters *","required","onkeyup"=>"enableButtonSignup()"]) !!}
+        {!! Form::email("email",null,["class"=>"form-control form_element","id"=>"email","placeholder"=>"Email Address *","onkeyup"=>"enableButtonSignup()"]) !!}
+        {!! Form::select("registerAs",[""=>"Sign up AS",0=>"Normal User",1=>"Doctor"],null,["class"=>"form-control form_element","required","id"=>"registerAS","onchange"=>"enableButtonSignup()"]) !!}
         <label>{!! Form::radio("gender","0",true) !!} Male</label>
         <label>{!! Form::radio("gender","1",null) !!} Female</label>
-        {!! Form::password("password",["class"=>"form-control form_element","placeholder"=>"password *","required"]) !!}
-        {!! Form::password("password_confirmation",["class"=>"form-control form_element","placeholder"=>"re enter password *","required"]) !!}
-        {!! Form::submit("Sign up",["class"=>"btn btn-primary btn-sm btn-block", "id" => "form_button"]) !!}
+        {!! Form::password("password",["class"=>"form-control form_element","id"=>"password","placeholder"=>"password min 8 charachters *","required","onkeyup"=>"enableButtonSignup()"]) !!}
+        {!! Form::password("password_confirmation",["class"=>"form-control form_element","id"=>"password-confirm","placeholder"=>"re enter password *","required","onkeyup"=>"enableButtonSignup()"]) !!}
+        {!! Form::submit("Sign up",["class"=>"btn btn-primary btn-sm btn-block", "id" => "form_button","disabled"=>"true"]) !!}
     {!! Form::close() !!}
 @endsection
 
@@ -25,7 +25,7 @@
 
 
 @section("secondOption")
-    Have an account? <a href="#">Log In</a>
+    Have an account? <a href="{{route('login')}}">Log In</a>
 @endsection
 
 

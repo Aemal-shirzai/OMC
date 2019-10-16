@@ -32,8 +32,8 @@
 		<div class="container"> <!-- header-content div start -->
 			<span class="float-left" id="timeAndDate">{{ Carbon\Carbon::now("Asia/kabul") }}</span>
 			<a href="#" class="far fa-search" id="search-icon"></a>&nbsp;
-			<a href="#" class="login-register">Login</a>
-			<a href="#" class="login-register">Register</a>	
+			<a href="{{route('login')}}" class="login-register">Login</a>
+			<a href="{{route('register')}}" class="login-register">Register</a>	
 		</div> <!-- header-content div end -->
 
 	</div><!-- header div end -->

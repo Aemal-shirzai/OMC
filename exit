@@ -1,0 +1,101 @@
+[33mcommit 2c3341ae74ac0ecd947bd5e14b39e1c29a5245be[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Aemal Shirzai <aemalshirzai2016@gmail.com>
+Date:   Wed Oct 16 15:34:59 2019 +0430
+
+    login with both username and email done, 2- registration done , 3- relationship between doctors/normalusrs and account done, 4- ralationship between role and user don, but still have to work on login and signup button to be enabled while form is filled
+
+[33mcommit 5a45e916840dd6030cbb2d1c6de6235ae0b833bb[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: Aemal Shirzai <aemalshirzai2016@gmail.com>
+Date:   Tue Oct 15 16:59:00 2019 +0430
+
+    login done with functionlaity except button to be enalbed when the form is filled
+
+[33mcommit 68dba93da686d03173613349bbb6bd993a6cfcc5[m
+Author: Aemal Shirzai <aemalshirzai2016@gmail.com>
+Date:   Tue Oct 15 13:12:05 2019 +0430
+
+    login page done without template
+
+[33mcommit bffa98e446ff3d05ffe535fe2bc24b3359605059[m
+Author: Aemal Shirzai <aemalshirzai2016@gmail.com>
+Date:   Mon Oct 14 09:52:32 2019 +0430
+
+    autofocus removed form search box, col-12 added to footer and logo size change
+
+[33mcommit 4db288bd931aad2888a87e75175f60c0c1069117[m
+Author: Aemal Shirzai <aemalshirzai2016@gmail.com>
+Date:   Sun Oct 13 16:52:05 2019 +0430
+
+    footer done and menu shirnk done
+
+[33mcommit 4f6b1505b09eb06988a4c574b6a2031bbd06e757[m
+Author: Aemal Shirzai <aemalshirzai2016@gmail.com>
+Date:   Sun Oct 13 10:58:30 2019 +0430
+
+    slidebar-small problem soleved. which was not hiding when screen size change to large and search closed button solved too
+
+[33mcommit 01ec8d6b4bffbccaab3abe00c144f2f785584533[m
+Author: Aemal Shirzai <aemalshirzai2016@gmail.com>
+Date:   Sat Oct 12 20:30:01 2019 +0430
+
+    =logo problem solevd plus parent-dev name changed to parent-div in view , css, and in javascript
+
+[33mcommit fd8dc65a0ded2783c5258e362a338cc3746495a0[m
+Author: Aemal Shirzai <aemalshirzai2016@gmail.com>
+Date:   Sat Oct 12 19:20:26 2019 +0430
+
+    navigation added both for small size and small size. except logo size which is not working 100% find
+
+[33mcommit 8a4ebee6af249f8a502a937fa51b3ef650f995a8[m
+Author: Aemal Shirzai <aemalshirzai2016@gmail.com>
+Date:   Thu Oct 10 18:35:34 2019 +0430
+
+    correcting the autofocus of searchbox. added in jquery because to autofocue it every time when it is showen
+
+[33mcommit d48f8cc7041dcd4d6a29a8dbbb309222ffbf4364[m
+Author: Aemal Shirzai <aemalshirzai2016@gmail.com>
+Date:   Thu Oct 10 16:21:48 2019 +0430
+
+    header and half of nav done full responsive + search box
+
+[33mcommit 849663b5918e7162714f2653d06b7751d045a130[m
+Author: Aemal Shirzai <aemalshirzai2016@gmail.com>
+Date:   Wed Oct 9 14:13:41 2019 +0430
+
+    after adding bootstrap
+
+[33mcommit 69b6e5a4cd74f13699198dc269ea342fe58c0fe0[m
+Author: Aemal Shirzai <aemalshirzai2016@gmail.com>
+Date:   Thu Oct 3 11:00:38 2019 +0430
+
+    changed date type to timestamp in some migrations
+
+[33mcommit 8c51d6d4e7c637555612fb85d358446bfc38a431[m
+Author: Aemal Shirzai <aemalshirzai2016@gmail.com>
+Date:   Thu Oct 3 10:40:07 2019 +0430
+
+    added on Update cascade to some tables
+
+[33mcommit b9a213c6190bfc22aeddec1bb909d00a1bc9395e[m
+Author: Aemal Shirzai <aemalshirzai2016@gmail.com>
+Date:   Thu Oct 3 10:15:31 2019 +0430
+
+    fininshed until video, ta hal kho khals as baz pasan aga naw amd then khosh amad
+
+[33mcommit 2363e530113f4b41d346637976e7d7d59fd92233[m
+Author: Aemal Shirzai <aemalshirzai2016@gmail.com>
+Date:   Wed Oct 2 15:32:45 2019 +0430
+
+    reply relation created
+
+[33mcommit da3eb1f7c27ae7fbd74ad7875335e73943cc0af0[m
+Author: Aemal Shirzai <aemalshirzai2016@gmail.com>
+Date:   Wed Oct 2 15:19:28 2019 +0430
+
+    all relation ships until comments are done
+
+[33mcommit 076795639b1f6dc945cab48078363352206c7aae[m
+Author: aemal-shirzai <aemalshirzai2016@gmail.com>
+Date:   Mon Sep 30 15:26:07 2019 +0430
+
+    accounts table was customized to allow authentication
