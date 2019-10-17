@@ -83,7 +83,10 @@ a{
 a:hover{
 	text-decoration: none;
 }
-
+p{
+	font-size: 11px;
+	margin-top: -4px;
+}
 @media screen and (max-width: 640px){
 	div#loginForm-container{
 		background-color: #f8fafc;

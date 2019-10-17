@@ -8,14 +8,25 @@
 @include('../layouts.messages')
     {!! Form::open(["method"=>"POST","action"=>"Auth\RegisterController@register"]) !!}
         {!! Form::text("fullName",null,["class"=>"form-control form_element","id"=>"fullName","placeholder"=>"Full Name * ","required","onkeyup"=>"enableButtonSignup()","autofocus"]) !!}
+
         {!! Form::text("username",null,["class"=>"form-control form_element","id"=>"username","placeholder"=>"Username min 5 charachters *","required","onkeyup"=>"enableButtonSignup()"]) !!}
+        <p id="usernameError"></p>
+
         {!! Form::email("email",null,["class"=>"form-control form_element","id"=>"email","placeholder"=>"Email Address *","onkeyup"=>"enableButtonSignup()"]) !!}
+        <p id="emailError"></p>
+
         {!! Form::select("registerAs",[""=>"Sign up AS",0=>"Normal User",1=>"Doctor"],null,["class"=>"form-control form_element","required","id"=>"registerAS","onchange"=>"enableButtonSignup()"]) !!}
+
         <label>{!! Form::radio("gender","0",true) !!} Male</label>
         <label>{!! Form::radio("gender","1",null) !!} Female</label>
+
         {!! Form::password("password",["class"=>"form-control form_element","id"=>"password","placeholder"=>"password min 8 charachters *","required","onkeyup"=>"enableButtonSignup()"]) !!}
+        <p id="passwordError"></p>
+
         {!! Form::password("password_confirmation",["class"=>"form-control form_element","id"=>"password-confirm","placeholder"=>"re enter password *","required","onkeyup"=>"enableButtonSignup()"]) !!}
-        {!! Form::submit("Sign up",["class"=>"btn btn-primary btn-sm btn-block", "id" => "form_button","disabled"=>"true"]) !!}
+        <p id="password-confirmError"></p>
+
+        {!! Form::submit("Sign up",["class"=>"btn btn-primary btn-sm btn-block", "id" => "form_button","disabled"=>"true","onclick"=>"validateSignUpForm()"]) !!}
     {!! Form::close() !!}
 @endsection
 
