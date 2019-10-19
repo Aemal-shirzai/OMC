@@ -48,7 +48,6 @@
 }
 
 body{
-	font-family: Roboto-Thin;
 	padding-top: 118px;
 }
 div#parent-div{
@@ -179,6 +178,10 @@ div.sidebar-small
 	transition: 0.5s;
 	padding-top: 60px;
 }
+div.sidebar-small a{
+	margin-top: 15px;
+}
+
 .sidebar-small a:nth-child(1){
 	text-decoration: none;
 	color: #818181;

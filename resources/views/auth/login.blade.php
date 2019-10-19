@@ -4,12 +4,15 @@
 @section("form")
 @include('../layouts.messages')
     {!! Form::open(["method"=>"POST","action"=>"Auth\LoginController@login"]) !!}
-        {!! Form::text("email_username",null,["id"=>"email_username","class"=>"form-control form_element","placeholder"=>"Username or email","onkeyup"=>"enableButton()","autofocus","required"]) !!}
-        {!! Form::password("password",["id"=>"password","class"=>"form-control form_element" ,"placeholder"=>"Password","onkeyup"=>"enableButton()","required"]) !!}
-        
+        {!! Form::text("email_username",null,["id"=>"email_username","class"=>"form-control form_element","placeholder"=>"Username or email","onkeyup"=>"enableButton()","autofocus"]) !!}
+        <p id="email_usernameError"></p>
+
+        {!! Form::password("password",["id"=>"password","class"=>"form-control form_element" ,"placeholder"=>"Password","onkeyup"=>"enableButton()"]) !!}
+        <p id="loginPasswordError"></p>
+
         {!! Form::checkbox("remember",null,null,["style"=>"clear:both"]) !!} 
         <label for="remember">keep me login</label>
-        {!! Form::submit("Log In",["class"=>"btn btn-primary btn-sm btn-block", "id" => "form_button","disabled"=>"true"]) !!}
+        {!! Form::submit("Log In",["class"=>"btn btn-primary btn-sm btn-block", "id" => "form_button","onclick"=>"validateLogInForm()","disabled"=>"true"]) !!}
     {!! Form::close() !!}
 @endsection
 

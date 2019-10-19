@@ -1,0 +1,67 @@
+div#section1{
+	#background-image: url('../images/section1.jpg');
+	#background-color: yellow;
+	background-repeat: no-repeat;
+	padding: 90px 12px;
+	background-size: cover;
+	min-height: 400px;
+}
+
+div#slogan{
+	word-wrap: break-word;
+	margin:0 auto;
+}
+div#slogan h2{
+	font-weight: bold;
+}
+div#sloganDetail{
+	word-wrap: break-word;
+	font-weight: bold;
+	margin:0 auto;
+}
+div#sloganButtons{
+	word-wrap: break-word;
+	margin:0 auto;
+}
+
+.userDoctorBtn{
+	width: 143px;
+	border-radius: 0px;
+	margin-left: 4px;
+	padding: 6px 17px;
+	font-weight: bold;
+	color: black;
+	outline: 1px solid #3fbbc0;
+}
+.userDoctorBtn:hover{
+	color: #3fbbc0;
+}
+
+@media screen and (max-width: 640px){
+	div#slogan{
+		width: 100%;
+	}
+	div#slogan h2{
+		font-size: 27px !important;
+	}
+	div#sloganDetail{
+		width: 100%;
+	}
+	div#sloganButtons{
+
+	}
+	.userDoctorBtn{
+		margin: 0 auto;
+		margin-bottom: 9px;
+		display: block;
+	}
+}
+
+
+@media screen and (max-width:1000px) and (min-width: 641px){
+	.userDoctorBtn{
+		margin: 0 auto;
+		margin-bottom: 9px;
+		display: block;
+	}
+}

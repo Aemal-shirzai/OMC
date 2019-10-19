@@ -7,21 +7,28 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
-
+	<link rel="stylesheet" type="text/css" href="{{asset('css/newStyle.css')}}">
+	@if(Route::currentRouteName() == 'main')
+	<!-- Link to local mian css file -->
+	<link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}">
+	@endif
+	
 	<!-- Linkt to fontawesome  -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/all.min.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/all.min.css')}}">	
+
 </head>
 <body>
 
 <div class="sidebar-small" id="side"> <!-- navbar for small screen div start  -->
-	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-	<a href="#" class="active">Home</a>
-	<a href="#">Service</a>
-	<a href="#">Doctors</a>
-	<a href="#">Facilities</a>
-	<a href="#">Pricing</a>
-	<a href=""#>Extra <i class="far fa-caret-down"></i></a>
+	<div id="sidebar-small-child-div">
+		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+		<a href="#" class="active">Home</a>
+		<a href="#">Service</a>
+		<a href="#">Doctors</a>
+		<a href="#">Facilities</a>
+		<a href="#">Pricing</a>
+		<a href=""#>Extra <i class="far fa-caret-down"></i></a>
+	</div>
 </div><!-- navbar for small screen div end  -->
 
 
@@ -63,7 +70,7 @@
 	</div><!-- navbar for large screen div end  -->
 
 
-<div class="container">
+<div>
 	@yield("content")
 </div>
 
@@ -109,7 +116,7 @@
 <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
 
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/script.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/script1.js')}}"></script>
 
 
 
