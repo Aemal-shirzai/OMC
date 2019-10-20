@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/newStyle.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/newStyle1.css')}}">
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}">
@@ -116,7 +116,7 @@
 <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
 
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/script1.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/script.js')}}"></script>
 
 
 

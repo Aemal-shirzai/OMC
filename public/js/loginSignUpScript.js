@@ -9,7 +9,6 @@ function enableButton(){
 		document.getElementById("form_button").disabled = true;	
 	}
 }
-
 // funtion which enables the sign up button in registe page
 function enableButtonSignup(){
 	var fullName = document.getElementById("fullName").value.trim().length;	

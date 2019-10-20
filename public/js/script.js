@@ -1,13 +1,13 @@
 window.onscroll = function() {changeMenuSize()};
 function changeMenuSize(){
 	if(document.documentElement.scrollTop > 10){
-		document.getElementById("header-div").style.padding = "5px";
+		document.getElementById("header-div").style.padding = "7px";
 		document.getElementById("sidebar-large").style.marginTop = "-10px";
 		document.getElementById("sidebar-large").style.height = "65x";
 		document.getElementById("logodiv").style.width = "150px";
 		document.getElementById("logodiv").style.marginTop= "6px";
-		document.getElementById("search-box").style.height= "37px";
-		document.getElementById("search-close-button").style.height= "37px";
+		document.getElementById("search-box").style.height= "38px";
+		document.getElementById("search-close-button").style.height= "38px";
 		document.getElementById("search-close-button").style.paddingTop= "6px";
 	}else{
 		document.getElementById("header-div").style.padding = "10px";

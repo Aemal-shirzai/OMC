@@ -1,10 +1,13 @@
+/*
+	section 1 start
+*/
 div#section1{
 	#background-image: url('../images/section1.jpg');
 	#background-color: yellow;
 	background-repeat: no-repeat;
 	padding: 90px 12px;
 	background-size: cover;
-	min-height: 400px;
+	min-height: 350px;
 }
 
 div#slogan{
@@ -13,17 +16,17 @@ div#slogan{
 }
 div#slogan h2{
 	font-weight: bold;
+	font-size: 44px;
 }
 div#sloganDetail{
 	word-wrap: break-word;
-	font-weight: bold;
-	margin:0 auto;
+	font-weight: bold;	
+	margin:15px auto;
 }
 div#sloganButtons{
 	word-wrap: break-word;
-	margin:0 auto;
+	margin:27px auto;
 }
-
 .userDoctorBtn{
 	width: 143px;
 	border-radius: 0px;
@@ -36,8 +39,85 @@ div#sloganButtons{
 .userDoctorBtn:hover{
 	color: #3fbbc0;
 }
+/*
+	section 1 ends
+*/
 
+
+
+/*
+	section 2 start
+*/
+div#section2{
+	background-color: white;
+	padding: 46px 12px;
+}
+div#section2 h2{
+	font-weight: bold;
+}
+div#section2 div#section2Heading{
+	margin: 0 auto;
+}
+div#section2Devider{
+	border-top: 6px solid #3fbbc0;
+	margin: 20px auto;
+}
+
+div#section2 div#section2Description{
+	font-weight: bold;
+	margin: 0 auto;
+}
+div#descriptionContent{
+	margin: 30px auto;
+	padding: 12px 12px;
+	word-wrap: break-word;
+}
+
+div#findQuestions, div#reachDoctors, div#addAds{
+	background-color: white;
+	box-shadow: 0 4px 8px rgba(59,64,69,0.2);
+	padding: 47px 12px;
+	border-radius: 7px;
+	margin-left: 22px;
+}
+
+div#findQuestions:hover, div#reachDoctors:hover, div#addAds:hover{
+	box-shadow:0 4px 12px rgba(36,39,41,0.2); 
+}
+
+.section2Icons{
+	display: block !important;
+	font-size: 50px;
+	margin-bottom: 12px;
+	color: #3fbbc0;
+}
+div#section2 p a{
+	color: #3fbbc0;
+}
+div#findQuestions h6, div#reachDoctors h6, div#addAds h6{
+	font-weight: bold;
+}
+.descriptionContentButtons{
+	padding:4px 12px;
+	border: 1px solid #3fbbc0;
+}
+.descriptionContentButtons:hover{
+	background-color: #3fbbc0;
+	color: white;
+}
+/*
+	section 2 end
+*/
+
+
+
+/* 
+	Small size start
+ */
 @media screen and (max-width: 640px){
+/* 
+	secion 1 part start 
+*/
 	div#slogan{
 		width: 100%;
 	}
@@ -47,21 +127,78 @@ div#sloganButtons{
 	div#sloganDetail{
 		width: 100%;
 	}
-	div#sloganButtons{
-
-	}
 	.userDoctorBtn{
 		margin: 0 auto;
 		margin-bottom: 9px;
 		display: block;
 	}
+/* 
+	secion 1 part end 
+*/
+
+
+/* 
+	secion 2 part start 
+*/
+	div#descriptionContent{
+		width: 75%;
+		margin: 0 auto;
+	}
+	div#section2Devider{
+		width: 33%;
+	}
+	div#section2 div#section2Heading h2{
+		font-size: 25px;
+	}
+	div#findQuestions, div#reachDoctors, div#addAds{
+		margin-left: 0px;
+	}
+	div#reachDoctors, div#addAds{
+		margin-top: 26px;
+	}
+/* 
+	secion 2 part end 
+*/
 }
+/* 
+	Small size end
+ */
 
 
+
+/* Ipad size start */
 @media screen and (max-width:1000px) and (min-width: 641px){
+/* 
+	secion 1 part start 
+*/
 	.userDoctorBtn{
 		margin: 0 auto;
-		margin-bottom: 9px;
-		display: block;
+		margin-left: 6px;
 	}
-}
+/* 
+	secion 1 part end 
+*/
+
+
+/* 
+	secion 2 part start 
+*/
+	div#descriptionContent{
+		width: 44%;
+		margin: 0 auto;
+	}
+	div#findQuestions{
+		margin-top: 12px;
+	}
+	div#reachDoctors, div#addAds{
+		margin-top: 26px;
+	}
+	div#findQuestions, div#reachDoctors, div#addAds{
+		margin-left: 0px;
+	}
+/* 
+	secion 2 part end 
+*/
+
+} 
+/* Ipad size end */

@@ -115,7 +115,7 @@ div#search-box-div{
 }
 span#timeAndDate{
 	color: white;
-	font-family: "Roboto-Black";
+	font-weight: bold;
 }
 
 div#sidebar-large{
@@ -135,7 +135,7 @@ div#sidebar-large a:not(:first-child){
 	letter-spacing: 1px;
 	font-size: 13px;
 	float: right;
-	font-family: "Roboto-Bold";
+	font-weight: bold;
 	text-transform: uppercase;
 	text-decoration: none;
 	transition: padding 0.5s;
@@ -190,7 +190,7 @@ div#sidebar-small-child-div{
 	font-size: 14px;
 	color: #818181;
 	display: block;
-	font-family: "Roboto-Black";
+	font-weight: bold;
 	transition: 0.5s;
 }
 .sidebar-small a:hover {
@@ -217,7 +217,7 @@ div#footer-content{
 }
 div#footer-content h5{
 	font-size: 14px;
-	font-family: "Roboto-Black";
+	font-weight: bold;
 	color: #6e7071;
 	text-transform: uppercase;
 }
