@@ -93,5 +93,71 @@
      <!-- section 2 description content end -->
 </div>
 <!-- section2 end -->
+
+<!-- section 3 starts -->
+<div id="section3">
+    <!-- section 3 heading start -->
+    <div id="section3Heading" class="col-lg-12 col-sm-12 text-center">
+        <h2>For doctors, by online medical community</h2>
+    </div>
+    <!-- section 3 heading end -->
+
+    <!-- devider line -->
+    <div  id="section3Devider" class="col-lg-1 col-sm-2"></div>
+    <!--  devider line end -->
+
+    <!-- section 3 description start -->
+    <div id="section3Description"  class="col-lg-4 col-sm-8 text-center">
+        <p>
+            Our mission is to help medical experts get publicity in short time. This means that other peoples will be able to find medical experts easily through omc.
+        </p>
+    </div>
+    <!-- section 3 description end -->
+
+    <!-- section 3 description content start -->
+    <div id="section3Descriptioncontent" class="row">
+        
+        <!--  posts div for doctors start -->
+        <div id="posts" class="row">
+            <div class="col-2">
+                <span class="fad fa-brain section3Icons"></span>
+            </div>
+            <div class="col-10">
+                <p>
+                    Share your knowladege regarding health with other by adding a <a href="#">post</a> to your profile.
+                </p>
+            </div>
+        </div>
+        <!-- posts div for doctors end -->
+
+        <!--  vote div for doctors start -->
+        <div id="vote" class="row">
+            <div class="col-2">
+                <span class="fad fa-star-half-alt section3Icons"></span>
+            </div>
+            <div class="col-10">
+                <p>
+                    Help poeple distiguashe the right and wrong information by <a href="#">voting</a> others poeple work.
+                </p>
+            </div>
+        </div>
+        <!-- vote div for doctors end -->
+
+        <!--  ads div for doctors start -->
+        <div id="ads" class="row">
+            <div class="col-2">
+                <span class="fad fa-bullhorn section3Icons"></span>
+            </div>
+            <div class="col-10">
+                <p>
+                    Increase your publicity by accelerating your discovery through omc <a href="#">advertising</a>.
+                </p>
+            </div>
+        </div>
+        <!-- ads div for doctors end -->
+    </div>
+     <!-- section 3 description content end -->
+</div>
+<!-- section 3 end -->
 @endsection
 

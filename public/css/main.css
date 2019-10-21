@@ -110,6 +110,56 @@ div#findQuestions h6, div#reachDoctors h6, div#addAds h6{
 */
 
 
+/*
+	section 3 start
+*/
+
+div#section3{
+	background-color: #f7f6f9;
+	padding: 46px 12px;
+}
+div#section3 h2{
+	font-weight: bold;
+}
+div#section3 p a{
+	color: #3fbbc0;
+}
+div#section3Devider{
+	border-top: 6px solid #3fbbc0;
+	margin: 20px auto;
+}
+div#section3 div#section3Description{
+	font-weight: bold;
+	margin: 0 auto;
+}
+div#section3Descriptioncontent{
+	margin: 30px auto;
+	padding: 12px 12px;
+	word-wrap: break-word;
+}
+ div#ads, div#posts, div#vote{
+ 	width: 28%;
+	background-color: white;
+	box-shadow: 0 4px 8px rgba(59,64,69,0.2);
+	padding: 20px 20px;
+	border-radius: 7px;
+	margin-left: 55px;
+}
+ div#ads p, div#posts p, div#vote p{
+	margin-left: 20px;
+}
+div#ads:hover, div#posts:hover, div#vote:hover{
+	box-shadow:0 4px 12px rgba(36,39,41,0.2); 
+}
+.section3Icons{
+	font-size: 35px;
+	margin-top: 20px;
+	color: #3fbbc0;
+}
+
+/*
+	section 3 end
+*/
 
 /* 
 	Small size start
@@ -159,6 +209,39 @@ div#findQuestions h6, div#reachDoctors h6, div#addAds h6{
 /* 
 	secion 2 part end 
 */
+
+
+/* 
+	secion 3 part start 
+*/
+	div#section3Descriptioncontent{
+		width: 100%;
+		margin: 0 auto;
+	}
+	div#section3Devider{
+		width: 33%;
+	}
+	div#section3 div#section3Heading h2{
+		font-size: 25px;
+	}
+	div#findQuestions, div#reachDoctors, div#addAds{
+		margin-left: 0px;
+	}
+	div#reachDoctors, div#addAds{
+		margin-top: 26px;
+	}
+	div#ads, div#posts, div#vote{
+	 	width: 100%;
+		margin-left: 0px;
+	}
+	div#ads, div#vote{
+	 	margin-top: 30px;
+	}
+/* 
+	secion 3 part end 
+*/
+
+
 }
 /* 
 	Small size end
@@ -200,5 +283,24 @@ div#findQuestions h6, div#reachDoctors h6, div#addAds h6{
 	secion 2 part end 
 */
 
+/* 
+	secion 3 part start 
+*/
+	div#section3Descriptioncontent{
+		width: 50%;
+		margin: 0 auto;
+	}
+	div#ads, div#posts, div#vote{
+	 	width: 100%;
+	 	margin-left: 0px;
+	}
+	div#ads, div#vote{
+	 	margin-top: 30px;
+	}
+
+/* 
+	secion 3	 part end 
+*/
+
 } 
-/* Ipad size end */
+/* Ipad size end 
