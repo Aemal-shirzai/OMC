@@ -159,5 +159,76 @@
      <!-- section 3 description content end -->
 </div>
 <!-- section 3 end -->
+
+<!-- latest news part section 4 start -->
+<div id="section4">
+    <div class="text-center">
+        <h2 id="section4Heading">Latest Advertisments</h2>
+    </div>
+    <div id="adsParent" class="owl-carousel container owl-theme">
+        <div class="adsItems">
+            <div class="card">
+                <div class="card-heading adsImage"><img src="{{asset('images/section1.jpg')}}" class="img-fluid" style="height:100px;" alt="no image"></div>
+                <div class="card-body">
+                    <p  class="adsTitle">Murtaza</p>
+                    <p class="adsContent"> Our mission is to help medical experts get publicity in short time. This means that other peoples will be able to find medical experts easily through omc.</p>
+                    <hr>
+                    <a href="#" class="stretched-link">Read More...</a>
+                    <p class="float-right adsContent">{{\Carbon\Carbon::now()->format("Y-M-d")}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="adsItems">
+            <div class="card">
+                <div class="card-heading adsImage"><img src="{{asset('images/section1.jpg')}}" class="img-fluid" style="height:100px;" alt="no image"></div>
+                <div class="card-body">
+                    <p  class="adsTitle">Murtaza</p>
+                    <p class="adsContent"> Our mission is to help medical experts get publicity in short time. This means that other peoples will be able to find medical experts easily through omc.</p>
+                    <hr>
+                    <a href="#" class="stretched-link">Read More...</a>
+                    <p class="float-right adsContent">{{\Carbon\Carbon::now()->format("Y-M-d")}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="adsItems">
+            <div class="card">
+                <div class="card-heading adsImage"><img src="{{asset('images/section1.jpg')}}" class="img-fluid" style="height:100px;" alt="no image"></div>
+                <div class="card-body">
+                    <p  class="adsTitle">Murtaza</p>
+                    <p class="adsContent"> Our mission is to help medical experts get publicity in short time. This means that other peoples will be able to find medical experts easily through omc.</p>
+                    <hr>
+                    <a href="#" class="stretched-link">Read More...</a>
+                    <p class="float-right adsContent">{{\Carbon\Carbon::now()->format("Y-M-d")}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="adsItems">
+            <div class="card">
+                <div class="card-heading adsImage"><img src="{{asset('images/section1.jpg')}}" class="img-fluid" style="height:100px;" alt="no image"></div>
+                <div class="card-body">
+                    <p  class="adsTitle">Murtaza</p>
+                    <p class="adsContent"> Our mission is to help medical experts get publicity in short time. This means that other peoples will be able to find medical experts easily through omc.</p>
+                    <hr>
+                    <a href="#" class="stretched-link">Read More...</a>
+                    <p class="float-right adsContent">{{\Carbon\Carbon::now()->format("Y-M-d")}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="adsItems">
+            <div class="card">
+                <div class="card-heading adsImage"><img src="{{asset('images/section1.jpg')}}" class="img-fluid" style="height:100px;" alt="no image"></div>
+                <div class="card-body">
+                    <p  class="adsTitle">Murtaza</p>
+                    <p class="adsContent"> Our mission is to help medical experts get publicity in short time. This means that other peoples will be able to find medical experts easily through omc.</p>
+                    <hr>
+                    <a href="#" class="stretched-link">Read More...</a>
+                    <p class="float-right adsContent">{{\Carbon\Carbon::now()->format("Y-M-d")}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- latest news part section 4 end-->
 @endsection
 

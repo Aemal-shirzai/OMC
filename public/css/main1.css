@@ -161,6 +161,38 @@ div#ads:hover, div#posts:hover, div#vote:hover{
 	section 3 end
 */
 
+
+/* section 4 latest ads start */
+
+
+div#adsParent{
+	background-color: white;
+	z-index: 0 !important;
+}
+#section4Heading{
+	margin-top: 50px;
+	margin-bottom : 50px;
+	font-weight: bold;
+}
+div.adsItems{
+	margin: 10px;
+	border:none;
+}
+div.adsImage{
+	height: 100px;
+}
+.adsTitle{
+	font-weight: bold;
+	color: black;
+}
+.adsContent{
+	color: black;
+}
+
+
+
+/* section 4 latest ads end */
+
 /* 
 	Small size start
  */
@@ -185,7 +217,6 @@ div#ads:hover, div#posts:hover, div#vote:hover{
 /* 
 	secion 1 part end 
 */
-
 
 /* 
 	secion 2 part start 
@@ -241,6 +272,11 @@ div#ads:hover, div#posts:hover, div#vote:hover{
 	secion 3 part end 
 */
 
+/*Section 4 start*/
+#section4Heading{
+	font-size: 25px;
+}
+/*section 4 end*/
 
 }
 /* 

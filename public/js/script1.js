@@ -54,7 +54,25 @@ $(window).resize(function(){
 		$("#sidebar-large").css("margin-left","0px");
 	}
 });
+	//  slideshow for latest news in main page
+	var s = $(".owl-carousel").find(".adsItems").length;
+	$(".owl-carousel").owlCarousel({
+		autoplay:6000,
+		responsiveClass:true,
+		responsive:{
+		0:{
+            items:1,
+            nav:true,
+            loop:true,
+        },
+        600:{
+            items:(s > 1)  ? '3' : '1',
+            nav:true,
+            loop:(s > 3),
 
+        }
+		}
+	});
 });
 
 

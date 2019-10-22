@@ -7,12 +7,16 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/newStyle1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/newStyle.css')}}">
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/main1.css')}}">
 	@endif
 	
+	<!-- owl carousel plugin -->
+	<link rel="stylesheet" type="text/css" href="{{asset('css/owlCarousel/owl.carousel.min.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/owlCarousel/owl.theme.default.min.css')}}">
+
 	<!-- Linkt to fontawesome  -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/all.min.css')}}">	
 
@@ -115,10 +119,10 @@
 <!-- link to boootstrap app.js -->
 <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
 
+<script type="text/javascript" src="{{asset('js/owlCarousel/owl.carousel.min.js')}}"></script>
+
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/script.js')}}"></script>
-
-
+<script type="text/javascript" src="{{asset('js/script1.js')}}"></script>
 
 </body>
 </html>
