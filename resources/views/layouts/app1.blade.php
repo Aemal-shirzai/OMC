@@ -17,6 +17,8 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/owlCarousel/owl.carousel.min.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('css/owlCarousel/owl.theme.default.min.css')}}">
 
+	<!-- link to animate.css -->
+	<link rel="stylesheet" type="text/css" href="{{asset('css/cssAnimate/animate.min.css')}}">
 	<!-- Linkt to fontawesome  -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/all.min.css')}}">	
 
@@ -119,6 +121,7 @@
 <!-- link to boootstrap app.js -->
 <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
 
+<!-- owl carousel plugin -->
 <script type="text/javascript" src="{{asset('js/owlCarousel/owl.carousel.min.js')}}"></script>
 
 <!-- link to local js file -->

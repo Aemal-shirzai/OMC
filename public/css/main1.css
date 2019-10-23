@@ -1,6 +1,4 @@
-/*
-	section 1 start
-*/
+/* section 1 start */
 div#section1{
 	#background-image: url('../images/section1.jpg');
 	#background-color: yellow;
@@ -39,15 +37,11 @@ div#sloganButtons{
 .userDoctorBtn:hover{
 	color: #3fbbc0;
 }
-/*
-	section 1 ends
-*/
+/* section 1 ends */
 
 
 
-/*
-	section 2 start
-*/
+/* section 2 start */
 div#section2{
 	background-color: white;
 	padding: 46px 12px;
@@ -105,15 +99,10 @@ div#findQuestions h6, div#reachDoctors h6, div#addAds h6{
 	background-color: #3fbbc0;
 	color: white;
 }
-/*
-	section 2 end
-*/
+/* section 2 end */
 
 
-/*
-	section 3 start
-*/
-
+/* section 3 start*/
 div#section3{
 	background-color: #f7f6f9;
 	padding: 46px 12px;
@@ -156,15 +145,10 @@ div#ads:hover, div#posts:hover, div#vote:hover{
 	margin-top: 20px;
 	color: #3fbbc0;
 }
-
-/*
-	section 3 end
-*/
+/* section 3 end */
 
 
 /* section 4 latest ads start */
-
-
 div#adsParent{
 	background-color: white;
 	z-index: 0 !important;
@@ -176,7 +160,14 @@ div#adsParent{
 }
 div.adsItems{
 	margin: 10px;
+	box-shadow: 0 4px 8px rgba(59,64,69,0.2);
 	border:none;
+}
+div.adsItems:hover{
+	box-shadow:0 0 12px rgba(36,39,41,0.2); 
+}
+div.adsItems a{
+	color: #3fbbc0; 
 }
 div.adsImage{
 	height: 100px;
@@ -188,18 +179,20 @@ div.adsImage{
 .adsContent{
 	color: black;
 }
-
-
-
+.adsDate{
+	color: black;
+	font-size: 12px;
+}
+.navLatestNews{
+	color: #3fbbc0;
+}
 /* section 4 latest ads end */
 
-/* 
-	Small size start
- */
+
+/*  Small size start */
 @media screen and (max-width: 640px){
-/* 
-	secion 1 part start 
-*/
+
+/* secion 1 part start  */
 	div#slogan{
 		width: 100%;
 	}
@@ -214,13 +207,9 @@ div.adsImage{
 		margin-bottom: 9px;
 		display: block;
 	}
-/* 
-	secion 1 part end 
-*/
+/*  section 1 part end  */
 
-/* 
-	secion 2 part start 
-*/
+/*  secion 2 part start  */
 	div#descriptionContent{
 		width: 75%;
 		margin: 0 auto;
@@ -237,14 +226,10 @@ div.adsImage{
 	div#reachDoctors, div#addAds{
 		margin-top: 26px;
 	}
-/* 
-	secion 2 part end 
-*/
+/* secion 2 part end */
 
 
-/* 
-	secion 3 part start 
-*/
+/* secion 3 part start */
 	div#section3Descriptioncontent{
 		width: 100%;
 		margin: 0 auto;
@@ -268,40 +253,34 @@ div.adsImage{
 	div#ads, div#vote{
 	 	margin-top: 30px;
 	}
-/* 
-	secion 3 part end 
-*/
+/* 	secion 3 part end 	*/
 
-/*Section 4 start*/
-#section4Heading{
-	font-size: 25px;
-}
+
+/*	Section 4 start 	*/
+	#section4Heading{
+		font-size: 25px;
+	}
+	div.adsItems{
+		margin: 0px;
+	}
 /*section 4 end*/
 
 }
-/* 
-	Small size end
- */
+/* Small size end*/
 
 
 
 /* Ipad size start */
 @media screen and (max-width:1000px) and (min-width: 641px){
-/* 
-	secion 1 part start 
-*/
+
+/* secion 1 part start  */
 	.userDoctorBtn{
 		margin: 0 auto;
 		margin-left: 6px;
 	}
-/* 
-	secion 1 part end 
-*/
+/*  secion 1 part end */
 
-
-/* 
-	secion 2 part start 
-*/
+/* secion 2 part start */
 	div#descriptionContent{
 		width: 44%;
 		margin: 0 auto;
@@ -315,13 +294,9 @@ div.adsImage{
 	div#findQuestions, div#reachDoctors, div#addAds{
 		margin-left: 0px;
 	}
-/* 
-	secion 2 part end 
-*/
+/* secion 2 part end  */
 
-/* 
-	secion 3 part start 
-*/
+/* secion 3 part start  */
 	div#section3Descriptioncontent{
 		width: 50%;
 		margin: 0 auto;
@@ -333,10 +308,8 @@ div.adsImage{
 	div#ads, div#vote{
 	 	margin-top: 30px;
 	}
+/* secion 3	 part end */
 
-/* 
-	secion 3	 part end 
-*/
 
 } 
 /* Ipad size end 

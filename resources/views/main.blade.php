@@ -14,8 +14,8 @@
         <p>We think harder to make life easy We think harder to make life easy We think harder to make life easy We think harder to make life easy We think harder to make life easy</p>
     </div>
     <div id="sloganButtons" class="col-lg-4  text-center">
-        <a href="#" class="btn  userDoctorBtn">For Users</a>
-        <a href="#" class="btn  userDoctorBtn">For Doctors</a>   
+        <a href="javascript:void(0)" id="forUsersBtn" class="btn  userDoctorBtn">For Users</a>
+        <a href="javascript:void(0)" id="forDoctorsBtn" class="btn  userDoctorBtn">For Doctors</a>   
     </div>
 </div>
 <!-- Secion1 End-->
@@ -43,7 +43,7 @@
     <div id="descriptionContent" class="container row">
         <!-- find and ask question div start -->
         <div  id="findQuestions" class="col-lg-3 text-center">
-            <span class="fad fa-question section2Icons"></span>
+            <span class="fad fa-question-circle section2Icons"></span>
             <h6>Find/Ask Q&A</h6>
             <p class="container">
                 Find and ask qustions ralated to medical and share your answers with others. <a href="{{route('register')}}">Sign up</a> for free account.   
@@ -84,7 +84,7 @@
                 Search and find the latest advertisements and share your advertisements through omc. <a href="{{route('register')}}">Sign up</a> for free account.   
             </p>
              <div class="text-center"> 
-                <a href="#" class="btn btn-sm descriptionContentButtons">View ads</a>
+                <a href="javascript:void(0)" id="forUsersViewAds" class="btn btn-sm descriptionContentButtons">View ads</a>
                 <a href="#" class="btn btn-sm descriptionContentButtons">Add your ads</a>
             </div>
         </div>
@@ -120,7 +120,7 @@
         <!--  posts div for doctors start -->
         <div id="posts" class="row">
             <div class="col-2">
-                <span class="fad fa-brain section3Icons"></span>
+                <span class="fad fa-share-alt section3Icons"></span>
             </div>
             <div class="col-10">
                 <p>
@@ -137,7 +137,7 @@
             </div>
             <div class="col-10">
                 <p>
-                    Help poeple distiguashe the right and wrong information by <a href="#">voting</a> others poeple work.
+                    Help poeple diffrentiate the right and wrong information by <a href="#">voting</a> others poeple work.
                 </p>
             </div>
         </div>
@@ -174,7 +174,7 @@
                     <p class="adsContent"> Our mission is to help medical experts get publicity in short time. This means that other peoples will be able to find medical experts easily through omc.</p>
                     <hr>
                     <a href="#" class="stretched-link">Read More...</a>
-                    <p class="float-right adsContent">{{\Carbon\Carbon::now()->format("Y-M-d")}}</p>
+                    <p class="float-right adsDate">{{\Carbon\Carbon::now()->format("Y-M-d")}}</p>
                 </div>
             </div>
         </div>
@@ -186,7 +186,7 @@
                     <p class="adsContent"> Our mission is to help medical experts get publicity in short time. This means that other peoples will be able to find medical experts easily through omc.</p>
                     <hr>
                     <a href="#" class="stretched-link">Read More...</a>
-                    <p class="float-right adsContent">{{\Carbon\Carbon::now()->format("Y-M-d")}}</p>
+                    <p class="float-right adsDate">{{\Carbon\Carbon::now()->format("Y-M-d")}}</p>
                 </div>
             </div>
         </div>
@@ -198,7 +198,19 @@
                     <p class="adsContent"> Our mission is to help medical experts get publicity in short time. This means that other peoples will be able to find medical experts easily through omc.</p>
                     <hr>
                     <a href="#" class="stretched-link">Read More...</a>
-                    <p class="float-right adsContent">{{\Carbon\Carbon::now()->format("Y-M-d")}}</p>
+                    <p class="float-right adsDate">{{\Carbon\Carbon::now()->format("Y-M-d")}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="adsItems">
+            <div class="card">
+                <div class="card-heading adsImage"><img src="{{asset('images/section1.jpg')}}" class="img-fluid" style="height:100px;" alt="no image"></div>
+                <div class="card-body">
+                    <p  class="adsTitle">Murtaza</p>
+                    <p class="adsContent"> Our mission is to help medical experts get publicity in short time. This means that other peoples will be able to find medical experts easily through omc.</p>
+                    <hr>
+                    <a href="#" class="stretched-link adsReadMore">Read More...</a>
+                    <p class="float-right adsDate">{{\Carbon\Carbon::now()->format("Y-M-d")}}</p>
                 </div>
             </div>
         </div>
@@ -210,7 +222,7 @@
                     <p class="adsContent"> Our mission is to help medical experts get publicity in short time. This means that other peoples will be able to find medical experts easily through omc.</p>
                     <hr>
                     <a href="#" class="stretched-link">Read More...</a>
-                    <p class="float-right adsContent">{{\Carbon\Carbon::now()->format("Y-M-d")}}</p>
+                    <p class="float-right adsDate">{{\Carbon\Carbon::now()->format("Y-M-d")}}</p>
                 </div>
             </div>
         </div>
@@ -222,12 +234,10 @@
                     <p class="adsContent"> Our mission is to help medical experts get publicity in short time. This means that other peoples will be able to find medical experts easily through omc.</p>
                     <hr>
                     <a href="#" class="stretched-link">Read More...</a>
-                    <p class="float-right adsContent">{{\Carbon\Carbon::now()->format("Y-M-d")}}</p>
+                    <p class="float-right adsDate">{{\Carbon\Carbon::now()->format("Y-M-d")}}</p>
                 </div>
             </div>
         </div>
-    </div>
-
 </div>
 <!-- latest news part section 4 end-->
 @endsection
