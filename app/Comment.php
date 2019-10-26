@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    /*
-	 	to avoid mass assignment 
-	*/
+    /**
+     * The attributes that are mass assignable.
+     */
     protected $fillable = [
     	"to_type",
     	"to_id"

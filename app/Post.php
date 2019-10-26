@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    /*
-	 	to avoid mass assignment 
-	*/
+    /**
+     * The attributes that are mass assignable.
+     */
 
     protected $fillable = [
     	"title",

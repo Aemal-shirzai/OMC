@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class AdvertisementCategory extends Model
 {
     // this model is for advertisemnts categories
-    /*
-	   to avoid mass assignment
-    */
+   
+   	/**
+     * The attributes that are mass assignable.
+     */
 	 protected $fillable = [
 	 	"category"
 	 ];

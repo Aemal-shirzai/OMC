@@ -6,10 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
-        /*
-	 	to avoid mass assignment 
-	*/
-
+    /**
+     * The attributes that are mass assignable.
+    */
     protected $fillable = [
     	"title",
     	"content"

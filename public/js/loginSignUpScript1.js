@@ -72,7 +72,7 @@ function validateSignUpForm(){
 	
 
 	// regular expression for username fields
-	var usernamePattern = /^([a-zA-Z]+)([0-9]*)-*_*$/ig;
+	var usernamePattern = /^([a-zA-Z]+)([0-9]*)([-_]?)([a-zA-Z0-9]+)$/ig;
 		
 	
 	// validating password confirm field
@@ -147,7 +147,7 @@ function validateSignUpForm(){
 		document.getElementById("username").focus();
 		document.getElementById("username").style.border = "1px solid red";
 		document.getElementById("username").style.color = "red";
-		document.getElementById("usernameError").innerHTML = "The username may only contain letters, numbers, dashes and underscores. should start with a letter only";
+		document.getElementById("usernameError").innerHTML = "The username may only contain letters, numbers, maximum one dashe or underscore. should start with a letter only and should end with  letters or numbers";
 		document.getElementById("usernameError").style.color = "red";
 		event.preventDefault();
 	}else{

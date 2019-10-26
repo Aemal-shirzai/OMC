@@ -6,10 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use App\Account;
 class Doctor extends Model
 {
-    /*
-	 	to avoid mass assignment 
-	*/
-
+    /**
+     * The attributes that are mass assignable.
+     */
     protected $fillable = [
     	"fullName",
     	"status",

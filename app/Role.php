@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use App\NormalUser;
 class Role extends Model
 {
-	/*
-	 	to avoid mass assignment 
-	*/
+	/**
+     * The attributes that are mass assignable.
+     */
     protected $fillable = [
     	"role",
     ];

@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Video extends Model
 {
-    /*
-	 	avoid mass assignment
-    */
+    /**
+     * The attributes that are mass assignable.
+     */
 	protected $fillable = [
 		"path"
 	];

@@ -4,12 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CommentReply extends Model
+class ContactUs extends Model
 {
-    /**
+	/**
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-    	"to_id"
+    	"fullName",
+    	"phoneNumber",
+    	"emailAddress",
+        "senderUsername",
+    	"company",
+    	"message"
     ];
 }

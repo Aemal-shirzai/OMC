@@ -7,9 +7,9 @@ use App\Role;
 use App\Account;
 class NormalUser extends Model
 {
-    /*
-	 	to avoid mass assignment 
-	*/
+    /**
+     * The attributes that are mass assignable.
+    */
 
     protected $fillable = [
     	"fullName",

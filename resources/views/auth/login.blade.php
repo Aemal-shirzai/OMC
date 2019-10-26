@@ -1,4 +1,4 @@
-@extends("../layouts.login-signup")
+@extends("../layouts.LoginSignUpLayout")
 @section("title","Login")
 @section("form-title","Sign in to OMC")
 @section("form")

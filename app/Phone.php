@@ -6,10 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Phone extends Model
 {
-    /*
-	 	to avoid mass assignment 
-	*/
-
+   /**
+     * The attributes that are mass assignable.
+     */
     protected $fillable = [
     	"phone",
     ];

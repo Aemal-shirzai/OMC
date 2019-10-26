@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class DoctorAchievement extends Model
 {
 	// this model is for doctor achievements
-    /*
-	   to avoid mass assignment
-    */
+    
+    /**
+     * The attributes that are mass assignable.
+     */
 	 protected $fillable = [
 	 	"title",
 	 	"content",
