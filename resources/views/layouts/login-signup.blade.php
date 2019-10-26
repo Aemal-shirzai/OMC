@@ -7,7 +7,7 @@
     <!-- Link to bootstap app.css -->
     <link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
     <!-- Link to local login style css file -->
-    <link rel="stylesheet" type="text/css" href="{{asset('css/loginSignUpStyle.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/loginSignUpStyle1.css')}}">
 
     <!-- Linkt to fontawesome  -->
     <link rel="stylesheet" type="text/css" href="{{asset('css/all.min.css')}}">

@@ -85,8 +85,19 @@ a:hover{
 }
 p{
 	font-size: 11px;
-	margin-top: -4px;
+	/*margin-top: -4px;*/
 }
+
+.registerBackEndErrorMsgs{
+	color: red;
+}
+.registerBackEndErrorInput{
+	border:1px solid red !important;
+	color: red !important;
+}
+
+
+
 @media screen and (max-width: 640px){
 	div#loginForm-container{
 		background-color: #f8fafc;

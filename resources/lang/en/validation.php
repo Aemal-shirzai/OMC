@@ -129,9 +129,20 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'username' => [
+            'required' => 'The field can not be empty',
+            'regex' => 'The username may only contain letters, numbers, dashes and underscores. should start with a letter only'
         ],
+        'fullName' => [
+            'required' => 'The field can not be empty'
+        ],
+        'email' => [
+            'required' => 'The field can not be empty'
+        ],
+        'password' => [
+            'required' => 'The field can not be empty'
+        ],
+       
     ],
 
     /*
