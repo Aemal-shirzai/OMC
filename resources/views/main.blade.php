@@ -240,5 +240,42 @@
         </div>
 </div>
 <!-- latest news part section 4 end-->
+
+
+<!-- section 5 contact form start -->
+<div id="section5" class="container-fluid" > 
+    <div id="section5Heading" class="text-center" sty>
+        <h2>Have some questions?</h2>
+    </div> 
+
+    <div id="section5Content" class="row col-lg-12">
+        <div id="contactIcon" class="col-lg-5">
+            <p>Have any questions? Fill out the form! We look forward to hearing from you.</p>
+            <div class="text-center">
+                <span>
+                    <img src="{{ asset('images/email (16).png') }}">
+                </span>
+            </div>
+        </div>
+        <div id="contactForm" class="col-lg-7">
+            {!! Form::open() !!}
+                <div class="row">
+                    {!! Form::text("fullName",null,["class"=>"form-control contactFormElement col-lg-3 col-sm-3","placeholder"=>"Your Full Name *"]) !!}
+                    <div class="col-lg-1 col-sm-1"></div>
+                    {!! Form::text("phone",null,["class"=>"form-control contactFormElement col-lg-3 col-sm-3","placeholder"=>"Your Phone Number *"]) !!}
+                    <div class="col-lg-1 col-sm-1"></div>
+                    {!! Form::text("email",null,["class"=>"form-control contactFormElement col-lg-3 col-sm-3","placeholder"=>"Your Email *"]) !!}
+                </div>
+                <div class="row">
+                    {!! Form::textarea("message",null,["class"=>"form-control contactFormElement col-lg-11 col-sm-11","cols"=>"3","rows"=>"4","placeholder"=>"Your message *"]) !!}
+                </div>
+                <div class="row mt-2">
+                    {!! Form::submit("Send Message",["id"=>"contactButton"]) !!}
+                </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
+</div>
+<!-- section 5 end contact form -->
 @endsection
 

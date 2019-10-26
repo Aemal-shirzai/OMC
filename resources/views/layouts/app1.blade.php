@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/newStyle.css')}}">
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/main1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->

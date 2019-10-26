@@ -188,6 +188,48 @@ div.adsImage{
 }
 /* section 4 latest ads end */
 
+/*section 5*/
+div#section5{
+	background-color: #f7f6f9;
+	overflow: auto;
+	padding:12px 12px;
+}
+div#section5Heading{
+	margin-top:50px;
+	margin-bottom: 30px;
+}
+div#section5Heading h2{
+	font-weight: bold;
+}
+
+
+div#contactIcon p{
+	font-weight: bold;
+	font-size: 13px;
+	color: #888888;
+}
+
+.contactFormElement{
+	margin-top: 5px;
+	font-size: 12px;
+}
+.contactFormElement::placeholder{
+	color: #888888 !important;
+}
+#contactButton{
+	background-color: white;
+	padding:4px 12px;
+	border-radius: 5px;
+	border: 1px solid #3fbbc0;
+	font-size: 12px;
+	color: #888888;
+}
+#contactButton:hover{
+	background-color: #3fbbc0;
+	color: white;
+
+}
+
 
 /*  Small size start */
 @media screen and (max-width: 640px){
@@ -265,6 +307,29 @@ div.adsImage{
 	}
 /*section 4 end*/
 
+
+/*section 5 start*/
+	div#section5{
+		
+	}
+	div#contactIcon span{
+		display: none;
+	}
+	div#contactIcon{
+		text-align: center;
+	}
+	div#section5Content{
+		
+	}
+	#section5Heading h2{
+		font-size: 25px;
+	}
+	#contactForm{
+		margin-left: 22px;
+	}
+
+/*section 5 end*/
+
 }
 /* Small size end*/
 
@@ -309,6 +374,18 @@ div.adsImage{
 	 	margin-top: 30px;
 	}
 /* secion 3	 part end */
+
+/*section 5*/
+	div#contactIcon span{
+			display: none;
+	}
+	div#contactIcon{
+			text-align: center;
+	}
+	#contactForm{
+		margin-left: 68px;
+	}
+
 
 
 } 
