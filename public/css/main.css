@@ -236,7 +236,7 @@ div#contactIcon p{
 }
 /* end of:  This class is for the contact form when it is enabled using javascript */
 div.contactErrorMsgs{
-	font-size: 12px;
+	font-size: 10px;
 	color: red;
 	padding-left: 10px; 
 }

@@ -4,7 +4,16 @@
 @section('title', 'omc')
   
 @section('content')
-
+@if(session("success"))
+<script type="text/javascript">
+    var status = "on";
+</script>
+@endif
+@if(count($errors) > 0 )
+    <script type="text/javascript">
+        var status = "on";
+    </script>
+@endif
 <!-- Secion1 start -->
 <div id="section1" > 
     <div id="slogan" class="col-lg-12 col-sm-12 text-center">
@@ -259,6 +268,20 @@
             </div>
         </div>
         <div id="contactForm" class="col-lg-7">
+            <div class="row">
+                @if(session("success"))
+                    <div class="alert alert-success col-lg-11 col-sm-11 text-center">
+                        <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
+                        {{ session('success') }}
+                    </div>
+                @endif
+                @if(session("error"))
+                    <div class="alert alert-danger col-lg-11 col-sm-11 text-center">
+                        <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
+                        {{ session('error') }}
+                    </div>
+                @endif
+            </div>
             {!! Form::open(["method"=>"POST","action"=>"ContactUsController@store"]) !!}
                 <div class="row">
                     {!! Form::text("fullName",null,["class"=>"form-control contactFormElement col-lg-3 col-sm-3 ".($errors->has("fullName") ? "ContactBackEndErrorInput" : ""),"id"=>"fullName","placeholder"=>"Your Full Name *","onkeyup"=>"enableContactButton()"]) !!}

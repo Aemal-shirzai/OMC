@@ -42,8 +42,13 @@ class ContactUsController extends Controller
             $request->merge(["senderUsername"=>$username]);
         }
 
-        ContactUs::create($request->all());
-        return back()->with("success","We recieved your message.");   
+        $contact = ContactUs::create($request->all());
+
+        if($contact){
+            return back()->with("success","We recieved your message.");   
+        }else{
+            return back()->withInput()->with("error","Oops! something went wrong try again.");   
+        }
     }
 
     /**

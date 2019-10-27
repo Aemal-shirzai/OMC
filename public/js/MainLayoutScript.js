@@ -202,6 +202,15 @@ $("document").ready(function(){
 	});
 // End of : to scroll smooth to for doctors, by omc
 
+// Beggining of : to scroll to contact form when its resposnse is returned back
+// Note the status variable is comming from the main page
+if(status === "on"){
+	$("html,body").animate({
+	scrollTop: $("#section5").offset().top+190},"slow");
+}
+
+// End of : to scroll to contact form when its resposnse is returned back
+
 // Begenning of : to scroll smooth to for ads from for users, by omc
 	
 	$("#forUsersViewAds").click(function(){
