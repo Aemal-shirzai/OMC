@@ -14,7 +14,6 @@ class ContactUs extends Model
     	"phoneNumber",
     	"emailAddress",
         "senderUsername",
-    	"company",
     	"message"
     ];
 }

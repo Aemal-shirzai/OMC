@@ -16,10 +16,8 @@ class CreateContactUsTable extends Migration
         Schema::create('contact_us', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string("fullName");
-            $table->integer("phoneNumber");
-            $table->email("emailAddress");
-            // THis company column is for the contact us messages which are fro ads
-            $table->string("company")->nullable();
+            $table->string("phoneNumber");
+            $table->string("emailAddress");
 
             //  If the sender aleady have an account in our website theis senderUsername column is for
             $table->string("senderUsername")->nullable();
