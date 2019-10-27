@@ -238,6 +238,7 @@
                 </div>
             </div>
         </div>
+    </div>
 </div>
 <!-- latest news part section 4 end-->
 
@@ -260,21 +261,21 @@
         <div id="contactForm" class="col-lg-7">
             {!! Form::open(["method"=>"POST","action"=>"ContactUsController@store"]) !!}
                 <div class="row">
-                    {!! Form::text("fullName",null,["class"=>"form-control contactFormElement col-lg-3 col-sm-3","id"=>"fullName","placeholder"=>"Your Full Name *","onkeyup"=>"enableContactButton()"]) !!}
+                    {!! Form::text("fullName",null,["class"=>"form-control contactFormElement col-lg-3 col-sm-3 ".($errors->has("fullName") ? "ContactBackEndErrorInput" : ""),"id"=>"fullName","placeholder"=>"Your Full Name *","onkeyup"=>"enableContactButton()"]) !!}
                     <div id="fullNameErrorSmall" class="col-lg-3 col-sm-3 contactErrorMsgs contactErrorMsgsSmallScreen">
                         @error("fullName")
                             {{ $message }}
                         @enderror
                     </div>
                     <div class="col-lg-1 col-sm-1"></div>
-                    {!! Form::text("phoneNumber",null,["class"=>"form-control contactFormElement col-lg-3 col-sm-3","id"=>"phoneNumber","placeholder"=>"Your Phone Number *","onkeyup"=>"enableContactButton()"]) !!}
+                    {!! Form::text("phoneNumber",null,["class"=>"form-control contactFormElement col-lg-3 col-sm-3 ".($errors->has("phoneNumber") ? "ContactBackEndErrorInput" : ""),"id"=>"phoneNumber","placeholder"=>"Your Phone Number *","onkeyup"=>"enableContactButton()"]) !!}
                     <div id="phoneNumberErrorSmall" class="col-lg-3 col-sm-3 contactErrorMsgs contactErrorMsgsSmallScreen">
                          @error("phoneNumber")
                             {{ $message }}
                         @enderror
                     </div>
                     <div class="col-lg-1 col-sm-1"></div>
-                    {!! Form::text("emailAddress",null,["class"=>"form-control contactFormElement col-lg-3 col-sm-3","id"=>"emailAddress","placeholder"=>"Your Email *","onkeyup"=>"enableContactButton()"]) !!}
+                    {!! Form::text("emailAddress",null,["class"=>"form-control contactFormElement col-lg-3 col-sm-3 ".($errors->has("emailAddress") ? "ContactBackEndErrorInput" : ""),"id"=>"emailAddress","placeholder"=>"Your Email *","onkeyup"=>"enableContactButton()"]) !!}
                     <div id="emailAddressErrorSmall" class="col-lg-3 col-sm-3 contactErrorMsgs contactErrorMsgsSmallScreen">
                          @error("emailAddress")
                             {{ $message }}
@@ -301,7 +302,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    {!! Form::textarea("message",null,["class"=>"form-control contactFormElement col-lg-11 col-sm-11","cols"=>"3","rows"=>"4","id"=>"message","placeholder"=>"Your message *","onkeyup"=>"enableContactButton()"]) !!}
+                    {!! Form::textarea("message",null,["class"=>"form-control contactFormElement col-lg-11 col-sm-11 ".($errors->has("message") ? "ContactBackEndErrorInput" : ""),"cols"=>"3","rows"=>"4","id"=>"message","placeholder"=>"Your message *","onkeyup"=>"enableContactButton()"]) !!}
                     <div id="messageErrorForBothScreen" class="contactErrorMsgs">
                          @error("message")
                             {{ $message }}

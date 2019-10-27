@@ -243,6 +243,10 @@ div.contactErrorMsgs{
 div.contactErrorMsgsSmallScreen{
 	display: none;
 }
+.ContactBackEndErrorInput{
+		border:1px solid red !important;
+		color: red !important;
+}
 
 /*  Small size start */
 @media screen and (max-width: 640px){
