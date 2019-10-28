@@ -66,7 +66,7 @@ div#header-div{
 
 a.login-register{
 	color:white;
-	font-size: 18px;
+	font-size: 13px;
 	padding: 5px; 
 	
 }
@@ -76,11 +76,11 @@ a.login-register:hover{
 }
 a#search-icon{
 	color: white;
-	font-size: 18px;
+	font-size: 13px;
 }
 a#search-icon:hover{
 	text-decoration: none;
-	font-size: 22px;
+	font-size: 16px;
 }
 div#search-box-div{
 	width: 100%;
@@ -98,7 +98,7 @@ div#search-box-div{
 	border-right: none;
 	border-radius: 0px;
 	height: 46px;
-	font-size: 15px;
+	font-size: 13px;
 	transition: height 0.5s;
 }
 #search-close-button{
@@ -262,7 +262,7 @@ div#social-links a:nth-child(5){
 	}
 	a.login-register{
 		color:white;
-		font-size: 15px;
+		font-size: 12px;
 		padding: 5px; 
 	}
 	div#sidebar-large{

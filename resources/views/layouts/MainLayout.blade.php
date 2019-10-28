@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle1.css')}}">
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}">
@@ -28,12 +28,10 @@
 <div class="sidebar-small" id="side"> <!-- navbar for small screen div start  -->
 	<div id="sidebar-small-child-div">
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-		<a href="#" class="active">Home</a>
-		<a href="#">Service</a>
+		<a href="{{route('main')}}" @if(Route::currentRouteName() == 'main')class="active" @endif>Home</a>
 		<a href="#">Doctors</a>
-		<a href="#">Facilities</a>
-		<a href="#">Pricing</a>
-		<a href=""#>Extra <i class="far fa-caret-down"></i></a>
+		<a href="#">Tags</a>
+		<a href="javascript:void(0)" class="contactUs">Contact Us</a>
 	</div>
 </div><!-- navbar for small screen div end  -->
 
@@ -66,12 +64,10 @@
 		<a href="#"><img src="{{asset('images/logo.png')}}" class="img-fluid"></a>
 		</div>
 		<a href="javascript:void(0)" class="btn btn-light btn-sm openbtn" onclick="openNav()"><i class="far fa-bars"></i></a>
-		<a href=""#>Extra <i class="far fa-caret-down"></i></a>
-		<a href="#">Pricing</a>
-		<a href="#">Facilities</a>
+		<a href="javascript:void(0)" class="contactUs">Contact Us</a>
+		<a href="#">Tags</a>
 		<a href="#">Doctors</a>
-		<a href="#">Service</a>
-		<a href="#" class="active">Home</a>
+		<a href="{{route('main')}}" @if(Route::currentRouteName() == 'main')class="active" @endif>Home</a>
 		</div>
 	</div><!-- navbar for large screen div end  -->
 
@@ -125,7 +121,7 @@
 <script type="text/javascript" src="{{asset('js/owlCarousel/owl.carousel.min.js')}}"></script>
 
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/MainLayoutScript.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/MainLayoutScript1.js')}}"></script>
 
 </body>
 </html>

@@ -4,13 +4,13 @@ window.onscroll = function() {changeMenuSize()};
 function changeMenuSize(){
 	if(document.documentElement.scrollTop > 10){
 		document.getElementById("header-div").style.padding = "7px";
-		document.getElementById("sidebar-large").style.marginTop = "-10px";
+		document.getElementById("sidebar-large").style.marginTop = "-12px";
 		document.getElementById("sidebar-large").style.height = "65x";
 		document.getElementById("logodiv").style.width = "150px";
 		document.getElementById("logodiv").style.marginTop= "6px";
-		document.getElementById("search-box").style.height= "38px";
-		document.getElementById("search-close-button").style.height= "38px";
-		document.getElementById("search-close-button").style.paddingTop= "6px";
+		document.getElementById("search-box").style.height= "36px";
+		document.getElementById("search-close-button").style.height= "36px";
+		document.getElementById("search-close-button").style.paddingTop= "5px";
 	}else{
 		document.getElementById("header-div").style.padding = "10px";
 		document.getElementById("sidebar-large").style.marginTop = "-2px";
@@ -208,8 +208,17 @@ if(status === "on"){
 	$("html,body").animate({
 	scrollTop: $("#section5").offset().top+190},"slow");
 }
-
 // End of : to scroll to contact form when its resposnse is returned back
+
+// Begenning of : to scroll smooth to for contact us 
+	
+	$(".contactUs").click(function(){
+		$("html,body").animate({
+			scrollTop: $("#section5").offset().top-74},900);
+		closeNav();
+	});
+
+// End of : to scroll smooth to for contact us
 
 // Begenning of : to scroll smooth to for ads from for users, by omc
 	
