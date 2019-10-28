@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-class HomeController extends Controller
+use Illuminate\Support\Facades\Auth;
+class ProfileController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -21,8 +21,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index($user)
     {
-        return view('home');
+        if(Auth::user()->username != $user){
+            return abort(404);
+        }
+        return view('profile',compact("user"));
     }
 }

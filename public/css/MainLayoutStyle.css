@@ -57,7 +57,7 @@ div#parent-div{
 div#header-div{
 	background-color: #3fbbc0;
 	padding: 10px;
-	max-height: 47px;
+	min-height: 48px;
 	position: fixed;
 	z-index: 1;
 	top: 0;
@@ -67,7 +67,9 @@ div#header-div{
 a.login-register{
 	color:white;
 	font-size: 13px;
-	padding: 5px; 
+	padding: 5px;
+	padding-left: 10px 
+	padding-right: 10px;
 	
 }
 a.login-register:hover{
@@ -127,7 +129,7 @@ div#sidebar-large{
 	position: fixed;
 	z-index: 1;
 	top: 48px;
-	overflow: hidden;
+	#overflow: hidden;
 	transition: 0.5s !important;
 }
 div#sidebar-large a:not(:first-child){
@@ -141,6 +143,57 @@ div#sidebar-large a:not(:first-child){
 	text-decoration: none;
 	transition: padding 0.5s;
 }
+a#userProfileIcon{
+	text-transform: lowercase !important;
+
+}
+a#userProfileIcon i{
+	font-size: 20px;
+
+}
+a#userProfileIcon{
+	padding-top: 23px;
+	font-size: 12px;
+	color: #666;
+	letter-spacing: 1px;
+	float: right;
+	font-weight: bold;
+	text-transform: uppercase;
+	text-decoration: none;
+	transition: padding 0.5s;
+}
+a#userProfileIcon span{
+	font-size: 11px;
+}
+div#dropdownContent{
+	position: absolute;
+	z-index: 1;
+	top:55px;
+	box-shadow: rgba(27, 31, 35, 0.15) 0px 1px 15px;
+	margin-left: 0px;
+	display: none;
+	padding: 12px 10px;
+	width: 150px;
+	background-color: white;
+	border-color: rgba(27, 31, 35, 0.15);
+	border-radius: 4px;
+}
+
+div#dropdownContent a{
+	color: #666;
+	padding:1px 0px !important;
+	font-size: 13px;
+	float: none !important;
+	font-weight: normal !important;
+	text-transform: none !important;
+	#text-decoration: none;
+	transition: padding 0.5s;
+	display: block !important;
+}
+
+/*div#userProfileParent:hover div#dropdownContent{
+	display: inline-block;
+}*/
 div#sidebar-large a:hover{
 	color:#3fbbc0; 
 }
@@ -188,7 +241,7 @@ div#sidebar-small-child-div{
 .sidebar-small a:not(:first-child){
 	padding: 8px 8px 8px 32px;
 	text-decoration: none;
-	font-size: 14px;
+	font-size: 13px;
 	color: #818181;
 	display: block;
 	font-weight: bold;
@@ -199,7 +252,7 @@ div#sidebar-small-child-div{
 }
 #sidebar-small-child-div a.closebtn{
 	position: absolute;
-	top: 41px;
+	top: 32px;
 	right: 25px;
 	font-size: 36px;
 	margin-left: 50px;
@@ -207,7 +260,10 @@ div#sidebar-small-child-div{
 .sidebar-small-shadow{ /* added in javascript */
 	box-shadow : lightgrey 2px 13px 22px
 }
-
+.smallMenuLogin{
+	font-weight: normal !important;
+	padding-top: 12px!important;
+}
 /*footer part*/
 div#footer{
 	background-color: #f2f2f2;
@@ -271,6 +327,9 @@ div#social-links a:nth-child(5){
 	div#sidebar-large a:not(:first-child){
 		display: none;
 	}
+	a#userProfileIcon{
+		display: none;
+	}
 	.openbtn{
 		display: block !important;
 		float: right;
@@ -298,6 +357,9 @@ div#social-links a:nth-child(5){
 
 @media screen and (max-width:1000px) and (min-width: 641px){
 	div#sidebar-large a:not(:first-child){
+		display: none;
+	}
+	a#userProfileIcon{
 		display: none;
 	}
 	.openbtn{

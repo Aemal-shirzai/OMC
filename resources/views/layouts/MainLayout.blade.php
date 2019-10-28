@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle.css')}}">
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}">
@@ -24,16 +24,62 @@
 
 </head>
 <body>
-
 <div class="sidebar-small" id="side"> <!-- navbar for small screen div start  -->
 	<div id="sidebar-small-child-div">
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-		<a href="{{route('main')}}" @if(Route::currentRouteName() == 'main')class="active" @endif>Home</a>
-		<a href="#">Doctors</a>
-		<a href="#">Tags</a>
-		<a href="javascript:void(0)" class="contactUs">Contact Us</a>
+		@auth
+			<div class="text-center">
+				<p>Signed in as</p>
+				<span class="fal fa-user-circle" style="font-size: 20px;"></span>
+				<a href="{{route('profile',Auth::user()->username)}}" style="padding-left: 0;">{{Auth::user()->username}}</a>
+			</div>
+		@endauth
+		<div class="dropdown-divider"></div>
+		<a href="{{route('main')}}" @if(Route::currentRouteName() == 'main')class="active" @endif><span class="fal fa-home"></span> Home</a>
+		<a href="#"><span class="fal fa-user-md"></span> Doctors</a>
+		<a href="#"><span class="fal fa-tags"></span> Tags</a>
+		<a href="javascript:void(0)" class="contactUs"><span class="fal fa-envelope"></span> Contact Us</a>
+		@guest
+			<a href="{{route('login')}}"><span class="fal fa-sign-in-alt"></span> Sign In</a>
+			<a href="{{route('register')}}"><span class="fal fa-plus"></span> Sign Up</a>
+		@endguest
+		@auth
+			<div class="dropdown-divider"></div>
+			<a href="{{route('profile',Auth::user()->username)}}" class="fal fa-user smallMenuLogin"> Your profile</a>
+			<a href="#" class="fal fa-user-cog smallMenuLogin"> Settings</a>
+			<a href="" class="fal fa-lock smallMenuLogin"> Privacy & policy</a>
+			<a href="" class="fal fa-question-circle smallMenuLogin"> Help</a>
+			<a href="#" onclick="document.getElementById('logoutForm').submit();event.preventDefault();" class="fal fa-sign-out-alt smallMenuLogin"> Sign out</a>
+		@endauth
 	</div>
 </div><!-- navbar for small screen div end  -->
+ 
+ <!-- navbar for small screen div start  -->
+<!-- <div class="sidebar-small" id="side">
+	<div id="sidebar-small-child-div">
+		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+		<div class="dropdown-divider"></div>
+		<a href="{{route('main')}}" @if(Route::currentRouteName() == 'main')class="active" @endif><span class="fal fa-home"></span> Home</a>
+		<a href="#"><span class="fal fa-user-md"></span> Doctors</a>
+		<a href="#"><span class="fal fa-tags"></span> Tags</a>
+		<a href="javascript:void(0)" class="contactUs"><span class="fal fa-envelope"></span> Contact Us</a>
+		<div class="dropdown-divider"></div>
+		@auth
+		<div class="text-center">
+			<p>Signed in as</p>
+			<span class="fal fa-user-circle" style="font-size: 20px;"></span>
+			<a href="{{route('profile',Auth::user()->username)}}" style="padding-left: 0;">{{Auth::user()->username}}</a>
+		</div>
+		<div class="dropdown-divider"></div>
+		<a href="{{route('profile',Auth::user()->username)}}" class="fal fa-user smallMenuLogin"> Your profile</a>
+		<a href="#" class="fal fa-user-cog smallMenuLogin"> Settings</a>
+		<a href="" class="fal fa-lock smallMenuLogin"> Privacy & policy</a>
+		<a href="" class="fal fa-question-circle smallMenuLogin"> Help</a>
+		<a href="#" onclick="document.getElementById('logoutForm').submit();event.preventDefault();" class="fal fa-sign-out-alt smallMenuLogin"> Sign out</a>
+		@endauth
+	</div>
+</div> -->
+<!-- navbar for small screen div end  -->
 
 
 <div id="parent-div"><!-- parent Div start-->
@@ -43,8 +89,15 @@
 		<div class="container"> <!-- header-content div start -->
 			<span class="float-left" id="timeAndDate">{{ Carbon\Carbon::now("Asia/kabul") }}</span>
 			<a href="#" class="far fa-search" id="search-icon"></a>&nbsp;
-			<a href="{{route('login')}}" class="login-register">Login</a>
-			<a href="{{route('register')}}" class="login-register">Register</a>	
+			@auth
+				<a href="#" onclick="document.getElementById('logoutForm').submit();event.preventDefault();" class="login-register"> Sign out </a>
+				{!! Form::open(["method"=>"POST","action"=>"Auth\LoginController@logout","id"=>"logoutForm"]) !!}
+				{!! Form::close() !!}
+			@endauth
+			@guest
+				<a href="{{route('login')}}" class="login-register">Login</a>
+				<a href="{{route('register')}}" class="login-register">Register</a>
+			@endguest
 		</div> <!-- header-content div end -->
 
 	</div><!-- header div end -->
@@ -64,6 +117,29 @@
 		<a href="#"><img src="{{asset('images/logo.png')}}" class="img-fluid"></a>
 		</div>
 		<a href="javascript:void(0)" class="btn btn-light btn-sm openbtn" onclick="openNav()"><i class="far fa-bars"></i></a>
+		@auth
+		<div class="float-right" id="userProfileParent">
+			<a href="javascript:void(0)" id="userProfileIcon">
+				<i class="fal fa-user-circle" style="color: #3fbbc0;"></i>
+				{{Auth::user()->owner->fullName}} 
+				<span class="far fa-caret-down"></span>
+			</a>
+			<div id="dropdownContent">
+				Signed in as
+				<a href="#"><b>{{Auth::user()->username}}</b></a>
+				<div class="dropdown-divider"></div>
+				<a href="{{route('profile',Auth::user()->username)}}" class="fal fa-user"> Your profile</a>
+				<div class="dropdown-divider"></div>
+				<a href="#" class="fal fa-user-cog"> Settings</a>
+				<div class="dropdown-divider"></div>
+				<a href="" class="fal fa-lock"> Privacy & policy</a>
+				<div class="dropdown-divider"></div>
+				<a href="" class="fal fa-question-circle"> Help</a>
+				<div class="dropdown-divider"></div>
+				<a href="#" onclick="document.getElementById('logoutForm').submit();event.preventDefault();" class="fal fa-sign-out-alt"> Sign out</a>
+			</div>
+		</div>	
+		@endauth
 		<a href="javascript:void(0)" class="contactUs">Contact Us</a>
 		<a href="#">Tags</a>
 		<a href="#">Doctors</a>
@@ -72,7 +148,7 @@
 	</div><!-- navbar for large screen div end  -->
 
 
-<div>
+<div id="mainParent">
 	@yield("content")
 </div>
 

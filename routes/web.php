@@ -21,5 +21,5 @@ Route::get("/app",function(){
 });
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/profile/{user}', 'ProfileController@index')->name('profile');
 Route::resource('/contactUs','ContactUsController');

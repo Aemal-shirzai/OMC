@@ -40,7 +40,7 @@ class Account extends Authenticatable
         Relationship with normalusers and doctors
     */
 
-    public function account(){
+    public function owner(){
         return $this->morphTo("","owner_type","owner_id");
     }
 }

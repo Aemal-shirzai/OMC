@@ -211,14 +211,24 @@ if(status === "on"){
 // End of : to scroll to contact form when its resposnse is returned back
 
 // Begenning of : to scroll smooth to for contact us 
-	
 	$(".contactUs").click(function(){
 		$("html,body").animate({
 			scrollTop: $("#section5").offset().top-74},900);
+		$("#fullName").focus();
 		closeNav();
 	});
-
 // End of : to scroll smooth to for contact us
+
+// Beggining of : the function which hide the small slidebar and user menu list when the screen is clicked
+$("#mainParent").click(function(){
+	$("#dropdownContent").hide();
+	closeNav();
+});
+// End of : the function which hide the small slidebar and user menu list when the screen is clicked
+
+$("#userProfileParent").click(function(){
+	$("#dropdownContent").toggle();
+});
 
 // Begenning of : to scroll smooth to for ads from for users, by omc
 	
