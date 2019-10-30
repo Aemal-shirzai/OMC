@@ -337,9 +337,6 @@
                     {!! Form::submit("Send Message",["class"=>"btn btn-sm offset-lg-2","id"=>"contactButton","onclick"=>"validateContactForm()","disabled"=>"true"]) !!}
                 </div>
             {!! Form::close() !!}
-
-            {!! $data->message !!}
-
         </div>
     </div>
 </div>
