@@ -256,27 +256,28 @@
 <div id="section5" class="container-fluid" > 
     <div id="section5Heading" class="text-center" sty>
         <h2>Have some questions?</h2>
+        <div class="dropdown-divider col-2" style="margin: 0 auto;"></div>
+        <p>Have any questions? Fill out the form! We look forward to hearing from you.</p>
     </div> 
 
     <div id="section5Content" class="row col-lg-12">
-        <div id="contactIcon" class="col-lg-5">
-            <p>Have any questions? Fill out the form! We look forward to hearing from you.</p>
+        <!-- <div id="contactIcon" class="col-lg-5">
             <div class="text-center">
                 <span>
                     <img src="{{ asset('images/email (16).png') }}">
                 </span>
             </div>
-        </div>
-        <div id="contactForm" class="col-lg-7">
+        </div> -->
+        <div id="contactForm" class="col-lg-12">
             <div class="row">
                 @if(session("success"))
-                    <div class="alert alert-success col-lg-11 col-sm-11 text-center">
+                    <div class="alert alert-success col-lg-8 offset-lg-2  text-center mainPageMsgs">
                         <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
                         {{ session('success') }}
                     </div>
                 @endif
                 @if(session("error"))
-                    <div class="alert alert-danger col-lg-11 col-sm-11 text-center">
+                    <div class="alert alert-danger col-lg-8 offset-lg-2  text-center mainPageMsgs">
                         <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
                         {{ session('error') }}
                     </div>
@@ -284,48 +285,48 @@
             </div>
             {!! Form::open(["method"=>"POST","action"=>"ContactUsController@store"]) !!}
                 <div class="row">
-                    {!! Form::text("fullName",null,["class"=>"form-control contactFormElement col-lg-3 col-sm-3 ".($errors->has("fullName") ? "ContactBackEndErrorInput" : ""),"id"=>"fullName","placeholder"=>"Your Full Name *","onkeyup"=>"enableContactButton()"]) !!}
-                    <div id="fullNameErrorSmall" class="col-lg-3 col-sm-3 contactErrorMsgs contactErrorMsgsSmallScreen">
+                    {!! Form::text("fullName",null,["class"=>"form-control contactFormElement col-lg-2 offset-lg-2 ".($errors->has("fullName") ? "ContactBackEndErrorInput" : ""),"id"=>"fullName","placeholder"=>"Your Full Name *","onkeyup"=>"enableContactButton()"]) !!}
+                    <div id="fullNameErrorSmall" class="col-lg-2  contactErrorMsgs contactErrorMsgsSmallScreen">
                         @error("fullName")
                             {{ $message }}
                         @enderror
                     </div>
-                    <div class="col-lg-1 col-sm-1"></div>
-                    {!! Form::text("phoneNumber",null,["class"=>"form-control contactFormElement col-lg-3 col-sm-3 ".($errors->has("phoneNumber") ? "ContactBackEndErrorInput" : ""),"id"=>"phoneNumber","placeholder"=>"Your Phone Number *","onkeyup"=>"enableContactButton()"]) !!}
-                    <div id="phoneNumberErrorSmall" class="col-lg-3 col-sm-3 contactErrorMsgs contactErrorMsgsSmallScreen">
+                    <div class="col-lg-1 spaceDiv"></div>
+                    {!! Form::text("phoneNumber",null,["class"=>"form-control contactFormElement col-lg-2 ".($errors->has("phoneNumber") ? "ContactBackEndErrorInput" : ""),"id"=>"phoneNumber","placeholder"=>"Your Phone Number *","onkeyup"=>"enableContactButton()"]) !!}
+                    <div id="phoneNumberErrorSmall" class="col-lg-2 offset-lg-2 contactErrorMsgs contactErrorMsgsSmallScreen">
                          @error("phoneNumber")
                             {{ $message }}
                         @enderror
                     </div>
-                    <div class="col-lg-1 col-sm-1"></div>
-                    {!! Form::text("emailAddress",null,["class"=>"form-control contactFormElement col-lg-3 col-sm-3 ".($errors->has("emailAddress") ? "ContactBackEndErrorInput" : ""),"id"=>"emailAddress","placeholder"=>"Your Email *","onkeyup"=>"enableContactButton()"]) !!}
-                    <div id="emailAddressErrorSmall" class="col-lg-3 col-sm-3 contactErrorMsgs contactErrorMsgsSmallScreen">
+                    <div class="col-lg-1 spaceDiv"></div>
+                    {!! Form::text("emailAddress",null,["class"=>"form-control contactFormElement col-lg-2 ".($errors->has("emailAddress") ? "ContactBackEndErrorInput" : ""),"id"=>"emailAddress","placeholder"=>"Your Email *","onkeyup"=>"enableContactButton()"]) !!}
+                    <div id="emailAddressErrorSmall" class="col-lg-2 offset-lg-2 contactErrorMsgs contactErrorMsgsSmallScreen">
                          @error("emailAddress")
                             {{ $message }}
                         @enderror
                     </div>
                 </div>
                 <div class="row">
-                    <div id="fullNameError" class="col-lg-3 col-sm-3 contactErrorMsgs">
+                    <div id="fullNameError" class="col-lg-2 offset-lg-2 contactErrorMsgs">
                          @error("fullName")
                             {{ $message }}
                         @enderror
                     </div>
-                    <div class="col-lg-1 col-sm-1"></div>
-                    <div id="phoneNumberError" class="col-lg-3 col-sm-3 contactErrorMsgs">
+                    <div class="col-lg-1 spaceDiv"></div>
+                    <div id="phoneNumberError" class="col-lg-2  contactErrorMsgs">
                           @error("phoneNumber")
                             {{ $message }}
                         @enderror
                     </div>
-                    <div class="col-lg-1 col-sm-1"></div>
-                    <div id="emailAddressError" class="col-lg-3 col-sm-3 contactErrorMsgs">
+                    <div class="col-lg-1 spaceDiv"></div>
+                    <div id="emailAddressError" class="col-lg-2  contactErrorMsgs">
                         @error("emailAddress")
                             {{ $message }}
                         @enderror
                     </div>
                 </div>
                 <div class="row">
-                    {!! Form::textarea("message",null,["class"=>"form-control contactFormElement col-lg-11 col-sm-11 ".($errors->has("message") ? "ContactBackEndErrorInput" : ""),"cols"=>"3","rows"=>"6","id"=>"message","placeholder"=>"Your message *","onkeyup"=>"enableContactButton()"]) !!}
+                    {!! Form::textarea("message",null,["class"=>"form-control contactFormElement col-lg-8 offset-lg-2".($errors->has("message") ? "ContactBackEndErrorInput" : ""),"cols"=>"3","rows"=>"8","id"=>"message","placeholder"=>"Your message *","onkeyup"=>"enableContactButton()"]) !!}
                     <div id="messageErrorForBothScreen" class="contactErrorMsgs">
                          @error("message")
                             {{ $message }}
@@ -333,9 +334,12 @@
                     </div>
                 </div>
                 <div class="row mt-2">
-                    {!! Form::submit("Send Message",["class"=>"btn btn-sm","id"=>"contactButton","onclick"=>"validateContactForm()","disabled"=>"true"]) !!}
+                    {!! Form::submit("Send Message",["class"=>"btn btn-sm offset-lg-2","id"=>"contactButton","onclick"=>"validateContactForm()","disabled"=>"true"]) !!}
                 </div>
             {!! Form::close() !!}
+
+            {!! $data->message !!}
+
         </div>
     </div>
 </div>

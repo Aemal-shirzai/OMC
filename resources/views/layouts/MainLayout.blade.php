@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+	<!DOCTYPE html>
 <html>
 <head>
 	<title>@yield("title")</title>
@@ -7,10 +7,10 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle1.css')}}">
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/main1.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -53,44 +53,16 @@
 		@endauth
 	</div>
 </div><!-- navbar for small screen div end  -->
- 
- <!-- navbar for small screen div start  -->
-<!-- <div class="sidebar-small" id="side">
-	<div id="sidebar-small-child-div">
-		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-		<div class="dropdown-divider"></div>
-		<a href="{{route('main')}}" @if(Route::currentRouteName() == 'main')class="active" @endif><span class="fal fa-home"></span> Home</a>
-		<a href="#"><span class="fal fa-user-md"></span> Doctors</a>
-		<a href="#"><span class="fal fa-tags"></span> Tags</a>
-		<a href="javascript:void(0)" class="contactUs"><span class="fal fa-envelope"></span> Contact Us</a>
-		<div class="dropdown-divider"></div>
-		@auth
-		<div class="text-center">
-			<p>Signed in as</p>
-			<span class="fal fa-user-circle" style="font-size: 20px;"></span>
-			<a href="{{route('profile',Auth::user()->username)}}" style="padding-left: 0;">{{Auth::user()->username}}</a>
-		</div>
-		<div class="dropdown-divider"></div>
-		<a href="{{route('profile',Auth::user()->username)}}" class="fal fa-user smallMenuLogin"> Your profile</a>
-		<a href="#" class="fal fa-user-cog smallMenuLogin"> Settings</a>
-		<a href="" class="fal fa-lock smallMenuLogin"> Privacy & policy</a>
-		<a href="" class="fal fa-question-circle smallMenuLogin"> Help</a>
-		<a href="#" onclick="document.getElementById('logoutForm').submit();event.preventDefault();" class="fal fa-sign-out-alt smallMenuLogin"> Sign out</a>
-		@endauth
-	</div>
-</div> -->
-<!-- navbar for small screen div end  -->
-
 
 <div id="parent-div"><!-- parent Div start-->
 	
 	<div class="col-12 text-right" id="header-div"> <!-- header div start -->
 
-		<div class="container"> <!-- header-content div start -->
+		<div id="header-div-content"> <!-- header-content div start -->
 			<span class="float-left" id="timeAndDate">{{ Carbon\Carbon::now("Asia/kabul") }}</span>
-			<a href="#" class="far fa-search" id="search-icon"></a>&nbsp;
+			<a href="#" class="far fa-search @auth search-icon1 @endauth " id="search-icon"></a>&nbsp;
 			@auth
-				<a href="#" onclick="document.getElementById('logoutForm').submit();event.preventDefault();" class="login-register"> Sign out </a>
+				<a href="#" onclick="document.getElementById('logoutForm').submit();event.preventDefault()" id="signout" class="login-register">Sign Out</a>
 				{!! Form::open(["method"=>"POST","action"=>"Auth\LoginController@logout","id"=>"logoutForm"]) !!}
 				{!! Form::close() !!}
 			@endauth
@@ -119,9 +91,9 @@
 		<a href="javascript:void(0)" class="btn btn-light btn-sm openbtn" onclick="openNav()"><i class="far fa-bars"></i></a>
 		@auth
 		<div class="float-right" id="userProfileParent">
-			<a href="javascript:void(0)" id="userProfileIcon">
-				<i class="fal fa-user-circle" style="color: #3fbbc0;"></i>
-				{{Auth::user()->owner->fullName}} 
+			<a href="javascript:void(0)" id="userProfileIcon" @if(Route::currentRouteName() == 'profile') class='active'  @endif>
+				<i class="fal fa-user-circle"></i>
+					
 				<span class="far fa-caret-down"></span>
 			</a>
 			<div id="dropdownContent">
@@ -145,7 +117,8 @@
 		<a href="#">Doctors</a>
 		<a href="{{route('main')}}" @if(Route::currentRouteName() == 'main')class="active" @endif>Home</a>
 		</div>
-	</div><!-- navbar for large screen div end  -->
+	</div>
+<!-- navbar for large screen div end  -->
 
 
 <div id="mainParent">
@@ -197,7 +170,7 @@
 <script type="text/javascript" src="{{asset('js/owlCarousel/owl.carousel.min.js')}}"></script>
 
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/MainLayoutScript1.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/MainLayoutScript.js')}}"></script>
 
 </body>
 </html>

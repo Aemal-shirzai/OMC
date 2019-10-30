@@ -126,5 +126,13 @@ p{
 }
 
 @media screen and (max-width: 1000px) and (min-width: 641px){
-	
+	div#loginForm-container{
+		margin-top: 200px;
+	}
+}
+
+@media screen and (max-width: 1400px) and (min-width: 1001px){
+	div#loginForm-container{
+		margin-top: 200px;
+	}
 }

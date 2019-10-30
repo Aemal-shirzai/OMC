@@ -63,7 +63,12 @@ div#header-div{
 	top: 0;
 	transition:0.5s;
 }
-
+div#header-div-content{
+	padding: 0 40px;
+}
+a#signout{
+	display: none;
+}
 a.login-register{
 	color:white;
 	font-size: 13px;
@@ -79,6 +84,13 @@ a.login-register:hover{
 a#search-icon{
 	color: white;
 	font-size: 13px;
+}
+.search-icon1{
+	margin-top: 4px;
+	font-size: 18px !important;
+}
+.search-icon1:hover{
+	font-size: 20px !important;
 }
 a#search-icon:hover{
 	text-decoration: none;
@@ -136,7 +148,7 @@ div#sidebar-large a:not(:first-child){
 	color: #666;
 	padding: 25px 16px;
 	letter-spacing: 1px;
-	font-size: 13px;
+	font-size: 13.5px;
 	float: right;
 	font-weight: bold;
 	text-transform: uppercase;
@@ -293,6 +305,12 @@ div#general a{
 div#omc a{
 	display: block;
 }
+
+div#omc-network, div#social-links, div#omc, div#general{
+	border-right: 1px solid #e0d0d0;
+}
+
+
 div#omc-network a{
 	display: block;
 }
@@ -321,6 +339,19 @@ div#social-links a:nth-child(5){
 		color:white;
 		font-size: 12px;
 		padding: 5px; 
+	}
+	a#signout{
+		display: inline-block;
+	}
+	div#header-div-content{
+		padding: 0 20px;
+	}
+	.search-icon1{
+		margin-top: 5px;
+		font-size: 15px !important;
+	}
+	.search-icon1:hover{
+		font-size: 18px !important;
 	}
 	div#sidebar-large{
 		margin-top: -4px;
@@ -360,6 +391,9 @@ div#social-links a:nth-child(5){
 	div#sidebar-large a:not(:first-child){
 		display: none;
 	}
+	a#signout{
+		display: inline-block;
+	}
 	a#userProfileIcon{
 		display: none;
 	}
@@ -376,5 +410,10 @@ div#social-links a:nth-child(5){
 	div#footer-content h5{
 		font-size: 13px;
 	}
+}
+@media screen and (max-width:1400px) and (min-width: 1001px){
+	div#dropdownContent{
+		margin-left: -88px !important;
+	}	
 }
 

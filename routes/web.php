@@ -10,9 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\ContactUs;
 
 Route::get('/', function () {
-    return view('main');
+	$data = ContactUs::find(48);
+    return view('main',compact("data"));
 })->name('main');
 
 

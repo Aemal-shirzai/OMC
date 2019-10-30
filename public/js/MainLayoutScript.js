@@ -54,7 +54,7 @@ function enableContactButton(){
 		button.className += " activeContactButton";
 	}else{
 		button.disabled = true;
-		button.className = "btn btn-sm";
+		button.className = "btn btn-sm offset-lg-2";
 	}
 }
 
@@ -212,10 +212,10 @@ if(status === "on"){
 
 // Begenning of : to scroll smooth to for contact us 
 	$(".contactUs").click(function(){
+		closeNav();
 		$("html,body").animate({
 			scrollTop: $("#section5").offset().top-74},900);
 		$("#fullName").focus();
-		closeNav();
 	});
 // End of : to scroll smooth to for contact us
 
@@ -254,11 +254,16 @@ $("#userProfileParent").click(function(){
 	            nav:true,
 	            loop:true,
 	        },
-	        600:{
-	            items:(s > 1)  ? '3' : '1',
+	        750:{
+	            items:(s > 1)  ? '2' : '1',
 	            nav:true,
 	            loop:(s > 3),
 
+	        },
+	        1024:{
+	        	items:(s > 1)  ? '3' : '1',
+	            nav:true,
+	            loop:(s > 3),
 	        }
 		}
 	});
