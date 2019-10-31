@@ -10,7 +10,10 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle1.css')}}">
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/main1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}">
+	@elseif(Route::currentRouteName() == 'profile')
+	<!-- Link to local profile style for profile page -->
+	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -171,6 +174,11 @@
 
 <!-- link to local js file -->
 <script type="text/javascript" src="{{asset('js/MainLayoutScript.js')}}"></script>
+
+@if(Route::currentRouteName() == 'profile')
+<!-- link to local js file for profile page -->
+<script type="text/javascript" src="{{asset('js/profileScript.js')}}"></script>
+@endif
 
 </body>
 </html>

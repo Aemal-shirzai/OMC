@@ -255,19 +255,12 @@
 <!-- section 5 contact form start -->
 <div id="section5" class="container-fluid" > 
     <div id="section5Heading" class="text-center" sty>
-        <h2>Have some questions?</h2>
+        <h2>Contact Us</h2>
         <div class="dropdown-divider col-2" style="margin: 0 auto;"></div>
         <p>Have any questions? Fill out the form! We look forward to hearing from you.</p>
     </div> 
 
     <div id="section5Content" class="row col-lg-12">
-        <!-- <div id="contactIcon" class="col-lg-5">
-            <div class="text-center">
-                <span>
-                    <img src="{{ asset('images/email (16).png') }}">
-                </span>
-            </div>
-        </div> -->
         <div id="contactForm" class="col-lg-12">
             <div class="row">
                 @if(session("success"))

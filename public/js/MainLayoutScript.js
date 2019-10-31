@@ -220,7 +220,7 @@ if(status === "on"){
 // End of : to scroll smooth to for contact us
 
 // Beggining of : the function which hide the small slidebar and user menu list when the screen is clicked
-$("#mainParent").click(function(){
+$("#mainParent,#footer").click(function(){
 	$("#dropdownContent").hide();
 	closeNav();
 });

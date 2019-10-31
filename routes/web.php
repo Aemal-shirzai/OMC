@@ -13,7 +13,7 @@
 
 
 Route::get('/', function () {
-    return view('main',compact("data"));
+    return view('main');
 })->name('main');
 
 

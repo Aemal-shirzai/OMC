@@ -57,6 +57,24 @@ div#loginSignUpForm-container h5{
 	border:1px solid #efefef; 
 	background-color:#fafafa;
 	font-size: 12px;
+	
+}
+/* Added input-in-login class to input elements in login page because i want to just channge padding of login input not all form elements which is also in register page */
+.input-in-login{
+	padding-left: 25px !important;
+}
+.form-element-parent{
+	position: relative;
+}
+.form-element-icon{
+	/* I have added the important there because (fad) font awesome class has the position relative. inorder to over-Write that. note only fad not (fas,far,fal) */
+	position: absolute !important;
+	top: 12px;
+	left: 6px;
+}
+/* The plus sign means that  i elememtn is palced immediatly after the focused element */
+.form_element:focus + i.form-element-icon{ 
+	color: #3fbbc0;
 }
 ::placeholder{
 	color: #999 !important;
@@ -129,10 +147,16 @@ p{
 	div#loginForm-container{
 		margin-top: 200px;
 	}
+	div#signUpForm-container{
+		margin-top: 150px;
+	}
 }
 
 @media screen and (max-width: 1400px) and (min-width: 1001px){
 	div#loginForm-container{
+		margin-top: 200px;
+	}
+	div#signUpForm-container{
 		margin-top: 200px;
 	}
 }
