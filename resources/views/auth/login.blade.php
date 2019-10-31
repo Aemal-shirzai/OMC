@@ -1,5 +1,13 @@
 @extends("../layouts.LoginSignUpLayout")
 @section("title","Login")
+
+@section("logo")
+<div id="loginSignUp-logo">
+    <!-- <img src="{{asset('images/logo.png')}}" class="img-fluid"> -->
+   &nbsp; a
+</div>
+@endsection
+
 @section("form-title","Sign in to OMC")
 @section("form")
 @include('../layouts.messages')

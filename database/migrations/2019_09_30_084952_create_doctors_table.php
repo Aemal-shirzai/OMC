@@ -17,6 +17,7 @@ class CreateDoctorsTable extends Migration
             $table->bigIncrements('id');
             $table->string("fullName");
             $table->boolean("status");
+            $table->string("country")->nullable();
             $table->string("province")->nullable();
             $table->string("district")->nullable();
             $table->string("street")->nullable();

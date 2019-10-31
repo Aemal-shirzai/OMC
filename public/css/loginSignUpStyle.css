@@ -15,6 +15,15 @@ div#signUpForm-container{
 	padding-top: 25px;
 	color: #999;	
 }
+div#moreInfo-container{
+	background-color: white;
+	margin: 10px auto;
+	box-shadow: 0px 0px 1px 0px lightgray;
+	padding: 70px 32px;	
+	padding-top: 0px;
+	color: #999;
+}
+
 div#loginSignUpForm{
 	padding: 15px 12px !important;
 
@@ -38,6 +47,13 @@ div#signUpButton{
 	min-height: 50px;
 	padding:12px 12px;
 }
+div#skipButton{
+	background-color: white;
+	margin: 10px auto;
+	box-shadow: 0px 0px 1px 0px lightgray;
+	min-height: 50px;
+	padding:12px 12px;	
+}
 div#forget{
 	margin-bottom: -49px;
 }
@@ -57,7 +73,12 @@ div#loginSignUpForm-container h5{
 	border:1px solid #efefef; 
 	background-color:#fafafa;
 	font-size: 12px;
-	
+}
+.more_form_element{
+	margin-bottom: 7px;
+	border:1px solid #efefef;
+	font-size: 14px;
+	color: #6d6161;
 }
 /* Added input-in-login class to input elements in login page because i want to just channge padding of login input not all form elements which is also in register page */
 .input-in-login{
@@ -83,6 +104,7 @@ div#loginSignUpForm-container h5{
 	border-radius: 4px;
 	margin-top: 14px;
 	background-color: #3fbbc0 !important;
+	border-color: #3fbbc0 !important;
 }
 
 div#loginSignUp-footer ul{
@@ -114,7 +136,25 @@ p{
 	color: red !important;
 }
 
-
+div#userProfilePic{
+	padding: 44px 40px;
+    border-radius: 116px;
+    border: 1px solid #3fbbc0;
+    color: #3fbbc0;
+    font-size: 70px;
+}
+div#userProfilePic span{
+	display: block;
+	margin-top: 7px;
+	font-size: 13px;
+	font-weight: bold;
+}
+div#userProfilePic:hover{
+	box-shadow:  0px 0px 4px 0px #3fbbc0;
+}
+.row-for-input{
+	padding:0px 12px;
+}
 
 @media screen and (max-width: 640px){
 	div#loginForm-container{
@@ -123,6 +163,11 @@ p{
 		width: 100%;
 	}
 	div#signUpForm-container{
+		background-color: #f8fafc;
+		box-shadow: 0px 0px 0px 0px lightgray;
+		width: 100%;
+	}
+	div#moreInfo-container{
 		background-color: #f8fafc;
 		box-shadow: 0px 0px 0px 0px lightgray;
 		width: 100%;
@@ -137,11 +182,26 @@ p{
 		box-shadow: 0px 0px 0px 0px lightgray;
 		width: 100%;
 	}
+	div#skipButton{
+		background-color: #f8fafc;
+		box-shadow: 0px 0px 0px 0px lightgray;
+		width: 100%;
+	}
 	.form_element{
 		width: 100% !important;
 	}
+	.more_form_element{
+		font-size: 13px;
+		background-color:#fafafa;
+	}
+	div#DOBlabels{
+		display: none;
+	}
+	.row-for-input{
+		padding-left: 0px;
+	}
 
-}
+}	
 
 @media screen and (max-width: 1000px) and (min-width: 641px){
 	div#loginForm-container{
@@ -149,6 +209,27 @@ p{
 	}
 	div#signUpForm-container{
 		margin-top: 150px;
+	}
+	div#moreInfo-container{
+		background-color: #f8fafc;
+		box-shadow: 0px 0px 0px 0px lightgray;
+		width: 100%;
+		margin-top: 100px;
+	}
+	div#skipButton{
+		background-color: #f8fafc;
+		box-shadow: 0px 0px 0px 0px lightgray;
+		width: 100%;
+	}
+	.more_form_element{
+		font-size: 13px;
+		background-color:#fafafa;
+	}
+	div#DOBlabels{
+		display: none;
+	}
+	.row-for-input{
+		padding-left: 0px;
 	}
 }
 
@@ -159,4 +240,11 @@ p{
 	div#signUpForm-container{
 		margin-top: 200px;
 	}
+	div#moreInfo-container{
+		margin-top: 200px;
+	}
+	.more_form_element{
+		width: 12% !important;
+	}
+
 }

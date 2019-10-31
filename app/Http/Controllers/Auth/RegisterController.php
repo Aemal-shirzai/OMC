@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -97,4 +98,18 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+
+    // This function return the page of more info
+    protected function moreInfoIndex()
+    {
+         return view("Auth/userExtraInfo");
+    }
+
+    // This function store mores info to db 
+    protected function moreInfoStore(Request $request)
+    {
+        return $request->all();
+    }
+
 }

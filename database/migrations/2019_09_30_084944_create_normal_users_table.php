@@ -18,6 +18,7 @@ class CreateNormalUsersTable extends Migration
             $table->string("fullName");
             $table->bigInteger("role_id")->unsigned()->nullable();
             $table->boolean("status");
+            $table->string("country")->nullable();
             $table->string("province")->nullable();
             $table->string("district")->nullable();
             $table->string("street")->nullable();

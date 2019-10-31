@@ -3,6 +3,13 @@
 
 @section("title","Sign Up")
 
+@section("logo")
+<div id="loginSignUp-logo">
+    <!-- <img src="{{asset('images/logo.png')}}" class="img-fluid"> -->
+   &nbsp; a
+</div>
+@endsection
+
 @section("form-title","Sign up to OMC")
 @section("form")
     {!! Form::open(["method"=>"POST","action"=>"Auth\RegisterController@register"]) !!}
@@ -27,7 +34,7 @@
             @enderror
         </p>
 
-
+        
         {!! Form::select("registerAs",[""=>"Sign up AS",0=>"Normal User",1=>"Doctor"],null,["class"=>"form-control form_element ". ($errors->has("registerAs") ? "registerBackEndErrorInput" : ""),"id"=>"registerAs","onchange"=>"enableButtonSignup()"]) !!}
         <p id="registerAsError" class="registerBackEndErrorMsgs">
              @error("registerAs")

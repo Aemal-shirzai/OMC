@@ -7,20 +7,19 @@
     <!-- Link to bootstap app.css -->
     <link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
     <!-- Link to local login style css file -->
-    <link rel="stylesheet" type="text/css" href="{{asset('css/loginSignUpStyle1.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/loginSignUpStyle.css')}}">
 
     <!-- Linkt to fontawesome  -->
     <link rel="stylesheet" type="text/css" href="{{asset('css/all.min.css')}}">
 </head>
 <body>
 
-<!-- Login Form -->
+<!-- Form -->
 
-<div @if(Route::currentRouteName() == 'login') id="loginForm-container" @elseif(Route::currentRouteName() == 'register') id="signUpForm-container"  @endif class="col-lg-4 col-sm-5">
-        <div id="loginSignUp-logo">
-            <!-- <img src="{{asset('images/logo.png')}}" class="img-fluid"> -->
-           &nbsp; a
-        </div>
+<div @if(Route::currentRouteName() == 'login') id="loginForm-container" @elseif(Route::currentRouteName() == 'register') id="signUpForm-container"     @elseif(Route::currentRouteName() == 'moreInfo.index') id="moreInfo-container" @endif class="col-lg-4 col-sm-5">
+        
+        @yield("logo")
+
         <h5 class="text-center" id="form-title">@yield("form-title")</h5>
         <div id="loginSignUpForm">
             @yield("form")
@@ -36,9 +35,9 @@
 </div>
 
 
-<!-- End login form div -->
+<!--login form div -->
 
-<div @if(Route::currentRouteName() == 'login') id="loginButton" @elseif(Route::currentRouteName() == 'register') id="signUpButton"  @endif  class="col-lg-4 col-sm-5">
+<div @if(Route::currentRouteName() == 'login') id="loginButton" @elseif(Route::currentRouteName() == 'register') id="signUpButton" @elseif(            Route::currentRouteName() == 'moreInfo.index') id="skipButton"  @endif  class="col-lg-4 col-sm-5">
     <div class="text-center">
        @yield("secondOption")
     </div>
