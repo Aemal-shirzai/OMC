@@ -11,6 +11,26 @@
 
     <!-- Linkt to fontawesome  -->
     <link rel="stylesheet" type="text/css" href="{{asset('css/all.min.css')}}">
+
+    <script type="text/javascript">
+        var AfghanistanProvinces = {!! json_encode($AfghanistanProvinces) !!};
+        var PakistanProvinces = {!! json_encode($PakistanProvinces) !!};
+        var IndiaProvinces = {!! json_encode($IndiaProvinces) !!};
+        var AustraliaProvinces = {!! json_encode($AustraliaProvinces) !!};
+        
+        var KabulDistrict = {!! json_encode($KabulDistrict) !!};
+        var WardakDistrict = {!! json_encode($WardakDistrict) !!};
+        var LogarDistrict = {!! json_encode($LogarDistrict) !!};
+        var LahorDistrict = {!! json_encode($LahorDistrict) !!};
+        var PanjabDistrict = {!! json_encode($PanjabDistrict) !!};
+        var SwatDistrict = {!! json_encode($SwatDistrict) !!};
+        var MombaiDistrict = {!! json_encode($MombaiDistrict) !!};
+        var KolkataDistrict = {!! json_encode($KolkataDistrict) !!};
+        var HydrabadDistrict = {!! json_encode($HydrabadDistrict) !!};
+        var SydnyDistrict = {!! json_encode($SydnyDistrict) !!};
+        var SamoualDistrict = {!! json_encode($SamoualDistrict) !!};
+        var BoostingDistrict = {!! json_encode($BoostingDistrict) !!};
+    </script>
 </head>
 <body>
 
