@@ -93,10 +93,7 @@
 <!-- To pass provinces and districts to js -->
 @if($latestCountry)
 	@for($index = 1 ; $index <= $latestCountry->id; $index++ )
-		@php
-			$country = App\Country::find($index);
-		@endphp
-         @if($country)
+         @if($country = App\Country::find($index))
 		<script type="text/javascript">
 			var {!! 'province' . $index !!} = {!! json_encode($country->provinces()->pluck("province","id")) !!};
 		</script>
@@ -106,10 +103,7 @@
 
 @if($lastestProvince)
 	@for($Pindex = 1 ; $Pindex <= $lastestProvince->id; $Pindex++ )
-		@php
-			$province = App\Province::find($Pindex);
-		@endphp
-         @if($province)
+         @if($province = App\Province::find($Pindex))
 		<script type="text/javascript">
 			var {!! 'district' . $Pindex !!} = {!! json_encode($province->districts()->pluck("district","id")) !!};
 		</script>
