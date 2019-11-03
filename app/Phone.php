@@ -12,4 +12,9 @@ class Phone extends Model
     protected $fillable = [
     	"phone",
     ];
+
+    // relationship with normal usr and doctors
+    public function owner(){
+        return $this->morphMany("","owner_type","owner_id");
+    } 
 }

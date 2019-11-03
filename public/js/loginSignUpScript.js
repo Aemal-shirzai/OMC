@@ -171,9 +171,10 @@ function validateSignUpForm(){
 } // End of funtion which validates the signup forms 
 
 // beggining of: the function which open the fileupload input in more info page
-	function openFileUpladInput(){
+	function openFileUploadInput(){
 		// var fileUpload = document.getElementById('fileUpload'); 
 		fileUpload.disabled = false;
+		fileUpload.value ="";
 		fileUpload.click();
 	}
 // End of: the function which open the fileupload input in more info page
@@ -257,6 +258,8 @@ function validateSignUpForm(){
 	}
 // End of : the function which select provice based on country and district based on province
 
+
+
 // Beggining of : the function to validate the moreInfo form
 function validateMoreInfoForm(){
 // inputs
@@ -268,6 +271,7 @@ function validateMoreInfoForm(){
 	var year = document.getElementById("year");
 	var month = document.getElementById("month");
 	var day = document.getElementById("day");
+
 
 // Error placheholders
 	var countryError = document.getElementById("countryError");
@@ -286,8 +290,8 @@ function validateMoreInfoForm(){
 
 // Regular Expressions
 	var validCountryProvinceDistrictDate = /^[0-9]+$/ig;
-	var validateStreet = /^[a-zA-Z0-9_-]+$/ig;
-	var validPhone =/^([0-9+() ]+)-*([ 0-9-]+)$/ig;
+	var validateStreet = /^[^<>]*\s*$/ig;
+	var validPhone = /^([0-9+() ]+)-*([ 0-9-]+)$/ig;
 
 
 //Begining of day field validation
@@ -342,8 +346,17 @@ function validateMoreInfoForm(){
 		 true;
 		phoneError.innerHTML = "";
 		phone.style.border="1px solid #efefef";
-	}
-	else if(!phone.value.trim().match(validPhone)){
+	}else if(phone.value.trim().length > 25){
+		phone.focus();
+		phoneError.innerHTML = "Too long phone number ...";
+		phone.style.border="1px solid red";
+		event.preventDefault();
+	}else if(phone.value.trim().length < 3){
+		phone.focus();
+		phoneError.innerHTML = "Too short phone number ...";
+		phone.style.border="1px solid red";
+		event.preventDefault();
+	}else if(!phone.value.trim().match(validPhone)){
 		phone.focus();
 		phoneError.innerHTML = "Invalid charachters used...";
 		phone.style.border="1px solid red";
@@ -360,10 +373,14 @@ function validateMoreInfoForm(){
 		 true;
 		streetError.innerHTML = "";
 		street.style.border="1px solid #efefef";
-	}
-	else if(!street.value.trim().match(validateStreet)){
+	}else if(street.value.trim().length > 200){
 		street.focus();
-		streetError.innerHTML = "Only letters, numbers ,underscore and dashes are valid...";
+		streetError.innerHTML = "Too long address... ";
+		street.style.border="1px solid red";
+		event.preventDefault();
+	}else if(!street.value.trim().match(validateStreet)){
+		street.focus();
+		streetError.innerHTML = "Invalid input type ...";
 		street.style.border="1px solid red";
 		event.preventDefault();
 	}else{
@@ -457,12 +474,37 @@ $(document).ready(function(){
 // Beggining of : the function which is responsibel for previewing the image after its bieng selected by user in more info page
 
 // Beggining of : of the jquery function which determine if the fileupload input is changed then call that above function to show it on the screen
-	$("#fileUpload").change(function(){
-		showpic(this);
-		$("#userProfilePic").hide();
-		$("#main-img").show();
+	$("#fileUpload").on("change",function(){
+		var file = $(this);
+		var fileType = file.val().split(".").pop().toLowerCase(); 
+		if(file.val() == "" || fileType == "jpg" || fileType == "bmp" || fileType == "jpeg" || fileType == "png" || fileType == "gif" || fileType == "svg"){
+			if(this.files[0].size/1024/1024 < 10){
+				showpic(this);
+				$("#userProfilePic").hide();
+				$("#main-img").show();
+				$('#invalidFile').hide();
+			}else{
+				$('#invalidFile').show();
+				$("#FileErrorMsg").text("Too large file");
+				$(this).val("");
+				$("#userProfilePic").show();
+				$("#main-img").hide();
+				event.preventDefault();
+			}
+		}else{
+			$('#invalidFile').show();
+			$("#FileErrorMsg").text("Invalid File Type");
+			$(this).val("");
+			$("#userProfilePic").show();
+			$("#main-img").hide();
+			event.preventDefault();
+		}
 	});
 // End of : of the jquery function which determine if the fileupload input is changed then call that above function to show it on the screen
+		
+		$("#invalidFileCloseBtn").click(function(){
+			$('#invalidFile').hide();
+		});
 
 // Beggiing of : the function which determine that if the remove image buton is clicked then remove the pic
 	$("#removePicture").click(function(){
@@ -471,6 +513,7 @@ $(document).ready(function(){
 		$("#main-img").hide();
 	});
 // Beggiing of : the function which determine that if the remove image buton is clicked then remove the pic
+	
 
 });
 // End of : jquery document

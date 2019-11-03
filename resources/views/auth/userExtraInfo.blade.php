@@ -7,40 +7,76 @@
 @section("form")
 	<a href="javascript:void(0);" id="userProfilePicLink">
 		<div class="text-center mb-3">
-			<div class="fal fa-user" id="userProfilePic" onclick="openFileUpladInput();">
+			<div class="fal fa-user" id="userProfilePic" onclick="openFileUploadInput();">
 				<span>Add Profile Picture</span>
+			</div>
+			<div id="countryError" class="moreInfoFormErrors col-lg-12">
+				@error("photo")
+					{{$message}}
+				@enderror
 			</div>
 			<div id="main-img">
 				<img src="" id="img-placeholder" alt="your image">
-				<a href="javascript:void(0);" class="changeRemovePic" onclick="openFileUpladInput()" id="changePicture">Change picture</a>
+				<a href="javascript:void(0);" class="changeRemovePic" onclick="openFileUploadInput();" id="changePicture">Change picture</a>
 				<a href="javascript:void(0);" class="changeRemovePic" id="removePicture">Remove Picture</a>
+			</div>
+			<div class="alert alert-danger mt-2 MoreInfoPageMsgs fileErrorMsgs" id="invalidFile">
+				<button class="close" id="invalidFileCloseBtn">&times;</button>
+				<span id="FileErrorMsg"></span>
 			</div>
 		</div>
 	</a>
 	<div>
-		{!! Form::open(["method"=>"post","action"=>"Auth\RegisterController@moreInfoStore"]) !!}
+		{!! Form::open(["method"=>"post","action"=>"Auth\RegisterController@moreInfoStore","files"=>"true"]) !!}
 			<div>
 				{!! Form::label("address","Your Address & contact:") !!}
 				<div class="row row-for-input">
-					{!! Form::select("country",$countries,null,["class"=>"form-control more_form_element col-lg-12","placeholder"=>"Your Country...","autofocus"=>"true","id"=>"country","onchange"=>"selectProvinceAndDistrict('province')"]) !!}
-					<div id="countryError" class="moreInfoFormErrors col-lg-12"></div>
-
-					{!! Form::select("province",[""=>"Province"],null,["class"=>"form-control more_form_element col-lg-6","id"=>"province","disabled"=>"true","title"=>"choose a country first","onchange"=>"selectProvinceAndDistrict('district')"]) !!}
-					<div class="col-12 ErrorsToBeVisisbleInSmallSize moreInfoFormErrors"  id="provinceErrorSmall"></div>
-
-					{!! Form::select("district",[""=>"District"],null,["class"=>"form-control more_form_element col-lg-6","id"=>"district","title"=>"choose a province first","disabled"=>"true"]) !!}
-					<div class="col-12 ErrorsToBeVisisbleInSmallSize moreInfoFormErrors" id="districtErrorSmall"></div>
-
-					<div class="row row-for-input col-lg-12 text-center ErrosToBeHiddenInSmallSize">
-						<div id="provinceError" class="moreInfoFormErrors col-lg-6"></div>
-						<div id="districtError" class="moreInfoFormErrors col-lg-6"></div>
+					{!! Form::select("country",$countries,null,["class"=>"form-control more_form_element col-lg-12 ".($errors->has('country') ? ' moreInfoFormErrorsInput' : ''),"placeholder"=>"Your Country...","autofocus"=>"true","id"=>"country","onchange"=>"selectProvinceAndDistrict('province')"]) !!}
+					<div id="countryError" class="moreInfoFormErrors col-lg-12">
+						@error("country")
+							{{$message}}
+						@enderror
+					</div>
+					{!! Form::select("province",[""=>"Province"],null,["class"=>"form-control more_form_element col-lg-6".($errors->has('province') ? ' moreInfoFormErrorsInput' : ''),"id"=>"province","disabled"=>"true","title"=>"choose a country first","onchange"=>"selectProvinceAndDistrict('district')"]) !!}
+					<div class="col-12 ErrorsToBeVisisbleInSmallSize moreInfoFormErrors"  id="provinceErrorSmall">
+						@error("province")
+							{{$message}}
+						@enderror
 					</div>
 
-					{!! Form::text("street",null,["class"=>"form-control more_form_element col-lg-12","placeholder"=>"Enter your street address...","id"=>"street"]) !!}
-					<div id="streetError" class="moreInfoFormErrors col-lg-12"></div>
+					{!! Form::select("district",[""=>"District"],null,["class"=>"form-control more_form_element col-lg-6".($errors->has('district') ? ' moreInfoFormErrorsInput' : ''),"id"=>"district","title"=>"choose a province first","disabled"=>"true"]) !!}
+					<div class="col-12 ErrorsToBeVisisbleInSmallSize moreInfoFormErrors" id="districtErrorSmall">
+						@error("district")
+							{{$message}}
+						@enderror
+					</div>
 
-					{!! Form::text("phone",null,["class"=>"form-control more_form_element col-lg-12","placeholder"=>"Phone number ...","id"=>"phone"]) !!}
-					<div id="phoneError" class="moreInfoFormErrors col-lg-12"></div>
+					<div class="row row-for-input col-lg-12 text-center ErrosToBeHiddenInSmallSize">
+						<div id="provinceError" class="moreInfoFormErrors col-lg-6">
+							@error("province")
+								{{$message}}
+							@enderror
+						</div>
+						<div id="districtError" class="moreInfoFormErrors col-lg-6">
+							@error("district")
+								{{$message}}
+							@enderror
+						</div>
+					</div>
+
+					{!! Form::text("street",null,["class"=>"form-control more_form_element col-lg-12" .($errors->has('street') ? ' moreInfoFormErrorsInput' : ''),"placeholder"=>"Enter your street address...","id"=>"street"]) !!}
+					<div id="streetError" class="moreInfoFormErrors col-lg-12">
+						@error("street")
+							{{$message}}
+						@enderror
+					</div>
+
+					{!! Form::text("phone",null,["class"=>"form-control more_form_element col-lg-12".($errors->has('phone') ? ' moreInfoFormErrorsInput' : ''),"placeholder"=>"Phone number ...","id"=>"phone"]) !!}
+					<div id="phoneError" class="moreInfoFormErrors col-lg-12">
+						@error("phone")
+							{{$message}}
+						@enderror
+					</div>
 					<div class="dropdown-divider col-lg-12"></div>
 				</div>
 
@@ -55,20 +91,44 @@
 					{!! Form::label("day","Day:",["class"=>"col-lg-3"]) !!}
 				</div>
 				<div class="row row-for-input">
-					{!! Form::selectRange("year",1950,\Carbon\carbon::now()->format("Y"),null,["class"=>"form-control more_form_element col-lg-4","id"=>"year"]) !!}
-					<div class="col-12 ErrorsToBeVisisbleInSmallSize moreInfoFormErrors" id="yearErrorSmall"></div>
+					{!! Form::selectRange("year",1950,\Carbon\carbon::now()->format("Y"),null,["class"=>"form-control more_form_element col-lg-4".($errors->has('year') ? ' moreInfoFormErrorsInput' : ''),"id"=>"year"]) !!}
+					<div class="col-12 ErrorsToBeVisisbleInSmallSize moreInfoFormErrors" id="yearErrorSmall">
+						@error("year")
+							{{$message}}
+						@enderror
+					</div>
 
-					{!! Form::selectMonth("month",null,["class"=>"form-control more_form_element col-lg-4","id"=>"month"]) !!}
-					<div class="col-12 ErrorsToBeVisisbleInSmallSize moreInfoFormErrors" id="monthErrorSmall"></div>
+					{!! Form::selectMonth("month",null,["class"=>"form-control more_form_element col-lg-4".($errors->has('month') ? ' moreInfoFormErrorsInput' : ''),"id"=>"month"]) !!}
+					<div class="col-12 ErrorsToBeVisisbleInSmallSize moreInfoFormErrors" id="monthErrorSmall">
+						@error("month")
+							{{$message}}
+						@enderror
+					</div>
 
-					{!! Form::selectRange("day",1,31,null,["class"=>"form-control more_form_element col-lg-4","id"=>"day"]) !!}	
-					<div class="col-12 ErrorsToBeVisisbleInSmallSize moreInfoFormErrors" id="dayErrorSmall"></div>
+					{!! Form::selectRange("day",1,31,null,["class"=>"form-control more_form_element col-lg-4".($errors->has('day') ? ' moreInfoFormErrorsInput' : ''),"id"=>"day"]) !!}	
+					<div class="col-12 ErrorsToBeVisisbleInSmallSize moreInfoFormErrors" id="dayErrorSmall">
+						@error("day")
+							{{$message}}
+						@enderror
+					</div>
 
 				</div>
 				<div class="row row-for-input col-lg-12 ErrosToBeHiddenInSmallSize text-center">
-					<div id="yearError" class="moreInfoFormErrors col-lg-4"></div>
-					<div id="monthError" class="moreInfoFormErrors col-lg-4"></div>
-					<div id="dayError" class="moreInfoFormErrors col-lg-4"></div>
+					<div id="yearError" class="moreInfoFormErrors col-lg-4">
+						@error("year")
+							{{$message}}
+						@enderror
+					</div>
+					<div id="monthError" class="moreInfoFormErrors col-lg-4">
+						@error("month")
+							{{$message}}
+						@enderror
+					</div>
+					<div id="dayError" class="moreInfoFormErrors col-lg-4">
+						@error("day")
+							{{$message}}
+						@enderror
+					</div>
 				</div>
 
 				<div class="row row-for-input">
@@ -88,7 +148,7 @@
 
 @section("secondOption")
 	
-	Set up later?<a href="#" class=""> Skip</a>
+	Set up later?<a href="{{route('profile',Auth::user()->username)}}" class=""> Skip</a>
 
 <!-- To pass provinces and districts to js -->
 @if($latestCountry)

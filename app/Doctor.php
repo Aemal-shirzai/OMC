@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Account;
+use App\Phone;
 class Doctor extends Model
 {
     /**
@@ -26,4 +27,9 @@ class Doctor extends Model
     public function account(){
         return $this->morphOne(Account::class,"owner");
     }
+
+    // Relationship with phone
+    public function phones(){
+        return $this->morphMany(Phone::class,"owner");
+    } 
 }

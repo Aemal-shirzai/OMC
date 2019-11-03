@@ -7,14 +7,15 @@ use App\Account;
 use App\Doctor;
 use App\NormalUser;
 use App\Role;
-   use App\Country;
-        use App\Province;
-        use App\District;
+use App\Country;
+use App\Province;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Http\Requests\MoreInfoRequest;
 
 class RegisterController extends Controller
 {
@@ -37,7 +38,7 @@ class RegisterController extends Controller
      * @var string
      */
     protected function redirectTo(){
-        return route("profile",Auth::user()->username);
+        return route("moreInfo.index",Auth::user()->username);
     }
     /**
      * Create a new controller instance.
@@ -46,7 +47,8 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth')->only(["moreInfoIndex","moreInfoStore"]);
+        $this->middleware('guest')->except(["moreInfoIndex","moreInfoStore"]);
     }
 
     // public function register(){
@@ -136,9 +138,23 @@ class RegisterController extends Controller
     }
 
     // This function store mores info to db 
-    protected function moreInfoStore(Request $request)
+    protected function moreInfoStore(MoreInfoRequest $request)
     {
-        return $request->all();
+        $user = Auth::user()->owner;
+        $DateOfBirth =  Carbon::createFromDate($request->year,$request->month,$request->day)->format("Y-m-d"); 
+        // return $user;
+        // if($request->hasFile("photo")){
+        //     return "has";
+        // }
+
+        if($request->phone != ""){
+            $user->phones()->create(["phone"=>$request->phone]);
+        }
+        $request->merge(["DateOfBirth"=>$DateOfBirth]);
+        $insert = $user->update($request->all());
+        
+
+
     }
 
 }

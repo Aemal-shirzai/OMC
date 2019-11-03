@@ -36,4 +36,9 @@ class NormalUser extends Model
         return $this->morphOne(Account::class,"owner");
     }
 
+    // Relationship with phone
+    public function phones(){
+        return $this->morphMany(Phone::class,"owner");
+    } 
+
 }
