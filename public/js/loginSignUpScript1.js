@@ -177,11 +177,8 @@ function validateSignUpForm(){
 		fileUpload.click();
 	}
 // End of: the function which open the fileupload input in more info page
-
-
 // Beggining of : the function which select provice based on country and district based on province
 	function selectProvinceAndDistrict(value){
-
 		// if the inpput which should be select is province . means when country is changed
 		if(value == "province"){
 			var country = document.getElementById("country").value;
@@ -194,10 +191,17 @@ function validateSignUpForm(){
 				province.setAttribute('title',"Choose a province");
 				province.style.color = "#6d6161";
 				province.innerHTML = "";
-				province.innerHTML = "<option value='' disabled selected>Province</option>";
+				province.innerHTML = "<option value='' selected>Province</option>";
+				district.value = "";
+				district.disabled = true;
+				district.style.cursor = "not-allowed";
+				district.style.color = "lightgray";
+				district.setAttribute('title',"Choose a provice first");
+				district.innerHTML = "<option value='' selected>District</option>";
 
 				
-				var countryProvince = eval(country + "Provinces");
+				var countryProvince = eval("province" + country);
+				console.log(countryProvince);
 				for(var index in countryProvince){
 					var openTag = "<option value='"+ index  +"'>";
 					var text = countryProvince[index];
@@ -211,13 +215,13 @@ function validateSignUpForm(){
 				province.style.cursor = "not-allowed";
 				province.style.color = "lightgray";
 				province.setAttribute('title',"Choose a country first");
-				province.innerHTML = "<option value='' selected disabled>Province</option>"
+				province.innerHTML = "<option value='' selected>Province</option>"
 
 				district.disabled =true;
 				district.style.cursor = "not-allowed";
 				district.style.color = "lightgray";
 				district.setAttribute('title',"Choose a province first");
-				district.innerHTML = "<option value='' selected disabled>District</option>"
+				district.innerHTML = "<option value='' selected>District</option>";
 			}
 		}else if (value == "district"){ // if its province which is chagned and need to enable the selection of district
 			var province = document.getElementById("province").value;
@@ -229,10 +233,10 @@ function validateSignUpForm(){
 				district.setAttribute('title',"Choose a district");
 				district.style.color = "#6d6161";
 				district.innerHTML = "";
-				district.innerHTML = "<option value='' disabled selected>District</option>";
+				district.innerHTML = "<option value=''>District</option>";
 
 				
-				var provinceDistrict = eval(province + "District"); //eval change a string into variable name
+				var provinceDistrict = eval("district" + province); //eval change a string into variable name
 				for(var index in provinceDistrict){
 					var openTag = "<option value='"+ index  +"'>";
 					var text = provinceDistrict[index];
@@ -245,10 +249,228 @@ function validateSignUpForm(){
 				district.style.cursor = "not-allowed";
 				district.style.color = "lightgray";
 				district.setAttribute('title',"Choose a province first");
-				district.innerHTML = "<option value='' selected disabled>District</option>"
+				district.innerHTML = "<option value='' selected>District</option>"
 			} // end of : if the no province is selected
 		}
 
 
 	}
-	// End of : the function which select provice based on country and district based on province
+// End of : the function which select provice based on country and district based on province
+
+// Beggining of : the function to validate the moreInfo form
+function validateMoreInfoForm(){
+// inputs
+	var country = document.getElementById("country");
+	var province = document.getElementById("province");
+	var district = document.getElementById("district");
+	var street = document.getElementById("street");
+	var phone = document.getElementById("phone");
+	var year = document.getElementById("year");
+	var month = document.getElementById("month");
+	var day = document.getElementById("day");
+
+// Error placheholders
+	var countryError = document.getElementById("countryError");
+	var provinceError = document.getElementById("provinceError");
+	var provinceErrorSmall = document.getElementById("provinceErrorSmall");
+	var districtErrorSmall = document.getElementById("districtErrorSmall");
+	var districtError = document.getElementById("districtError");
+	var streetError = document.getElementById("streetError");
+	var phoneError = document.getElementById("phoneError");
+	var yearError = document.getElementById("yearError");
+	var yearErrorSmall = document.getElementById("yearErrorSmall");
+	var monthError = document.getElementById("monthError");
+	var monthErrorSmall = document.getElementById("monthErrorSmall");
+	var dayError = document.getElementById("dayError");
+	var dayErrorSmall = document.getElementById("dayErrorSmall");
+
+// Regular Expressions
+	var validCountryProvinceDistrictDate = /^[0-9]+$/ig;
+	var validateStreet = /^[a-zA-Z0-9_-]+$/ig;
+	var validPhone =/^([0-9+() ]+)-*([ 0-9-]+)$/ig;
+
+
+//Begining of day field validation
+	//this means if its empty allow it because the bellow expression does not allow empty
+	if(!day.value.trim().match(validCountryProvinceDistrictDate)){
+		day.focus();
+		dayError.innerHTML = "Invalid Day used...";
+		dayErrorSmall.innerHTML = "Invalid Day used...";
+		day.style.border="1px solid red";
+		event.preventDefault();
+	}else{
+		dayError.innerHTML = "";
+		dayErrorSmall.innerHTML = "";
+		day.style.border="1px solid #efefef";
+	}
+// End of day field validation
+
+//Begining of month field validation
+	//this means if its empty allow it because the bellow expression does not allow empty
+	if(!month.value.trim().match(validCountryProvinceDistrictDate)){
+		month.focus();
+		monthError.innerHTML = "Invalid month used...";
+		monthErrorSmall.innerHTML = "Invalid month used...";
+		month.style.border="1px solid red";
+		event.preventDefault();
+	}else{
+		monthError.innerHTML = "";
+		monthErrorSmall.innerHTML = "";
+		month.style.border="1px solid #efefef";
+	}
+// End of month field validation
+
+//Begining of year field validation
+	//this means if its empty allow it because the bellow expression does not allow empty
+	if(!year.value.trim().match(validCountryProvinceDistrictDate)){
+		year.focus();
+		yearError.innerHTML = "Invalid Year used...";
+		yearErrorSmall.innerHTML = "Invalid Year used...";
+		year.style.border="1px solid red";
+		event.preventDefault();
+	}else{
+		yearError.innerHTML = "";
+		yearErrorSmall.innerHTML = "";
+		year.style.border="1px solid #efefef";
+	}
+// End of street field validation
+
+
+//Begining of phone field validation
+	//this means if its empty allow it because the bellow expression does not allow empty
+	if(phone.value.trim() == ""){
+		 true;
+		phoneError.innerHTML = "";
+		phone.style.border="1px solid #efefef";
+	}
+	else if(!phone.value.trim().match(validPhone)){
+		phone.focus();
+		phoneError.innerHTML = "Invalid charachters used...";
+		phone.style.border="1px solid red";
+		event.preventDefault();
+	}else{
+		phoneError.innerHTML = "";
+		phone.style.border="1px solid #efefef";
+	}
+// End of phone field validation
+
+//Begining of street field validation
+	//this means if its empty allow it because the bellow expression does not allow empty
+	if(street.value.trim() == ""){
+		 true;
+		streetError.innerHTML = "";
+		street.style.border="1px solid #efefef";
+	}
+	else if(!street.value.trim().match(validateStreet)){
+		street.focus();
+		streetError.innerHTML = "Only letters, numbers ,underscore and dashes are valid...";
+		street.style.border="1px solid red";
+		event.preventDefault();
+	}else{
+		streetError.innerHTML = "";
+		street.style.border="1px solid #efefef";
+	}
+// End of street field validation
+
+// Begining of district field validation
+	// this means if its empty allow it because the bellow expression does not allow empty
+	if(district.value.trim() == ""){
+		true;
+		districtError.innerHTML = "";
+		districtErrorSmall.innerHTML = "";
+		district.style.border="1px solid #efefef";
+	}
+	else if(!district.value.trim().match(validCountryProvinceDistrictDate)){
+		district.focus();
+		districtError.innerHTML = "Invalied district name...";
+		districtErrorSmall.innerHTML = "Invalied district name...";
+		district.style.border="1px solid red";
+		event.preventDefault();
+	}else{
+		districtError.innerHTML = "";
+		districtErrorSmall.innerHTML = "";
+		district.style.border="1px solid #efefef";
+	}
+// End of district field validation
+
+// Begining of province field validation
+	// this means if its empty allow it because the bellow expression does not allow empty
+	if(province.value.trim() == ""){
+		 true;
+		 provinceError.innerHTML = "";
+		 provinceErrorSmall.innerHTML = "";
+		 province.style.border="1px solid #efefef";
+	}
+	else if(!province.value.trim().match(validCountryProvinceDistrictDate)){
+		province.focus();
+		provinceError.innerHTML = "Invalied province name...";
+		provinceErrorSmall.innerHTML = "Invalied province name...";
+		province.style.border="1px solid red";
+		event.preventDefault();
+	}else{
+		provinceError.innerHTML = "";
+		provinceErrorSmall.innerHTML = "";
+		province.style.border="1px solid #efefef";
+	}
+// End of province field validation
+
+
+// Begining of country field validation
+	// this means if its empty allow it because the bellow expression does not allow empty
+	if(country.value.trim() == ""){
+		true;
+		countryError.innerHTML = "";
+		country.style.border="1px solid #efefef";
+	}
+	else if(!country.value.trim().match(validCountryProvinceDistrictDate)){
+		country.focus();
+		countryError.innerHTML = "Invalied country name...";
+		country.style.border="1px solid red";
+		event.preventDefault();
+	}else{
+		countryError.innerHTML = "";
+		country.style.border="1px solid #efefef";
+	}
+// End of country field validation
+
+
+}
+// End of : the function to validate the moreInfo form
+
+
+// Begining of: jquery document
+$(document).ready(function(){
+
+// Beggining of : the function which is responsibel for previewing the image after its bieng selected by user in more info page
+	function showpic(input){
+		// alert(input.files);
+		if(input.files && input.files[0]){
+			var reader = new FileReader();
+
+			reader.onload = function(e){
+				$("#img-placeholder").attr("src",e.target.result);	
+			}
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+// Beggining of : the function which is responsibel for previewing the image after its bieng selected by user in more info page
+
+// Beggining of : of the jquery function which determine if the fileupload input is changed then call that above function to show it on the screen
+	$("#fileUpload").change(function(){
+		showpic(this);
+		$("#userProfilePic").hide();
+		$("#main-img").show();
+	});
+// End of : of the jquery function which determine if the fileupload input is changed then call that above function to show it on the screen
+
+// Beggiing of : the function which determine that if the remove image buton is clicked then remove the pic
+	$("#removePicture").click(function(){
+		$("#fileUpload").val("");
+		$("#userProfilePic").show();
+		$("#main-img").hide();
+	});
+// Beggiing of : the function which determine that if the remove image buton is clicked then remove the pic
+
+});
+// End of : jquery document

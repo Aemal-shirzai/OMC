@@ -169,6 +169,46 @@ div#userProfilePic:hover{
 	background-color:white;
 	color: lightgray;
 }
+#img-placeholder{
+	width: 144px;
+    height: 140px;
+    border-radius: 99px;
+    transition: opacity 0.5s;
+}	
+div#main-img{
+	display: none;
+}
+
+#img-placeholder:hover{
+	opacity: 0.8;
+	box-shadow:  0px 0px 4px 0px lightgray;
+}
+
+.changeRemovePic{
+	display: block;
+    border: 1px solid;
+    margin: 0 auto;
+    width: 112px;
+    font-size: 11px;
+    margin-top: 5px;
+    border-radius: 5px;	
+    transition:.5s;
+}
+.changeRemovePic:hover{
+	color: white;
+	background-color: #3fbbc0;
+}
+.moreInfoFormErrors{
+	color: red;
+	margin-bottom: 7px;
+	font-size: 13px;
+}
+.moreInfoFormErrosInput{
+	border:1px solid red !important;
+}
+.ErrorsToBeVisisbleInSmallSize{
+	display: none;
+}
 @media screen and (max-width: 640px){
 	div#loginForm-container{
 		background-color: #f8fafc;
@@ -216,6 +256,21 @@ div#userProfilePic:hover{
 	#province,#district{ 
 		background-color:#fafafa;
 	}
+	#img-placeholder{
+		width: 120px;
+    	height: 120px;
+    	border-radius: 99px;
+    	transition: opacity 0.5s;
+	}	
+	.ErrosToBeHiddenInSmallSize{
+		display: none;
+	}
+	.ErrorsToBeVisisbleInSmallSize{
+		display: inline-block;
+	}
+	.moreInfoFormErrors{
+		font-size: 10px;
+	}
 }	
 
 @media screen and (max-width: 1000px) and (min-width: 641px){
@@ -249,6 +304,15 @@ div#userProfilePic:hover{
 	#province,#district{ 
 		background-color:#fafafa;
 	}
+	.ErrosToBeHiddenInSmallSize{
+		display: none;
+	}
+	.ErrorsToBeVisisbleInSmallSize{
+		display: inline-block;
+	}
+	.moreInfoFormErrors{
+		font-size: 11px;
+	}
 }
 
 @media screen and (max-width: 1400px) and (min-width: 1001px){
@@ -263,6 +327,9 @@ div#userProfilePic:hover{
 	}
 	.more_form_element{
 		width: 12% !important;
+	}
+	.moreInfoFormErrors{
+		font-size: 11px;
 	}
 
 }

@@ -17,13 +17,17 @@ class CreateDoctorsTable extends Migration
             $table->bigIncrements('id');
             $table->string("fullName");
             $table->boolean("status");
-            $table->string("country")->nullable();
-            $table->string("province")->nullable();
-            $table->string("district")->nullable();
+            $table->bigInteger("country_id")->unsigned()->nullable();
+            $table->bigInteger("province_id")->unsigned()->nullable();
+            $table->bigInteger("district_id")->unsigned()->nullable();
             $table->string("street")->nullable();
             $table->boolean("gender");
             $table->timestamp("DateOfBirth")->nullable();
             $table->timestamps();
+
+            $table->foreign("country_id")->references("id")->on("countries")->onDelete("set null")->onUpdate("set null");
+            $table->foreign("province_id")->references("id")->on("provinces")->onDelete("set null")->onUpdate("set null");
+            $table->foreign("district_id")->references("id")->on("districts")->onDelete("set null")->onUpdate("set null");
         });
     }
 

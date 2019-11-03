@@ -7,6 +7,9 @@ use App\Account;
 use App\Doctor;
 use App\NormalUser;
 use App\Role;
+   use App\Country;
+        use App\Province;
+        use App\District;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -103,7 +106,33 @@ class RegisterController extends Controller
     // This function return the page of more info
     protected function moreInfoIndex()
     {
-         return view("Auth/userExtraInfo");
+        // for testing now should be delete later
+
+
+        // $result = [];
+        // for($index = 1 ; $index <= Country::latest("id")->first()->id; $index++){
+        //    $country = Country::find($index);
+        //    if($country){
+        //         ${'province'.$index} = $country->provinces()->pluck("province","id");
+        //         // array_push($result,${'province'.$index});
+        //        $result = array_merge($result,["province".$index=>${'province'.$index}]);
+        //    }
+        // } 
+
+        // $result = [];
+        // for($index = 1 ; $index <= Province::latest("id")->first()->id; $index++){
+        //    $province = Province::find($index);
+        //    if($province){
+        //         ${'district'.$index} = $province->districts()->pluck("district","id");
+        //         // array_push($result,${'province'.$index});
+        //        $result = array_merge($result,["district".$index=>${'district'.$index}]);
+        //    }
+        // } 
+        // return $result;
+        $countries = Country::pluck("country","id");
+        $latestCountry = Country::latest("id")->first();
+        $lastestProvince = Province::latest("id")->first();
+        return view("Auth/userExtraInfo",compact("countries","latestCountry","lastestProvince"));
     }
 
     // This function store mores info to db 
