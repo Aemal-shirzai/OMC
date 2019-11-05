@@ -72,7 +72,7 @@ function validateSignUpForm(){
 	
 
 	// regular expression for username fields
-	var usernamePattern = /^([a-zA-Z]+)([0-9]*)([-_]?)([a-zA-Z0-9]+)$/ig;
+	var usernamePattern = /^([a-zA-Z]+)([0-9]*)([-._]?)([a-zA-Z0-9]+)$/ig;
 		
 	
 	// validating password confirm field
@@ -271,7 +271,7 @@ function validateMoreInfoForm(){
 	var year = document.getElementById("year");
 	var month = document.getElementById("month");
 	var day = document.getElementById("day");
-
+	var biography = document.getElementById("biography");
 
 // Error placheholders
 	var countryError = document.getElementById("countryError");
@@ -287,12 +287,24 @@ function validateMoreInfoForm(){
 	var monthErrorSmall = document.getElementById("monthErrorSmall");
 	var dayError = document.getElementById("dayError");
 	var dayErrorSmall = document.getElementById("dayErrorSmall");
+	var biographyError = document.getElementById("biographyError");
 
 // Regular Expressions
 	var validCountryProvinceDistrictDate = /^[0-9]+$/ig;
 	var validateStreet = /^[^<>]*\s*$/ig;
 	var validPhone = /^([0-9+() ]+)-*([ 0-9-]+)$/ig;
 
+//Begining of bio field validation
+	if(biography.value.trim().length > 200){
+		biography.focus();
+		biographyError.innerHTML = "Too long maximum 200 charachters...";
+		biography.style.border="1px solid red";
+		event.preventDefault();
+	}else{
+		biographyError.innerHTML = "";
+		biography.style.border="1px solid #efefef";
+	}
+//End of bio field validation
 
 //Begining of day field validation
 	//this means if its empty allow it because the bellow expression does not allow empty

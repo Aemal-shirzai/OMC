@@ -32,7 +32,8 @@ class MoreInfoRequest extends FormRequest
             "year" => "bail|regex:/^[0-9]+$/i",
             "month" => "bail|regex:/^[0-9]+$/i",
             "day" => "bail|regex:/^[0-9]+$/i",
-            "photo" => "bail|image|max:10240|min:1"
+            "photo" => "bail|image|max:10240|min:1",
+            "Bio"   => "bail|max:200"
         ];
     }
 
@@ -52,6 +53,7 @@ class MoreInfoRequest extends FormRequest
             "day.regex" => "Invalied day used...",
             "photo.max" => "file too large...",
             "photo.image" =>"The file must be a photo",
+            "Bio.max"   => "Too long maximum 200 charachters...",
         ];
     }
 }

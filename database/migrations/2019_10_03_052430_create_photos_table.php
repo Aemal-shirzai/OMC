@@ -20,6 +20,7 @@ class CreatePhotosTable extends Migration
             //for users , doctors ,post , question ,comments , replies , achievements , addvertisements
             $table->string("owner_type");
             $table->bigInteger("owner_id")->unsigend();
+            $table->boolean("status");
             $table->timestamps();
         });
     }

@@ -248,6 +248,7 @@
             </div>
         </div>
     </div>
+    <div class="text-center mb-2"><a href="#" class="btn btn-md descriptionContentButtons">View All Advertisements</a></div>
 </div>
 <!-- latest news part section 4 end-->
 

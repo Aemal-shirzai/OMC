@@ -12,7 +12,8 @@ class Photo extends Model
      * The attributes that are mass assignable.
      */
 	protected $fillable = [
-		"path"
+		"path",
+		"status"
 	];
 
 	// Relationship with users and doctors and more will be added later

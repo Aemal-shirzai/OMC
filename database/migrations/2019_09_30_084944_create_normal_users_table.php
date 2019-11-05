@@ -24,6 +24,7 @@ class CreateNormalUsersTable extends Migration
             $table->string("street")->nullable();
             $table->boolean("gender");
             $table->datetime("DateOfBirth")->nullable();
+            $table->longText("Bio")->nullable();
             $table->timestamps();
 
             $table->foreign("role_id")->references("id")->on("roles")->onDelete("set null")->onUpdate("cascade");
