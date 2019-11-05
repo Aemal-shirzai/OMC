@@ -184,6 +184,9 @@ $("document").ready(function(){
 			$("#side").css("width","0px");
 			$("#header-div").css("margin-left","0px");
 			$("#sidebar-large").css("margin-left","0px");
+		}else{
+			// This else hide the dropdown content menue when screen is resized
+			$("#dropdownContent").hide();
 		}
 	});
 // End of :  to automatically hide the small slidebar when the screen gets large 

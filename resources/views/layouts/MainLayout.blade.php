@@ -173,7 +173,7 @@
 <script type="text/javascript" src="{{asset('js/owlCarousel/owl.carousel.min.js')}}"></script>
 
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/MainLayoutScript.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/MainLayoutScript1.js')}}"></script>
 
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
