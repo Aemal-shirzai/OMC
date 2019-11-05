@@ -136,11 +136,18 @@ function validateSignUpForm(){
 	}
 
 	// validatng username field
-	if(username.length < 4 ){
+	if(username.length < 3 ){
 		document.getElementById("username").focus();
 		document.getElementById("username").style.border = "1px solid red";
 		document.getElementById("username").style.color = "red";
-		document.getElementById("usernameError").innerHTML = "The username must be greater than 3 chars";
+		document.getElementById("usernameError").innerHTML = "The username must be greater than 2 chars";
+		document.getElementById("usernameError").style.color = "red";
+		event.preventDefault();
+	}else if(username.length > 20){
+		document.getElementById("username").focus();
+		document.getElementById("username").style.border = "1px solid red";
+		document.getElementById("username").style.color = "red";
+		document.getElementById("usernameError").innerHTML = "The username must not be greater than 20 chars";
 		document.getElementById("usernameError").style.color = "red";
 		event.preventDefault();
 	}else if(!username.match(usernamePattern)){
@@ -179,83 +186,83 @@ function validateSignUpForm(){
 	}
 // End of: the function which open the fileupload input in more info page
 // Beggining of : the function which select provice based on country and district based on province
-	function selectProvinceAndDistrict(value){
-		// if the inpput which should be select is province . means when country is changed
-		if(value == "province"){
-			var country = document.getElementById("country").value;
-			var province = document.getElementById("province");
-			var district = document.getElementById("district");
+function selectProvinceAndDistrict(value){
+	// if the inpput which should be select is province . means when country is changed
+	if(value == "province"){
+		var country = document.getElementById("country").value;
+		var province = document.getElementById("province");
+		var district = document.getElementById("district");
 
-			if(country.length > 0){
-				province.disabled =false;
-				province.style.cursor = "pointer";
-				province.setAttribute('title',"Choose a province");
-				province.style.color = "#6d6161";
-				province.innerHTML = "";
-				province.innerHTML = "<option value='' selected>Province</option>";
-				district.value = "";
-				district.disabled = true;
-				district.style.cursor = "not-allowed";
-				district.style.color = "lightgray";
-				district.setAttribute('title',"Choose a provice first");
-				district.innerHTML = "<option value='' selected>District</option>";
+		if(country.length > 0){
+			province.disabled =false;
+			province.style.cursor = "pointer";
+			province.setAttribute('title',"Choose a province");
+			province.style.color = "#6d6161";
+			province.innerHTML = "";
+			province.innerHTML = "<option value='' selected>Province</option>";
+			district.value = "";
+			district.disabled = true;
+			district.style.cursor = "not-allowed";
+			district.style.color = "lightgray";
+			district.setAttribute('title',"Choose a provice first");
+			district.innerHTML = "<option value='' selected>District</option>";
 
-				
-				var countryProvince = eval("province" + country);
-				console.log(countryProvince);
-				for(var index in countryProvince){
-					var openTag = "<option value='"+ index  +"'>";
-					var text = countryProvince[index];
-					var closeTag = "</option>";
-				 	var result = openTag.concat(text,closeTag);
-					province.innerHTML += result;
-				}
-
-			}else{
-				province.disabled =true;
-				province.style.cursor = "not-allowed";
-				province.style.color = "lightgray";
-				province.setAttribute('title',"Choose a country first");
-				province.innerHTML = "<option value='' selected>Province</option>"
-
-				district.disabled =true;
-				district.style.cursor = "not-allowed";
-				district.style.color = "lightgray";
-				district.setAttribute('title',"Choose a province first");
-				district.innerHTML = "<option value='' selected>District</option>";
+			
+			var countryProvince = eval("province" + country);
+			console.log(countryProvince);
+			for(var index in countryProvince){
+				var openTag = "<option value='"+ index  +"'>";
+				var text = countryProvince[index];
+				var closeTag = "</option>";
+			 	var result = openTag.concat(text,closeTag);
+				province.innerHTML += result;
 			}
-		}else if (value == "district"){ // if its province which is chagned and need to enable the selection of district
-			var province = document.getElementById("province").value;
-			var district = document.getElementById("district");
 
-			if(province.length > 0){
-				district.disabled =false;
-				district.style.cursor = "pointer";
-				district.setAttribute('title',"Choose a district");
-				district.style.color = "#6d6161";
-				district.innerHTML = "";
-				district.innerHTML = "<option value=''>District</option>";
+		}else{
+			province.disabled =true;
+			province.style.cursor = "not-allowed";
+			province.style.color = "lightgray";
+			province.setAttribute('title',"Choose a country first");
+			province.innerHTML = "<option value='' selected>Province</option>"
 
-				
-				var provinceDistrict = eval("district" + province); //eval change a string into variable name
-				for(var index in provinceDistrict){
-					var openTag = "<option value='"+ index  +"'>";
-					var text = provinceDistrict[index];
-					var closeTag = "</option>";
-				 	var result = openTag.concat(text,closeTag);
-					district.innerHTML += result;
-				}
-			}else{
-				district.disabled =true;
-				district.style.cursor = "not-allowed";
-				district.style.color = "lightgray";
-				district.setAttribute('title',"Choose a province first");
-				district.innerHTML = "<option value='' selected>District</option>"
-			} // end of : if the no province is selected
+			district.disabled =true;
+			district.style.cursor = "not-allowed";
+			district.style.color = "lightgray";
+			district.setAttribute('title',"Choose a province first");
+			district.innerHTML = "<option value='' selected>District</option>";
 		}
+	}else if (value == "district"){ // if its province which is chagned and need to enable the selection of district
+		var province = document.getElementById("province").value;
+		var district = document.getElementById("district");
 
+		if(province.length > 0){
+			district.disabled =false;
+			district.style.cursor = "pointer";
+			district.setAttribute('title',"Choose a district");
+			district.style.color = "#6d6161";
+			district.innerHTML = "";
+			district.innerHTML = "<option value=''>District</option>";
 
+			
+			var provinceDistrict = eval("district" + province); //eval change a string into variable name
+			for(var index in provinceDistrict){
+				var openTag = "<option value='"+ index  +"'>";
+				var text = provinceDistrict[index];
+				var closeTag = "</option>";
+			 	var result = openTag.concat(text,closeTag);
+				district.innerHTML += result;
+			}
+		}else{
+			district.disabled =true;
+			district.style.cursor = "not-allowed";
+			district.style.color = "lightgray";
+			district.setAttribute('title',"Choose a province first");
+			district.innerHTML = "<option value='' selected>District</option>"
+		} // end of : if the no province is selected
 	}
+
+
+}
 // End of : the function which select provice based on country and district based on province
 
 

@@ -131,7 +131,9 @@ return [
     'custom' => [
         'username' => [
             'required' => 'The field can not be empty',
-            'regex' => '"The username may only contain letters, numbers, maximum one dashe or underscore. should start with a letter only and should end with  letters or numbers";'
+            'regex' => '"The username may only contain letters, numbers, maximum one dashe or underscore. should start with a letter only and should end with  letters or numbers"',
+            'max' => "The username must not be greater than 20 chars",
+            'min' => "The username must be greater than 2s chars"
         ],
         'fullName' => [
             'required' => 'The field can not be empty'

@@ -1,0 +1,167 @@
+div#profileParent{
+	background-color: #fafafa;
+	overflow: hidden;
+}
+div#profileHeading{
+	margin-top: 40px;
+}
+div#profileImageParent{
+	width: 30%;
+	float: left;
+	text-align: center;
+}
+div#profileShortInfoParent{
+	width: 70%;	
+	float: right;
+}
+div#profileImage{
+
+}
+#profileImage img{
+	width: 163px;
+	height: 163px;
+	border-radius: 50%;
+}
+#no-image{
+	padding: 44px 40px;
+    border-radius: 50%;
+    border: 1px solid #3fbbc0;
+    color: #3fbbc0;
+    font-size: 70px;
+    height: 163px;
+    width: 163px;
+}
+div#profileShortInfoParent h2{
+	color: #828282;
+	letter-spacing: 1px;
+	display: inline-block;
+	margin-top: 12px; 
+}
+div#profileShortInfoParent a#editButton{
+	border: 1px solid #c9dbdc;
+	margin-left: 10px;
+	margin-top: -12px !important;
+	font-weight: bold;
+	transition: 0.5s;
+}
+div#profileShortInfoParent a#editButton:hover{
+	background-color: #3fbbc0;
+	color: white;
+}
+div#profileShortInfoParent span#settingIconForLargeSize{
+	font-size: 25px;
+	margin-left: 5px;
+	cursor: pointer;
+}
+div#profileShortInfoParent span#settingIconForSmallSize{
+	display: none;
+}
+div#largeScreenBio{
+	word-wrap: break-word;
+	margin-top: 30px;
+}
+div#largeScreenBio h5{
+	font-weight: bold;
+}
+div#smallScreenBio{
+	display: none;
+}
+
+
+/* 640  - 769 */
+@media screen and (max-width: 768px){
+	div#profileHeading{
+		margin-top: 20px;
+	}
+	div#profileImageParent{
+		width: 22%;	
+		overflow: hidden;
+		text-align: left;
+	}
+	#profileImage img{
+		width: 70px;
+		height: 70px;
+	}
+	#no-image{
+		padding: 12px 16px;
+    	border-radius: 50%;
+    	font-size: 30px;
+    	height: 60px;
+    	width: 60px;
+	}
+	div#profileShortInfoParent{
+		width: 78%;	
+		padding-left: 12px;
+	}
+	div#profileShortInfoParent h2{
+		letter-spacing: 0px;
+		font-size: 20px;
+	}
+	div#profileShortInfoParent span#settingIconForLargeSize{
+		display: none;
+	}
+	div#profileShortInfoParent span#settingIconForSmallSize{
+		display: inline-block;
+		margin-left: 5px;
+		cursor: pointer;
+		font-size: 18px;
+	}
+	div#profileShortInfoParent a#editButton{
+		margin-left: 0px;
+	    margin-top: 0px !important;
+	    display: block;
+	    height: 27px;
+	    transition: 0.5s;
+	    padding: 4px 0;
+	    font-size: 12px;
+	    overflow: hidden;
+	}
+	div#largeScreenBio{
+		display: none;
+	}
+	div#smallScreenBio{
+		display: inline-block;
+		word-wrap: break-word;
+		margin-top: 30px;
+	}
+	div#smallScreenBio h5{
+		font-weight: bold;
+		margin-bottom: 0px;
+		font-size: 14px;
+	}
+	div#smallScreenBio p{
+		font-size: 13px;
+	}
+} 
+
+/* for small screen sizes */
+@media screen and (max-width:640px){
+	
+}
+
+/* 320 px iphone 5se */
+@media screen and (max-width: 320px){
+	div#profileImageParent{
+		width: 25%;	
+	}
+	div#profileShortInfoParent{
+		width: 75%;	
+	}
+	div#profileShortInfoParent h2{
+			font-size: 18px;
+		}
+	div#profileShortInfoParent span#settingIconForSmallSize{
+			font-size: 17px;
+	}
+	div#smallScreenBio h5{
+		font-size: 12px;
+	}
+	div#smallScreenBio p{
+		font-size: 11px;
+	}
+	div#profileShortInfoParent a#editButton{
+		font-size: 11px;
+	    height: 26px;
+	}
+
+}
