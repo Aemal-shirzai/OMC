@@ -4,8 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Country;
-use App\Province;
 use App\District;
+use App\Doctor;
+use App\NormalUser;
+
 class Province extends Model
 {
      protected $fillable = [
@@ -21,4 +23,14 @@ class Province extends Model
     public function districts(){
     	return $this->hasMany(District::class);
     }
+
+    // Relationship with normalUsers
+    public function doctors(){
+        return $this->hasMany(Doctor::class);
+    } 
+
+    // Relationship with normalUsers
+    public function normalUsers(){
+        return $this->hasMany(NormalUser::class);
+    } 
 }

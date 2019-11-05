@@ -327,7 +327,7 @@ div#main-img{
 	}
 }
 
-@media screen and (max-width: 1400px) and (min-width: 1001px){
+@media screen and (max-width: 1024px) and (min-width: 1001px){
 	div#loginForm-container{
 		margin-top: 200px;
 	}

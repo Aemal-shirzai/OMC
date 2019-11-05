@@ -50,6 +50,8 @@ class MoreInfoRequest extends FormRequest
             "year.regex" => "Invalied year used...",
             "month.regex" => "Invalied month used...",
             "day.regex" => "Invalied day used...",
+            "photo.max" => "file too large...",
+            "photo.image" =>"The file must be a photo",
         ];
     }
 }

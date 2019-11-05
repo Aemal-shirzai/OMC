@@ -15,6 +15,6 @@ class Phone extends Model
 
     // relationship with normal usr and doctors
     public function owner(){
-        return $this->morphMany("","owner_type","owner_id");
+        return $this->morphTo("","owner_type","owner_id");
     } 
 }

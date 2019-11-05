@@ -3,19 +3,22 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Account;
-use App\Doctor;
-use App\NormalUser;
-use App\Role;
-use App\Country;
-use App\Province;
-use Carbon\Carbon;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\MoreInfoRequest;
+
+
+use App\Account;
+use App\Doctor;
+use App\NormalUser;
+use App\Role;
+use App\Country;
+use App\Province;
+use App\District;
+use Carbon\Carbon;
 
 class RegisterController extends Controller
 {
@@ -46,14 +49,14 @@ class RegisterController extends Controller
      * @return void
      */
     public function __construct()
-    {
-        $this->middleware('auth')->only(["moreInfoIndex","moreInfoStore"]);
+    {   
+        //to check if the previous url is the register url 
+        $this->middleware("checkPreviousUrl:register,moreInfo.index")->only("moreInfoIndex");
+        // to check the authentication
+        $this->middleware(["auth"])->only(["moreInfoIndex","moreInfoStore"]);
+        // to check for guest middleware
         $this->middleware('guest')->except(["moreInfoIndex","moreInfoStore"]);
     }
-
-    // public function register(){
-    //     return request()->all();
-    // }
 
     /**
      * Get a validator for an incoming registration request.
@@ -67,7 +70,7 @@ class RegisterController extends Controller
             'fullName' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'min:4','max:255','regex:/^([a-zA-Z]+)([0-9]*)([-_]?)([a-zA-Z0-9]+)$/i','unique:accounts'],
             'registerAs' => ['required'],
-            'gender' => ['required'],
+            'gender' => ['required','regex:/^[0-1]?$/i'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:accounts'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -83,7 +86,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         if($data["registerAs"] == 0){ // if the user is trying to register as normal users
-            $role = Role::find(2);    // by default add the (normal user) role to the user
+            $role = Role::findOrFail(2);    // by default add the (normal user) role to the user
             $owner = $role->users()->create([
                 'fullName' => $data["fullName"],
                 'status' => 1, // by defalut keep the user active 
@@ -106,55 +109,63 @@ class RegisterController extends Controller
 
 
     // This function return the page of more info
-    protected function moreInfoIndex()
-    {
-        // for testing now should be delete later
+    protected function moreInfoIndex($user)
+    {    
+      
+       
+        // ot check if the parameter is equal to current user credentials
+        if(Auth::user()->username != $user){
+            return abort(404);
+        }
 
-
-        // $result = [];
-        // for($index = 1 ; $index <= Country::latest("id")->first()->id; $index++){
-        //    $country = Country::find($index);
-        //    if($country){
-        //         ${'province'.$index} = $country->provinces()->pluck("province","id");
-        //         // array_push($result,${'province'.$index});
-        //        $result = array_merge($result,["province".$index=>${'province'.$index}]);
-        //    }
-        // } 
-
-        // $result = [];
-        // for($index = 1 ; $index <= Province::latest("id")->first()->id; $index++){
-        //    $province = Province::find($index);
-        //    if($province){
-        //         ${'district'.$index} = $province->districts()->pluck("district","id");
-        //         // array_push($result,${'province'.$index});
-        //        $result = array_merge($result,["district".$index=>${'district'.$index}]);
-        //    }
-        // } 
-        // return $result;
-        $countries = Country::pluck("country","id");
-        $latestCountry = Country::latest("id")->first();
-        $lastestProvince = Province::latest("id")->first();
+        $countries = Country::pluck("country","id");         // inorder to access it inside country select field
+        $latestCountry = Country::latest("id")->first();     // inorder to check the country loop with, for insied blade.
+        $lastestProvince = Province::latest("id")->first(); // inorder to check the province loop with, for insied blade.
         return view("Auth/userExtraInfo",compact("countries","latestCountry","lastestProvince"));
     }
 
     // This function store mores info to db 
     protected function moreInfoStore(MoreInfoRequest $request)
     {
+        // grap the current user 
         $user = Auth::user()->owner;
+        // store the year, month, and day fields in single variable
         $DateOfBirth =  Carbon::createFromDate($request->year,$request->month,$request->day)->format("Y-m-d"); 
-        // return $user;
-        // if($request->hasFile("photo")){
-        //     return "has";
-        // }
+         // add the newly created variable of date to request array
+        $request->merge(["DateOfBirth"=>$DateOfBirth]);
 
+        // if photo is selected then add it to a folder and to db aswell
+        if($request->hasFile("photo")){
+            $photo = $request->file("photo");
+            $fullName  = $photo->getClientOriginalName();
+            $onlyName = pathinfo($fullName,PATHINFO_FILENAME);
+            $extension = $photo->getClientOriginalExtension();
+            $nameToBeStored = $onlyName.time(). "." .$extension;
+
+            if(Auth::user()->owner_type == "App\Doctor"){
+                $folder = "public/images/doctors/";
+            }else{
+                $folder = "public/images/normalUsers/";
+            }   
+            // $photo->move($folder,$nameToBeStored);
+            $photo->storeAs($folder,$nameToBeStored);
+            $user->photos()->create(["path"=>$nameToBeStored]);
+        }
+
+        //if phone number is typed then add it to phones table
         if($request->phone != ""){
             $user->phones()->create(["phone"=>$request->phone]);
-        }
-        $request->merge(["DateOfBirth"=>$DateOfBirth]);
-        $insert = $user->update($request->all());
+        }  
+      
+        // // update the selected user data
+        $update = $user->update($request->all());
         
-
+        if($update){
+            return redirect()->route("profile",Auth::user()->username)->with("sucesss","Your account was created.");
+        }else{
+            return back()->withInput()->with("error","OOps something went wrong try again");;
+        }
 
     }
 
-}
+} //main class end

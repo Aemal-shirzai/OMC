@@ -31,20 +31,20 @@
 			<div>
 				{!! Form::label("address","Your Address & contact:") !!}
 				<div class="row row-for-input">
-					{!! Form::select("country",$countries,null,["class"=>"form-control more_form_element col-lg-12 ".($errors->has('country') ? ' moreInfoFormErrorsInput' : ''),"placeholder"=>"Your Country...","autofocus"=>"true","id"=>"country","onchange"=>"selectProvinceAndDistrict('province')"]) !!}
+					{!! Form::select("country_id",$countries,null,["class"=>"form-control more_form_element col-lg-12 ".($errors->has('country') ? ' moreInfoFormErrorsInput' : ''),"placeholder"=>"Your Country...","autofocus"=>"true","id"=>"country","onchange"=>"selectProvinceAndDistrict('province')"]) !!}
 					<div id="countryError" class="moreInfoFormErrors col-lg-12">
 						@error("country")
 							{{$message}}
 						@enderror
 					</div>
-					{!! Form::select("province",[""=>"Province"],null,["class"=>"form-control more_form_element col-lg-6".($errors->has('province') ? ' moreInfoFormErrorsInput' : ''),"id"=>"province","disabled"=>"true","title"=>"choose a country first","onchange"=>"selectProvinceAndDistrict('district')"]) !!}
+					{!! Form::select("province_id",[""=>"Province"],null,["class"=>"form-control more_form_element col-lg-6".($errors->has('province') ? ' moreInfoFormErrorsInput' : ''),"id"=>"province","disabled"=>"true","title"=>"choose a country first","onchange"=>"selectProvinceAndDistrict('district')"]) !!}
 					<div class="col-12 ErrorsToBeVisisbleInSmallSize moreInfoFormErrors"  id="provinceErrorSmall">
 						@error("province")
 							{{$message}}
 						@enderror
 					</div>
 
-					{!! Form::select("district",[""=>"District"],null,["class"=>"form-control more_form_element col-lg-6".($errors->has('district') ? ' moreInfoFormErrorsInput' : ''),"id"=>"district","title"=>"choose a province first","disabled"=>"true"]) !!}
+					{!! Form::select("district_id",[""=>"District"],null,["class"=>"form-control more_form_element col-lg-6".($errors->has('district') ? ' moreInfoFormErrorsInput' : ''),"id"=>"district","title"=>"choose a province first","disabled"=>"true"]) !!}
 					<div class="col-12 ErrorsToBeVisisbleInSmallSize moreInfoFormErrors" id="districtErrorSmall">
 						@error("district")
 							{{$message}}

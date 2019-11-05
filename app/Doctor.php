@@ -5,6 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Account;
 use App\Phone;
+use App\Country;
+use App\Province;
+use App\District;
+use App\Photo;
+
 class Doctor extends Model
 {
     /**
@@ -17,7 +22,10 @@ class Doctor extends Model
     	"district",
     	"street",
     	"gender",
-    	"DateOfBirth"
+    	"DateOfBirth",
+        "country_id",
+        "province_id",
+        "district_id"
     ];
 
     /*
@@ -32,4 +40,24 @@ class Doctor extends Model
     public function phones(){
         return $this->morphMany(Phone::class,"owner");
     } 
+
+    // Relationship with country
+    public function country(){
+        return $this->belongsTo(Country::class);
+    } 
+
+    // Relationship with province
+    public function province(){
+        return $this->belongsTo(Province::class);
+    } 
+
+    // Relationship with district
+    public function district(){
+        return $this->belongsTo(District::class);
+    } 
+
+    // Relationship with photos
+    public function photos(){
+        return $this->morphMany(Photo::class,"owner");
+    }
 }
