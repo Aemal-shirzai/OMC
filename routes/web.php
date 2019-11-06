@@ -11,7 +11,7 @@
 |
 */
 
-
+use App\Doctor;
 Route::get('/', function () {
     return view('main');
 })->name('main');

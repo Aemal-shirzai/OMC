@@ -9,6 +9,7 @@ use App\Country;
 use App\Province;
 use App\District;
 use App\Photo;
+use App\Post;
 
 class Doctor extends Model
 {
@@ -60,5 +61,10 @@ class Doctor extends Model
     // Relationship with photos
     public function photos(){
         return $this->morphMany(Photo::class,"owner");
+    }
+
+    // Relationship with posts
+    public function posts(){
+        return $this->hasMany(Post::class);
     }
 }

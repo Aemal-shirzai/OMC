@@ -67,7 +67,88 @@ div#smallScreenBio{
 	display: none;
 }
 
+/* Secondpart */
+div#pofileContentPart{
+	margin-top: 20px;
+	text-align: center !important; 
+	border-top: 1px solid #efefef;
+}
+.tabLinks{
+	background-color: inherit;
+	border:none;
+	padding: 20px 12px;
+	color: #828282;
+	font-weight: bold;
+	letter-spacing: 1px;
+	transition: color 0.5s;
+	font-size: 12px;
+	text-transform: uppercase;
+}
+.tabLinks:focus{
+	outline: none;
+}
+.active{
+	border-top: 1px solid #3fbbc0;
+	transition: color 0.5s;
+}
+.tab-content{
+	word-wrap: break-word;
+}
+.tab-content:not(:first-child){
+	display: none;
+}
+span.btn-icon{
+	display: none;
+}
 
+/* post section */
+div#posts{
+	padding: 0 20%;
+}
+div#postPic{
+	overflow: hidden;
+	float: left;
+}
+div#postPic img{
+	width: 40px;
+	height: 40px;
+	display: inline-block;
+	border-radius: 50%;
+}
+div#ownerName{
+	color: black;
+	font-weight: bold;
+	display: inline-block;
+	padding-left: 12px;
+}
+div#postPic span#createTime{
+	color: #828282;
+	display: table;
+	font-size: 10px;
+
+}
+div#postContent{
+	display: block;
+	float: left;
+	padding: 4px 53px;
+}
+div#postContent h5{
+	font-weight: bold;
+	font-size: 16px;
+}
+div#postContent p{
+	word-wrap: break-word;
+	text-align: justify;
+	font-size: 14px;
+}
+
+@media screen and (max-width: 800px) and (min-width: 768px){
+
+	div#posts{
+		padding: 0 14% !important;
+	}
+
+}
 /* 640  - 769 */
 @media screen and (max-width: 768px){
 	div#profileHeading{
@@ -131,7 +212,42 @@ div#smallScreenBio{
 	}
 	div#smallScreenBio p{
 		font-size: 13px;
+	}	
+	/*second part*/
+	.tabLinks{
+
+		padding: 20px 25px;
+		color: #828282;
 	}
+	span.btn-icon{
+		display: inline-block;
+		font-size: 24px;
+	}
+	span.btn-icon-large{
+		display: none;
+	}
+	span.btnText{
+		display: none;
+	}
+
+	/*post sectio*/
+	div#posts{
+		padding: 0 0;
+	}
+	div#postContent h5{
+		font-size: 14px;
+	}
+	div#postContent p{
+		font-size: 13px;
+	}
+	div#postContent{
+		padding-right: 5px;
+	}
+	div#postPic img{
+		width: 35px;
+		height: 35px;
+	}
+
 } 
 
 /* for small screen sizes */
@@ -162,6 +278,23 @@ div#smallScreenBio{
 	div#profileShortInfoParent a#editButton{
 		font-size: 11px;
 	    height: 26px;
+	}
+	/*second part*/
+	.tabLinks{
+		padding: 20px 20px;
+		color: #828282;
+	}
+	span.btn-icon{
+		display: inline-block;
+		font-size: 22px;
+	}
+
+	/*post part*/
+	div#postContent h5{
+		font-size: 13px;
+	}
+	div#postContent p{
+		font-size: 12px;
 	}
 
 }

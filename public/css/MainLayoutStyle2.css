@@ -51,6 +51,10 @@ body{
 	background-color: white;
 	padding-top: 118px;
 }
+::selection{
+	background-color: #3fbbc0;
+	color: white;
+}
 div#parent-div{
 	transition: margin-left .5s;
 }
