@@ -75,7 +75,7 @@ a#signout{
 }
 a.login-register{
 	color:white;
-	font-size: 13px;
+	font-size: 12px;
 	padding: 5px;
 	padding-left: 10px 
 	padding-right: 10px;
@@ -152,7 +152,7 @@ div#sidebar-large a:not(:first-child){
 	color: #666;
 	padding: 25px 16px;
 	letter-spacing: 1px;
-	font-size: 13.5px;
+	font-size: 12px;
 	float: right;
 	font-weight: bold;
 	text-transform: uppercase;

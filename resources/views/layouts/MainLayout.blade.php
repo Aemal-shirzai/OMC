@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle2.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle.css')}}">
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}">
@@ -177,7 +177,7 @@
 
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
-<script type="text/javascript" src="{{asset('js/profileScript2.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/profileScript1.js')}}"></script>
 @endif
 
 </body>

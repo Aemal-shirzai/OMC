@@ -15,4 +15,4 @@ class PostAndQuestionCategory extends Model
    */
    	protected $table = "post_and_question_category";
 }
-}
+
