@@ -152,7 +152,7 @@
 								{!! Form::textarea("content",null,["class"=>"form-control commentField","placeholder"=>"Add Comment...","id"=>"commentField-$post->id","rows"=>"1","onkeyup"=>"do_resize_and_enable_button(this,$post->id)"]) !!}
 								{!! Form::file("photo",["class"=>"commentPhotoField","id"=>"commentPhotoField-$post->id"]) !!}
 								{!! Form::hidden("post_id",$post->id) !!}
-								{!! Form::submit("Add Comment",["class"=>"btn  btn-sm addCommentBtn","id"=>"addCommentBtn-$post->id","disable"=>"true","onclick"=>"validateCommentForm($post->id)"]) !!}
+								{!! Form::submit("Add Comment",["class"=>"btn  btn-sm addCommentBtn","id"=>"addCommentBtn-$post->id","disabled"=>"true","onclick"=>"validateCommentForm($post->id)"]) !!}
 								<i class="fal fa-camera commentPhotoButton" id="commentPhotoButton-$post->id" onclick="openCommentPhotoField({{$post->id}})"></i>
 							</div>
 						{!! Form::close() !!}
