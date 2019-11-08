@@ -13,8 +13,9 @@ function openContent(evt,value){
   	 document.getElementById(value).style.display = "block";
  	 evt.currentTarget.className += " active";
 }
-
 // End of: the function which shows the profile content based on the clicked button
+
+// Begginng of : the function which validate the comment form
 
 function validateCommentForm(postId){
 	var field = document.getElementById("commentField-"+postId);
@@ -28,7 +29,7 @@ function validateCommentForm(postId){
 		field.style.border = "none";
 	}
 }
-
+// End of : the function which validate the comment form
 
 // Beggining of the function which resize the comment text area when the text increase, AND the function whihc enable the commnet button
 function do_resize_and_enable_button(textbox,postId) {
@@ -55,15 +56,30 @@ if(txt.trim().length > 0){
  for (i=0;i<arraytxt.length;i++) 
   rows+=parseInt(arraytxt[i].length/cols);
 
+if(rows == 1){
+	textbox.setAttribute("style","border-radius:10px !important;");
+	
+}else{
+	textbox.setAttribute("style","border-radius:0px !important;");
+}
+
  if (rows>maxrows){ 
 
  	textbox.rows=maxrows;
- 	textbox.setAttribute("style","border-radius:0px !important;overflow:auto !important");
+ 	textbox.setAttribute("style","overflow:auto !important");
  	
  }else {
   	textbox.rows=rows;
-  	textbox.setAttribute("style","border-radius:40px !important;");
 }
  }
-
  // End of the function which resize the comment text area when the text increase, AND the function whihc enable the commnet button
+
+
+ // Beggining of : the function which open the comment photo field
+function openCommentPhotoField(value){
+	var field = document.getElementById("commentPhotoField-"+value);
+	field.click();
+}
+
+
+ // End of : the function which open the comment photo field

@@ -149,7 +149,9 @@
 					{!! Form::open(["style"=>"display:inline-block;"]) !!}			
 						<div class="input-group">
 							{!! Form::textarea("comment",null,["class"=>"form-control commentField","placeholder"=>"Add Comment...","id"=>"commentField-$post->id","rows"=>"1","onkeyup"=>"do_resize_and_enable_button(this,$post->id)"]) !!}
+							{!! Form::file("photo",["class"=>"form-control commentPhotoField","disable"=>"true","id"=>"commentPhotoField-$post->id"]) !!}
 							{!! Form::submit("Add Comment",["class"=>"btn  btn-sm addCommentBtn","id"=>"addCommentBtn-$post->id","disabled"=>"true","onclick"=>"validateCommentForm($post->id)"]) !!}
+							<i class="fal fa-camera commentPhotoButton" id="commentPhotoButton-$post->id" onclick="openCommentPhotoField({{$post->id}})"></i>
 						</div>
 					{!! Form::close() !!}
 				</div>

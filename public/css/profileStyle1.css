@@ -150,8 +150,8 @@ div#postContent img{
 #no-image-in-post{
 	padding: 11px 13px;
     border-radius: 50%;
-border: 1px solid #3fbbc0;
- color: #3fbbc0;
+	border: 1px solid #3fbbc0;
+ 	color: #3fbbc0;
     font-size: 15px;
     height: 40px;
     width: 40px;
@@ -188,7 +188,7 @@ div#comment{
 	width: 93%; 
 }
 .commentField{
-	border-radius: 40px !important;
+	border-radius: 10px !important;
 	font-size: 12px;
 	overflow: hidden;
 	resize: none;	
@@ -221,6 +221,18 @@ div#comment{
     height: 30px;
     width: 30px;
 }
+.commentPhotoButton{
+	position: absolute !important;
+	color: #3fbbc0;
+	top: 6px;
+	font-size: 18px;
+	left: 6px;
+	cursor: pointer;
+}
+.commentPhotoField{
+	display: none;
+}
+
 
 *::-webkit-scrollbar {
     width: 5px !important;
@@ -248,6 +260,9 @@ div#comment{
 		margin-left: 6px;
 		padding-top: 4px; 
 		font-size:11px; 
+	}
+	.commentPhotoButton{
+		left: 16px !important;
 	}
 
 }
@@ -284,8 +299,11 @@ div#comment{
 		font-size: 11px;
 		width: 100% !important;
 		margin-left: 5px;
-		padding: 5px 15px;
 		margin-bottom: 5px !important;
+	}
+	.commentPhotoButton{
+		top: 5px;
+		left: 10px !important;
 	}
 	.addCommentBtn{
 		height: 25px;
@@ -436,8 +454,12 @@ div#comment{
 		font-size: 11px;
 		width: 100% !important;
 		margin-left: 5px;
-		padding: 5px 15px;
+		/*padding: 5px 15px;*/
 		margin-bottom: 5px !important;
+	}
+	.commentPhotoButton{
+		top: 5px;
+		left: 10px !important;
 	}
 	.addCommentBtn{
 		height: 25px;
