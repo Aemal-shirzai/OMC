@@ -10,6 +10,7 @@ use App\Province;
 use App\District;
 use App\Phone;
 use App\Photo;
+use App\Comment;
 class NormalUser extends Model
 {
     /**
@@ -68,6 +69,12 @@ class NormalUser extends Model
       // Relationship with photos
     public function photos(){
         return $this->morphMany(Photo::class,"owner");
+    }
+
+
+    // Relationship with comments
+    public function comments(){
+        return $this->morphMany(Comment::class,"owner");
     }
 
 }

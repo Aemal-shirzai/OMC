@@ -77,9 +77,10 @@ if(rows == 1){
 
  // Beggining of : the function which open the comment photo field
 function openCommentPhotoField(value){
+	// var field = document.getElementById("commentPhotoField-"+value);
 	var field = document.getElementById("commentPhotoField-"+value);
 	field.click();
 }
-
-
  // End of : the function which open the comment photo field
+
+

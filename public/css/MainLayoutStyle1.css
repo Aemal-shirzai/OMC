@@ -334,7 +334,16 @@ div#social-links a:nth-child(5){
 	color: #211F1F;
 }
 
-
+#loginAlert{
+	font-size: 12px;
+	text-align: center;
+	font-weight: bold;
+	margin-bottom: 0px;
+}
+#loginAlert a{
+	color: #3fbbc0;
+	text-decoration: none;
+}
 @media screen and (max-width:640px){
 	span#timeAndDate{
 		display: none;
@@ -387,6 +396,10 @@ div#social-links a:nth-child(5){
 	}
 	div#social-links, div#omc-network{
 		margin-top: 20px;
+	}
+	#loginAlert{
+		font-size: 11px;
+		font-weight: normal;
 	}
 }
 

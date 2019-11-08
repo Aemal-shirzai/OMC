@@ -7,13 +7,13 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle1.css')}}">
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}">
 	@elseif(Route::currentRouteName() == 'profile')
 	<!-- Link to local profile style for profile page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -125,6 +125,9 @@
 
 
 <div id="mainParent">
+	@guest
+		<div class="alert alert-danger" id="loginAlert"><a href="{{route('login')}}">Login</a> to add questions, comments, upvote and downvote posts and questions</div>
+	@endguest
 	@yield("content")
 </div>
 
@@ -165,6 +168,7 @@
 
 
 
+
 </div><!-- Parent Div End -->
 <!-- link to boootstrap app.js -->
 <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
@@ -177,8 +181,11 @@
 
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
-<script type="text/javascript" src="{{asset('js/profileScript1.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/profileScript.js')}}"></script>
+
 @endif
+
+@yield("scripts")
 
 </body>
 </html>

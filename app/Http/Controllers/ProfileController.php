@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Post;
+use App\Account;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class ProfileController extends Controller
@@ -13,7 +14,7 @@ class ProfileController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        #$this->middleware('auth');
     }
 
     /**
@@ -21,11 +22,15 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index($user)
+    public function index($username)
     {
-        if(Auth::user()->username != $user){
+
+
+        $user = Account::where("username",$username)->first();
+        if($user){
+            return view('profile',compact("user"));
+        }else{
             return abort(404);
         }
-        return view('profile',compact("user"));
     }
 }

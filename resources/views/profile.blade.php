@@ -1,53 +1,51 @@
 @extends("layouts.MainLayout")
 @section("title")
 
-{{Auth::user()->owner->fullName}} ({{ Auth::user()->username }})
+{{$user->owner->fullName}} ({{ $user->username }})
 
 @endsection
 @section("content")
-
-
 
 <div id="profileParent">
 	<div class="container" id="profileHeading">
 		<div id="profileImageParent">
 			<div id="profileImage" class="">
-				@auth
-					@if(count(Auth::user()->owner->photos) > 0)
-						@if(Auth::user()->owner_type == 'App\NormalUser')
-							<img src="/storage/images/normalUsers/{{Auth::user()->owner->photos()->where('status',1)->first()->path}}" class="" style="border">
-						@else
-							<img src="/storage/images/doctors/{{Auth::user()->owner->photos()->where('status',1)->first()->path}}" class="">
-						@endif
+				
+				@if(count($user->owner->photos) > 0)
+					@if($user->owner_type == 'App\NormalUser')
+						<img src="/storage/images/normalUsers/{{$user->owner->photos()->where('status',1)->first()->path}}" class="" style="border">
 					@else
-						<span class="fal fa-user" id="no-image"></span>
+						<img src="/storage/images/doctors/{{$user->owner->photos()->where('status',1)->first()->path}}" class="">
 					@endif
-				@endauth
-				@guest
-					<div class="alert alert-warning text-center">Need to be authenticated first!!</div>
-				@endguest
+				@else
+					<span class="fal fa-user" id="no-image"></span>
+				@endif
+				
 			</div>
 		</div>
 		<div id="profileShortInfoParent">
-			@auth
-				<h2>{{ Auth::user()->username }}</h2>
-				<a href="#" class="btn btn-md" id="editButton"><i class="fad fa-edit"></i> Edit Profile</a>
-
+			
+				<h2>{{ $user->username }}</h2>
+				@auth
+					@if(Auth::user()->username == $user->username)
+						<a href="#" class="btn btn-md" id="editButton"><i class="fad fa-edit"></i> Edit Profile</a>
+					@endif
+				@endauth
 				<div id="largeScreenBio">
-					<h5>{{ Auth::user()->owner->fullName }}</h5>
-					@if(Auth::user()->owner->Bio)
-						<p>{{ Auth::user()->owner->Bio }}</p>
+					<h5>{{ $user->owner->fullName }}</h5>
+					@if($user->owner->Bio)
+						<p>{{ $user->owner->Bio }}</p>
 					@else
 						<p>No Bio...</p>
 					@endif
 				</div>
-			@endauth
+			
 		</div>
 		<div class="clearfix"></div>
 		<div id="smallScreenBio">
-			<h5>{{ Auth::user()->owner->fullName }}</h5>
-			@if(Auth::user()->owner->Bio)
-				<p>{{ Auth::user()->owner->Bio }}</p>
+			<h5>{{ $user->owner->fullName }}</h5>
+			@if($user->owner->Bio)
+				<p>{{$user->owner->Bio }}</p>
 			@else
 				<p>No Bio...</p>
 			@endif
@@ -55,11 +53,11 @@
 	</div>
 
 <!-- second part -->
-@auth
+
 <div id="pofileContentPart" class="container">
 	
 		<div id="tabs">
-				@if(Auth::user()->owner_type == 'App\Doctor')
+				@if($user->owner_type == 'App\Doctor')
 					<button class="tabLinks active" onclick="openContent(event,'posts')">
 						<span class="fal fa-th btn-icon-large"></span> 
 						<span class="fal fa-th btn-icon"></span> 
@@ -106,10 +104,10 @@
 </div>
 
 <div class="container">
-@if(Auth::user()->owner_type == 'App\Doctor')
+@if($user->owner_type == 'App\Doctor')
 	<div id="posts" class="tab-content">
-	@if(count(Auth::user()->owner->posts) > 0)
-		@foreach(Auth::user()->owner->posts as $post)
+	@if(count($user->owner->posts) > 0)
+		@foreach($user->owner->posts as $post)
 
 			<div id="postPic">
 				<div class="dropdown-divider col-10" id="divider"></div>
@@ -121,7 +119,9 @@
 					@endif
 					<div id="ownerName">
 						<span>{{$post->owner->fullName}}</span>
-						<span id="createTime">{{$post->created_at->diffForHumans()}}</span>
+						@if($post->created_at)
+							<span id="createTime">{{$post->created_at->diffForHumans()}}</span>
+						@endif
 					</div>
 				</a>
 			</div>
@@ -133,30 +133,32 @@
 				<p>{{ $post->content }}</p>
 			</div>
 			<div class="clearfix"></div>
-			<div id="commentPart">
-				<div id="commentPartImage" style="background-color: ;">
-						@if(count(Auth::user()->owner->photos) > 0)
-							@if(Auth::user()->owner_type == 'App\NormalUser')
-								<img src="/storage/images/normalUsers/{{Auth::user()->owner->photos()->where('status',1)->first()->path}}" class="" style="border">
+			@auth
+				<div id="commentPart">
+					<div id="commentPartImage" style="background-color: ;">
+							@if(count(Auth::user()->owner->photos) > 0)
+								@if(Auth::user()->owner_type == 'App\NormalUser')
+									<img src="/storage/images/normalUsers/{{Auth::user()->owner->photos()->where('status',1)->first()->path}}" class="" style="border">
+								@else
+									<img src="/storage/images/doctors/{{Auth::user()->owner->photos()->where('status',1)->first()->path}}" class="">
+								@endif
 							@else
-								<img src="/storage/images/doctors/{{Auth::user()->owner->photos()->where('status',1)->first()->path}}" class="">
+								<span class="fal fa-user" id="no-image-in-comment"></span>
 							@endif
-						@else
-							<span class="fal fa-user" id="no-image-in-comment"></span>
-						@endif
+					</div>
+					<div id="comment">
+						{!! Form::open(["method"=>"post","action"=>"CommentController@store","files"=>"true"]) !!}		
+							<div class="input-group">
+								{!! Form::textarea("content",null,["class"=>"form-control commentField","placeholder"=>"Add Comment...","id"=>"commentField-$post->id","rows"=>"1","onkeyup"=>"do_resize_and_enable_button(this,$post->id)"]) !!}
+								{!! Form::file("photo",["class"=>"commentPhotoField","id"=>"commentPhotoField-$post->id"]) !!}
+								{!! Form::hidden("post_id",$post->id) !!}
+								{!! Form::submit("Add Comment",["class"=>"btn  btn-sm addCommentBtn","id"=>"addCommentBtn-$post->id","disable"=>"true","onclick"=>"validateCommentForm($post->id)"]) !!}
+								<i class="fal fa-camera commentPhotoButton" id="commentPhotoButton-$post->id" onclick="openCommentPhotoField({{$post->id}})"></i>
+							</div>
+						{!! Form::close() !!}
+					</div>
 				</div>
-				<div id="comment">
-					{!! Form::open(["style"=>"display:inline-block;"]) !!}			
-						<div class="input-group">
-							{!! Form::textarea("comment",null,["class"=>"form-control commentField","placeholder"=>"Add Comment...","id"=>"commentField-$post->id","rows"=>"1","onkeyup"=>"do_resize_and_enable_button(this,$post->id)"]) !!}
-							{!! Form::file("photo",["class"=>"form-control commentPhotoField","disable"=>"true","id"=>"commentPhotoField-$post->id"]) !!}
-							{!! Form::submit("Add Comment",["class"=>"btn  btn-sm addCommentBtn","id"=>"addCommentBtn-$post->id","disabled"=>"true","onclick"=>"validateCommentForm($post->id)"]) !!}
-							<i class="fal fa-camera commentPhotoButton" id="commentPhotoButton-$post->id" onclick="openCommentPhotoField({{$post->id}})"></i>
-						</div>
-					{!! Form::close() !!}
-				</div>
-			</div>
-
+			@endauth
 		@endforeach
 	@endif
 	</div>
@@ -184,9 +186,8 @@
 	</div>
 @endif
 </div>
-@endauth
+
 
 </div>
  
-
 @endsection
