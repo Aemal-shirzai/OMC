@@ -1,4 +1,4 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>@yield("title")</title>
@@ -176,14 +176,20 @@
 <!-- owl carousel plugin -->
 <script type="text/javascript" src="{{asset('js/owlCarousel/owl.carousel.min.js')}}"></script>
 
+<!-- laravel social media share package link -->
+<script src="{{ asset('js/share.js') }}"></script>
+
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/MainLayoutScript.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/MainLayoutScript1.js')}}"></script>
+
+
 
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
 <script type="text/javascript" src="{{asset('js/profileScript1.js')}}"></script>
-
 @endif
+
+
 
 @yield("scripts")
 

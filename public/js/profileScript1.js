@@ -84,3 +84,18 @@ function openCommentPhotoField(value){
  // End of : the function which open the comment photo field
 
 
+// Beggining of : the function which open the share options menu
+
+function openShareOptions(value){
+	var menu = document.getElementById("shareOptions-"+value);
+	if(menu.style.display == "none"){
+		menu.style.display = "block";
+	}else{
+		menu.style.display = "none";
+	}
+	event.preventDefault();
+}
+
+// End of : the function which open the share options menu
+
+

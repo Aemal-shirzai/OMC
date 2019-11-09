@@ -30,8 +30,13 @@ Route::post("/register/moreinfo/store","Auth\RegisterController@moreInfoStore")-
 
 Route::get('/profile/{user}', 'ProfileController@index')->name('profile');
 
-
+// Routes for contuct us
 Route::resource('/contactUs','ContactUsController');
+
+// Routes for Post
+Route::resource("/post","PostController");
 
 // Routes for comments
 Route::resource("/comment","CommentController");
+
+

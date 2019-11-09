@@ -7,6 +7,7 @@
 @section("content")
 
 <div id="profileParent">
+	
 	<div class="container" id="profileHeading">
 		<div id="profileImageParent">
 			<div id="profileImage" class="">
@@ -41,7 +42,6 @@
 						<p>No Bio...</p>
 					@endif
 				</div>
-			
 		</div>
 		<div class="clearfix"></div>
 		<div id="smallScreenBio">
@@ -129,7 +129,32 @@
 			</div>
 			<div id="postContent">
 				<h5>{{$post->title}}</h5>
+				@guest
+				<div class="btn float-right shareBtnForGuest" id="shareBtn" title="All share options">
+					<a href="#" onclick="openShareOptions({{$post->id}})">
+						<span class="far fa-ellipsis-h optionsIcons"></span> 
+					</a>
+					<div class="shareOptions shareOptionsForGuest" id="shareOptions-{{$post->id}}">
+						<p class="text-center">Share</p>
+						<!-- <a href="" class="fab fa-facebook"> Facebook</a> -->
+						{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-facebook"],"<span>","</span>")->facebook() !!}
+						<div class="dropdown-divider"></div>
+						{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-twitter"],"<span>","</span>")->twitter() !!}
+						<div class="dropdown-divider"></div>
+						{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-linkedIn"],"<span>","</span>")->linkedin() !!}
+						<div class="dropdown-divider"></div>
+						{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-whatsapp"],"<span>","</span>")->whatsapp() !!}
+						<div class="dropdown-divider"></div>
+						{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-telegram"],"<span>","</span>")->telegram() !!}
+					</div>
+				</div>
+				@endguest
 				<div class="tags">
+					<span><a href="#">Headic</a></a></span>
+					<span><a href="#">Pain</a></span>
+					<span><a href="#">Cancer</a></span>
+					<span><a href="#">Calcium</a></span>
+					<span><a href="#">Diabates</a></span>
 					<span><a href="#">Headic</a></a></span>
 					<span><a href="#">Pain</a></span>
 					<span><a href="#">Cancer</a></span>
@@ -144,34 +169,52 @@
 			<div class="clearfix"></div>
 			@auth
 				<div class="options">
-					<button class="btn" >
+					<button class="btn" title="The answer was usefull">
 						<a href="#">
 							<span class="fal fa-arrow-alt-up optionsIcons"></span> 
 							<span class="optionsText">Up-vote</span> 
 							<span class="votes">. 2</span>
 						</a>
 					</button>
-					<button class="btn" >
+					<button class="btn" title="The answer was not usefull">
 						<a href="#">
 							<span class="fal fa-arrow-alt-down optionsIcons"></span> 
 							<span class="optionsText">Down-vote</span>  
 							<span class="votes">. 2</span>
 						</a>
 					</button>
-					<button class="btn" >
+					<button class="btn" title="Follow the post for lates update">
 						<a href="#">
 							<span class="fal fa-wifi optionsIcons"></span> 
 							<span class="optionsText">Follow</span> 
 							<span class="votes">. 2</span>
 						</a>
 					</button>
-					<button class="btn" >
+					<button class="btn" title="All comments for this post">
 						<a href="#">
 							<span class="fal fa-comment optionsIcons"></span> 
 							<span class="optionsText">comment</span> 
 							<span class="votes">. 2</span>
 						</a>
 					</button>
+					<div class="btn float-right" id="shareBtn" title="All share options">
+						<a href="#" onclick="openShareOptions({{$post->id}})">
+							<span class="far fa-ellipsis-v optionsIcons"></span> 
+						</a>
+						<div class="shareOptions" id="shareOptions-{{$post->id}}">
+							<p class="text-center">Share</p>
+							<!-- <a href="" class="fab fa-facebook"> Facebook</a> -->
+							{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-facebook"],"<span>","</span>")->facebook() !!}
+							<div class="dropdown-divider"></div>
+							{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-twitter"],"<span>","</span>")->twitter() !!}
+							<div class="dropdown-divider"></div>
+							{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-linkedIn"],"<span>","</span>")->linkedin() !!}
+							<div class="dropdown-divider"></div>
+							{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-whatsapp"],"<span>","</span>")->whatsapp() !!}
+							<div class="dropdown-divider"></div>
+							{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-telegram"],"<span>","</span>")->telegram() !!}
+						</div>
+					</div>
 				</div>
 				<div id="commentPart">
 					<div id="commentPartImage" style="background-color: ;">

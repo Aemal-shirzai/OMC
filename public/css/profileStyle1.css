@@ -188,9 +188,23 @@ div.options button{
 	margin-bottom: 4px;
 	transition: .5s;
 }
+div.shareBtn{
+	position: relative;
+}
+div.shareBtnForGuest{
+	overflow: hidden;
+	height: 22px;
+	margin-top: -5px;
+}
 div.options button a{
 	color: #666;
 	text-decoration: none;
+}
+div#shareBtn a{
+	color: #666;
+}
+div#shareBtn a:hover{
+	color: #3fbbc0;
 }
 div.options button:focus{
 	box-shadow: none;
@@ -208,6 +222,63 @@ span.optionsIcons{
 }
 div.options button:hover span.optionsIcons{
 	color: #3fbbc0;
+}
+div.shareOptions{
+	position: absolute;
+	z-index: 1;
+	box-shadow: rgba(27, 31, 35, 0.15) 0px 1px 15px;
+	padding: 2px 12px;
+	display: none;
+	width: 100px;
+	margin-left: -50px;
+	text-align: left;
+	background-color: white;
+	border-color: rgba(27, 31, 35, 0.15);
+	border-radius: 4px;
+}
+div.shareOptions  li{
+	list-style-type: none;
+}
+div.shareOptions a.social-button span{
+	text-decoration: none;
+	font-size: 11px;
+	margin-left: 3px;
+}
+div.shareOptions a#share-facebook::after{
+	content: "Facebook";
+	margin-left: 3px;
+}
+div.shareOptions a#share-twitter::after{
+	content: "Twitter";
+	margin-left: 3px;
+}
+div.shareOptions a#share-linkedIn::after{
+	content: "Linkedin";
+	margin-left: 3px;
+}
+div.shareOptions a#share-whatsapp::after{
+	content: "Whatsapp";
+	margin-left: 3px;
+}
+div.shareOptions a#share-telegram::after{
+	content: "Telegram";
+	margin-left: 3px;
+}
+div.shareOptions a.share{
+	font-size: 11px;
+}
+
+div.shareOptions div.dropdown-divider{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+div.shareOptions p{
+	font-weight: bold;
+	color: #666;
+	margin-bottom: 5px;
+	margin-top: 4px;
+	font-size: 11px;
 }
 
 /* Comment part */
@@ -326,7 +397,13 @@ div#comment{
 	div.options button{
 		font-size: 10px;
 	}
-
+	div.shareOptions{
+		margin-left: -90px;
+	
+	}
+	div.shareOptionsForGuest{
+		margin-left: -50px;
+	}
 }
 
 /* below ipon pro */
@@ -349,6 +426,22 @@ div#comment{
 	}
 	div.options button{
 		font-size: 10px;
+	}
+	div.shareOptions{
+		width: 95px;
+		margin-left: -90px;
+	}
+	div.shareOptions a.share{
+		font-size: 10px;
+	}
+	div.shareOptions a.share span{
+		font-size: 10px;
+	}
+	div.shareOptions p{
+		font-size: 10px;
+	}
+	div.shareOptionsForGuest{
+		margin-left: -50px;
 	}
 /* comments part */
 	div#commentPart{
@@ -467,7 +560,6 @@ div#comment{
 	}	
 	/*second part*/
 	.tabLinks{
-
 		padding: 20px 25px;
 		color: #828282;
 	}
@@ -535,6 +627,24 @@ div#comment{
 	span.votes{
 		font-size: 10px;
 	}
+	div.shareOptions{
+		width: 90px;
+		margin-left: -90px;
+	}
+	div.shareOptionsForGuest{
+		width: 90px;
+		margin-left: -65px;
+	}
+	div.shareOptions a.share{
+		font-size: 9px;
+	}
+	div.shareOptions a.share span{
+		font-size: 9px;
+	}
+	div.shareOptions p{
+		font-size: 10px;
+	}
+
 
 
 /* cmment part */
@@ -564,7 +674,6 @@ div#comment{
 		font-size: 11px;
 		width: 100% !important;
 		margin-left: 5px;
-		/*padding: 5px 15px;*/
 		margin-bottom: 5px !important;
 	}
 	.commentPhotoButton{
