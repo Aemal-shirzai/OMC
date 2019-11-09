@@ -28,7 +28,9 @@
 				<h2>{{ $user->username }}</h2>
 				@auth
 					@if(Auth::user()->username == $user->username)
-						<a href="#" class="btn btn-md" id="editButton"><i class="fad fa-edit"></i> Edit Profile</a>
+						<a href="#" class="btn btn-md editFollowBtn"><i class="fad fa-edit"></i> Edit Profile</a>
+					@else
+						<a href="#" class="btn btn-md editFollowBtn"><i class="fad fa-plus"></i> Follow</a>
 					@endif
 				@endauth
 				<div id="largeScreenBio">
@@ -105,7 +107,7 @@
 
 <div class="container">
 @if($user->owner_type == 'App\Doctor')
-	<div id="posts" class="tab-content">
+	<div id="posts" class="tab-content" >
 	@if(count($user->owner->posts) > 0)
 		@foreach($user->owner->posts as $post)
 
@@ -118,15 +120,22 @@
 						<span class="fal fa-user" id="no-image-in-post"></span>
 					@endif
 					<div id="ownerName">
-						<span>{{$post->owner->fullName}}</span>
+						<span>{{$post->owner->fullName}}</span> 
 						@if($post->created_at)
-							<span id="createTime">{{$post->created_at->diffForHumans()}}</span>
+							<span id="createTime">Posted:{{$post->created_at->diffForHumans()}}</span>
 						@endif
 					</div>
 				</a>
 			</div>
 			<div id="postContent">
 				<h5>{{$post->title}}</h5>
+				<div class="tags">
+					<span><a href="#">Headic</a></a></span>
+					<span><a href="#">Pain</a></span>
+					<span><a href="#">Cancer</a></span>
+					<span><a href="#">Calcium</a></span>
+					<span><a href="#">Diabates</a></span>
+				</div>
 				<div id="postImage" class="text-center">
 					<img src="{{asset('images/section1.jpg')}}" class="img-fluid">
 				</div>
@@ -134,6 +143,36 @@
 			</div>
 			<div class="clearfix"></div>
 			@auth
+				<div class="options">
+					<button class="btn" >
+						<a href="#">
+							<span class="fal fa-arrow-alt-up optionsIcons"></span> 
+							<span class="optionsText">Up-vote</span> 
+							<span class="votes">. 2</span>
+						</a>
+					</button>
+					<button class="btn" >
+						<a href="#">
+							<span class="fal fa-arrow-alt-down optionsIcons"></span> 
+							<span class="optionsText">Down-vote</span>  
+							<span class="votes">. 2</span>
+						</a>
+					</button>
+					<button class="btn" >
+						<a href="#">
+							<span class="fal fa-wifi optionsIcons"></span> 
+							<span class="optionsText">Follow</span> 
+							<span class="votes">. 2</span>
+						</a>
+					</button>
+					<button class="btn" >
+						<a href="#">
+							<span class="fal fa-comment optionsIcons"></span> 
+							<span class="optionsText">comment</span> 
+							<span class="votes">. 2</span>
+						</a>
+					</button>
+				</div>
 				<div id="commentPart">
 					<div id="commentPartImage" style="background-color: ;">
 							@if(count(Auth::user()->owner->photos) > 0)

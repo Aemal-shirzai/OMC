@@ -14,10 +14,9 @@ div#profileShortInfoParent{
 	width: 70%;	
 	float: right;
 }
-div#profileImage{
-
+button#userFollowBtn{
+	color: #666;
 }
-
 #profileImage img{
 	width: 163px;
 	height: 163px;
@@ -37,7 +36,7 @@ div#profileShortInfoParent h2{
 	display: inline-block;
 	margin-top: 12px; 
 }
-div#profileShortInfoParent a#editButton{
+div#profileShortInfoParent a.editFollowBtn{
 	border: 1px solid #c9dbdc;
 	margin-left: 10px;
 	margin-top: -12px !important;
@@ -45,7 +44,7 @@ div#profileShortInfoParent a#editButton{
 	font-size: 14px;
 	transition: 0.5s;
 }
-div#profileShortInfoParent a#editButton:hover{
+div#profileShortInfoParent a.editFollowBtn:hover{
 	background-color: #3fbbc0;
 	color: white;
 }
@@ -75,7 +74,7 @@ div#pofileContentPart{
 	font-weight: bold;
 	letter-spacing: 1px;
 	transition: color 0.5s;
-	font-size: 12px;
+	font-size: 11px;
 	text-transform: uppercase;
 }
 .tabLinks:focus{
@@ -106,6 +105,7 @@ div#postPic{
 }
 div#divider{
 	margin-left: 52px;
+	border-color: #d0d0d0;
 }
 div#postPic img{
 	width: 40px;
@@ -118,7 +118,6 @@ div#postPic a:hover{
 }
 div#ownerName{
 	color: black;
-	font-weight: bold;
 	display: inline-block;
 	padding-left: 12px;
 }
@@ -138,7 +137,7 @@ div#postContent{
 }
 div#postContent h5{
 	font-weight: bold;
-	font-size: 16px;
+	font-size: 14px;
 }
 div#postContent p{
 	word-wrap: break-word;
@@ -161,6 +160,56 @@ div#postImage img{
 	width: 100%;
 	max-height: 197px !important
 }
+
+/* post Tags part*/
+div.tags{
+	margin-bottom: 8px;
+}
+div.tags span{
+	background-color: #efefef;
+	padding: 2px 5px;
+}
+div.tags span a{
+	font-size: 12px;
+}
+
+/* options for post part */
+div.options{
+	width: 85%;
+	margin: 0 auto;
+	text-align: center;
+}
+div.options button{
+	border-radius: 15px;
+	font-weight: bold;
+	font-size: 11px;
+	color: #666;
+	height: 35px;
+	margin-bottom: 4px;
+	transition: .5s;
+}
+div.options button a{
+	color: #666;
+	text-decoration: none;
+}
+div.options button:focus{
+	box-shadow: none;
+}
+div.options button:hover{
+	background-color: #efefef;
+}
+
+span.votes{
+	font-weight: lighter;
+}
+span.optionsIcons{
+	font-size: 16px;
+	margin-right: 4px;
+}
+div.options button:hover span.optionsIcons{
+	color: #3fbbc0;
+}
+
 /* Comment part */
 div#commentPart{
 	background-color: white;
@@ -251,6 +300,13 @@ div#comment{
 
 /* iphod pro */
 @media screen and (max-width: 1200px) and (min-width: 1024px){
+/* post Tags part*/
+	div.tags span{
+		padding: 0 2px;
+	}
+	div.tags span a{
+		font-size: 10px;
+	}
 
 	.commentField{
 		font-size: 12px;
@@ -266,6 +322,11 @@ div#comment{
 		left: 16px !important;
 	}
 
+	/* options part */
+	div.options button{
+		font-size: 10px;
+	}
+
 }
 
 /* below ipon pro */
@@ -274,6 +335,22 @@ div#comment{
 	div#posts{
 		padding: 0 14% !important;
 	}
+/* post Tags part*/
+	div.tags span{
+		padding: 0 2px;
+	}
+	div.tags span a{
+		font-size: 9px;
+	}
+
+/*options part*/
+	div.options{
+		width: 100%;
+	}
+	div.options button{
+		font-size: 10px;
+	}
+/* comments part */
 	div#commentPart{
 		background-color: inherit;
 		width: 85%;
@@ -362,7 +439,7 @@ div#comment{
 		letter-spacing: 0px;
 		font-size: 20px;
 	}
-	div#profileShortInfoParent a#editButton{
+	div#profileShortInfoParent a.editFollowBtn{
 		margin-left: 0px;
 	    margin-top: 0px !important;
 	    display: block;
@@ -428,6 +505,32 @@ div#comment{
 		width: 35px;
 		height: 35px;
 	}
+/* post Tags part*/
+	div.tags span{
+		padding: 0 2px;
+	}
+	div.tags span a{
+		font-size: 9px;
+	}
+
+/* options for post part */
+	div.options{
+		padding-left: 10px;
+	}
+	div.options{
+		width: 100%;
+	}
+	span.optionsText{
+		display: none;
+	}
+	span.optionsIcons{
+		font-size: 16px;
+	}
+	span.votes{
+		font-size: 10px;
+	}
+
+
 /* cmment part */
 	div#commentPart{
 		background-color: inherit;
@@ -505,7 +608,7 @@ div#comment{
 	div#smallScreenBio p{
 		font-size: 11px;
 	}
-	div#profileShortInfoParent a#editButton{
+	div#profileShortInfoParent a.editFollowBtn{
 		font-size: 11px;
 	    height: 26px;
 	}
@@ -525,6 +628,14 @@ div#comment{
 	}
 	div#postContent p{
 		font-size: 12px;
+	}
+/* options part */
+	div.options{
+		padding-left: 22px;
+	}
+	span.optionsIcons{
+		font-size: 14px;
+		margin-right: 0;
 	}
 
 /* comment part */
