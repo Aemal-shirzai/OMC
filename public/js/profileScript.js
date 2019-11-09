@@ -86,12 +86,15 @@ function openCommentPhotoField(value){
 
 // Beggining of : the function which open the share options menu
 
+var count = 0;
 function openShareOptions(value){
 	var menu = document.getElementById("shareOptions-"+value);
-	if(menu.style.display == "none"){
+	if(count == 0){
 		menu.style.display = "block";
+		count = 1;
 	}else{
 		menu.style.display = "none";
+		count =0;
 	}
 	event.preventDefault();
 }
