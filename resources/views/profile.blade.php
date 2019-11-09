@@ -5,9 +5,7 @@
 
 @endsection
 @section("content")
-
 <div id="profileParent">
-	
 	<div class="container" id="profileHeading">
 		<div id="profileImageParent">
 			<div id="profileImage" class="">
@@ -217,10 +215,42 @@
 					</div>
 				</div>
 				<div id="commentPart">
-					<div id="commentPartImage" style="background-color: ;">
+					<!-- Note: this div is used to show the error messages of both client side and serverside NOTE:ids names are confusing here -->
+					<div class="alert alert-danger commentImageVideoErrorMsg" id="fileError-{{$post->id}}" >
+						<button class="close" onclick="closeMsgs({!! $post->id !!})">&times;</button>
+						<span id="msg-{{$post->id}}">
+							@error('photo')
+								{{ $message }}
+							@enderror
+						</span>
+					</div>
+					<!-- Note: Success messages -->
+					@if(session("commentSuccess"))
+					<!-- 
+						* I have added the id for this div for two reasons:
+						* 1- because to scroll down to it when the responise come back from the serveer
+						* 2- to make its display availible usring js. Because if i just relay on the the session if statemetn
+						* then when the request response come then it show the smae messagses above all the comments.			
+					 -->
+						<div class="alert alert-success commentSuccessMsgs" id="successMsg-{{$post->id}}">
+							<button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
+								{{session('commentSuccess')}}
+						</div>
+					@endif
+					<div class="commentImageDiv" id="commentImageDiv-{{$post->id}}" style="">
+    					<button class="close removeImage" onclick="removeImage({!! $post->id !!})" >
+    						&times; 
+    						<span class="removeEditCommentPhotoText"> Remove photo</span>
+    					</button>
+    					<a href="javascript:void(0)" class="fal fa-edit ml-2" onclick="openCommentPhotoField({!!$post->id!!})">
+    						<span class="removeEditCommentPhotoText">Change photo</span>
+    					</a>
+						<img src="" id="commentImg-{{$post->id}}" >
+					</div>
+					<div id="commentPartImage">
 							@if(count(Auth::user()->owner->photos) > 0)
 								@if(Auth::user()->owner_type == 'App\NormalUser')
-									<img src="/storage/images/normalUsers/{{Auth::user()->owner->photos()->where('status',1)->first()->path}}" class="" style="border">
+									<img src="/storage/images/normalUsers/{{Auth::user()->owner->photos()->where('status',1)->first()->path}}" class="" >
 								@else
 									<img src="/storage/images/doctors/{{Auth::user()->owner->photos()->where('status',1)->first()->path}}" class="">
 								@endif
@@ -231,11 +261,13 @@
 					<div id="comment">
 						{!! Form::open(["method"=>"post","action"=>"CommentController@store","files"=>"true"]) !!}		
 							<div class="input-group">
-								{!! Form::textarea("content",null,["class"=>"form-control commentField","placeholder"=>"Add Comment...","id"=>"commentField-$post->id","rows"=>"1","onkeyup"=>"do_resize_and_enable_button(this,$post->id)"]) !!}
-								{!! Form::file("photo",["class"=>"commentPhotoField","id"=>"commentPhotoField-$post->id"]) !!}
-								{!! Form::hidden("post_id",$post->id) !!}
+								{!! Form::file("photo",["class"=>"commentPhotoField","id"=>"commentPhotoField-$post->id","onchange"=>"showAndValidateFile($post->id)"]) !!}
+								<input type="textarea" name="content" class="form-control commentField" placeholder="Add Comment..." id="commentField-{{$post->id}}" rows="1"
+								onkeyup="do_resize_and_enable_button(this,{!! $post->id !!})" value= @if(old("post_id") == $post->id) {{old("content")}} @else "" @endif>
+
+								<input type="hidden" name="post_id" value= @if(old("post_id") == $post->id) {{old("post_id")}} @else {{$post->id}} @endif >
 								{!! Form::submit("Add Comment",["class"=>"btn  btn-sm addCommentBtn","id"=>"addCommentBtn-$post->id","disabled"=>"true","onclick"=>"validateCommentForm($post->id)"]) !!}
-								<i class="fal fa-camera commentPhotoButton" id="commentPhotoButton-$post->id" onclick="openCommentPhotoField({{$post->id}})"></i>
+								<i class="fal fa-camera commentPhotoButton" id="commentPhotoButton-$post->id" onclick="openCommentPhotoField({!!$post->id!!})"></i>
 							</div>
 						{!! Form::close() !!}
 					</div>
@@ -271,5 +303,23 @@
 
 
 </div>
- 
+
+
+@endsection
+
+@section("scripts")
+	@if(session('post_id'))
+		<script type="text/javascript">
+			var scroll = "on";
+			var post_id = {!! json_encode(session('post_id')) !!};
+		</script>
+	@endif
+
+	@error("photo")
+		<script type="text/javascript">
+			var scroll = "on1";
+			var post_id = {!! json_encode(old("post_id")) !!};
+		</script>
+	@enderror
+
 @endsection

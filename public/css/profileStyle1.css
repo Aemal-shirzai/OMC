@@ -167,6 +167,7 @@ div.tags{
 }
 div.tags span{
 	background-color: #efefef;
+	border-radius: 4px;
 	padding: 0 5px;
 }
 div.tags span a{
@@ -354,6 +355,54 @@ div#comment{
 	display: none;
 }
 
+div.commentImageDiv{
+	background-color: ;
+	width: 100%;
+	display: none;
+	overflow: hidden;
+    max-height: 180px;
+    border-radius: 10px;
+    border:1px solid lightgray;
+    overflow: hidden;
+    padding: 12px 20px;
+    margin-bottom: 12px;
+}
+div.commentImageDiv img{
+	max-width: 130px;
+	max-height: 130px;
+	margin-left: 60px;
+	border-radius: 12px;
+}
+button.removeImage{
+	color: red;
+}
+.removeEditCommentPhotoText{
+	font-size: 12px;
+}
+div.commentImageDiv a{
+	float: left;
+}
+div.commentImageDiv a:hover{
+	color: black;
+	text-decoration: none;
+}
+div.commentImageDiv button:focus{
+	outline: none;
+}
+div.commentImageVideoErrorMsg{
+	box-shadow: 0px 0px 20px 0px #d7f3e3;
+	width: 80%;
+	display: none;
+	font-size: 12px;
+	margin-left: 36px;
+}
+div.commentSuccessMsgs{
+	box-shadow: 0px 0px 20px 0px #d7f3e3;
+	width: 80%;
+	font-size: 12px;
+	display: none;
+	margin-left: 36px;
+}
 
 *::-webkit-scrollbar {
     width: 5px !important;
@@ -369,7 +418,7 @@ div#comment{
   outline: 1px solid slategrey !important;
 }
 
-/* iphod pro */
+/* iphod pro /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 1200px) and (min-width: 1024px){
 /* post Tags part*/
 	div.tags span{
@@ -403,6 +452,27 @@ div#comment{
 	}
 	div.shareOptionsForGuest{
 		margin-left: -50px;
+	}
+	div.commentImageVideoErrorMsg{
+		width: 100%;
+		font-size: 11px;
+		padding: 7px 12px;
+		margin-left: 0px;
+	}
+	div.commentImageDiv img{
+		max-width: 98px;
+		max-height: 98px;
+		margin-left: 42px;
+	}
+	span.removeEditCommentPhotoText{
+		font-size: 11px;
+	}
+	div.commentSuccessMsgs{
+		width: 100%;
+		font-size: 11px;
+		display: none;
+		padding: 7px 12px;
+		margin-left: 0px;
 	}
 }
 
@@ -496,6 +566,28 @@ div#comment{
 	    height: 22px;
 	    width: 22px;
 	}
+	div.commentImageVideoErrorMsg{
+		width: 100%;
+		font-size: 11px;
+		padding: 7px 12px;
+		margin-left: 0px;
+	}
+	div.commentImageDiv img{
+		max-width: 95px;
+		max-height: 95px;
+		margin-left: 37px;
+	}
+	span.removeEditCommentPhotoText{
+		font-size: 11px;
+	}
+	div.commentSuccessMsgs{
+		width: 100%;
+		font-size: 11px;
+		padding: 7px 12px;
+		margin-left: 0px;
+	}
+
+
 	*::-webkit-scrollbar {
     	width: 3px;
 	}
@@ -600,6 +692,7 @@ div#comment{
 /* post Tags part*/
 	div.tags{
 		margin-bottom: 0;
+		margin-right: 0;
 	}
 	div.tags span{
 		background-color: inherit;
@@ -607,8 +700,9 @@ div#comment{
 	}
 	div.tags span a{
 		background-color: #efefef;
+		border-radius: 5px;
 		padding: 2px 2px;
-		font-size: 8px;
+		font-size: 6px;
 	}
 
 /* options for post part */
@@ -693,6 +787,26 @@ div#comment{
 	    height: 19px;
 	    width: 19px;
 	}
+	div.commentImageVideoErrorMsg{
+		width: 100%;
+		font-size: 11px;
+		padding: 7px 10px;
+		margin-left: 0px;
+	}
+	div.commentImageDiv img{
+		max-width: 90px;
+		max-height: 906px;
+		margin-left: 80px;
+	}
+	span.removeEditCommentPhotoText{
+		display: none;
+	}
+	div.commentSuccessMsgs{
+		width: 100%;
+		font-size: 11px;
+		padding: 7px 10px;
+		margin-left: 0px;
+	}
 	*::-webkit-scrollbar {
     	width: 3px;
 	}
@@ -754,5 +868,19 @@ div#comment{
 	}
 
 /* comment part */
+	div.commentImageVideoErrorMsg{
+		font-size: 10px;
+		padding: 7px 9px;
+	}
+	div.commentImageDiv img{
+		max-width: 66px;
+		max-height: 66px;
+		margin-left: 65px;
+	}
+	div.commentSuccessMsgs{
+		font-size: 10px;
+		padding: 7px 9px;
+	}
+
 
 }

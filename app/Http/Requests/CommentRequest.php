@@ -24,7 +24,14 @@ class CommentRequest extends FormRequest
     public function rules()
     {
         return [
-            "content" => "required"
+            "photo" => "bail|image|max:10240|min:1",
+        ];
+    }
+
+    public function messages(){
+        return [
+            "photo.image" => "Invalid file. Only photos are allowed...",
+            "photo.max"   => "File too large. max 10MB..."
         ];
     }
 }

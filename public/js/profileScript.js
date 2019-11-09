@@ -19,7 +19,10 @@ function openContent(evt,value){
 
 function validateCommentForm(postId){
 	var field = document.getElementById("commentField-"+postId);
-	if(field.value.trim().length < 1){
+	var photoField = document.getElementById("commentPhotoField-"+postId);
+
+	// This if means if both the photo filed and comment field is empty then throw an error
+	if(field.value.trim().length < 1 && photoField.files.length < 1){
 		field.focus();
 		field.style.border = "1px solid red";
 		field.placeholder = "can not add empty comment";
@@ -37,7 +40,7 @@ function do_resize_and_enable_button(textbox,postId) {
   var txt=textbox.value;
   var cols=textbox.cols;
 // enable button
-if(txt.trim().length > 0){
+if(txt.trim().length > 0 ){
 	//  This if is to disable border red if the text area is border red due to any error
 	if(textbox.style.border == "1px solid red"){
 		textbox.style.border = "none";
@@ -79,6 +82,7 @@ if(rows == 1){
 function openCommentPhotoField(value){
 	// var field = document.getElementById("commentPhotoField-"+value);
 	var field = document.getElementById("commentPhotoField-"+value);
+	field.value = "";
 	field.click();
 }
  // End of : the function which open the comment photo field
@@ -101,4 +105,95 @@ function openShareOptions(value){
 
 // End of : the function which open the share options menu
 
+// Beggining of th function whihc is responsible to show the image on the screen after beign seleccted
 
+function showpic(input,id){
+	if(input.files && input.files[0]){
+		var reader = new FileReader();
+
+		reader.onload = function(e){
+			$("#commentImg-"+id).attr("src",e.target.result);	
+		}
+
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+// End of th function whihc is responsible to show the image on the screen after beign seleccted
+
+// Beggining of the functio which validate the comment image
+function showAndValidateFile(value){
+	var field = document.getElementById("commentPhotoField-"+value);
+	var button = document.getElementById("addCommentBtn-"+value);
+	var commentField = document.getElementById("commentField-"+value);
+	var fileType = field.value.split(".").pop().toLowerCase();
+	if(fileType == "jpg" || fileType == "bmp" || fileType == "jpeg" || fileType == "png" || fileType == "gif" || fileType == "svg"){
+		if(field.files[0].size/1024/1024 < 10){
+			$("#commentImageDiv-"+value).show();
+			button.disabled =false; // It enable the add comment button because the image is correct
+			$("#fileError-"+value).hide();
+			showpic(field,value);
+		}else{
+			$("#fileError-"+value).show();
+			field.value= "";
+			$("#commentImageDiv-"+value).hide();
+			$("#msg-"+value).text("File too large. max 10MB...");
+			/* Here the photo is wrong it means the path will be cleared and length will be 0 
+			  so now this if checks if the commetn field is also empty the disable the commetn button */
+			if(commentField.value.trim().length < 1){
+				button.disabled = true;
+			}
+			event.preventDefault();
+		}
+	}else{
+		/* Here the photo is wrong it means the path will be cleared and length will be 0 
+		  so now this if checks if the commetn field is also empty the disable the commetn button */
+		if(commentField.value.trim().length < 1){
+				button.disabled = true;
+		}
+		$("#fileError-"+value).show();
+		field.value= "";
+		$("#commentImageDiv-"+value).hide();
+		$("#msg-"+value).text("Invalid file. Only photos are allowed...");
+		event.preventDefault();
+	}
+}
+// End of of the functio which validate the comment image
+
+// Beggining of the function which close the eroror msg while clikcing on the cross button
+function closeMsgs(value){
+	document.getElementById("fileError-"+value).style.display = "none";
+}
+// End of the function which close the eroror msg while clikcing on the cross button
+
+// Beggining of the function which Remove the comment image when click remove image
+	function removeImage(value){
+		var field = document.getElementById("commentPhotoField-"+value);
+		var commentField = document.getElementById("commentField-"+value);
+		var button = document.getElementById("addCommentBtn-"+value);
+		/* By clicking the remove photo field the photo length becomes 0 because the path is cleared  
+		   so now this if checks if the commetn field is also empty the disable the commetn button */
+		if(commentField.value.trim().length < 1){
+			button.disabled = true;
+		}
+		field.value= "";
+		$("#commentImageDiv-"+value).hide();
+	}
+// Endof of the function which Remove the comment image when click remove image
+
+
+$(document).ready(function(){
+
+ if(scroll === "on"){
+ 	$("#successMsg-"+post_id).show();
+	$("html,body").animate({
+	scrollTop: $("#successMsg-"+post_id).offset().top-500},"fast");
+	
+ }
+ if(scroll === "on1"){
+ 	$("#fileError-"+post_id).show();
+	$("html,body").animate({
+	scrollTop: $("#fileError-"+post_id).offset().top-500},"fast");
+	
+ }
+
+});

@@ -209,7 +209,7 @@ $("document").ready(function(){
 // Note the status variable is comming from the main page
 if(status === "on"){
 	$("html,body").animate({
-	scrollTop: $("#section5").offset().top+190},"slow");
+	scrollTop: $("#section5").offset().top},"slow");
 }
 // End of : to scroll to contact form when its resposnse is returned back
 

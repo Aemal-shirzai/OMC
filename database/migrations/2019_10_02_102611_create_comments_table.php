@@ -15,7 +15,8 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->longText("content");
+            // The reason that this filed is nullable is that the comment may only have photo
+            $table->longText("content")->nullable();
             // for user or doctor
             $table->string("owner_type");
             $table->bigInteger("owner_id")->unsigned();
