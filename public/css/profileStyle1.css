@@ -163,14 +163,14 @@ div#postImage img{
 
 /* post Tags part*/
 div.tags{
-	margin-bottom: 8px;
+	margin-bottom: 2px;
 }
 div.tags span{
 	background-color: #efefef;
-	padding: 2px 5px;
+	padding: 0 5px;
 }
 div.tags span a{
-	font-size: 12px;
+	font-size: 10px;
 }
 
 /* options for post part */
@@ -305,9 +305,9 @@ div#comment{
 		padding: 0 2px;
 	}
 	div.tags span a{
-		font-size: 10px;
+		font-size: 9px;
 	}
-
+/*Commen part*/
 	.commentField{
 		font-size: 12px;
 		margin-left: 10px;
@@ -340,7 +340,7 @@ div#comment{
 		padding: 0 2px;
 	}
 	div.tags span a{
-		font-size: 9px;
+		font-size: 8px;
 	}
 
 /*options part*/
@@ -506,11 +506,17 @@ div#comment{
 		height: 35px;
 	}
 /* post Tags part*/
+	div.tags{
+		margin-bottom: 0;
+	}
 	div.tags span{
-		padding: 0 2px;
+		background-color: inherit;
+		padding: 0 0;
 	}
 	div.tags span a{
-		font-size: 9px;
+		background-color: #efefef;
+		padding: 2px 2px;
+		font-size: 8px;
 	}
 
 /* options for post part */
