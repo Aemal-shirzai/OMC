@@ -192,13 +192,13 @@ $(document).ready(function(){
  if(scroll === "on"){
  	$("#successMsg-"+post_id).show();
 	$("html,body").animate({
-	scrollTop: $("#successMsg-"+post_id).offset().top-500},"fast");
+	scrollTop: $("#successMsg-"+post_id).offset().top-350},"fast");
 	
  }
  if(scroll === "on1"){
  	$("#fileError-"+post_id).show();
 	$("html,body").animate({
-	scrollTop: $("#fileError-"+post_id).offset().top-500},"fast");
+	scrollTop: $("#fileError-"+post_id).offset().top-350},"fast");
 	
  }
 

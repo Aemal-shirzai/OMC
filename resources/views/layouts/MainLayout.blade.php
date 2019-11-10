@@ -128,6 +128,19 @@
 	@guest
 		<div class="alert alert-info" id="loginAlert"><a href="{{route('login')}}">Login</a> to add questions, comments, upvote and downvote posts and questions</div>
 	@endguest
+	@auth
+		@if(Auth::user()->owner_type == "App\Doctor" && Auth::user()->owner->status == 0)
+			@if(Auth::user()->owner->gender == 0)
+				<div class="alert alert-info" id="loginAlert">
+					Mr. {{Auth::user()->owner->fullName}}, Your account has been created and your will be contacted in next 24 hours confirmation.
+				</div>
+			@else
+				 <div class="alert alert-info" id="loginAlert">
+					Mrs./Miss. {{Auth::user()->owner->fullName}}, Your account has been created and your will be contacted in next 24 hours confirmation.
+				</div>
+			@endif
+		@endif
+	@endauth
 	@yield("content")
 </div>
 
@@ -186,7 +199,7 @@
 
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
-<script type="text/javascript" src="{{asset('js/profileScript1.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/profileScript.js')}}"></script>
 @endif
 
 

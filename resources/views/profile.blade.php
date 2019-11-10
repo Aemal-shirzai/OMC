@@ -162,7 +162,7 @@
 					<span><a href="#">Diabates</a></span>
 				</div>
 				<div id="postImage" class="text-center">
-					<img src="{{asset('images/section1.jpg')}}" class="img-fluid">
+					<img src="{{asset('images/5.jpg')}}" class="img-fluid">
 				</div>
 				<p>{{ $post->content }}</p>
 			</div>
