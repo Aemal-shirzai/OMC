@@ -127,8 +127,8 @@ class RegisterController extends Controller
     // This function store mores info to db 
     protected function moreInfoStore(MoreInfoRequest $request)
     {
-        // grap the current user 
-        $user = Auth::user()->owner;
+        // grab the current user 
+        $user = Auth::user();
         // store the year, month, and day fields in single variable
         $DateOfBirth =  Carbon::createFromDate($request->year,$request->month,$request->day)->format("Y-m-d"); 
          // add the newly created variable of date to request array
@@ -142,7 +142,7 @@ class RegisterController extends Controller
             $extension = $photo->getClientOriginalExtension();
             $nameToBeStored = $onlyName.time(). "." .$extension;
 
-            if(Auth::user()->owner_type == "App\Doctor"){
+            if($user->owner_type == "App\Doctor"){
                 $folder = "public/images/doctors/";
             }else{
                 $folder = "public/images/normalUsers/";
@@ -156,9 +156,10 @@ class RegisterController extends Controller
         if($request->phone != ""){
             $user->phones()->create(["phone"=>$request->phone]);
         }  
+ 
       
         // // update the selected user data
-        $update = $user->update($request->all());
+        $update = $user->owner->update($request->all());
         
         if($update){
             return redirect()->route("profile",Auth::user()->username)->with("sucesss","Your account was created.");

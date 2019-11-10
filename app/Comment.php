@@ -4,26 +4,31 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Photo;
+use App\Account;
 class Comment extends Model
 {
     /**
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-    	"owner_type",
-    	"owner_id",
+    	"account_id",
     	"content"
     ];
 
     // Relationship with posts  Questions
-    public function postQuestionOwner(){
-    	return $this->morphTo("","to_type","to_id");
-    }
+    // public function postQuestionOwner(){
+    // 	return $this->morphTo("","to_type","to_id");
+    // }
 
     // Relationship with posts and normal users
-    public function doctorNormalUserOwner(){
+    public function comment_owner_type(){
     	return $this->morphTo("","owner_type","owner_id");
     }
+
+   // Relationship with accounts
+   public function comment_owner(){
+        return $this->belongsTo(Account::class);
+   }
 
     // Relationship with photos
     public function photos(){

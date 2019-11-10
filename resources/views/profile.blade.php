@@ -10,11 +10,11 @@
 		<div id="profileImageParent">
 			<div id="profileImage" class="">
 				
-				@if(count($user->owner->photos) > 0)
+				@if(count($user->photos) > 0)
 					@if($user->owner_type == 'App\NormalUser')
-						<img src="/storage/images/normalUsers/{{$user->owner->photos()->where('status',1)->first()->path}}" >
+						<img src="/storage/images/normalUsers/{{$user->photos()->where('status',1)->first()->path}}" >
 					@else
-						<img src="/storage/images/doctors/{{$user->owner->photos()->where('status',1)->first()->path}}" class="">
+						<img src="/storage/images/doctors/{{$user->photos()->where('status',1)->first()->path}}" class="">
 					@endif
 				@else
 					<span class="fal fa-user" id="no-image"></span>
@@ -114,8 +114,8 @@
 			<div id="postPic">
 				<div class="dropdown-divider col-10" id="divider"></div>
 				<a href="{{route('profile',$post->owner->account->username)}}">
-					@if(count($post->owner->photos) > 0)
-						<img src="/storage/images/doctors/{{$post->owner->photos()->where('status',1)->first()->path}}">
+					@if(count($post->owner->account->photos) > 0)
+						<img src="/storage/images/doctors/{{$post->owner->account->photos()->where('status',1)->first()->path}}">
 					@else
 						<span class="fal fa-user" id="no-image-in-post"></span>
 					@endif
@@ -250,11 +250,11 @@
 						<img src="" id="commentImg-{{$post->id}}" >
 					</div>
 					<div id="commentPartImage">
-							@if(count(Auth::user()->owner->photos) > 0)
+							@if(count(Auth::user()->owner->account->photos) > 0)
 								@if(Auth::user()->owner_type == 'App\NormalUser')
-									<img src="/storage/images/normalUsers/{{Auth::user()->owner->photos()->where('status',1)->first()->path}}" class="" >
+									<img src="/storage/images/normalUsers/{{Auth::user()->owner->account->photos()->where('status',1)->first()->path}}" class="" >
 								@else
-									<img src="/storage/images/doctors/{{Auth::user()->owner->photos()->where('status',1)->first()->path}}" class="">
+									<img src="/storage/images/doctors/{{Auth::user()->owner->account->photos()->where('status',1)->first()->path}}" class="">
 								@endif
 							@else
 								<span class="fal fa-user" id="no-image-in-comment"></span>

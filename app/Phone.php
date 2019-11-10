@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Account;
 class Phone extends Model
 {
    /**
@@ -15,6 +15,6 @@ class Phone extends Model
 
     // relationship with normal usr and doctors
     public function owner(){
-        return $this->morphTo("","owner_type","owner_id");
+        return $this->belongsTo(Account::class);
     } 
 }

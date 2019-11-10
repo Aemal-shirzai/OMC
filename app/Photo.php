@@ -3,8 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Doctor;
-use App\NormalUser;
+use App\Account;
 
 class Photo extends Model
 {
@@ -18,6 +17,6 @@ class Photo extends Model
 
 	// Relationship with users and doctors and more will be added later
 	public function owner(){
-		return $this->morphTo("","owner_type","owner_id");
+		return $this->belongsTo(Account::class);
 	}
 }

@@ -17,13 +17,14 @@ class CreateCommentsTable extends Migration
             $table->bigIncrements('id');
             // The reason that this filed is nullable is that the comment may only have photo
             $table->longText("content")->nullable();
-            // for user or doctor
-            $table->string("owner_type");
-            $table->bigInteger("owner_id")->unsigned();
+            // for account
+            $table->bigInteger("account_id")->unsigned();
             // for post or question
             $table->string("to_type");
             $table->bigInteger("to_id")->unsigned();
             $table->timestamps();
+
+            $table->foreign("account_id")->references("id")->on("accounts")->onDelete("cascade")->onUpdate("cascade");
         });
     }
 

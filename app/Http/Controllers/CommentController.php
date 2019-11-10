@@ -41,22 +41,15 @@ class CommentController extends Controller
             return back()->withInput()->with("error","The comment content can not be null");
         }
         $user = Auth::user();
-        // in order to store the correct owner_type column in the commments table we need to know the current accout owner_type
-        if($user->owner_type == "App\Doctor"){
-            // if it is doctor then store the user owner type in the owner_type column
-            $owner_type = $user->owner_type;
-        }else{
-            // if it is normal user then store the user owner type in the owner_type column
-            $owner_type = $user->owner_type;
-        }
-        // in order to store the correct owner_id column in the commments table we need to know the current account owner id the we store it in owner_id
-        $owner_id  = $user->owner->id;
-        // content comming from request
-        $content = $request->content;
+    
+        // in order to store the correct account_id column in the commments table we need to know the current account_id the is stroed in the id column of the current loged in user account table
+        $account_id  = $user->id;
         // to find the post to which the comment is added by hellping the post_id which is comming from a hidden input in the comment section
         $post = Post::findOrFail($request->post_id);
+        //add column account_id to array request
+        $request->merge(["account_id"=>$account_id]);
         // create the comment for the post we found above and add content owner_id and owner_type column aswell
-        $comment = $post->comments()->create(["owner_type"=>$owner_type,"owner_id"=>$owner_id,"content"=>$content]);
+        $comment = $post->comments()->create($request->all());
 
         // if the request has photo then add it by the help of comment and photos relationship (photos)
         if($request->hasFile("photo")){
