@@ -7,13 +7,13 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle.css')}}">
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}">
 	@elseif(Route::currentRouteName() == 'profile')
 	<!-- Link to local profile style for profile page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -132,11 +132,11 @@
 		@if(Auth::user()->owner_type == "App\Doctor" && Auth::user()->owner->status == 0)
 			@if(Auth::user()->owner->gender == 0)
 				<div class="alert alert-info" id="loginAlert">
-					Mr. {{Auth::user()->owner->fullName}}, Your account has been created and your will be contacted in next 24 hours confirmation.
+					Mr. {{Auth::user()->owner->fullName}}, Your account has been created and your will be contacted in next 24 hours for confirmation through email or call. 
 				</div>
 			@else
 				 <div class="alert alert-info" id="loginAlert">
-					Mrs./Miss. {{Auth::user()->owner->fullName}}, Your account has been created and your will be contacted in next 24 hours confirmation.
+					Mrs./Miss. {{Auth::user()->owner->fullName}}, Your account has been created and your will be contacted in next 24 hours for confirmation through email or call.
 				</div>
 			@endif
 		@endif
@@ -199,7 +199,7 @@
 
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
-<script type="text/javascript" src="{{asset('js/profileScript.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/profileScript1.js')}}"></script>
 @endif
 
 

@@ -16,7 +16,6 @@ function openContent(evt,value){
 // End of: the function which shows the profile content based on the clicked button
 
 // Begginng of : the function which validate the comment form
-
 function validateCommentForm(postId){
 	var field = document.getElementById("commentField-"+postId);
 	var photoField = document.getElementById("commentPhotoField-"+postId);
@@ -36,7 +35,7 @@ function validateCommentForm(postId){
 
 // Beggining of the function which resize the comment text area when the text increase, AND the function whihc enable the commnet button
 function do_resize_and_enable_button(textbox,postId) {
- var maxrows=15; 
+ var maxrows=10; 
   var txt=textbox.value;
   var cols=textbox.cols;
 // enable button
@@ -59,8 +58,7 @@ if(txt.trim().length > 0 ){
   var rows=arraytxt.length; 
 
  for (i=0;i<arraytxt.length;i++) 
-  rows+=parseInt(arraytxt[i].length/cols);
-
+  rows+=parseInt((arraytxt[i].length)/cols);
 if(rows == 1){
 	textbox.setAttribute("style","border-radius:10px !important;");
 	
@@ -69,10 +67,8 @@ if(rows == 1){
 }
 
  if (rows>maxrows){ 
-
  	textbox.rows=maxrows;
  	textbox.setAttribute("style","overflow:auto !important");
- 	
  }else {
   	textbox.rows=rows;
 }
@@ -203,3 +199,19 @@ $(document).ready(function(){
  }
 
 });
+
+
+// beggining of: the function which shows all comments
+var c = 0;
+function showAllComments(value){
+	var allComments = document.getElementById("allComments-"+value);
+	if(c == 0){
+			allComments.style.display = "block";
+			c = 1;
+	}else{
+			allComments.style.display = "none";
+			c = 0;
+	}
+}		
+
+// End of: the function which shows all comments

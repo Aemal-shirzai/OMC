@@ -46,11 +46,6 @@ class NormalUser extends Model
         return $this->morphOne(Account::class,"owner");
     }
 
-    // Relationship with phone
-    // public function phones(){
-    //     return $this->morphMany(Phone::class,"owner");
-    // } 
-
     // Relationship with country
     public function country(){
         return $this->belongsTo(Country::class);
@@ -65,16 +60,4 @@ class NormalUser extends Model
     public function district(){
         return $this->belongsTo(District::class);
     } 
-
-    //   // Relationship with photos
-    // public function photos(){
-    //     return $this->morphMany(Photo::class,"owner");
-    // }
-
-
-    // // Relationship with comments
-    // public function comments(){
-    //     return $this->morphMany(Comment::class,"owner");
-    // }
-
 }

@@ -15,10 +15,6 @@ class Comment extends Model
     	"content"
     ];
 
-    // Relationship with posts  Questions
-    // public function postQuestionOwner(){
-    // 	return $this->morphTo("","to_type","to_id");
-    // }
 
     // Relationship with posts and normal users
     public function comment_owner_type(){
@@ -27,7 +23,7 @@ class Comment extends Model
 
    // Relationship with accounts
    public function comment_owner(){
-        return $this->belongsTo(Account::class);
+        return $this->belongsTo(Account::class,"account_id");
    }
 
     // Relationship with photos

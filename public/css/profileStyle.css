@@ -116,6 +116,9 @@ div#postPic img{
 div#postPic a:hover{
 	text-decoration: none;
 }
+div#postPic a:hover span#fullName{
+	text-decoration: underline;
+}
 div#ownerName{
 	color: black;
 	display: inline-block;
@@ -125,12 +128,12 @@ div#postPic span#createTime{
 	color: #828282;
 	display: table;
 	font-size: 10px;
-
+	margin-top: -4px;
 }
 div#postContent{
 	display: block;
 	float: left;
-	max-height: 450px;
+	max-height: 550px;
 	overflow-y: auto;
 	margin-bottom: 12px;
 	padding: 4px 53px;
@@ -144,8 +147,17 @@ div#postContent p{
 	text-align: justify;
 	font-size: 14px;
 }
+div#postImage{
+	border:1px solid lightgray;
+	border-radius: 8px;
+	margin-bottom: 12px;
+}
 div#postContent img{
-	margin-bottom: 5px;
+	border-radius: 5px;
+}
+div#postImage img{
+	max-width: 100%;
+	max-height: 300px !important
 }
 #no-image-in-post{
 	padding: 11px 13px;
@@ -156,10 +168,7 @@ div#postContent img{
     height: 40px;
     width: 40px;
 }
-div#postImage img{
-	width: 100%;
-	max-height: 197px !important
-}
+
 
 /* post Tags part*/
 div.tags{
@@ -189,13 +198,12 @@ div.options button{
 	margin-bottom: 4px;
 	transition: .5s;
 }
-div.shareBtn{
+div#shareBtn{
 	position: relative;
 }
 div.shareBtnForGuest{
 	overflow: hidden;
-	height: 22px;
-	margin-top: -5px;
+	margin-top: -35px;
 }
 div.options button a{
 	color: #666;
@@ -403,10 +411,142 @@ div.commentSuccessMsgs{
 	display: none;
 	margin-left: 36px;
 }
+/* Showing all comments part */
+div.allComments{
+	background-color: #fafafa !important;
+	overflow: auto;
+	margin-bottom: 15px;
+	background-color: white;
+	padding: 12px 0px;
+	padding-left: 12px;
+	display: none;
+	max-height: 500px;
+}
+div.allcommentsOwnerImage{
+	display: inline-block;
+	float: left;
+	width: 100%;
+	overflow: hidden;
+}
+div.allcommentsOwnerImage img{
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	border-radius: 50%;
+}
+div.commentOwnerName{
+	display: inline-block;
+}
+div.commentOwnerName a{
+	margin-left: 3px;
+	color: black;
+	font-weight: bold;
+	font-size: 12px;
+}
+div.commentOwnerName span.commentcreateTime{
+	color: #828282;
+	display: table;
+	margin-left: 3px;
+	margin-top: -5px;
+	font-size: 10px;
+}
+div.allCommentsContent p{
+	font-size: 12px;
+}
+div#dividerForComments{
+	margin-top:0;
+	margin-bottom: 10px;
+}
+/*End of showing all comments part*/
+
+/* Beggining :options part for comments part*/
+
+/* options for post part */
+div.commetOptions{
+	width: 100%;
+	margin: 0 auto;
+}
+div.commetOptions button{
+	border-radius: 15px;
+	font-weight: bold;
+	font-size: 11px;
+	color: #666;
+	height: 25px;
+	margin-bottom: 4px;
+	transition: .5s;
+}
+div.commetOptions button:focus{
+	box-shadow: none;
+}
+div.commetOptions button:hover{
+	background-color: #efefef;
+}
+div.commetOptions button a{
+	color: #666;
+	text-decoration: none;
+}
+span.commentVotes{
+	font-weight: lighter;
+}
+span.commentOptionsIcons{
+	font-size: 12px;
+}
+div.commetOptions button:hover span.commentOptionsIcons{
+	color: #3fbbc0;
+}
+/* End :options part for comments part*/
+
+/* Beggining of the form of replies */
+div#reply{
+	display: inline-block;
+	width: 93%; 
+	margin-left: 5px;
+	margin-bottom: 5px;
+	
+}
+.replyField{
+	border-radius: 10px !important;
+	font-size: 11px;
+	overflow: hidden;
+	resize: none;	
+	padding: 5px 30px;
+	z-index: 0 !important;
+}
+.replyField:focus{
+	box-shadow: 0px 0px 1px 0px #3fbbc0;
+}
+.addReplyBtn{
+	border:1px solid #3fbbc0;
+	background-color: #3fbbc0;
+	border-radius: 40px;
+	color: white;
+	height: 30px;
+	margin-left: 6px;
+	font-size:12px; 
+	transition: 0.5s;
+}
+.addReplyBtn:hover{
+	color: white;
+}
+
+.replyPhotoButton{
+	position: absolute !important;
+	color: #3fbbc0;
+	top: 6px;
+	font-size: 16px;
+	left: 6px;
+	cursor: pointer;
+}
+.replyPhotoField{
+	display: none;
+}
+/* End of the form of replies */
+
+
+
 
 *::-webkit-scrollbar {
-    width: 5px !important;
-
+    width: 2px !important;
 }
  
 *::-webkit-scrollbar-track {
@@ -474,13 +614,28 @@ div.commentSuccessMsgs{
 		padding: 7px 12px;
 		margin-left: 0px;
 	}
+	/* Beggining of the form of replies */
+	.addReplyBtn{
+		height: 25px;
+		padding: 0 16px;
+		font-size:11px; 
+	}
+	/* End of the form of replies */
+
+	
 }
 
-/* below ipon pro */
+/* below ipon pro //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 @media screen and (max-width: 1023px) and (min-width: 768px){
 
 	div#posts{
 		padding: 0 14% !important;
+	}
+	div#postContent{
+		padding: 4px 10px;
+	}
+	div#postImage img{
+		max-height: 200px !important
 	}
 /* post Tags part*/
 	div.tags span{
@@ -493,6 +648,10 @@ div.commentSuccessMsgs{
 /*options part*/
 	div.options{
 		width: 100%;
+		padding: 0 0;
+	}
+	span.optionsText{
+		display: none;
 	}
 	div.options button{
 		font-size: 10px;
@@ -586,16 +745,48 @@ div.commentSuccessMsgs{
 		padding: 7px 12px;
 		margin-left: 0px;
 	}
-
-
-	*::-webkit-scrollbar {
-    	width: 3px;
+/* Showing all comments part */
+	div.commentOwnerName a{
+		font-size: 11px;
 	}
+	div.commentOwnerName span.commentcreateTime{
+		margin-top: -5px;
+		font-size: 7px;
+	}
+	div.allCommentsContent {
+		padding: 0 10px;
+	}
+	div.allCommentsContent p{
+		font-size: 11px;
+	}
+/*End of showing all comments part*/
+
+/* Beggining of the form of replies */
+	div#reply{
+		width: 97%;
+		margin-left: 3px;
+	}
+	.replyField{
+		font-size: 12px;
+		width: 100% !important;
+	}
+	.addReplyBtn{
+		height: 25px;
+		margin-top: 3px;
+		padding: 0 15px;
+		margin-left: 0px;
+		font-size:11px; 
+	}
+	.replyPhotoButton{
+		font-size: 15px;
+		left: 8px;
+	}
+/* End of the form of replies */
 	 
 
 
 }
-/* 640  - 769 */
+/* 640  - 769 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 @media screen and (max-width: 767px){
 	div#profileHeading{
 		margin-top: 20px;
@@ -670,8 +861,15 @@ div.commentSuccessMsgs{
 	div#posts{
 		padding: 0 0;
 	}
+	div#postPic span#createTime{
+		font-size: 8px;
+		margin-top: -1px;
+	}
 	div#postContent h5{
 		font-size: 14px;
+	}
+	div#postContent{
+		padding: 0 0;
 	}
 	div#postContent p{
 		text-align: left;
@@ -683,7 +881,7 @@ div.commentSuccessMsgs{
 		padding-right: 5px !important;
 	}
 	div#postImage img{
-		max-height: 197px !important
+		max-height: 100px !important
 	}
 	div#postPic img{
 		width: 35px;
@@ -707,9 +905,7 @@ div.commentSuccessMsgs{
 
 /* options for post part */
 	div.options{
-		padding-left: 10px;
-	}
-	div.options{
+		text-align: left;
 		width: 100%;
 	}
 	span.optionsText{
@@ -770,10 +966,12 @@ div.commentSuccessMsgs{
 		margin-left: 5px;
 		margin-bottom: 5px !important;
 	}
+	/* that camera icon */
 	.commentPhotoButton{
 		top: 5px;
 		left: 10px !important;
 	}
+	/* the submit button of comment form */
 	.addCommentBtn{
 		height: 25px;
 		margin-left: 6px;
@@ -795,7 +993,7 @@ div.commentSuccessMsgs{
 	}
 	div.commentImageDiv img{
 		max-width: 90px;
-		max-height: 906px;
+		max-height: 90px;
 		margin-left: 80px;
 	}
 	span.removeEditCommentPhotoText{
@@ -807,20 +1005,82 @@ div.commentSuccessMsgs{
 		padding: 7px 10px;
 		margin-left: 0px;
 	}
-	*::-webkit-scrollbar {
-    	width: 3px;
+/* Showing all comments part */
+	div.allComments{
+		background-color: white;
+		max-height: 400px;
 	}
-	 
+	div.allcommentsOwnerImage img{
+		width: 20px;
+		height: 20px;
+	}
+	div.commentOwnerName{
+		display: inline-block;
+	}
+	div.commentOwnerName a{
+		font-size: 11px;
+	}
+	div.commentOwnerName span.commentcreateTime{
+		margin-top: -5px;
+		font-size: 7px;
+	}
+	div.allCommentsContent {
+		padding: 0 1px;
+	}
+	div.allCommentsContent p{
+		font-size: 11px;
+	}
+/*End of showing all comments part*/
+
+/*Begginging of: options for comments*/
+span.commentVotes{
+	font-weight: lighter;
+	font-size: 9px;
+}
+span.commentOptionsIcons{
+	font-size: 9px;
+}
+/* End of :options for comments; */
+
+/* Beggining of the form of replies */
+div#reply{
+	width: 97%;
+	margin-left: 3px;
+}
+.replyField{
+	font-size: 11px;
+	width: 100% !important;
+}
+.addReplyBtn{
+	height: 25px;
+	margin-top: 3px;
+	padding: 0 13px;
+	margin-left: 0px;
+	font-size:11px; 
+}
+.replyPhotoButton{
+	font-size: 14px;
+	left: 8px;
+}
+/* End of the form of replies */
+
+
+
+
+*::-webkit-scrollbar {
+	width: 1px;
+}
+ 
 
 
 } 
 
-/* for small screen sizes */
+/* for small screen sizes ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 @media screen and (max-width:640px){
 	
 }
 
-/* 320 px iphone 5se */
+/* 320 px iphone 5se ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 @media screen and (max-width: 320px){
 	div#profileImageParent{
 		width: 25%;	
@@ -868,6 +1128,16 @@ div.commentSuccessMsgs{
 	}
 
 /* comment part */
+	.commentField{
+		font-size: 9px;
+	}
+	.addCommentBtn{
+		font-size: 9px;
+	}
+	.commentPhotoButton{
+		font-size: 14px;
+		margin-left: 4px;
+	}
 	div.commentImageVideoErrorMsg{
 		font-size: 10px;
 		padding: 7px 9px;
@@ -881,6 +1151,28 @@ div.commentSuccessMsgs{
 		font-size: 10px;
 		padding: 7px 9px;
 	}
+/* Showing all comments part */
+	div.commentOwnerName a{
+		font-size: 10px;
+	}
+	div.commentOwnerName span.commentcreateTime{
+		font-size: 6px;
+	}
 
+	div.allCommentsContent p{
+		font-size: 10px;
+	}
+/*End of showing all comments part*/
+
+/* Beggining of the form of replies */
+	.replyField{
+		font-size: 10px;
+	}
+	.addReplyBtn{
+		height: 23px;
+		padding: 0 12px;
+		font-size:10px; 
+	}
+/* End of the form of replies */
 
 }

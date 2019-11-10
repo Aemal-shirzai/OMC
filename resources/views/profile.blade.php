@@ -108,100 +108,34 @@
 <div class="container">
 @if($user->owner_type == 'App\Doctor')
 	<div id="posts" class="tab-content" >
-	@if(count($user->owner->posts) > 0)
-		@foreach($user->owner->posts as $post)
+		@if(count($user->owner->posts) > 0)
+			@foreach($user->owner->posts as $post)
 
-			<div id="postPic">
-				<div class="dropdown-divider col-10" id="divider"></div>
-				<a href="{{route('profile',$post->owner->account->username)}}">
-					@if(count($post->owner->account->photos) > 0)
-						<img src="/storage/images/doctors/{{$post->owner->account->photos()->where('status',1)->first()->path}}">
-					@else
-						<span class="fal fa-user" id="no-image-in-post"></span>
-					@endif
-					<div id="ownerName">
-						<span>{{$post->owner->fullName}}</span> 
-						@if($post->created_at)
-							<span id="createTime">Posted:{{$post->created_at->diffForHumans()}}</span>
+				<div id="postPic">
+					<div class="dropdown-divider col-10" id="divider"></div>
+					<a href="{{route('profile',$post->owner->account->username)}}">
+						@if(count($post->owner->account->photos) > 0)
+							<img src="/storage/images/doctors/{{$post->owner->account->photos()->where('status',1)->first()->path}}">
+						@else
+							<span class="fal fa-user" id="no-image-in-post"></span>
 						@endif
-					</div>
-				</a>
-			</div>
-			<div id="postContent">
-				<h5>{{$post->title}}</h5>
-				@guest
-				<div class="btn float-right shareBtnForGuest" id="shareBtn" title="All share options">
-					<a href="#" onclick="openShareOptions({{$post->id}})">
-						<span class="far fa-ellipsis-h optionsIcons"></span> 
+						<div id="ownerName">
+							<span id="fullName">{{$post->owner->fullName}}</span> 
+							@if($post->created_at)
+								<span id="createTime">Posted:{{$post->created_at->diffForHumans()}}</span>
+							@endif
+						</div>
 					</a>
-					<div class="shareOptions shareOptionsForGuest" id="shareOptions-{{$post->id}}">
-						<p class="text-center">Share</p>
-						<!-- <a href="" class="fab fa-facebook"> Facebook</a> -->
-						{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-facebook"],"<span>","</span>")->facebook() !!}
-						<div class="dropdown-divider"></div>
-						{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-twitter"],"<span>","</span>")->twitter() !!}
-						<div class="dropdown-divider"></div>
-						{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-linkedIn"],"<span>","</span>")->linkedin() !!}
-						<div class="dropdown-divider"></div>
-						{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-whatsapp"],"<span>","</span>")->whatsapp() !!}
-						<div class="dropdown-divider"></div>
-						{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-telegram"],"<span>","</span>")->telegram() !!}
-					</div>
 				</div>
-				@endguest
-				<div class="tags">
-					<span><a href="#">Headic</a></a></span>
-					<span><a href="#">Pain</a></span>
-					<span><a href="#">Cancer</a></span>
-					<span><a href="#">Calcium</a></span>
-					<span><a href="#">Diabates</a></span>
-					<span><a href="#">Headic</a></a></span>
-					<span><a href="#">Pain</a></span>
-					<span><a href="#">Cancer</a></span>
-					<span><a href="#">Calcium</a></span>
-					<span><a href="#">Diabates</a></span>
-				</div>
-				<div id="postImage" class="text-center">
-					<img src="{{asset('images/5.jpg')}}" class="img-fluid">
-				</div>
-				<p>{{ $post->content }}</p>
-			</div>
-			<div class="clearfix"></div>
-			@auth
-				<div class="options">
-					<button class="btn" title="The answer was usefull">
-						<a href="#">
-							<span class="fal fa-arrow-alt-up optionsIcons"></span> 
-							<span class="optionsText">Up-vote</span> 
-							<span class="votes">. 2</span>
-						</a>
-					</button>
-					<button class="btn" title="The answer was not usefull">
-						<a href="#">
-							<span class="fal fa-arrow-alt-down optionsIcons"></span> 
-							<span class="optionsText">Down-vote</span>  
-							<span class="votes">. 2</span>
-						</a>
-					</button>
-					<button class="btn" title="Follow the post for lates update">
-						<a href="#">
-							<span class="fal fa-wifi optionsIcons"></span> 
-							<span class="optionsText">Follow</span> 
-							<span class="votes">. 2</span>
-						</a>
-					</button>
-					<button class="btn" title="All comments for this post">
-						<a href="#">
-							<span class="fal fa-comment optionsIcons"></span> 
-							<span class="optionsText">comment</span> 
-							<span class="votes">. 2</span>
-						</a>
-					</button>
-					<div class="btn float-right" id="shareBtn" title="All share options">
+				<!-- start of div of postContent -->
+				<div id="postContent">
+					<h5>{{$post->title}}</h5>
+					@guest
+					<div class="btn float-right shareBtnForGuest" id="shareBtn" title="All share options">
 						<a href="#" onclick="openShareOptions({{$post->id}})">
-							<span class="far fa-ellipsis-v optionsIcons"></span> 
+							<span class="far fa-ellipsis-h optionsIcons"></span> 
 						</a>
-						<div class="shareOptions" id="shareOptions-{{$post->id}}">
+						<div class="shareOptions shareOptionsForGuest" id="shareOptions-{{$post->id}}">
 							<p class="text-center">Share</p>
 							<!-- <a href="" class="fab fa-facebook"> Facebook</a> -->
 							{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-facebook"],"<span>","</span>")->facebook() !!}
@@ -215,68 +149,218 @@
 							{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-telegram"],"<span>","</span>")->telegram() !!}
 						</div>
 					</div>
+					@endguest
+					<div id="postImage" class="text-center">
+						<img src="{{asset('images/bg-banner.jpg')}}" class="">
+					</div>
+					<div class="tags">
+						<span><a href="#">Headic</a></a></span>
+						<span><a href="#">Pain</a></span>
+						<span><a href="#">Cancer</a></span>
+						<span><a href="#">Calcium</a></span>
+						<span><a href="#">Diabates</a></span>
+						<span><a href="#">Headic</a></a></span>
+						<span><a href="#">Pain</a></span>
+						<span><a href="#">Cancer</a></span>
+						<span><a href="#">Calcium</a></span>
+						<span><a href="#">Diabates</a></span>
+					</div>
+					<p>{{ $post->content }}</p>
 				</div>
-				<div id="commentPart">
-					<!-- Note: this div is used to show the error messages of both client side and serverside NOTE:ids names are confusing here -->
-					<div class="alert alert-danger commentImageVideoErrorMsg" id="fileError-{{$post->id}}" >
-						<button class="close" onclick="closeMsgs({!! $post->id !!})">&times;</button>
-						<span id="msg-{{$post->id}}">
-							@error('photo')
-								{{ $message }}
-							@enderror
-						</span>
-					</div>
-					<!-- Note: Success messages -->
-					@if(session("commentSuccess"))
-					<!-- 
-						* I have added the id for this div for two reasons:
-						* 1- because to scroll down to it when the responise come back from the serveer
-						* 2- to make its display availible usring js. Because if i just relay on the the session if statemetn
-						* then when the request response come then it show the smae messagses above all the comments.			
-					 -->
-						<div class="alert alert-success commentSuccessMsgs" id="successMsg-{{$post->id}}">
-							<button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
-								{{session('commentSuccess')}}
-						</div>
-					@endif
-					<div class="commentImageDiv" id="commentImageDiv-{{$post->id}}" style="">
-    					<button class="close removeImage" onclick="removeImage({!! $post->id !!})" >
-    						&times; 
-    						<span class="removeEditCommentPhotoText"> Remove photo</span>
-    					</button>
-    					<a href="javascript:void(0)" class="fal fa-edit ml-2" onclick="openCommentPhotoField({!!$post->id!!})">
-    						<span class="removeEditCommentPhotoText">Change photo</span>
-    					</a>
-						<img src="" id="commentImg-{{$post->id}}" >
-					</div>
-					<div id="commentPartImage">
-							@if(count(Auth::user()->owner->account->photos) > 0)
-								@if(Auth::user()->owner_type == 'App\NormalUser')
-									<img src="/storage/images/normalUsers/{{Auth::user()->owner->account->photos()->where('status',1)->first()->path}}" class="" >
-								@else
-									<img src="/storage/images/doctors/{{Auth::user()->owner->account->photos()->where('status',1)->first()->path}}" class="">
-								@endif
-							@else
-								<span class="fal fa-user" id="no-image-in-comment"></span>
-							@endif
-					</div>
-					<div id="comment">
-						{!! Form::open(["method"=>"post","action"=>"CommentController@store","files"=>"true"]) !!}		
-							<div class="input-group">
-								{!! Form::file("photo",["class"=>"commentPhotoField","id"=>"commentPhotoField-$post->id","onchange"=>"showAndValidateFile($post->id)"]) !!}
-								<input type="textarea" name="content" class="form-control commentField" placeholder="Add Comment..." id="commentField-{{$post->id}}" rows="1"
-								onkeyup="do_resize_and_enable_button(this,{!! $post->id !!})" value= @if(old("post_id") == $post->id) {{old("content")}} @else "" @endif>
-
-								<input type="hidden" name="post_id" value= @if(old("post_id") == $post->id) {{old("post_id")}} @else {{$post->id}} @endif >
-								{!! Form::submit("Add Comment",["class"=>"btn  btn-sm addCommentBtn","id"=>"addCommentBtn-$post->id","disabled"=>"true","onclick"=>"validateCommentForm($post->id)"]) !!}
-								<i class="fal fa-camera commentPhotoButton" id="commentPhotoButton-$post->id" onclick="openCommentPhotoField({!!$post->id!!})"></i>
+				<!-- End of div of postContent -->
+				<div class="clearfix"></div>
+				@auth
+					<div class="options">
+						<button class="btn" title="The answer was usefull">
+							<a href="#">
+								<span class="fal fa-arrow-alt-up optionsIcons"></span> 
+								<span class="optionsText">Up-vote</span> 
+								<span class="votes">. 2</span>
+							</a>
+						</button>
+						<button class="btn" title="The answer was not usefull">
+							<a href="#">
+								<span class="fal fa-arrow-alt-down optionsIcons"></span> 
+								<span class="optionsText">Down-vote</span>  
+								<span class="votes">. 2</span>
+							</a>
+						</button>
+						<button class="btn" title="Follow the post for lates update">
+							<a href="#">
+								<span class="fal fa-wifi optionsIcons"></span> 
+								<span class="optionsText">Follow</span> 
+								<span class="votes">. 2</span>
+							</a>
+						</button>
+						<button class="btn" title="All comments for this post" onclick="showAllComments({!!$post->id!!})">
+							<a href="javascript::void(0)">
+								<span class="fal fa-comment optionsIcons"></span> 
+								<span class="optionsText">comment</span> 
+								<span class="votes">. {{count($post->comments)}}</span>
+							</a>
+						</button>
+						<div class="btn float-right" id="shareBtn" title="All share options">
+							<a href="#" onclick="openShareOptions({{$post->id}})">
+								<span class="far fa-ellipsis-v optionsIcons"></span> 
+							</a>
+							<div class="shareOptions" id="shareOptions-{{$post->id}}">
+								<p class="text-center">Share</p>
+								<!-- <a href="" class="fab fa-facebook"> Facebook</a> -->
+								{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-facebook"],"<span>","</span>")->facebook() !!}
+								<div class="dropdown-divider"></div>
+								{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-twitter"],"<span>","</span>")->twitter() !!}
+								<div class="dropdown-divider"></div>
+								{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-linkedIn"],"<span>","</span>")->linkedin() !!}
+								<div class="dropdown-divider"></div>
+								{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-whatsapp"],"<span>","</span>")->whatsapp() !!}
+								<div class="dropdown-divider"></div>
+								{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-telegram"],"<span>","</span>")->telegram() !!}
 							</div>
-						{!! Form::close() !!}
+						</div>
 					</div>
-				</div>
-			@endauth
-		@endforeach
-	@endif
+
+					<!--Begginning  comments part  -->
+					<div id="commentPart">
+						@if(count($post->comments) > 0)
+							<!-- Beggining of all comments part -->
+							<div class="allComments" id="allComments-{{$post->id}}">
+								@foreach($post->comments as $comment)
+									<!-- Beggining of: Image part of comment owner -->
+									<div class="allcommentsOwnerImage">
+										@if(count($comment->comment_owner->photos) > 0)							
+											@if($comment->comment_owner->owner_type == "App\Doctor")
+												<img src="/storage/images/doctors/{{$comment->comment_owner->photos()->where('status','1')->first()->path}}">
+											@else
+												<img src="/storage/images/normalUsers/{{$comment->comment_owner->photos()->where('status','1')->first()->path}}">
+											@endif
+										@else
+											<span class="fal fa-user" id="no-image-in-comment"></span>
+										@endif
+										<div class="commentOwnerName">
+											<a href="{{route('profile',$comment->comment_owner->username)}}"><span>{{$comment->comment_owner->owner->fullName}}</span></a> 
+											@if($comment->created_at)
+												<span class="commentcreateTime">Commented:{{$comment->created_at->diffForHumans()}}</span>
+											@endif
+										</div>
+									</div>
+									<!-- End of: Image part of comment owner -->
+
+									<!-- Beggining of : all comments content part -->
+									<div class="allCommentsContent">
+										<p>
+											@if($comment->content)
+												{{$comment->content}}
+											@endif
+										</p>
+									</div>
+									<!-- End of: Image part of comment owner -->
+
+									<!-- Beggining of: options for comments -->
+									<div class="commetOptions">
+										<button class="btn" title="Reply">
+											<a href="#">
+												<span class="fal fa-reply commentOptionsIcons"></span>  
+												<span class="commentVotes">. 2</span>
+											</a>
+										</button>
+										<button class="btn" title="The answer was usefull">
+											<a href="#">
+												<span class="fal fa-arrow-alt-up commentOptionsIcons"></span> 
+												<span class="commentVotes">. 2</span>
+											</a>
+										</button>
+										<button class="btn" title="The answer was not usefull">
+											<a href="#">
+												<span class="fal fa-arrow-alt-down commentOptionsIcons"></span>  
+												<span class="commentVotes">. 2</span>
+											</a>
+										</button>
+									</div>
+									<!-- End of :options for comments-->
+
+									<!-- Beggining of form for replies -->
+									<div id="reply">
+										{!! Form::open() !!}		
+											<div class="input-group">
+												{!! Form::file("photo",["class"=>"replyPhotoField","id"=>"replyPhotoField-$comment->id","onchange"=>"showAndValidateReplyFile($comment->id)"]) !!}
+												<textarea  name="content" class="form-control replyField" placeholder="Add Reply..." id="replyField-{{$comment->id}}" rows="1"
+												onkeyup="do_resize_and_enable_reply_button(this,{!! $comment->id !!})" value= @if(old("comment_id") == $comment->id) {{old("content")}} @else "" @endif></textarea>
+												<input type="hidden" name="comment_id" value= @if(old("comment_id") == $comment->id) {{old("comment_id")}} @else {{$comment->id}} @endif >
+												{!! Form::submit("Reply",["class"=>"btn  btn-sm addReplyBtn","id"=>"addReplyBtn-$comment->id","onclick"=>"validateReplyForm($comment->id)"]) !!}
+												<i class="fal fa-camera replyPhotoButton" id="replyPhotoButton-comment->id" onclick="openReplyPhotoField({!!$comment->id!!})"></i>
+											</div>
+										{!! Form::close() !!}
+									</div>
+									<!-- End of form for replies -->
+									<div class="dropdown-divider" id="dividerForComments"></div>
+								@endforeach
+							</div>
+							<!-- End of : all comments content part -->
+						@endif
+						<div class="clearfix"></div>
+						<!-- End Showing all comments part  -->
+				
+
+						<!-- Note: this div is used to show the error messages of both client side and serverside NOTE:ids names are confusing here -->
+						<div class="alert alert-danger commentImageVideoErrorMsg" id="fileError-{{$post->id}}" >
+							<button class="close" onclick="closeMsgs({!! $post->id !!})">&times;</button>
+							<span id="msg-{{$post->id}}">
+								@error('photo')
+									{{ $message }}
+								@enderror
+							</span>
+						</div>
+						<!-- Note: Success messages -->
+						@if(session("commentSuccess"))
+						<!-- 
+							* I have added the id for this div for two reasons:
+							* 1- because to scroll down to it when the responise come back from the serveer
+							* 2- to make its display availible usring js. Because if i just relay on the the session if statemetn
+							* then when the request response come then it show the smae messagses above all the comments.			
+						 -->
+							<div class="alert alert-success commentSuccessMsgs" id="successMsg-{{$post->id}}">
+								<button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
+									{{session('commentSuccess')}}
+							</div>
+						@endif
+						<div class="commentImageDiv" id="commentImageDiv-{{$post->id}}" style="">
+	    					<button class="close removeImage" onclick="removeImage({!! $post->id !!})" >
+	    						&times; 
+	    						<span class="removeEditCommentPhotoText"> Remove photo</span>
+	    					</button>
+	    					<a href="javascript:void(0)" class="fal fa-edit ml-2" onclick="openCommentPhotoField({!!$post->id!!})">
+	    						<span class="removeEditCommentPhotoText">Change photo</span>
+	    					</a>
+							<img src="" id="commentImg-{{$post->id}}" >
+						</div>
+						<div id="commentPartImage">
+								@if(count(Auth::user()->owner->account->photos) > 0)
+									@if(Auth::user()->owner_type == 'App\NormalUser')
+										<img src="/storage/images/normalUsers/{{Auth::user()->owner->account->photos()->where('status',1)->first()->path}}" class="" >
+									@else
+										<img src="/storage/images/doctors/{{Auth::user()->owner->account->photos()->where('status',1)->first()->path}}" class="">
+									@endif
+								@else
+									<span class="fal fa-user" id="no-image-in-comment"></span>
+								@endif
+						</div>
+						<div id="comment">
+							{!! Form::open(["method"=>"post","action"=>"CommentController@store","files"=>"true"]) !!}		
+								<div class="input-group">
+									{!! Form::file("photo",["class"=>"commentPhotoField","id"=>"commentPhotoField-$post->id","onchange"=>"showAndValidateFile($post->id)"]) !!}
+									<textarea  name="content" class="form-control commentField" placeholder="Add Comment..." id="commentField-{{$post->id}}" rows="1"
+									onkeyup="do_resize_and_enable_button(this,{!! $post->id !!})" value= @if(old("post_id") == $post->id) {{old("content")}} @else "" @endif></textarea>
+									<input type="hidden" name="post_id" value= @if(old("post_id") == $post->id) {{old("post_id")}} @else {{$post->id}} @endif >
+									{!! Form::submit("Add Comment",["class"=>"btn  btn-sm addCommentBtn","id"=>"addCommentBtn-$post->id","disabled"=>"true","onclick"=>"validateCommentForm($post->id)"]) !!}
+									<i class="fal fa-camera commentPhotoButton" id="commentPhotoButton-$post->id" onclick="openCommentPhotoField({!!$post->id!!})"></i>
+								</div>
+							{!! Form::close() !!}
+						</div>
+					</div>
+					<!-- End of comment part -->
+				@endauth
+			@endforeach
+		@endif
 	</div>
 	<div id="achievements" class="tab-content">
 		This is achivements parts
