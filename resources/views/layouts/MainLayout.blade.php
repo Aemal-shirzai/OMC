@@ -126,7 +126,7 @@
 
 <div id="mainParent">
 	@guest
-		<div class="alert alert-danger" id="loginAlert"><a href="{{route('login')}}">Login</a> to add questions, comments, upvote and downvote posts and questions</div>
+		<div class="alert alert-info" id="loginAlert"><a href="{{route('login')}}">Login</a> to add questions, comments, upvote and downvote posts and questions</div>
 	@endguest
 	@yield("content")
 </div>
@@ -186,7 +186,7 @@
 
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
-<script type="text/javascript" src="{{asset('js/profileScript.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/profileScript1.js')}}"></script>
 @endif
 
 

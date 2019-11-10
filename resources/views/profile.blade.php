@@ -12,7 +12,7 @@
 				
 				@if(count($user->owner->photos) > 0)
 					@if($user->owner_type == 'App\NormalUser')
-						<img src="/storage/images/normalUsers/{{$user->owner->photos()->where('status',1)->first()->path}}" class="" style="border">
+						<img src="/storage/images/normalUsers/{{$user->owner->photos()->where('status',1)->first()->path}}" >
 					@else
 						<img src="/storage/images/doctors/{{$user->owner->photos()->where('status',1)->first()->path}}" class="">
 					@endif
@@ -29,7 +29,9 @@
 					@if(Auth::user()->username == $user->username)
 						<a href="#" class="btn btn-md editFollowBtn"><i class="fad fa-edit"></i> Edit Profile</a>
 					@else
-						<a href="#" class="btn btn-md editFollowBtn"><i class="fad fa-plus"></i> Follow</a>
+						@if($user->owner_type == "App\Doctor")
+							<a href="#" class="btn btn-md editFollowBtn"><i class="fad fa-plus"></i> Follow</a>
+						@endif
 					@endif
 				@endauth
 				<div id="largeScreenBio">

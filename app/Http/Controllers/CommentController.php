@@ -37,6 +37,9 @@ class CommentController extends Controller
      */
     public function store(CommentRequest $request)
     {
+        if($request->content == "" && !$request->hasFile("photo")){
+            return back()->withInput()->with("error","The comment content can not be null");
+        }
         $user = Auth::user();
         // in order to store the correct owner_type column in the commments table we need to know the current accout owner_type
         if($user->owner_type == "App\Doctor"){

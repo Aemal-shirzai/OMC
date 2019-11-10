@@ -48,7 +48,9 @@ if(txt.trim().length > 0 ){
 	}
 	document.getElementById("addCommentBtn-"+postId).disabled = false;
 }else{
-	document.getElementById("addCommentBtn-"+postId).disabled = true;
+	if(document.getElementById("commentPhotoField-"+postId).files.length < 1){
+		document.getElementById("addCommentBtn-"+postId).disabled = true;
+	}
 }
 
 // resize
@@ -83,6 +85,10 @@ function openCommentPhotoField(value){
 	// var field = document.getElementById("commentPhotoField-"+value);
 	var field = document.getElementById("commentPhotoField-"+value);
 	field.value = "";
+	$("#commentImageDiv-"+value).hide();
+	if(document.getElementById("commentField-"+value).value.trim().length < 1){
+		document.getElementById("addCommentBtn-"+value).disabled = true;
+	}
 	field.click();
 }
  // End of : the function which open the comment photo field
@@ -147,7 +153,7 @@ function showAndValidateFile(value){
 	}else{
 		/* Here the photo is wrong it means the path will be cleared and length will be 0 
 		  so now this if checks if the commetn field is also empty the disable the commetn button */
-		if(commentField.value.trim().length < 1){
+		if(commentField.value.trim().length < 1 && field.files.length < 1){
 				button.disabled = true;
 		}
 		$("#fileError-"+value).show();

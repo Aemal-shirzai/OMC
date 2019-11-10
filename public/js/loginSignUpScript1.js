@@ -182,6 +182,8 @@ function validateSignUpForm(){
 		// var fileUpload = document.getElementById('fileUpload'); 
 		fileUpload.disabled = false;
 		fileUpload.value ="";
+		$("#userProfilePic").show();
+		$("#main-img").hide();
 		fileUpload.click();
 	}
 // End of: the function which open the fileupload input in more info page
