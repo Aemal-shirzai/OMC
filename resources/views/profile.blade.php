@@ -247,7 +247,7 @@
 										<!-- End of: Image part of comment owner -->
 
 										<!-- Beggining of : all comments content part -->
-										<div class="allCommentsContent">
+										<div class="allCommentsContent" id="allCommentsContent-{{$comment->id}}">
 											@if(count($comment->photos) > 0)
 												<div id="postImage" class="text-center" style="overflow: hidden;">
 													<a href="/storage/images/comments/{{$comment->photos()->where('status',1)->first()->path}}">
@@ -268,7 +268,7 @@
 											<button class="btn" title="Reply" onclick="showReplies({!! $comment->id !!})">
 												<a href="javascript:void(0)">
 													<span class="fal fa-reply commentOptionsIcons"></span>  
-													<span class="commentVotes">. 156</span>
+													<span class="commentVotes">. {{count($comment->replies)}}</span>
 												</a>
 											</button>
 											<button class="btn" title="The answer was usefull">
@@ -290,7 +290,7 @@
 										<div class="alert alert-danger replyImageVideoErrorMsg" id="replyPhotoError-{{$comment->id}}" >
 											<button class="close" onclick="closeReplyMsgs({!! $comment->id !!})">&times;</button>
 											<span id="replymsg-{{$comment->id}}">
-												@error('photo')
+												@error('replyPhoto')
 													{{ $message }}
 												@enderror
 											</span>
@@ -325,13 +325,13 @@
 
 										<!-- Beggining of form for replies -->
 										<div class ="reply" id="reply-{{$comment->id}}">
-											{!! Form::open() !!}		
+											{!! Form::open(["method"=>"post","action"=>"CommentReplyController@store","files"=>"true"]) !!}		
 												<div class="input-group">
-													{!! Form::file("photo",["class"=>"replyPhotoField","id"=>"replyPhotoField-$comment->id","onchange"=>"showAndValidateReplyFile($comment->id)"]) !!}
+													{!! Form::file("replyPhoto",["class"=>"replyPhotoField","id"=>"replyPhotoField-$comment->id","onchange"=>"showAndValidateReplyFile($comment->id)"]) !!}
 													<textarea  name="content" class="form-control replyField" placeholder="Add Reply..." id="replyField-{{$comment->id}}" rows="1"
 													onkeyup="do_resize_and_enable_reply_button(this,{!! $comment->id !!})"  value= @if(old("comment_id") == $comment->id) {{old("content")}} @else "" @endif></textarea>
 													<input type="hidden" name="comment_id" value= @if(old("comment_id") == $comment->id) {{old("comment_id")}} @else {{$comment->id}} @endif >
-													{!! Form::submit("Reply",["class"=>"btn  btn-sm addReplyBtn","id"=>"addReplyBtn-$comment->id","disabled"=>"true","onclick"=>"validateReplyForm($comment->id)"]) !!}
+													{!! Form::submit("Reply",["class"=>"btn  btn-sm addReplyBtn","id"=>"addReplyBtn-$comment->id","disabed"=>"true","onclick"=>"validateReplyForm($comment->id)"]) !!}
 													<i class="fal fa-camera replyPhotoButton" id="replyPhotoButton-{{$comment->id}}" onclick="openReplyPhotoField({!!$comment->id!!})"></i>
 												</div>
 											{!! Form::close() !!}
@@ -451,7 +451,7 @@
 			var post_id = {!! json_encode(session('post_id')) !!};
 		</script>
 	@endif
-
+<!-- Error msgs of adding comment -->
 	@error("photo")
 		<script type="text/javascript">
 			var scroll = "on1";

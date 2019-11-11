@@ -444,7 +444,7 @@ div.allComments{
 	padding: 12px 0px;
 	padding-left: 12px;
 	display: none;
-	max-height: 500px;
+	max-height: 600px;
 }
 div.allcommentsOwnerImage{
 	display: inline-block;
