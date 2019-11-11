@@ -148,6 +148,7 @@ div#postContent p{
 	font-size: 14px;
 }
 div#postImage{
+	width: 98%;
 	border:1px solid lightgray;
 	border-radius: 8px;
 	margin-bottom: 12px;
@@ -202,7 +203,6 @@ div#shareBtn{
 	position: relative;
 }
 div.shareBtnForGuest{
-	overflow: hidden;
 	margin-top: -35px;
 }
 div.options button a{
@@ -234,7 +234,7 @@ div.options button:hover span.optionsIcons{
 }
 div.shareOptions{
 	position: absolute;
-	z-index: 1;
+	z-index: 1 !important;
 	box-shadow: rgba(27, 31, 35, 0.15) 0px 1px 15px;
 	padding: 2px 12px;
 	display: none;
@@ -365,7 +365,7 @@ div#comment{
 
 div.commentImageDiv{
 	background-color: ;
-	width: 100%;
+	width: 98%;
 	display: none;
 	overflow: hidden;
     max-height: 180px;
@@ -383,9 +383,10 @@ div.commentImageDiv img{
 }
 button.removeImage{
 	color: red;
+	font-size: 18px !important; 
 }
 .removeEditCommentPhotoText{
-	font-size: 12px;
+	font-size: 12px !important;
 }
 div.commentImageDiv a{
 	float: left;
@@ -397,14 +398,16 @@ div.commentImageDiv a:hover{
 div.commentImageDiv button:focus{
 	outline: none;
 }
-div.commentImageVideoErrorMsg{
+div.commentImageVideoErrorMsg, div.replyImageVideoErrorMsg{
 	box-shadow: 0px 0px 20px 0px #d7f3e3;
 	width: 80%;
 	display: none;
+	margin-top: 7px; 
 	font-size: 12px;
+	overflow: hidden;
 	margin-left: 36px;
 }
-div.commentSuccessMsgs{
+div.commentSuccessMsgs, div.replySuccessMsgs{
 	box-shadow: 0px 0px 20px 0px #d7f3e3;
 	width: 80%;
 	font-size: 12px;
@@ -413,7 +416,6 @@ div.commentSuccessMsgs{
 }
 /* Showing all comments part */
 div.allComments{
-	background-color: #fafafa !important;
 	overflow: auto;
 	margin-bottom: 15px;
 	background-color: white;
@@ -451,6 +453,7 @@ div.commentOwnerName span.commentcreateTime{
 	font-size: 10px;
 }
 div.allCommentsContent p{
+	padding-right: 4px; 
 	font-size: 12px;
 }
 div#dividerForComments{
@@ -460,8 +463,6 @@ div#dividerForComments{
 /*End of showing all comments part*/
 
 /* Beggining :options part for comments part*/
-
-/* options for post part */
 div.commetOptions{
 	width: 100%;
 	margin: 0 auto;
@@ -497,11 +498,14 @@ div.commetOptions button:hover span.commentOptionsIcons{
 /* End :options part for comments part*/
 
 /* Beggining of the form of replies */
-div#reply{
-	display: inline-block;
+div.reply{
+	display: none;
 	width: 93%; 
 	margin-left: 5px;
 	margin-bottom: 5px;
+	margin-bottom: 12px;
+	margin-top: 12px;
+	padding: 0 12px;
 	
 }
 .replyField{
@@ -545,8 +549,11 @@ div#reply{
 
 
 
-*::-webkit-scrollbar {
+div::-webkit-scrollbar {
     width: 2px !important;
+}
+textarea::-webkit-scrollbar {
+    width: 4px !important;
 }
  
 *::-webkit-scrollbar-track {
@@ -593,8 +600,8 @@ div#reply{
 	div.shareOptionsForGuest{
 		margin-left: -50px;
 	}
-	div.commentImageVideoErrorMsg{
-		width: 100%;
+	div.commentImageVideoErrorMsg, div.replyImageVideoErrorMsg{
+		width: 98%;
 		font-size: 11px;
 		padding: 7px 12px;
 		margin-left: 0px;
@@ -607,8 +614,8 @@ div#reply{
 	span.removeEditCommentPhotoText{
 		font-size: 11px;
 	}
-	div.commentSuccessMsgs{
-		width: 100%;
+	div.commentSuccessMsgs, div.replySuccessMsgs{
+		width: 98%;
 		font-size: 11px;
 		display: none;
 		padding: 7px 12px;
@@ -635,6 +642,7 @@ div#reply{
 		padding: 4px 10px;
 	}
 	div#postImage img{
+		max-width: 100%;
 		max-height: 200px !important
 	}
 /* post Tags part*/
@@ -725,8 +733,8 @@ div#reply{
 	    height: 22px;
 	    width: 22px;
 	}
-	div.commentImageVideoErrorMsg{
-		width: 100%;
+	div.commentImageVideoErrorMsg,div.replyImageVideoErrorMsg{
+		width: 98%;
 		font-size: 11px;
 		padding: 7px 12px;
 		margin-left: 0px;
@@ -739,8 +747,8 @@ div#reply{
 	span.removeEditCommentPhotoText{
 		font-size: 11px;
 	}
-	div.commentSuccessMsgs{
-		width: 100%;
+	div.commentSuccessMsgs, div.replySuccessMsgs{
+		width: 98%;
 		font-size: 11px;
 		padding: 7px 12px;
 		margin-left: 0px;
@@ -762,7 +770,7 @@ div#reply{
 /*End of showing all comments part*/
 
 /* Beggining of the form of replies */
-	div#reply{
+	div.reply{
 		width: 97%;
 		margin-left: 3px;
 	}
@@ -867,6 +875,9 @@ div#reply{
 	}
 	div#postContent h5{
 		font-size: 14px;
+		margin-top: 5px;
+		margin-bottom: 0px;
+		margin-left: 3px;
 	}
 	div#postContent{
 		padding: 0 0;
@@ -880,8 +891,11 @@ div#reply{
 		max-height: 290px;
 		padding-right: 5px !important;
 	}
+	div#postImage{
+		margin-top: 5px;
+	}
 	div#postImage img{
-		max-height: 100px !important
+		max-height: 150px !important
 	}
 	div#postPic img{
 		width: 35px;
@@ -985,8 +999,8 @@ div#reply{
 	    height: 19px;
 	    width: 19px;
 	}
-	div.commentImageVideoErrorMsg{
-		width: 100%;
+	div.commentImageVideoErrorMsg,div.replyImageVideoErrorMsg{
+		width: 98%;
 		font-size: 11px;
 		padding: 7px 10px;
 		margin-left: 0px;
@@ -999,8 +1013,8 @@ div#reply{
 	span.removeEditCommentPhotoText{
 		display: none;
 	}
-	div.commentSuccessMsgs{
-		width: 100%;
+	div.commentSuccessMsgs, div.replySuccessMsgs{
+		width: 98%;
 		font-size: 11px;
 		padding: 7px 10px;
 		margin-left: 0px;
@@ -1043,13 +1057,15 @@ span.commentOptionsIcons{
 /* End of :options for comments; */
 
 /* Beggining of the form of replies */
-div#reply{
+div.reply{
 	width: 97%;
 	margin-left: 3px;
+	padding: 0 0;
 }
 .replyField{
 	font-size: 11px;
 	width: 100% !important;
+
 }
 .addReplyBtn{
 	height: 25px;
@@ -1138,7 +1154,7 @@ div#reply{
 		font-size: 14px;
 		margin-left: 4px;
 	}
-	div.commentImageVideoErrorMsg{
+	div.commentImageVideoErrorMsg, div.replyImageVideoErrorMsg{
 		font-size: 10px;
 		padding: 7px 9px;
 	}
@@ -1147,16 +1163,13 @@ div#reply{
 		max-height: 66px;
 		margin-left: 65px;
 	}
-	div.commentSuccessMsgs{
+	div.commentSuccessMsgs, div.replySuccessMsgs{
 		font-size: 10px;
 		padding: 7px 9px;
 	}
 /* Showing all comments part */
 	div.commentOwnerName a{
-		font-size: 10px;
-	}
-	div.commentOwnerName span.commentcreateTime{
-		font-size: 6px;
+		font-size: 11px;
 	}
 
 	div.allCommentsContent p{

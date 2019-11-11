@@ -13,7 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}">
 	@elseif(Route::currentRouteName() == 'profile')
 	<!-- Link to local profile style for profile page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle221.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -132,16 +132,18 @@
 		@if(Auth::user()->owner_type == "App\Doctor" && Auth::user()->owner->status == 0)
 			@if(Auth::user()->owner->gender == 0)
 				<div class="alert alert-info" id="loginAlert">
-					Mr. {{Auth::user()->owner->fullName}}, Your account has been created and your will be contacted in next 24 hours for confirmation through email or call. 
+					Mr. {{Auth::user()->owner->fullName}}, Your account has been created and your will be contacted soon for confirmation through email or call. 
 				</div>
 			@else
 				 <div class="alert alert-info" id="loginAlert">
-					Mrs./Miss. {{Auth::user()->owner->fullName}}, Your account has been created and your will be contacted in next 24 hours for confirmation through email or call.
+					Mrs./Miss. {{Auth::user()->owner->fullName}}, Your account has been created and your will be contacted soon for confirmation through email or call.
 				</div>
 			@endif
 		@endif
 	@endauth
+
 	@yield("content")
+
 </div>
 
 <!-- footer div start -->
@@ -193,7 +195,7 @@
 <script src="{{ asset('js/share.js') }}"></script>
 
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/MainLayoutScript1.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/MainLayoutScript.js')}}"></script>
 
 
 

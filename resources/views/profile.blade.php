@@ -195,7 +195,7 @@
 						<button class="btn" title="All comments for this post" onclick="showAllComments({!!$post->id!!})">
 							<a href="javascript::void(0)">
 								<span class="fal fa-comment optionsIcons"></span> 
-								<span class="optionsText">comment</span> 
+								<span class="optionsText">comments</span> 
 								<span class="votes">. {{count($post->comments)}}</span>
 							</a>
 						</button>
@@ -221,82 +221,127 @@
 
 					<!--Begginning  comments part  -->
 					<div id="commentPart">
-						@if(count($post->comments) > 0)
 							<!-- Beggining of all comments part -->
 							<div class="allComments" id="allComments-{{$post->id}}">
-								@foreach($post->comments as $comment)
-									<!-- Beggining of: Image part of comment owner -->
-									<div class="allcommentsOwnerImage">
-										@if(count($comment->comment_owner->photos) > 0)							
-											@if($comment->comment_owner->owner_type == "App\Doctor")
-												<img src="/storage/images/doctors/{{$comment->comment_owner->photos()->where('status','1')->first()->path}}">
+								@if(count($post->comments) > 0)
+									<div class="mb-2 ml-2">{{count($post->comments)}} Comments</div>
+									@foreach($post->comments as $comment)
+										<!-- Beggining of: Image part of comment owner -->
+										<div class="allcommentsOwnerImage">
+											@if(count($comment->comment_owner->photos) > 0)							
+												@if($comment->comment_owner->owner_type == "App\Doctor")
+													<img src="/storage/images/doctors/{{$comment->comment_owner->photos()->where('status','1')->first()->path}}">
+												@else
+													<img src="/storage/images/normalUsers/{{$comment->comment_owner->photos()->where('status','1')->first()->path}}">
+												@endif
 											@else
-												<img src="/storage/images/normalUsers/{{$comment->comment_owner->photos()->where('status','1')->first()->path}}">
+												<span class="fal fa-user" id="no-image-in-comment"></span>
 											@endif
-										@else
-											<span class="fal fa-user" id="no-image-in-comment"></span>
-										@endif
-										<div class="commentOwnerName">
-											<a href="{{route('profile',$comment->comment_owner->username)}}"><span>{{$comment->comment_owner->owner->fullName}}</span></a> 
-											@if($comment->created_at)
-												<span class="commentcreateTime">Commented:{{$comment->created_at->diffForHumans()}}</span>
-											@endif
-										</div>
-									</div>
-									<!-- End of: Image part of comment owner -->
-
-									<!-- Beggining of : all comments content part -->
-									<div class="allCommentsContent">
-										<p>
-											@if($comment->content)
-												{{$comment->content}}
-											@endif
-										</p>
-									</div>
-									<!-- End of: Image part of comment owner -->
-
-									<!-- Beggining of: options for comments -->
-									<div class="commetOptions">
-										<button class="btn" title="Reply">
-											<a href="#">
-												<span class="fal fa-reply commentOptionsIcons"></span>  
-												<span class="commentVotes">. 2</span>
-											</a>
-										</button>
-										<button class="btn" title="The answer was usefull">
-											<a href="#">
-												<span class="fal fa-arrow-alt-up commentOptionsIcons"></span> 
-												<span class="commentVotes">. 2</span>
-											</a>
-										</button>
-										<button class="btn" title="The answer was not usefull">
-											<a href="#">
-												<span class="fal fa-arrow-alt-down commentOptionsIcons"></span>  
-												<span class="commentVotes">. 2</span>
-											</a>
-										</button>
-									</div>
-									<!-- End of :options for comments-->
-
-									<!-- Beggining of form for replies -->
-									<div id="reply">
-										{!! Form::open() !!}		
-											<div class="input-group">
-												{!! Form::file("photo",["class"=>"replyPhotoField","id"=>"replyPhotoField-$comment->id","onchange"=>"showAndValidateReplyFile($comment->id)"]) !!}
-												<textarea  name="content" class="form-control replyField" placeholder="Add Reply..." id="replyField-{{$comment->id}}" rows="1"
-												onkeyup="do_resize_and_enable_reply_button(this,{!! $comment->id !!})" value= @if(old("comment_id") == $comment->id) {{old("content")}} @else "" @endif></textarea>
-												<input type="hidden" name="comment_id" value= @if(old("comment_id") == $comment->id) {{old("comment_id")}} @else {{$comment->id}} @endif >
-												{!! Form::submit("Reply",["class"=>"btn  btn-sm addReplyBtn","id"=>"addReplyBtn-$comment->id","onclick"=>"validateReplyForm($comment->id)"]) !!}
-												<i class="fal fa-camera replyPhotoButton" id="replyPhotoButton-comment->id" onclick="openReplyPhotoField({!!$comment->id!!})"></i>
+											<div class="commentOwnerName">
+												<a href="{{route('profile',$comment->comment_owner->username)}}"><span>{{$comment->comment_owner->owner->fullName}}</span></a> 
+												@if($comment->created_at)
+													<span class="commentcreateTime">Commented:{{$comment->created_at->diffForHumans()}}</span>
+												@endif
 											</div>
-										{!! Form::close() !!}
-									</div>
-									<!-- End of form for replies -->
-									<div class="dropdown-divider" id="dividerForComments"></div>
-								@endforeach
+										</div>
+										<!-- End of: Image part of comment owner -->
+
+										<!-- Beggining of : all comments content part -->
+										<div class="allCommentsContent">
+											@if(count($comment->photos) > 0)
+												<div id="postImage" class="text-center" style="overflow: hidden;">
+													<a href="/storage/images/comments/{{$comment->photos()->where('status',1)->first()->path}}"><img src="/storage/images/comments/{{$comment->photos()->where('status',1)->first()->path}}" class=""></a>
+												</div>
+											@endif
+											<p>
+												@if($comment->content)
+													{{$comment->content}}
+												@endif
+											</p>
+										</div>
+										<!-- End of: Image part of comment owner -->
+
+										<!-- Beggining of: options for comments -->
+										<div class="commetOptions">
+											<button class="btn" title="Reply" onclick="showReplies({!! $comment->id !!})">
+												<a href="javascript:void(0)">
+													<span class="fal fa-reply commentOptionsIcons"></span>  
+													<span class="commentVotes">. 2</span>
+												</a>
+											</button>
+											<button class="btn" title="The answer was usefull">
+												<a href="#">
+													<span class="fal fa-arrow-alt-up commentOptionsIcons"></span> 
+													<span class="commentVotes">. 2</span>
+												</a>
+											</button>
+											<button class="btn" title="The answer was not usefull">
+												<a href="#">
+													<span class="fal fa-arrow-alt-down commentOptionsIcons"></span>  
+													<span class="commentVotes">. 2</span>
+												</a>
+											</button>
+										</div>
+										<!-- End of :options for comments-->
+
+										<!-- Note: this div is used to show the error messages of both client side and serverside NOTE:ids names are confusing here -->
+										<div class="alert alert-danger replyImageVideoErrorMsg" id="replyPhotoError-{{$comment->id}}" >
+											<button class="close" onclick="closeReplyMsgs({!! $comment->id !!})">&times;</button>
+											<span id="replymsg-{{$comment->id}}">
+												@error('photo')
+													{{ $message }}
+												@enderror
+											</span>
+										</div>
+										<!-- Note:  Reply Success messages -->
+										@if(session("replySuccess"))
+										<!-- 
+											* I have added the id for this div for two reasons:
+											* 1- because to scroll down to it when the responise come back from the serveer
+											* 2- to make its display availible usring js. Because if i just relay on the the session if statemetn
+											* then when the request response come then it show the smae messagses above all the comments.			
+										 -->
+											<div class="alert alert-success replySuccessMsgs" id="replySuccessMsg-{{$comment->id}}">
+												<button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
+													{{session('replySuccess')}}
+											</div>
+										@endif
+
+										<!-- Beggining of the part which display the reply image after its beign selected -->
+										<div class="commentImageDiv" id="replyImageDiv-{{$comment->id}}">
+					    					<button class="close removeImage" onclick="removeReplyImage({!! $comment->id !!})">&times; 
+					    						<span class="removeEditCommentPhotoText"> Remove photo</span>
+					    					</button>
+					    					<a href="javascript:void(0)" class="fal fa-edit ml-2" onclick="openReplyPhotoField({!!$comment->id!!})">
+					    						<span class="removeEditCommentPhotoText">Change photo</span>
+					    					</a>
+											<img src="" id="replyImg-{{$comment->id}}" >
+										</div>
+										<!-- End of the part which display the reply image after its beign selected -->
+
+										<!-- Beggining of form for replies -->
+										<div class ="reply" id="reply-{{$comment->id}}">
+											{!! Form::open() !!}		
+												<div class="input-group">
+													{!! Form::file("photo",["class"=>"replyPhotoField","id"=>"replyPhotoField-$comment->id","onchange"=>"showAndValidateReplyFile($comment->id)"]) !!}
+													<textarea  name="content" class="form-control replyField" placeholder="Add Reply..." id="replyField-{{$comment->id}}" rows="1"
+													onkeyup="do_resize_and_enable_reply_button(this,{!! $comment->id !!})"  value= @if(old("comment_id") == $comment->id) {{old("content")}} @else "" @endif></textarea>
+													<input type="hidden" name="comment_id" value= @if(old("comment_id") == $comment->id) {{old("comment_id")}} @else {{$comment->id}} @endif >
+													{!! Form::submit("Reply",["class"=>"btn  btn-sm addReplyBtn","id"=>"addReplyBtn-$comment->id","disabled"=>"true","onclick"=>"validateReplyForm($comment->id)"]) !!}
+													<i class="fal fa-camera replyPhotoButton" id="replyPhotoButton-{{$comment->id}}" onclick="openReplyPhotoField({!!$comment->id!!})"></i>
+												</div>
+											{!! Form::close() !!}
+										</div>
+										<!-- End of form for replies -->
+										<div class="dropdown-divider" id="dividerForComments"></div>
+									@endforeach
+								@else
+									<span class="no-comment">No Comment</span>	
+								@endif
 							</div>
 							<!-- End of : all comments content part -->
-						@endif
+							
+						
 						<div class="clearfix"></div>
 						<!-- End Showing all comments part  -->
 				
@@ -348,7 +393,7 @@
 							{!! Form::open(["method"=>"post","action"=>"CommentController@store","files"=>"true"]) !!}		
 								<div class="input-group">
 									{!! Form::file("photo",["class"=>"commentPhotoField","id"=>"commentPhotoField-$post->id","onchange"=>"showAndValidateFile($post->id)"]) !!}
-									<textarea  name="content" class="form-control commentField" placeholder="Add Comment..." id="commentField-{{$post->id}}" rows="1"
+									<textarea  name="content" class="form-control commentField" placeholder="Add Comment to post..." id="commentField-{{$post->id}}" rows="1"
 									onkeyup="do_resize_and_enable_button(this,{!! $post->id !!})" value= @if(old("post_id") == $post->id) {{old("content")}} @else "" @endif></textarea>
 									<input type="hidden" name="post_id" value= @if(old("post_id") == $post->id) {{old("post_id")}} @else {{$post->id}} @endif >
 									{!! Form::submit("Add Comment",["class"=>"btn  btn-sm addCommentBtn","id"=>"addCommentBtn-$post->id","disabled"=>"true","onclick"=>"validateCommentForm($post->id)"]) !!}
