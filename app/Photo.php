@@ -17,6 +17,6 @@ class Photo extends Model
 
 	// Relationship with users and doctors and more will be added later
 	public function owner(){
-		return $this->belongsTo(Account::class);
+		return $this->morphTo("","owner_type","owner_id");
 	}
 }

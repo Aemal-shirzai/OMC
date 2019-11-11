@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Phone;
 use App\Account;
 use App\Comment;
+ use App\CommentReply;
 class Account extends Authenticatable
 {
 	use Notifiable;
@@ -61,4 +62,10 @@ class Account extends Authenticatable
     public function comments(){
         return $this->hasMany(Comment::class);
     }
+
+    // Relationship with comment_replies table
+    public function replies(){
+        return $this->hasMany(CommentReply::class);
+    }
+
 }

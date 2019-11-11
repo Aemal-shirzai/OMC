@@ -240,11 +240,33 @@ div.shareOptions{
 	display: none;
 	width: 100px;
 	margin-left: -50px;
+	margin-top: 17px;
 	text-align: left;
 	background-color: white;
 	border-color: rgba(27, 31, 35, 0.15);
 	border-radius: 4px;
 }
+div.shareOptions::after{
+	position: absolute;
+	content: "";
+	width: 18px;
+	height: 18px;
+	transform: rotate(45deg);
+	top: -9px;
+	left: 42%;
+	background-color: white;
+	border-top: 1px solid  white;
+	border-left: 1px solid  white;
+	border-right: 0px solid  white;
+	border-bottom: 0px solid  white;
+}
+	div.shareOptionsForGuest{
+		margin-left: -50px;
+	}
+	div.shareOptionsForGuest::after{
+		top: -10px;
+		left: 48%;
+	}
 div.shareOptions  li{
 	list-style-type: none;
 }
@@ -376,9 +398,8 @@ div.commentImageDiv{
     margin-bottom: 12px;
 }
 div.commentImageDiv img{
-	max-width: 130px;
-	max-height: 130px;
-	margin-left: 60px;
+	max-width: 150px;
+	max-height: 150px;
 	border-radius: 12px;
 }
 button.removeImage{
@@ -416,6 +437,7 @@ div.commentSuccessMsgs, div.replySuccessMsgs{
 }
 /* Showing all comments part */
 div.allComments{
+	position: relative;
 	overflow: auto;
 	margin-bottom: 15px;
 	background-color: white;
@@ -594,11 +616,17 @@ textarea::-webkit-scrollbar {
 		font-size: 10px;
 	}
 	div.shareOptions{
-		margin-left: -90px;
-	
+		margin-left: -70px;
+	}
+	div.shareOptions::after{
+		left: 63%;
 	}
 	div.shareOptionsForGuest{
 		margin-left: -50px;
+	}
+	div.shareOptionsForGuest::after{
+		top: -7px;
+		left: 49%;
 	}
 	div.commentImageVideoErrorMsg, div.replyImageVideoErrorMsg{
 		width: 98%;
@@ -607,9 +635,8 @@ textarea::-webkit-scrollbar {
 		margin-left: 0px;
 	}
 	div.commentImageDiv img{
-		max-width: 98px;
-		max-height: 98px;
-		margin-left: 42px;
+		max-width: 128px;
+		max-height: 128px;
 	}
 	span.removeEditCommentPhotoText{
 		font-size: 11px;
@@ -666,7 +693,14 @@ textarea::-webkit-scrollbar {
 	}
 	div.shareOptions{
 		width: 95px;
-		margin-left: -90px;
+		margin-left: -77px;
+		margin-top: 10px;
+	}
+	div.shareOptions::after{
+		left: 75%;
+		width: 13px;
+		height: 13px;
+		top: -6px;
 	}
 	div.shareOptions a.share{
 		font-size: 10px;
@@ -678,7 +712,7 @@ textarea::-webkit-scrollbar {
 		font-size: 10px;
 	}
 	div.shareOptionsForGuest{
-		margin-left: -50px;
+		margin-left: -70px;
 	}
 /* comments part */
 	div#commentPart{
@@ -740,12 +774,11 @@ textarea::-webkit-scrollbar {
 		margin-left: 0px;
 	}
 	div.commentImageDiv img{
-		max-width: 95px;
-		max-height: 95px;
-		margin-left: 37px;
+		max-width: 165px;
+		max-height: 165px;
 	}
 	span.removeEditCommentPhotoText{
-		font-size: 11px;
+		display: none;
 	}
 	div.commentSuccessMsgs, div.replySuccessMsgs{
 		width: 98%;
@@ -933,7 +966,14 @@ textarea::-webkit-scrollbar {
 	}
 	div.shareOptions{
 		width: 90px;
-		margin-left: -90px;
+		margin-left: -73px;
+		margin-top: 12px;
+	}
+	div.shareOptions::after{
+		left: 75%;
+		width: 13px;
+		height: 13px;
+		top: -6px;
 	}
 	div.shareOptionsForGuest{
 		width: 90px;
@@ -1006,9 +1046,8 @@ textarea::-webkit-scrollbar {
 		margin-left: 0px;
 	}
 	div.commentImageDiv img{
-		max-width: 90px;
-		max-height: 90px;
-		margin-left: 80px;
+		max-width: 156px;
+		max-height: 156px;
 	}
 	span.removeEditCommentPhotoText{
 		display: none;
@@ -1134,6 +1173,12 @@ div.reply{
 	div#postContent p{
 		font-size: 12px;
 	}
+	div.shareOptionsForGuest{
+		margin-top: 7px;
+	}
+	div.shareOptionsForGuest::after{
+		top: -6px;
+	}
 /* options part */
 	div.options{
 		padding-left: 22px;
@@ -1159,9 +1204,8 @@ div.reply{
 		padding: 7px 9px;
 	}
 	div.commentImageDiv img{
-		max-width: 66px;
-		max-height: 66px;
-		margin-left: 65px;
+		max-width: 120px;
+		max-height: 120px;
 	}
 	div.commentSuccessMsgs, div.replySuccessMsgs{
 		font-size: 10px;

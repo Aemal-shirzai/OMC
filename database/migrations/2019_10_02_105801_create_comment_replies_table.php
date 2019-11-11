@@ -18,12 +18,12 @@ class CreateCommentRepliesTable extends Migration
             $table->longText("content");
             //comment Id
             $table->bigInteger("comment_id")->unsigned();
-            // user or doctor
-            $table->string("owner_type");
-            $table->bigInteger("owner_id")->unsigned();
+            // Account table
+            $table->bigInteger("account_id")->unsigned();
             $table->timestamps();
 
             $table->foreign("comment_id")->references("id")->on("comments")->onDelete("cascade")->onUpdate("cascade");
+            $table->foreign("account_id")->references("id")->on("accounts")->onDelete("cascade")->onUpdate("cascade");
         });
     }
 

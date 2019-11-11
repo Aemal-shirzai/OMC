@@ -250,7 +250,9 @@
 										<div class="allCommentsContent">
 											@if(count($comment->photos) > 0)
 												<div id="postImage" class="text-center" style="overflow: hidden;">
-													<a href="/storage/images/comments/{{$comment->photos()->where('status',1)->first()->path}}"><img src="/storage/images/comments/{{$comment->photos()->where('status',1)->first()->path}}" class=""></a>
+													<a href="/storage/images/comments/{{$comment->photos()->where('status',1)->first()->path}}">
+														<img src="/storage/images/comments/{{$comment->photos()->where('status',1)->first()->path}}" class="">
+													</a>
 												</div>
 											@endif
 											<p>
@@ -266,7 +268,7 @@
 											<button class="btn" title="Reply" onclick="showReplies({!! $comment->id !!})">
 												<a href="javascript:void(0)">
 													<span class="fal fa-reply commentOptionsIcons"></span>  
-													<span class="commentVotes">. 2</span>
+													<span class="commentVotes">. 156</span>
 												</a>
 											</button>
 											<button class="btn" title="The answer was usefull">
@@ -315,7 +317,9 @@
 					    					<a href="javascript:void(0)" class="fal fa-edit ml-2" onclick="openReplyPhotoField({!!$comment->id!!})">
 					    						<span class="removeEditCommentPhotoText">Change photo</span>
 					    					</a>
-											<img src="" id="replyImg-{{$comment->id}}" >
+					    					<div class="text-center" style="overflow: hidden;">
+												<img src="" id="replyImg-{{$comment->id}}" >
+											</div>
 										</div>
 										<!-- End of the part which display the reply image after its beign selected -->
 
@@ -376,7 +380,9 @@
 	    					<a href="javascript:void(0)" class="fal fa-edit ml-2" onclick="openCommentPhotoField({!!$post->id!!})">
 	    						<span class="removeEditCommentPhotoText">Change photo</span>
 	    					</a>
-							<img src="" id="commentImg-{{$post->id}}" >
+	    					<div class="text-center" style="overflow: hidden;">
+								<img src="" id="commentImg-{{$post->id}}" >
+							</div>
 						</div>
 						<div id="commentPartImage">
 								@if(count(Auth::user()->owner->account->photos) > 0)

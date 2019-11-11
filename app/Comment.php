@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Photo;
 use App\Account;
+use App\CommentReply;
 class Comment extends Model
 {
     /**
@@ -29,5 +30,10 @@ class Comment extends Model
     // Relationship with photos
     public function photos(){
     	return $this->morphMany(Photo::class,"owner");
+    }
+
+    // Relationship with comment_replies table
+    public function replies(){
+        return $this->hasMany(CommentReply::class);
     }
 }
