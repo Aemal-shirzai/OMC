@@ -30,9 +30,22 @@ function validateCommentForm(postId){
 		field.placeholder = "can not add empty comment";
 		event.preventDefault();
 	}else{
-		field.placeholder = "Add Comment to post...";
+		field.placeholder = "Add Comment to post max 65500 chars...";
 		field.style.border = "none";
 	}
+
+	if(field.value.trim().length >= 65500){
+		field.focus();
+		$("#fileError-"+postId).show();
+		$("#msg-"+postId).text("Too Long Text");
+		field.style.border = "1px solid red";
+		field.placeholder = "Too long text";
+		event.preventDefault();
+	}else{
+		$("#fileError-"+postId).hide();
+		field.style.border = "none";
+		field.placeholder = "Add Comment to post max 65500 chars..."
+	}	
 }
 // End of : the function which validate the comment form
 
@@ -46,7 +59,7 @@ if(txt.trim().length > 0 ){
 	//  This if is to disable border red if the text area is border red due to any error
 	if(textbox.style.border == "1px solid red"){
 		textbox.style.border = "none";
-		textbox.placeholder = "Add Comment to post...";
+		textbox.placeholder = "Add Comment to post max 65500 chars...";
 	}
 	document.getElementById("addCommentBtn-"+postId).disabled = false;
 	}else{
@@ -94,16 +107,8 @@ function openCommentPhotoField(value){
 
 
 // Beggining of : the function which open the share options menu
-var count = 0;
 function openShareOptions(value){
-	var menu = document.getElementById("shareOptions-"+value);
-	if(count == 0){
-		menu.style.display = "block";
-		count = 1;
-	}else{
-		menu.style.display = "none";
-		count =0;
-	}
+	$("#shareOptions-"+value).toggle();
 	event.preventDefault();
 }
 // End of : the function which open the share options menu
@@ -201,16 +206,8 @@ $(document).ready(function(){
 
 
 // beggining of: the function which shows all comments
-var c = 0;
 function showAllComments(value){
-	var allComments = document.getElementById("allComments-"+value);
-	if(c == 0){
-			allComments.style.display = "block";
-			c = 1;
-	}else{
-			allComments.style.display = "none";
-			c = 0;
-	}
+	$("#allComments-"+value).toggle();
 }		
 // End of: the function which shows all comments
 
@@ -258,6 +255,19 @@ function validateReplyForm(commentId){
 		field.placeholder = "Add Reply...";
 		field.style.border = "none";
 	}
+
+	if(field.value.trim().length >= 65500){
+		field.focus();
+		$("#replyPhotoError-"+commentId).show();
+		$("#replymsg-"+commentId).text("Too Long Text");
+		field.style.border = "1px solid red";
+		field.placeholder = "Too long text";
+		event.preventDefault();
+	}else{
+		$("#replyPhotoError-"+commentId).hide();
+		field.style.border = "none";
+		field.placeholder = "Add Reply  max 65500 chars..."
+	}	
 }
 // End of : the function which validate the comment form
 

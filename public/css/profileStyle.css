@@ -149,16 +149,24 @@ div#postContent p{
 }
 div#postImage{
 	width: 98%;
-	border:1px solid lightgray;
+	#border:1px solid lightgray;
 	border-radius: 8px;
 	margin-bottom: 12px;
 }
 div#postContent img{
-	border-radius: 5px;
+	#border-radius: 5px;
 }
 div#postImage img{
 	max-width: 100%;
 	max-height: 300px !important
+}
+div#commentImage{
+	width: 98%;
+	margin-bottom: 12px;
+}
+div#commentImage img{
+	max-width: 100%;
+	max-height: 200px !important
 }
 #no-image-in-post{
 	padding: 11px 13px;
@@ -245,6 +253,7 @@ div.shareOptions{
 	background-color: white;
 	border-color: rgba(27, 31, 35, 0.15);
 	border-radius: 4px;
+
 }
 div.shareOptions::after{
 	position: absolute;
@@ -255,8 +264,8 @@ div.shareOptions::after{
 	top: -9px;
 	left: 42%;
 	background-color: white;
-	border-top: 1px solid  white;
-	border-left: 1px solid  white;
+	border-top: 1px solid  #c3bfbf;
+	border-left: 1px solid  #c3bfbf;
 	border-right: 0px solid  white;
 	border-bottom: 0px solid  white;
 }
@@ -319,8 +328,7 @@ div#commentPart{
 	border:1px solid #f1f1f1;
 	border-radius: 12px;
 	margin: 0 auto;
-	padding: 20px 25px;
-	margin-bottom: 12px;
+	padding: 40px 25px;
 }
 
 div#commentPartImage{
@@ -672,6 +680,9 @@ textarea::-webkit-scrollbar {
 		max-width: 100%;
 		max-height: 200px !important
 	}
+	div#commentImage img{
+		max-height: 170px !important
+	}
 /* post Tags part*/
 	div.tags span{
 		padding: 0 2px;
@@ -930,6 +941,9 @@ textarea::-webkit-scrollbar {
 	div#postImage img{
 		max-height: 150px !important
 	}
+	div#commentImage img{
+		max-height: 120px !important
+	}
 	div#postPic img{
 		width: 35px;
 		height: 35px;
@@ -1172,6 +1186,9 @@ div.reply{
 	}
 	div#postContent p{
 		font-size: 12px;
+	}
+	div#commentImage img{
+		max-height: 100px !important
 	}
 	div.shareOptionsForGuest{
 		margin-top: 7px;

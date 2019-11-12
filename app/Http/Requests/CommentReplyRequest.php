@@ -25,13 +25,15 @@ class CommentReplyRequest extends FormRequest
     {
         return [
             "replyPhoto" => "bail|image|max:10240|min:1",
+            "content"   => "bail|max:65500"
         ];
     }
 
     public function messages(){
         return [
             "replyPhoto.image" => "Invalid file. Only photos are allowed...",
-            "replyPhoto.max"   => "File too large. max 10MB..."
+            "replyPhoto.max"   => "File too large. max 10MB...",
+            "content.max"      => "The length of text entered is too large..."
         ];
     }
 }

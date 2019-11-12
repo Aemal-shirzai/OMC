@@ -201,7 +201,7 @@
 
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
-<script type="text/javascript" src="{{asset('js/profileScript1.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/profileScript.js')}}"></script>
 @endif
 
 

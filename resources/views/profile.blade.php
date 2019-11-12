@@ -220,7 +220,7 @@
 					</div>
 
 					<!--Begginning  comments part  -->
-					<div id="commentPart">
+					<div id="commentPart" style="margin-bottom: 45px;position: relative;">
 							<!-- Beggining of all comments part -->
 							<div class="allComments" id="allComments-{{$post->id}}">
 								@if(count($post->comments) > 0)
@@ -249,9 +249,10 @@
 										<!-- Beggining of : all comments content part -->
 										<div class="allCommentsContent" id="allCommentsContent-{{$comment->id}}">
 											@if(count($comment->photos) > 0)
-												<div id="postImage" class="text-center" style="overflow: hidden;">
+												<div id="commentImage" class="text-center" style="overflow: hidden;">
 													<a href="/storage/images/comments/{{$comment->photos()->where('status',1)->first()->path}}">
 														<img src="/storage/images/comments/{{$comment->photos()->where('status',1)->first()->path}}" class="">
+														
 													</a>
 												</div>
 											@endif
@@ -328,7 +329,7 @@
 											{!! Form::open(["method"=>"post","action"=>"CommentReplyController@store","files"=>"true"]) !!}		
 												<div class="input-group">
 													{!! Form::file("replyPhoto",["class"=>"replyPhotoField","id"=>"replyPhotoField-$comment->id","onchange"=>"showAndValidateReplyFile($comment->id)"]) !!}
-													<textarea  name="content" class="form-control replyField" placeholder="Add Reply..." id="replyField-{{$comment->id}}" rows="1"
+													<textarea  name="content" class="form-control replyField" placeholder="Add Reply max 65500 chars..." id="replyField-{{$comment->id}}" rows="1" maxlength="65500" 
 													onkeyup="do_resize_and_enable_reply_button(this,{!! $comment->id !!})"  value= @if(old("comment_id") == $comment->id) {{old("content")}} @else "" @endif></textarea>
 													<input type="hidden" name="comment_id" value= @if(old("comment_id") == $comment->id) {{old("comment_id")}} @else {{$comment->id}} @endif >
 													{!! Form::submit("Reply",["class"=>"btn  btn-sm addReplyBtn","id"=>"addReplyBtn-$comment->id","disabed"=>"true","onclick"=>"validateReplyForm($comment->id)"]) !!}
@@ -399,7 +400,7 @@
 							{!! Form::open(["method"=>"post","action"=>"CommentController@store","files"=>"true"]) !!}		
 								<div class="input-group">
 									{!! Form::file("photo",["class"=>"commentPhotoField","id"=>"commentPhotoField-$post->id","onchange"=>"showAndValidateFile($post->id)"]) !!}
-									<textarea  name="content" class="form-control commentField" placeholder="Add Comment to post..." id="commentField-{{$post->id}}" rows="1"
+									<textarea  name="content" class="form-control commentField" placeholder="Add Comment to post max 65500..." id="commentField-{{$post->id}}" rows="1" maxlength="65500" 
 									onkeyup="do_resize_and_enable_button(this,{!! $post->id !!})" value= @if(old("post_id") == $post->id) {{old("content")}} @else "" @endif></textarea>
 									<input type="hidden" name="post_id" value= @if(old("post_id") == $post->id) {{old("post_id")}} @else {{$post->id}} @endif >
 									{!! Form::submit("Add Comment",["class"=>"btn  btn-sm addCommentBtn","id"=>"addCommentBtn-$post->id","disabled"=>"true","onclick"=>"validateCommentForm($post->id)"]) !!}
@@ -413,7 +414,7 @@
 			@endforeach
 		@endif
 	</div>
-	<div id="achievements" class="tab-content">
+	<div id="achievements" class="tab-content" >
 		This is achivements parts
 	</div>
 	<div id="followers" class="tab-content">

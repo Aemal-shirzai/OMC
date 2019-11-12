@@ -23,7 +23,7 @@ class CreateDoctorsTable extends Migration
             $table->string("street")->nullable();
             $table->boolean("gender");
             $table->datetime("DateOfBirth")->nullable();
-            $table->longText("Bio")->nullable();
+            $table->Text("Bio")->nullable();
             $table->timestamps();
 
             $table->foreign("country_id")->references("id")->on("countries")->onDelete("set null")->onUpdate("set null");

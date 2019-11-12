@@ -132,13 +132,12 @@
 				</div>
 				<div class="dropdown-divider"></div>
 				{!! Form::label("address","Bio information:") !!}
-				{!! Form::textarea("Bio",null,["class"=>"form-control more_form_element col-lg-12" .($errors->has('Bio') ? ' moreInfoFormErrorsInput' : ''),"placeholder"=>"Enter your bio...","id"=>"biography","rows"=>"4"]) !!}
+				{!! Form::textarea("Bio",null,["class"=>"form-control more_form_element col-lg-12" .($errors->has('Bio') ? ' moreInfoFormErrorsInput' : ''),"placeholder"=>"Enter your bio...","id"=>"biography","rows"=>"6","maxlength"=>"200","style"=>"resize:none"]) !!}
 					<div id="biographyError" class="moreInfoFormErrors col-lg-12">
 						@error("Bio")
 							{{$message}}
 						@enderror
 					</div>
-
 				<div class="row row-for-input">
 					{!! Form::submit("Add Info",["class"=>"btn btn-primary btn-sm btn-block col-lg-12", "id"=>"form_button","onclick"=>"validateMoreInfoForm()"]) !!}
 				</div>

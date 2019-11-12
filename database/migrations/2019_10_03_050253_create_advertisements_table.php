@@ -16,7 +16,7 @@ class CreateAdvertisementsTable extends Migration
         Schema::create('advertisements', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string("title");
-            $table->longText("content");
+            $table->Text("content");
             $table->timestamp("expire_date");
 
             // add type
