@@ -48,7 +48,7 @@ class CommentController extends Controller
         $post = Post::findOrFail($request->post_id);
         //add column account_id to array request
         $request->merge(["account_id"=>$account_id]);
-        // create the comment for the post we found above and add content owner_id and owner_type column aswell
+        // create the comment for the post
         $comment = $post->comments()->create($request->all());
 
         // if the request has photo then add it by the help of comment and photos relationship (photos)

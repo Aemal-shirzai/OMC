@@ -30,7 +30,7 @@ function validateCommentForm(postId){
 		field.placeholder = "can not add empty comment";
 		event.preventDefault();
 	}else{
-		field.placeholder = "Add Comment to post max 65500 chars...";
+		field.placeholder = "Add Comment to post...";
 		field.style.border = "none";
 	}
 
@@ -44,7 +44,7 @@ function validateCommentForm(postId){
 	}else{
 		$("#fileError-"+postId).hide();
 		field.style.border = "none";
-		field.placeholder = "Add Comment to post max 65500 chars..."
+		field.placeholder = "Add Comment to post..."
 	}	
 }
 // End of : the function which validate the comment form
@@ -59,7 +59,7 @@ if(txt.trim().length > 0 ){
 	//  This if is to disable border red if the text area is border red due to any error
 	if(textbox.style.border == "1px solid red"){
 		textbox.style.border = "none";
-		textbox.placeholder = "Add Comment to post max 65500 chars...";
+		textbox.placeholder = "Add Comment to post...";
 	}
 	document.getElementById("addCommentBtn-"+postId).disabled = false;
 	}else{
@@ -266,7 +266,7 @@ function validateReplyForm(commentId){
 	}else{
 		$("#replyPhotoError-"+commentId).hide();
 		field.style.border = "none";
-		field.placeholder = "Add Reply  max 65500 chars..."
+		field.placeholder = "Add Reply..."
 	}	
 }
 // End of : the function which validate the comment form

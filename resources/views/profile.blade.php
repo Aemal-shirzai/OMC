@@ -221,6 +221,63 @@
 
 					<!--Begginning  comments part  -->
 					<div id="commentPart" style="margin-bottom: 45px;position: relative;">
+										<!-- Note: this div is used to show the error messages of both client side and serverside NOTE:ids names are confusing here -->
+						<div class="alert alert-danger commentImageVideoErrorMsg" id="fileError-{{$post->id}}" >
+							<button class="close" onclick="closeMsgs({!! $post->id !!})">&times;</button>
+							<span id="msg-{{$post->id}}">
+								@error('photo')
+									{{ $message }}
+								@enderror
+							</span>
+						</div>
+						<!-- Note: Success messages -->
+						@if(session("commentSuccess"))
+						<!-- 
+							* I have added the id for this div for two reasons:
+							* 1- because to scroll down to it when the responise come back from the serveer
+							* 2- to make its display availible usring js. Because if i just relay on the the session if statemetn
+							* then when the request response come then it show the smae messagses above all the comments.			
+						 -->
+							<div class="alert alert-success commentSuccessMsgs" id="successMsg-{{$post->id}}">
+								<button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
+									{{session('commentSuccess')}}
+							</div>
+						@endif
+						<div class="commentImageDiv" id="commentImageDiv-{{$post->id}}" style="">
+	    					<button class="close removeImage" onclick="removeImage({!! $post->id !!})" >
+	    						&times; 
+	    						<span class="removeEditCommentPhotoText"> Remove photo</span>
+	    					</button>
+	    					<a href="javascript:void(0)" class="fal fa-edit ml-2" onclick="openCommentPhotoField({!!$post->id!!})">
+	    						<span class="removeEditCommentPhotoText">Change photo</span>
+	    					</a>
+	    					<div class="text-center" style="overflow: hidden;">
+								<img src="" id="commentImg-{{$post->id}}" >
+							</div>
+						</div>
+						<div id="commentPartImage">
+								@if(count(Auth::user()->owner->account->photos) > 0)
+									@if(Auth::user()->owner_type == 'App\NormalUser')
+										<img src="/storage/images/normalUsers/{{Auth::user()->owner->account->photos()->where('status',1)->first()->path}}" class="" >
+									@else
+										<img src="/storage/images/doctors/{{Auth::user()->owner->account->photos()->where('status',1)->first()->path}}" class="">
+									@endif
+								@else
+									<span class="fal fa-user" id="no-image-in-comment"></span>
+								@endif
+						</div>
+						<div id="comment">
+							{!! Form::open(["method"=>"post","action"=>"CommentController@store","files"=>"true"]) !!}		
+								<div class="input-group">
+									{!! Form::file("photo",["class"=>"commentPhotoField","id"=>"commentPhotoField-$post->id","onchange"=>"showAndValidateFile($post->id)"]) !!}
+									<textarea  name="content" class="form-control commentField" placeholder="Add Comment to post..." id="commentField-{{$post->id}}" rows="1" maxlength="65500" 
+									onkeyup="do_resize_and_enable_button(this,{!! $post->id !!})" value= @if(old("post_id") == $post->id) {{old("content")}} @else "" @endif></textarea>
+									<input type="hidden" name="post_id" value= @if(old("post_id") == $post->id) {{old("post_id")}} @else {{$post->id}} @endif >
+									{!! Form::submit("Add Comment",["class"=>"btn  btn-sm addCommentBtn","id"=>"addCommentBtn-$post->id","disabled"=>"true","onclick"=>"validateCommentForm($post->id)"]) !!}
+									<i class="fal fa-camera commentPhotoButton" id="commentPhotoButton-$post->id" onclick="openCommentPhotoField({!!$post->id!!})"></i>
+								</div>
+							{!! Form::close() !!}
+						</div>
 							<!-- Beggining of all comments part -->
 							<div class="allComments" id="allComments-{{$post->id}}">
 								@if(count($post->comments) > 0)
@@ -248,6 +305,11 @@
 
 										<!-- Beggining of : all comments content part -->
 										<div class="allCommentsContent" id="allCommentsContent-{{$comment->id}}">
+											<p>
+												@if($comment->content)
+													{{$comment->content}}
+												@endif
+											</p>
 											@if(count($comment->photos) > 0)
 												<div id="commentImage" class="text-center" style="overflow: hidden;">
 													<a href="/storage/images/comments/{{$comment->photos()->where('status',1)->first()->path}}">
@@ -256,11 +318,6 @@
 													</a>
 												</div>
 											@endif
-											<p>
-												@if($comment->content)
-													{{$comment->content}}
-												@endif
-											</p>
 										</div>
 										<!-- End of: Image part of comment owner -->
 
@@ -329,7 +386,7 @@
 											{!! Form::open(["method"=>"post","action"=>"CommentReplyController@store","files"=>"true"]) !!}		
 												<div class="input-group">
 													{!! Form::file("replyPhoto",["class"=>"replyPhotoField","id"=>"replyPhotoField-$comment->id","onchange"=>"showAndValidateReplyFile($comment->id)"]) !!}
-													<textarea  name="content" class="form-control replyField" placeholder="Add Reply max 65500 chars..." id="replyField-{{$comment->id}}" rows="1" maxlength="65500" 
+													<textarea  name="content" class="form-control replyField" placeholder="Add Reply..." id="replyField-{{$comment->id}}" rows="1" maxlength="65500" 
 													onkeyup="do_resize_and_enable_reply_button(this,{!! $comment->id !!})"  value= @if(old("comment_id") == $comment->id) {{old("content")}} @else "" @endif></textarea>
 													<input type="hidden" name="comment_id" value= @if(old("comment_id") == $comment->id) {{old("comment_id")}} @else {{$comment->id}} @endif >
 													{!! Form::submit("Reply",["class"=>"btn  btn-sm addReplyBtn","id"=>"addReplyBtn-$comment->id","disabed"=>"true","onclick"=>"validateReplyForm($comment->id)"]) !!}
@@ -349,65 +406,6 @@
 						
 						<div class="clearfix"></div>
 						<!-- End Showing all comments part  -->
-				
-
-						<!-- Note: this div is used to show the error messages of both client side and serverside NOTE:ids names are confusing here -->
-						<div class="alert alert-danger commentImageVideoErrorMsg" id="fileError-{{$post->id}}" >
-							<button class="close" onclick="closeMsgs({!! $post->id !!})">&times;</button>
-							<span id="msg-{{$post->id}}">
-								@error('photo')
-									{{ $message }}
-								@enderror
-							</span>
-						</div>
-						<!-- Note: Success messages -->
-						@if(session("commentSuccess"))
-						<!-- 
-							* I have added the id for this div for two reasons:
-							* 1- because to scroll down to it when the responise come back from the serveer
-							* 2- to make its display availible usring js. Because if i just relay on the the session if statemetn
-							* then when the request response come then it show the smae messagses above all the comments.			
-						 -->
-							<div class="alert alert-success commentSuccessMsgs" id="successMsg-{{$post->id}}">
-								<button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
-									{{session('commentSuccess')}}
-							</div>
-						@endif
-						<div class="commentImageDiv" id="commentImageDiv-{{$post->id}}" style="">
-	    					<button class="close removeImage" onclick="removeImage({!! $post->id !!})" >
-	    						&times; 
-	    						<span class="removeEditCommentPhotoText"> Remove photo</span>
-	    					</button>
-	    					<a href="javascript:void(0)" class="fal fa-edit ml-2" onclick="openCommentPhotoField({!!$post->id!!})">
-	    						<span class="removeEditCommentPhotoText">Change photo</span>
-	    					</a>
-	    					<div class="text-center" style="overflow: hidden;">
-								<img src="" id="commentImg-{{$post->id}}" >
-							</div>
-						</div>
-						<div id="commentPartImage">
-								@if(count(Auth::user()->owner->account->photos) > 0)
-									@if(Auth::user()->owner_type == 'App\NormalUser')
-										<img src="/storage/images/normalUsers/{{Auth::user()->owner->account->photos()->where('status',1)->first()->path}}" class="" >
-									@else
-										<img src="/storage/images/doctors/{{Auth::user()->owner->account->photos()->where('status',1)->first()->path}}" class="">
-									@endif
-								@else
-									<span class="fal fa-user" id="no-image-in-comment"></span>
-								@endif
-						</div>
-						<div id="comment">
-							{!! Form::open(["method"=>"post","action"=>"CommentController@store","files"=>"true"]) !!}		
-								<div class="input-group">
-									{!! Form::file("photo",["class"=>"commentPhotoField","id"=>"commentPhotoField-$post->id","onchange"=>"showAndValidateFile($post->id)"]) !!}
-									<textarea  name="content" class="form-control commentField" placeholder="Add Comment to post max 65500..." id="commentField-{{$post->id}}" rows="1" maxlength="65500" 
-									onkeyup="do_resize_and_enable_button(this,{!! $post->id !!})" value= @if(old("post_id") == $post->id) {{old("content")}} @else "" @endif></textarea>
-									<input type="hidden" name="post_id" value= @if(old("post_id") == $post->id) {{old("post_id")}} @else {{$post->id}} @endif >
-									{!! Form::submit("Add Comment",["class"=>"btn  btn-sm addCommentBtn","id"=>"addCommentBtn-$post->id","disabled"=>"true","onclick"=>"validateCommentForm($post->id)"]) !!}
-									<i class="fal fa-camera commentPhotoButton" id="commentPhotoButton-$post->id" onclick="openCommentPhotoField({!!$post->id!!})"></i>
-								</div>
-							{!! Form::close() !!}
-						</div>
 					</div>
 					<!-- End of comment part -->
 				@endauth
