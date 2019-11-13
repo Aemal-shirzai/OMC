@@ -41,4 +41,3 @@ Route::resource("/comment","CommentController");
 
 // Routes for CommentReplies
 Route::resource("/reply","CommentReplyController");
-

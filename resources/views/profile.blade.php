@@ -6,6 +6,7 @@
 @endsection
 @section("content")
 <div id="profileParent">
+	<div>
 	<div class="container" id="profileHeading">
 		<div id="profileImageParent">
 			<div id="profileImage" class="">
@@ -165,11 +166,22 @@
 						<span><a href="#">Calcium</a></span>
 						<span><a href="#">Diabates</a></span>
 					</div>
-					<p>{{ $post->content }}</p>
+					@if(strlen($post->content) > 1000)
+						<p id="halfPost-{{$post->id}}">
+							{{ Str::limit($post->content,1000)}} 
+							<a href="javascript:void(0)" class="readMoreLess" onclick="showComplete({!! $post->id !!})">Read More...</a>
+						</p>
+						<p id="completePost-{{$post->id}}" style="display: none;">
+							{{ $post->content}}
+							<a href="javascript:void(0)" class="readMoreLess" onclick="showLess({!! $post->id !!})">Read Less...</a>
+						</p>
+					@else
+						<p>{{ $post->content }}</p>
+					@endif
 				</div>
 				<!-- End of div of postContent -->
-				<div class="clearfix"></div>
 				@auth
+				<div class="clearfix"></div>
 					<div class="options">
 						<button class="btn" title="The answer was usefull">
 							<a href="#">
@@ -277,11 +289,12 @@
 									<i class="fal fa-camera commentPhotoButton" id="commentPhotoButton-$post->id" onclick="openCommentPhotoField({!!$post->id!!})"></i>
 								</div>
 							{!! Form::close() !!}
+							<div class="dropdown-divider"></div>
 						</div>
 							<!-- Beggining of all comments part -->
 							<div class="allComments" id="allComments-{{$post->id}}">
 								@if(count($post->comments) > 0)
-									<div class="mb-2 ml-2">{{count($post->comments)}} Comments</div>
+									<div class="mb-2 ml-2 comments-count">{{count($post->comments)}} Comments</div>
 									@foreach($post->comments as $comment)
 										<!-- Beggining of: Image part of comment owner -->
 										<div class="allcommentsOwnerImage">

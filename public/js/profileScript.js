@@ -203,11 +203,13 @@ $(document).ready(function(){
  }
 
 });
-
-
+	
 // beggining of: the function which shows all comments
 function showAllComments(value){
 	$("#allComments-"+value).toggle();
+	$("html,body").animate({
+	scrollTop: $("#addCommentBtn-"+value).offset().top-200},"slow");
+
 }		
 // End of: the function which shows all comments
 
@@ -388,3 +390,15 @@ if(txt.trim().length > 0 ){
 	}
  }
  // End of the function which resize the reply text area when the text increase, AND the function which enable the reply button
+
+// Beggining of the function which readmore and readless the post content
+ function showComplete(value){
+ 	$("#halfPost-"+value).hide();
+ 	$("#completePost-"+value).show();
+ }
+
+ function showLess(value){
+ 	$("#completePost-"+value).hide();
+ 	$("#halfPost-"+value).show();
+ }
+ // End of the function which readmore and readless the post content

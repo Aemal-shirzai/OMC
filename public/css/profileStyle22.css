@@ -1,6 +1,7 @@
 div#profileParent{
-	background-color: #fafafa;
+	background-color: white;
 	overflow: hidden;
+	font-family: quicksand;
 }
 div#profileHeading{
 	margin-top: 40px;
@@ -63,6 +64,7 @@ div#smallScreenBio{
 /* Secondpart */
 div#pofileContentPart{
 	margin-top: 20px;
+	background-color: white;
 	text-align: center !important; 
 	border-top: 1px solid #efefef;
 }
@@ -133,10 +135,13 @@ div#postPic span#createTime{
 div#postContent{
 	display: block;
 	float: left;
-	max-height: 550px;
 	overflow-y: auto;
 	margin-bottom: 12px;
 	padding: 4px 53px;
+}
+a.readMoreLess{
+	font-size: 11px;
+	color: #3fbbc0;
 }
 div#postContent h5{
 	font-weight: bold;
@@ -149,12 +154,12 @@ div#postContent p{
 }
 div#postImage{
 	width: 98%;
-	#border:1px solid lightgray;
+	border:1px solid lightgray;
 	border-radius: 8px;
 	margin-bottom: 12px;
 }
 div#postContent img{
-	#border-radius: 5px;
+	border-radius: 5px;
 }
 div#postImage img{
 	max-width: 100%;
@@ -227,7 +232,7 @@ div.options button:focus{
 	box-shadow: none;
 }
 div.options button:hover{
-	background-color: #efefef;
+	background-color: #fbfbfds;
 }
 
 span.votes{
@@ -323,7 +328,7 @@ div.shareOptions p{
 
 /* Comment part */
 div#commentPart{
-	background-color: white;
+	background-color: #fbfbfd;
 	width: 85%;
 	border:1px solid #f1f1f1;
 	border-radius: 12px;
@@ -448,11 +453,18 @@ div.allComments{
 	position: relative;
 	overflow: auto;
 	margin-bottom: 15px;
-	background-color: white;
+	background-color: #fbfbfd;
 	padding: 12px 0px;
-	padding-left: 12px;
+	padding-left:30px;  
 	display: none;
-	max-height: 600px;
+	max-height: 800px;
+}
+.no-comment{
+	font-size: 11px;
+}
+.comments-count{
+	margin-left: 30px !important;
+	font-size: 11px;
 }
 div.allcommentsOwnerImage{
 	display: inline-block;
@@ -580,7 +592,7 @@ div.reply{
 
 
 div::-webkit-scrollbar {
-    width: 2px !important;
+    width: 4px !important;
 }
 textarea::-webkit-scrollbar {
     width: 4px !important;
@@ -727,7 +739,7 @@ textarea::-webkit-scrollbar {
 	}
 /* comments part */
 	div#commentPart{
-		background-color: inherit;
+		background-color: #fbfbfd;
 		width: 85%;
 		border:1px solid #f1f1f1;
 		border-radius: 12px;
@@ -918,8 +930,8 @@ textarea::-webkit-scrollbar {
 		margin-top: -1px;
 	}
 	div#postContent h5{
-		font-size: 14px;
-		margin-top: 5px;
+		font-size: 12px;
+		margin-top: 12px;
 		margin-bottom: 0px;
 		margin-left: 3px;
 	}
@@ -927,12 +939,10 @@ textarea::-webkit-scrollbar {
 		padding: 0 0;
 	}
 	div#postContent p{
-		text-align: left;
 		word-break: keep-all;
 		font-size: 13px;
 	}
 	div#postContent{
-		max-height: 290px;
 		padding-right: 5px !important;
 	}
 	div#postImage{
@@ -1007,7 +1017,7 @@ textarea::-webkit-scrollbar {
 
 /* cmment part */
 	div#commentPart{
-		background-color: inherit;
+		background-color: #fbfbfd;
 		width: 100%;
 		border:1px solid #f1f1f1;
 		border-radius: 12px;
@@ -1074,8 +1084,10 @@ textarea::-webkit-scrollbar {
 	}
 /* Showing all comments part */
 	div.allComments{
-		background-color: white;
-		max-height: 400px;
+		background-color: #fbfbfd;
+		max-height: 500px;
+		padding-left: 12px;
+
 	}
 	div.allcommentsOwnerImage img{
 		width: 20px;
