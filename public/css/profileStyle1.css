@@ -483,7 +483,7 @@ div.commentOwnerName{
 }
 div.commentOwnerName a{
 	margin-left: 3px;
-	color: black;
+	color: #3fbbc0;
 	font-weight: bold;
 	font-size: 12px;
 }
@@ -588,7 +588,80 @@ div.reply{
 }
 /* End of the form of replies */
 
+/* Beggining of the showing all replies */
+div.allReplies{
+	overflow:hidden;
+	border-left: 1px solid #f2f2f2;
+	padding-left: 30px;
+	display: none;
+	margin-bottom: 12px;
+}
+div.reply-parent{
+	display: none;
+}
+div.allRepliesOwnerImage{
+	display: inline-block;
+	float: left;
+	width: 100%;
+	overflow: hidden;
+}
+div.allRepliesOwnerImage img{
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	border-radius: 50%;
+}
+div.replyOwnerName{
+	display: inline-block;
+}
+div.replyOwnerName a{
+	margin-left: 3px;
+	color: black;
+	font-weight: bold;
+	font-size: 12px;
+}
+div.replyOwnerName span.replyCreateTime{
+	color: #828282;
+	display: table;
+	margin-left: 3px;
+	margin-top: -5px;
+	font-size: 10px;
+}
+div.allRepliessContent p{
+	padding-right: 4px; 
+	font-size: 12px;
+	margin-left: 27px;
+	overflow:hidden;
+	margin-bottom: 4px;
+}
+.replyImage{
+	width: 98%;
+	margin-bottom: 12px;
+	border:1px solid lightgray;
+	border-radius: 5px;
+}
+.replyImage img{
+	max-width: 100%;
+	max-height: 160px !important;
+	border-radius:5px;
+}
+#no-image-in-reply{
+	padding: 6px 6px;
+    border-radius: 50%;
+    border: 1px solid #3fbbc0;
+    color: #3fbbc0;
+    font-size: 12px;
+    height: 25px;
+    width: 25px;
+}
+div.reply-divider{
+	margin-top: 0px;
+}
 
+.replies-count{
+	font-size: 11px;
+}
+/* End of the showing all replies */
 
 
 div::-webkit-scrollbar {
@@ -676,6 +749,12 @@ textarea::-webkit-scrollbar {
 	}
 	/* End of the form of replies */
 
+/* Beggining of the showing all replies */
+div.allRepliessContent p{
+	padding-right: 1px; 
+	margin-left: 10px;
+}
+/* End of the showing all replies */
 	
 }
 
@@ -1145,6 +1224,28 @@ div.reply{
 }
 /* End of the form of replies */
 
+/* Beggining of the showing all replies */
+div.replyOwnerName a{
+	font-size: 10px;
+}
+div.replyOwnerName span.replyCreateTime{
+	font-size: 7px;
+}
+div.allRepliessContent p{
+	font-size: 11px;
+	margin-left: 0px;
+}
+.replyImage img{
+	max-height: 120px !important;
+}
+#no-image-in-reply{
+	padding: 4px 4px;
+    font-size: 10px;
+    height: 20px;
+    width: 20px;
+}
+
+/* End of the showing all replies */
 
 
 
@@ -1261,4 +1362,11 @@ div.reply{
 	}
 /* End of the form of replies */
 
+/* Beggining of showing all repplies */
+
+div.allRepliessContent p{
+	font-size: 10px;
+	margin-left: 0px;
+}
+/* End of showing all repplies */
 }

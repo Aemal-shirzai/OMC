@@ -207,9 +207,8 @@ $(document).ready(function(){
 // beggining of: the function which shows all comments
 function showAllComments(value){
 	$("#allComments-"+value).toggle();
-	$("html,body").animate({
-	scrollTop: $("#addCommentBtn-"+value).offset().top-200},"slow");
-
+		$("html,body").animate({
+		scrollTop: $("#addCommentBtn-"+value).offset().top-200},"slow");
 }		
 // End of: the function which shows all comments
 
@@ -217,12 +216,11 @@ function showAllComments(value){
 // Replies part ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
-
 // beggining of: the function which shows reply form
 function showReplies(value){
 	$("#reply-"+value).toggle();
 	$('#replyField-'+value).focus();
+	$("#allReplies-"+value).toggle();
 }
 // End of: the function which shows reply form
 
@@ -391,14 +389,30 @@ if(txt.trim().length > 0 ){
  }
  // End of the function which resize the reply text area when the text increase, AND the function which enable the reply button
 
-// Beggining of the function which readmore and readless the post content
- function showComplete(value){
- 	$("#halfPost-"+value).hide();
- 	$("#completePost-"+value).show();
+// Beggining of the function which readmore and readless the post content and comment contents 
+ function showComplete(value,type){
+ 	if(type == "post"){
+	 	$("#halfPost-"+value).hide();
+	 	$("#completePost-"+value).show();
+ 	}else if(type == "comment"){
+ 		$("#halfComment-"+value).hide();
+	 	$("#completeComment-"+value).show();
+ 	}else if(type == "reply"){
+ 		$("#halfReply-"+value).hide();
+	 	$("#completeReply-"+value).show();
+ 	}
  }
 
- function showLess(value){
- 	$("#completePost-"+value).hide();
- 	$("#halfPost-"+value).show();
+ function showLess(value,type){
+ 	if(type == "post"){
+	 	$("#completePost-"+value).hide();
+	 	$("#halfPost-"+value).show();
+ 	}else if(type == "comment"){
+ 		$("#halfComment-"+value).show();
+	 	$("#completeComment-"+value).hide();
+ 	}else if(type == "reply"){
+ 		$("#halfReply-"+value).show();
+	 	$("#completeReply-"+value).hide();
+ 	}
  }
- // End of the function which readmore and readless the post content
+ // End of the function which readmore and readless the post content and comment content

@@ -253,6 +253,9 @@ div.contactErrorMsgsSmallScreen{
 .mainPageMsgs{
 	box-shadow: 0px 0px 20px 0px #d7f3e3; 
 }
+#message{
+	resize: none;
+}
 
 /*  Small size start */
 @media screen and (max-width: 640px){

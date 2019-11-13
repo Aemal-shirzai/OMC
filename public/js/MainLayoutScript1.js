@@ -82,7 +82,14 @@ function validateContactForm(){
 		messageError.innerHTML = "Message Field is required...";
 		message.placeholder = "Message field is required....";
 		event.preventDefault();
-	}else{
+	}else if(message.value.trim().length > 500){
+		message.focus();
+		message.style.border = "1px solid red";
+		messageError.innerHTML = "Not more than 500 chars are allowed...";
+		message.placeholder = "max 500 chars....";
+		event.preventDefault();
+	}
+	else{
 		messageError.innerHTML = "";
 		message.style.border = "1px solid #efefef";
 	}

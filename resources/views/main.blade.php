@@ -248,7 +248,7 @@
             </div>
         </div>
     </div>
-    <div class="text-center mb-2" title="All advertisements"><a href="#" class="btn btn-primary btn-sm" style="background-color:  #3fbbc0;">View All Advertisements</a></div>
+    <div class="text-center mb-2" title="All advertisements"><a href="#" class="btn btn-primary btn-sm" style="background-color:  #3fbbc0;border:1px solid #3fbbc0;">View All Advertisements</a></div>
 </div>
 <!-- latest news part section 4 end-->
 
@@ -320,9 +320,9 @@
                     </div>
                 </div>
                 <div class="row">
-                    {!! Form::textarea("message",null,["class"=>"form-control contactFormElement col-lg-8 offset-lg-2".($errors->has("message") ? "ContactBackEndErrorInput" : ""),"cols"=>"3","rows"=>"8","id"=>"message","placeholder"=>"Your message *","onkeyup"=>"enableContactButton()"]) !!}
-                    <div id="messageErrorForBothScreen" class="contactErrorMsgs">
-                         @error("message")
+                    {!! Form::textarea("message",null,["class"=>"form-control contactFormElement col-lg-8 offset-lg-2".($errors->has("message") ? "ContactBackEndErrorInput" : ""),"rows"=>"7","maxlength"=>"2","id"=>"message","placeholder"=>"Your message * max 500 chars","onkeyup"=>"enableContactButton()"]) !!}
+                    <div id="messageErrorForBothScreen" class="contactErrorMsgs col-lg-8 offset-lg-2">
+                        @error("message")
                             {{ $message }}
                         @enderror
                     </div>

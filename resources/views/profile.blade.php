@@ -166,17 +166,19 @@
 						<span><a href="#">Calcium</a></span>
 						<span><a href="#">Diabates</a></span>
 					</div>
-					@if(strlen($post->content) > 1000)
-						<p id="halfPost-{{$post->id}}">
-							{{ Str::limit($post->content,1000)}} 
-							<a href="javascript:void(0)" class="readMoreLess" onclick="showComplete({!! $post->id !!})">Read More...</a>
-						</p>
-						<p id="completePost-{{$post->id}}" style="display: none;">
-							{{ $post->content}}
-							<a href="javascript:void(0)" class="readMoreLess" onclick="showLess({!! $post->id !!})">Read Less...</a>
-						</p>
-					@else
-						<p>{{ $post->content }}</p>
+					@if($post->content)
+						@if(strlen($post->content) > 1000)
+							<p id="halfPost-{{$post->id}}">
+								{{ Str::limit($post->content,1000)}} 
+								<a href="javascript:void(0)" class="readMoreLess" onclick="showComplete({!! $post->id !!},'post')">Read More...</a>
+							</p>
+							<p id="completePost-{{$post->id}}" style="display: none;">
+								{{ $post->content}}
+								<a href="javascript:void(0)" class="readMoreLess" onclick="showLess({!! $post->id !!},'post')">Read Less...</a>
+							</p>
+						@else
+							<p>{{ $post->content }}</p>
+						@endif
 					@endif
 				</div>
 				<!-- End of div of postContent -->
@@ -318,28 +320,33 @@
 
 										<!-- Beggining of : all comments content part -->
 										<div class="allCommentsContent" id="allCommentsContent-{{$comment->id}}">
-											<p>
-												@if($comment->content)
-													{{$comment->content}}
+											
+											@if($comment->content)
+												@if(strlen($comment->content) > 500)
+													<p id="halfComment-{{$comment->id}}">{{Str::limit($comment->content,500)}} <a href="javascript:void(0)" class="readMoreLess" onclick="showComplete({!! $comment->id !!},'comment')">Read more...</a></p>	
+													<p id="completeComment-{{$comment->id}}" style="display: none;">{{$comment->content}} <a href="javascript:void(0)" class="readMoreLess" onclick="showLess({!! $comment->id !!},'comment')">Read less...</a></p>
+												@else
+													<p>{{ $comment->content }}</p>
 												@endif
-											</p>
+											@endif
+											
 											@if(count($comment->photos) > 0)
 												<div id="commentImage" class="text-center" style="overflow: hidden;">
-													<a href="/storage/images/comments/{{$comment->photos()->where('status',1)->first()->path}}">
+													<a href="/storage/images/comments/{{$comment->photos()->where('status',1)->first()->path}}" target="__blank">
 														<img src="/storage/images/comments/{{$comment->photos()->where('status',1)->first()->path}}" class="">
 														
 													</a>
 												</div>
 											@endif
 										</div>
-										<!-- End of: Image part of comment owner -->
+										<!-- End of: all comments content part -->
 
 										<!-- Beggining of: options for comments -->
 										<div class="commetOptions">
 											<button class="btn" title="Reply" onclick="showReplies({!! $comment->id !!})">
 												<a href="javascript:void(0)">
 													<span class="fal fa-reply commentOptionsIcons"></span>  
-													<span class="commentVotes">. {{count($comment->replies)}}</span>
+													<span class="commentVotes">. Reply.  {{count($comment->replies)}}</span>
 												</a>
 											</button>
 											<button class="btn" title="The answer was usefull">
@@ -402,12 +409,83 @@
 													<textarea  name="content" class="form-control replyField" placeholder="Add Reply..." id="replyField-{{$comment->id}}" rows="1" maxlength="65500" 
 													onkeyup="do_resize_and_enable_reply_button(this,{!! $comment->id !!})"  value= @if(old("comment_id") == $comment->id) {{old("content")}} @else "" @endif></textarea>
 													<input type="hidden" name="comment_id" value= @if(old("comment_id") == $comment->id) {{old("comment_id")}} @else {{$comment->id}} @endif >
-													{!! Form::submit("Reply",["class"=>"btn  btn-sm addReplyBtn","id"=>"addReplyBtn-$comment->id","disabed"=>"true","onclick"=>"validateReplyForm($comment->id)"]) !!}
+													{!! Form::submit("Reply",["class"=>"btn  btn-sm addReplyBtn","id"=>"addReplyBtn-$comment->id","disabled"=>"true","onclick"=>"validateReplyForm($comment->id)"]) !!}
 													<i class="fal fa-camera replyPhotoButton" id="replyPhotoButton-{{$comment->id}}" onclick="openReplyPhotoField({!!$comment->id!!})"></i>
 												</div>
 											{!! Form::close() !!}
 										</div>
 										<!-- End of form for replies -->
+
+										<!-- Beggining of: of the showing all replies for a comment -->
+										<div class="allReplies" id="allReplies-{{$comment->id}}">
+											<div class="dropdown-divider"></div>
+											@if(count($comment->replies) > 0)
+											<div class="mb-2 replies-count">{{count($comment->replies)}} Replies</div>
+													@foreach($comment->replies as $reply)
+														<!-- replied by image -->
+														<div class="allRepliesOwnerImage">
+															@if(count($reply->owner->photos) > 0)						
+																@if($reply->owner->owner_type == "App\Doctor")
+																	<img src="/storage/images/doctors/{{$comment->comment_owner->photos()->where('status','1')->first()->path}}">
+																@else
+																	<img src="/storage/images/normalUsers/{{$comment->comment_owner->photos()->where('status','1')->first()->path}}">
+																@endif
+															@else
+																<span class="fal fa-user" id="no-image-in-reply"></span>
+															@endif
+															<div class="replyOwnerName">
+																<a href="{{route('profile',$reply->owner->username)}}"><span>{{$reply->owner->owner->fullName}}</span></a> 
+																@if($comment->created_at)
+																	<span class="replyCreateTime">Replied:{{$reply->created_at->diffForHumans()}}</span>
+																@endif
+															</div>
+														</div>
+														<!-- End of replied by image  -->
+
+														<!-- Beggining of : all replies content part -->
+														<div class="allRepliessContent" id="allRepliessContent-{{$reply->id}}">
+															@if($reply->content)
+																@if(strlen($reply->content) > 300)
+																	<p id="halfReply-{{$reply->id}}">{{Str::limit($reply->content,300)}} <a href="javascript:void(0)" class="readMoreLess" onclick="showComplete({!! $reply->id !!},'reply')">Read more...</a></p>	
+																	<p id="completeReply-{{$reply->id}}" style="display: none;">{{$reply->content}} <a href="javascript:void(0)" class="readMoreLess" onclick="showLess({!! $reply->id !!},'reply')">Read less...</a></p>
+																@else
+																	<p>{{ $reply->content }}</p>
+																@endif
+															@endif
+															
+															@if(count($reply->photos) > 0)
+																<div class="replyImage text-center" style="overflow: hidden;">
+																	<a href="/storage/images/comment_replies/{{$reply->photos()->where('status',1)->first()->path}}" target="__blank">
+																		<img src="/storage/images/comment_replies/{{$reply->photos()->where('status',1)->first()->path}}" class="">
+																	</a>
+																</div>
+															@endif
+														</div>
+														<!-- End of: all replies content part -->
+
+														<!-- Beggining of: options for comments -->
+															<div class="commetOptions">
+																<button class="btn" title="The answer was usefull">
+																	<a href="#">
+																		<span class="fal fa-arrow-alt-up commentOptionsIcons"></span> 
+																		<span class="commentVotes">. 2</span>
+																	</a>
+																</button>
+																<button class="btn" title="The answer was not usefull">
+																	<a href="#">
+																		<span class="fal fa-arrow-alt-down commentOptionsIcons"></span>  
+																		<span class="commentVotes">. 2</span>
+																	</a>
+																</button>
+															</div>
+														<!-- End of :options for comments-->
+														<div class="dropdown-divider reply-divider"></div>
+													@endforeach
+											@else
+												<div class="no-comment">No Replies</div>
+											@endif
+										</div>
+										<!-- End of: of the showing all replies for a comment -->
 										<div class="dropdown-divider" id="dividerForComments"></div>
 									@endforeach
 								@else

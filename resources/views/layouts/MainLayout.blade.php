@@ -10,10 +10,10 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle.css')}}">
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/main1.css')}}">
 	@elseif(Route::currentRouteName() == 'profile')
 	<!-- Link to local profile style for profile page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle22.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle1.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -89,7 +89,7 @@
 	<div id="sidebar-large"> <!-- navbar for large screen div start  -->
 		<div class="container">
 		<div id="logodiv" class="float-left">
-		<a href="#"><img src="{{asset('images/logo.png')}}" class="img-fluid"></a>
+		<a href="#"><img src="{{asset('images/logo1.png')}}" class="img-fluid"></a>
 		</div>
 		<a href="javascript:void(0)" class="btn btn-light btn-sm openbtn" onclick="openNav()"><i class="far fa-bars"></i></a>
 		@auth
@@ -195,7 +195,7 @@
 <script src="{{ asset('js/share.js') }}"></script>
 
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/MainLayoutScript.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/MainLayoutScript1.js')}}"></script>
 
 
 
