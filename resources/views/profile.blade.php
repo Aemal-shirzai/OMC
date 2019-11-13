@@ -426,9 +426,9 @@
 														<div class="allRepliesOwnerImage">
 															@if(count($reply->owner->photos) > 0)						
 																@if($reply->owner->owner_type == "App\Doctor")
-																	<img src="/storage/images/doctors/{{$comment->comment_owner->photos()->where('status','1')->first()->path}}">
+																	<img src="/storage/images/doctors/{{$reply->owner->photos()->where('status','1')->first()->path}}">
 																@else
-																	<img src="/storage/images/normalUsers/{{$comment->comment_owner->photos()->where('status','1')->first()->path}}">
+																	<img src="/storage/images/normalUsers/{{$reply->owner->photos()->where('status','1')->first()->path}}">
 																@endif
 															@else
 																<span class="fal fa-user" id="no-image-in-reply"></span>
