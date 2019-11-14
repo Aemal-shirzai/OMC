@@ -663,6 +663,21 @@ div.reply-divider{
 }
 /* End of the showing all replies */
 
+/* tags section */
+#tags{
+	position: relative;
+	right: 130px;
+	padding: 12px 15px;
+	width: 200px;
+	transition: 0.5s;
+	z-index: 1;
+	background-color: #f2f2f7;
+	float: right;
+	font-size: 12px;
+}
+#tags a{
+	display: block;
+}
 
 div::-webkit-scrollbar {
     width: 4px !important;
@@ -682,6 +697,9 @@ textarea::-webkit-scrollbar {
 
 /* iphod pro /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 1200px) and (min-width: 1024px){
+	#tags{
+		display: none;
+	}
 /* post Tags part*/
 	div.tags span{
 		padding: 0 2px;
@@ -760,7 +778,9 @@ div.allRepliessContent p{
 
 /* below ipon pro //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 @media screen and (max-width: 1023px) and (min-width: 768px){
-
+	#tags{
+		display: none;
+	}
 	div#posts{
 		padding: 0 14% !important;
 	}
@@ -931,6 +951,9 @@ div.allRepliessContent p{
 }
 /* 640  - 769 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 @media screen and (max-width: 767px){
+	#tags{
+		display: none;
+	}
 	div#profileHeading{
 		margin-top: 20px;
 	}
@@ -1264,6 +1287,9 @@ div.allRepliessContent p{
 
 /* 320 px iphone 5se ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 @media screen and (max-width: 320px){
+	#tags{
+		display: none;
+	}
 	div#profileImageParent{
 		width: 25%;	
 	}

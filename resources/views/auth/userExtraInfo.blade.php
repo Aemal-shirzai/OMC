@@ -80,7 +80,7 @@
 					<div class="dropdown-divider col-lg-12"></div>
 				</div>
 
-				{!! Form::file("photo",["class"=>"form-control mor_form_element","disabled"=>"true","style"=>"display:none;","id"=>"fileUpload"]) !!}
+				{!! Form::file("photo",["class"=>"form-control mor_form_element","disabled"=>"true","accept"=>"image/*","style"=>"display:none;","id"=>"fileUpload"]) !!}
 				
 				{!! Form::label("DOB","Date of birth:") !!}
 				<div class="row row-for-input" id="DOBlabels">

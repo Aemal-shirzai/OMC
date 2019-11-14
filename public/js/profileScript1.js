@@ -219,7 +219,7 @@ function showAllComments(value){
 // beggining of: the function which shows reply form
 function showReplies(value){
 	$("#reply-"+value).toggle();
-	$('#replyField-'+value).focus();
+	// $('#replyField-'+value).focus();
 	$("#allReplies-"+value).toggle();
 }
 // End of: the function which shows reply form
@@ -416,3 +416,18 @@ if(txt.trim().length > 0 ){
  	}
  }
  // End of the function which readmore and readless the post content and comment content
+
+ // Call the function of which chagne size of search box , large navbar and header when scroll
+window.onscroll = function() {changeTagsPosition()};
+if(document.documentElement.scrollTop > 310){
+	document.getElementById('tags').setAttribute("style","position:fixed;right:130px; padding:12px 15px; width:200px; transition: 0.5s; background-color: #f2f2f7");
+	}
+// Beggining of the function which change the size of the search box , largenavbar and the header when scroll
+function changeTagsPosition(){
+	if(document.documentElement.scrollTop > 310){
+	document.getElementById('tags').setAttribute("style","position:fixed; right:130px; padding:12px 15px; transition: 0.5s; background-color: #f2f2f7; width:200px;");
+	}else{
+		document.getElementById('tags').setAttribute("style","background-color: #f2f2f7; float: right; position: relative;right: 130px;z-index: 1; width:200px; top: 400px;padding: 12px 15px; transition: 0.5s;")
+	}
+}
+// End of the function which change the size of the search box , largenavbar and the header

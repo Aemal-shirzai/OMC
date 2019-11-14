@@ -5,7 +5,16 @@
 
 @endsection
 @section("content")
-<div id="profileParent">
+<div id="profileParent" style="position: relative;">
+	<div id="tags" style="top: 400px;">
+		Your Tags
+			<a href="#">tag1</a>
+			<a href="#">tag2</a>
+			<a href="#">tag3</a>
+			<a href="#">tag4</a>
+			<a href="#">tag5</a>
+			<a href="#">tag6</a>
+	</div>
 	<div>
 	<div class="container" id="profileHeading">
 		<div id="profileImageParent">
@@ -283,7 +292,7 @@
 						<div id="comment">
 							{!! Form::open(["method"=>"post","action"=>"CommentController@store","files"=>"true"]) !!}		
 								<div class="input-group">
-									{!! Form::file("photo",["class"=>"commentPhotoField","id"=>"commentPhotoField-$post->id","onchange"=>"showAndValidateFile($post->id)"]) !!}
+									{!! Form::file("photo",["class"=>"commentPhotoField","accept"=>"image/*","id"=>"commentPhotoField-$post->id","onchange"=>"showAndValidateFile($post->id)"]) !!}
 									<textarea  name="content" class="form-control commentField" placeholder="Add Comment to post..." id="commentField-{{$post->id}}" rows="1" maxlength="65500" 
 									onkeyup="do_resize_and_enable_button(this,{!! $post->id !!})" value= @if(old("post_id") == $post->id) {{old("content")}} @else "" @endif></textarea>
 									<input type="hidden" name="post_id" value= @if(old("post_id") == $post->id) {{old("post_id")}} @else {{$post->id}} @endif >
@@ -405,7 +414,7 @@
 										<div class ="reply" id="reply-{{$comment->id}}">
 											{!! Form::open(["method"=>"post","action"=>"CommentReplyController@store","files"=>"true"]) !!}		
 												<div class="input-group">
-													{!! Form::file("replyPhoto",["class"=>"replyPhotoField","id"=>"replyPhotoField-$comment->id","onchange"=>"showAndValidateReplyFile($comment->id)"]) !!}
+													{!! Form::file("replyPhoto",["class"=>"replyPhotoField","accept"=>"image/*","id"=>"replyPhotoField-$comment->id","onchange"=>"showAndValidateReplyFile($comment->id)"]) !!}
 													<textarea  name="content" class="form-control replyField" placeholder="Add Reply..." id="replyField-{{$comment->id}}" rows="1" maxlength="65500" 
 													onkeyup="do_resize_and_enable_reply_button(this,{!! $comment->id !!})"  value= @if(old("comment_id") == $comment->id) {{old("content")}} @else "" @endif></textarea>
 													<input type="hidden" name="comment_id" value= @if(old("comment_id") == $comment->id) {{old("comment_id")}} @else {{$comment->id}} @endif >
