@@ -6,15 +6,6 @@
 @endsection
 @section("content")
 <div id="profileParent" style="position: relative;">
-	<div id="tags" style="top: 400px;">
-		Your Tags
-			<a href="#">tag1</a>
-			<a href="#">tag2</a>
-			<a href="#">tag3</a>
-			<a href="#">tag4</a>
-			<a href="#">tag5</a>
-			<a href="#">tag6</a>
-	</div>
 	<div>
 	<div class="container" id="profileHeading">
 		<div id="profileImageParent">
@@ -64,6 +55,21 @@
 		</div>
 	</div>
 
+	@auth
+		@if(Auth::user()->owner_type == 'App\Doctor' && Auth::user()->username == $user->username)
+			<!-- Beggining of the div which shows the tags of doctors in profile page -->
+			<div id="tags" style="top: 130px;">
+				Your Tags
+					<a href="#">tag1</a>
+					<a href="#">tag2</a>
+					<a href="#">tag3</a>
+					<a href="#">tag4</a>
+					<a href="#">tag5</a>
+					<a href="#">tag6</a>
+			</div>
+			<!-- End of the div which shows the tags of doctors in profile page -->
+		@endif
+	@endauth
 <!-- second part -->
 
 <div id="pofileContentPart" class="container">
@@ -294,7 +300,7 @@
 								<div class="input-group">
 									{!! Form::file("photo",["class"=>"commentPhotoField","accept"=>"image/*","id"=>"commentPhotoField-$post->id","onchange"=>"showAndValidateFile($post->id)"]) !!}
 									<textarea  name="content" class="form-control commentField" placeholder="Add Comment to post..." id="commentField-{{$post->id}}" rows="1" maxlength="65500" 
-									onkeyup="do_resize_and_enable_button(this,{!! $post->id !!})" value= @if(old("post_id") == $post->id) {{old("content")}} @else "" @endif></textarea>
+									onkeyup="do_resize_and_enable_button(this,{!! $post->id !!})">@if(old("post_id") == $post->id) {{old("content")}} @endif</textarea>
 									<input type="hidden" name="post_id" value= @if(old("post_id") == $post->id) {{old("post_id")}} @else {{$post->id}} @endif >
 									{!! Form::submit("Add Comment",["class"=>"btn  btn-sm addCommentBtn","id"=>"addCommentBtn-$post->id","disabled"=>"true","onclick"=>"validateCommentForm($post->id)"]) !!}
 									<i class="fal fa-camera commentPhotoButton" id="commentPhotoButton-$post->id" onclick="openCommentPhotoField({!!$post->id!!})"></i>
@@ -380,6 +386,9 @@
 												@error('replyPhoto')
 													{{ $message }}
 												@enderror
+												@if(session("replyError"))
+													{{ session("replyError") }}
+												@endif
 											</span>
 										</div>
 										<!-- Note:  Reply Success messages -->
@@ -415,9 +424,11 @@
 											{!! Form::open(["method"=>"post","action"=>"CommentReplyController@store","files"=>"true"]) !!}		
 												<div class="input-group">
 													{!! Form::file("replyPhoto",["class"=>"replyPhotoField","accept"=>"image/*","id"=>"replyPhotoField-$comment->id","onchange"=>"showAndValidateReplyFile($comment->id)"]) !!}
-													<textarea  name="content" class="form-control replyField" placeholder="Add Reply..." id="replyField-{{$comment->id}}" rows="1" maxlength="65500" 
-													onkeyup="do_resize_and_enable_reply_button(this,{!! $comment->id !!})"  value= @if(old("comment_id") == $comment->id) {{old("content")}} @else "" @endif></textarea>
+													<textarea  name="replyContent" class="form-control replyField" placeholder="Add Reply..." id="replyField-{{$comment->id}}" rows="1" maxlength="65500" 
+													onkeyup="do_resize_and_enable_reply_button(this,{!! $comment->id !!})">@if(old("comment_id") == $comment->id) {{old("replyContent")}} @endif</textarea>
 													<input type="hidden" name="comment_id" value= @if(old("comment_id") == $comment->id) {{old("comment_id")}} @else {{$comment->id}} @endif >
+													<!-- This hidden field is responsible to take the post id with it because in return we need it to scrooll to all comments -->
+													<input type="hidden" name="post_id_for_replies" value= @if(old("post_id") == $post->id) {{old("post_id_for_replies")}} @else {{$post->id}} @endif >
 													{!! Form::submit("Reply",["class"=>"btn  btn-sm addReplyBtn","id"=>"addReplyBtn-$comment->id","disabled"=>"true","onclick"=>"validateReplyForm($comment->id)"]) !!}
 													<i class="fal fa-camera replyPhotoButton" id="replyPhotoButton-{{$comment->id}}" onclick="openReplyPhotoField({!!$comment->id!!})"></i>
 												</div>
@@ -557,5 +568,22 @@
 			var post_id = {!! json_encode(old("post_id")) !!};
 		</script>
 	@enderror
+
+
+	@if(session('comment_id'))
+		<script type="text/javascript">
+			var scroll = "toReplySuccess";
+			var comment_id = {!! json_encode(session('comment_id')) !!};
+			var post_id = {!! json_encode(session('post_id')) !!};
+		</script>
+	@endif
+
+	@if(session('replyError') || $errors->has("replyPhoto"))
+		<script type="text/javascript">
+			var scroll = "toReplyError";
+			var comment_id = {!! json_encode(old("comment_id")) !!};
+			var post_id = {!! json_encode(old("post_id_for_replies")) !!};
+		</script>
+	@endif
 
 @endsection

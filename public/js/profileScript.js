@@ -23,17 +23,6 @@ function validateCommentForm(postId){
 	var field = document.getElementById("commentField-"+postId);
 	var photoField = document.getElementById("commentPhotoField-"+postId);
 
-	// This if means if both the photo filed and comment field is empty then throw an error
-	if(field.value.trim().length < 1 && photoField.files.length < 1){
-		field.focus();
-		field.style.border = "1px solid red";
-		field.placeholder = "can not add empty comment";
-		event.preventDefault();
-	}else{
-		field.placeholder = "Add Comment to post...";
-		field.style.border = "none";
-	}
-
 	if(field.value.trim().length >= 65500){
 		field.focus();
 		$("#fileError-"+postId).show();
@@ -45,6 +34,17 @@ function validateCommentForm(postId){
 		$("#fileError-"+postId).hide();
 		field.style.border = "none";
 		field.placeholder = "Add Comment to post..."
+	}
+
+	// This if means if both the photo filed and comment field is empty then throw an error
+	if(field.value.trim().length < 1 && photoField.files.length < 1){
+		field.focus();
+		field.style.border = "1px solid red";
+		field.placeholder = "can not add empty comment";
+		event.preventDefault();
+	}else{
+		field.placeholder = "Add Comment to post...";
+		field.style.border = "none";
 	}	
 }
 // End of : the function which validate the comment form
@@ -192,16 +192,46 @@ $(document).ready(function(){
 // Adding comment serverside successs
  if(scroll === "on"){
  	$("#successMsg-"+post_id).show();
+ 	$("#allComments-"+post_id).show();
 	$("html,body").animate({
 	scrollTop: $("#successMsg-"+post_id).offset().top-350},"fast");
  }
  // Adding comment serverside error
  if(scroll === "on1"){
  	$("#fileError-"+post_id).show();
+ 	$("#allComments-"+post_id).show()
 	$("html,body").animate({
 	scrollTop: $("#fileError-"+post_id).offset().top-350},"fast");
  }
 
+
+// Beggingin of: reply success messages scrols 
+ if(scroll === "toReplySuccess"){
+ 	$("#allComments-"+post_id).show();
+ 	$("#allReplies-"+comment_id).show();
+ 	$("#reply-"+comment_id).show();
+ 	$("#replySuccessMsg-"+comment_id).show();
+
+ 	$("html,body").animate({
+		scrollTop: $("#allComments-"+post_id).offset().top-100},"fast");	
+ 	$("div#allComments-"+post_id).animate({
+		scrollTop: $("#allComments-"+post_id).scrollTop() + $("#allCommentsContent-"+comment_id).position().top},"fast");	
+ }
+// End of reply success messsgae scroll
+
+// Beggingin of: reply error messages scrols 
+ if(scroll === "toReplyError"){
+ 	$("#allComments-"+post_id).show();
+ 	$("#allReplies-"+comment_id).show();
+ 	$("#reply-"+comment_id).show();
+ 	$("#replyPhotoError-"+comment_id).show();
+
+ 	$("html,body").animate({
+		scrollTop: $("#allComments-"+post_id).offset().top-100},"fast");	
+ 	$("div#allComments-"+post_id).animate({
+		scrollTop: $("#allComments-"+post_id).scrollTop() + $("#allCommentsContent-"+comment_id).position().top},"fast");	
+ }
+// End of reply error messsgae scroll
 });
 	
 // beggining of: the function which shows all comments
@@ -245,16 +275,7 @@ function validateReplyForm(commentId){
 	var field = document.getElementById("replyField-"+commentId);
 	var photoField = document.getElementById("replyPhotoField-"+commentId);
 
-	// This if means if both the photo filed and comment field is empty then throw an error
-	if(field.value.trim().length < 1 && photoField.files.length < 1){
-		field.focus();
-		field.style.border = "1px solid red";
-		field.placeholder = "can not add empty Reply";
-		event.preventDefault();
-	}else{
-		field.placeholder = "Add Reply...";
-		field.style.border = "none";
-	}
+
 
 	if(field.value.trim().length >= 65500){
 		field.focus();
@@ -268,6 +289,17 @@ function validateReplyForm(commentId){
 		field.style.border = "none";
 		field.placeholder = "Add Reply..."
 	}	
+
+	// This if means if both the photo filed and comment field is empty then throw an error
+	if(field.value.trim().length < 1 && photoField.files.length < 1){
+		field.focus();
+		field.style.border = "1px solid red";
+		field.placeholder = "can not add empty Reply";
+		event.preventDefault();
+	}else{
+		field.placeholder = "Add Reply...";
+		field.style.border = "none";
+	}
 }
 // End of : the function which validate the comment form
 
@@ -417,17 +449,21 @@ if(txt.trim().length > 0 ){
  }
  // End of the function which readmore and readless the post content and comment content
 
- // Call the function of which chagne size of search box , large navbar and header when scroll
-window.onscroll = function() {changeTagsPosition()};
-if(document.documentElement.scrollTop > 310){
-	document.getElementById('tags').setAttribute("style","position:fixed;right:130px; padding:12px 15px; width:200px; transition: 0.5s; background-color: #f2f2f7");
-	}
-// Beggining of the function which change the size of the search box , largenavbar and the header when scroll
+
+ // Call the function of which chagne the pososition of tags div in profile page 
+window.onscroll = function() {changeTagsPosition()};	
+// Beggining of the function which change the pososition of tags div in profile page 
 function changeTagsPosition(){
-	if(document.documentElement.scrollTop > 310){
-	document.getElementById('tags').setAttribute("style","position:fixed; right:130px; padding:12px 15px; transition: 0.5s; background-color: #f2f2f7; width:200px;");
+	if(document.documentElement.scrollTop > 360){
+	document.getElementById('tags').setAttribute("style","position:fixed; right:130px;top: 130px; padding:12px 15px; transition: 0.5s; width:200px;");
 	}else{
-		document.getElementById('tags').setAttribute("style","background-color: #f2f2f7; float: right; position: relative;right: 130px;z-index: 1; width:200px; top: 400px;padding: 12px 15px; transition: 0.5s;")
+		document.getElementById('tags').setAttribute("style","float: right; position: relative;right: 130px; width:200px; top: 130px;padding: 12px 15px; transition: 0.5s;")
 	}
 }
-// End of the function which change the size of the search box , largenavbar and the header
+// End of the function which change the pososition of tags div in profile page 
+
+// This if statement checks if the page is refreshed when the scroll in more that 310 then alsom apply these style to tags in profile page
+// RElated to above on scroll function
+if(document.documentElement.scrollTop > 360){
+	document.getElementById('tags').setAttribute("style","position:fixed;right:130px;top:130px; padding:12px 15px; width:200px; transition: 0.5s;");
+}

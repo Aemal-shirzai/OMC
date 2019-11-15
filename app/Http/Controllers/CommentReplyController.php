@@ -37,8 +37,8 @@ class CommentReplyController extends Controller
      */
     public function store(CommentReplyRequest $request)
     {
-        if($request->content == "" && !$request->hasFile('replyPhoto')){
-            return back()->withInput()->with("error","The reply content can not be null");
+        if($request->replyContent == "" && !$request->hasFile('replyPhoto')){
+            return back()->withInput()->with("replyError","The reply content can not be null");
         }
 
         $user = Auth::user();
@@ -48,8 +48,9 @@ class CommentReplyController extends Controller
         // to find the comment to which the reply is added by helping the comment_id which is comming from a hidden input in the reply section
         $comment = Comment::findOrFail($request->comment_id);
         //add column account_id to array request
-        $request->merge(["account_id"=>$account_id]);
+        $request->merge(["account_id"=>$account_id,"content"=>$request->replyContent]);
         // create the reply for the comment 
+
         $reply = $comment->replies()->create($request->all());
 
         // if the request has photo then add it by the help of reply and photos relationship (photos)
@@ -66,9 +67,9 @@ class CommentReplyController extends Controller
 
 
         if($reply){
-            return back()->with(["replySuccess"=>"Your reply has been Added.","comment_id"=>$request->comment_id]);
+            return back()->with(["replySuccess"=>"Your reply has been Added.","comment_id"=>$request->comment_id,"post_id"=>$request->post_id_for_replies]);
         }else{
-            return back()->with(["error"=>"Reply Not added"]);
+            return back()->with(["replyError"=>"Reply Not added"]);
         }
     }
 

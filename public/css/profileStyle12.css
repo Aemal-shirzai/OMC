@@ -1,7 +1,6 @@
 div#profileParent{
 	background-color: white;
 	overflow: hidden;
-	font-family: quicksand;
 }
 div#profileHeading{
 	margin-top: 40px;
@@ -168,10 +167,13 @@ div#postImage img{
 div#commentImage{
 	width: 98%;
 	margin-bottom: 12px;
+	border-radius: 5px;
+	border:1px solid lightgray !important;
 }
 div#commentImage img{
 	max-width: 100%;
-	max-height: 200px !important
+	max-height: 200px !important;
+	border-radius:5px;
 }
 #no-image-in-post{
 	padding: 11px 13px;
@@ -635,7 +637,8 @@ div.allRepliessContent p{
 	margin-bottom: 4px;
 }
 .replyImage{
-	width: 98%;
+	width: 80%;
+	margin:0 auto;
 	margin-bottom: 12px;
 	border:1px solid lightgray;
 	border-radius: 5px;
@@ -670,8 +673,7 @@ div.reply-divider{
 	padding: 12px 15px;
 	width: 200px;
 	transition: 0.5s;
-	z-index: 1;
-	background-color: #f2f2f7;
+	background-color: #fbfbfd;
 	float: right;
 	font-size: 12px;
 }
