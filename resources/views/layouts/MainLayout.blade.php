@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle1.css')}}">
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/main1.css')}}">
@@ -91,6 +91,11 @@
 		<div id="logodiv" class="float-left">
 		<a href="#"><img src="{{asset('images/logo1.png')}}" class="img-fluid"></a>
 		</div>
+		@auth
+			@can("Doctor_related",Auth::user())
+				<a href="#" id ="AddPost" class="btn btn-sm">Add Post</a>
+			@endcan
+		@endauth
 		<a href="javascript:void(0)" class="btn btn-light btn-sm openbtn" onclick="openNav()"><i class="far fa-bars"></i></a>
 		@auth
 		<div class="float-right" id="userProfileParent">

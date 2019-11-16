@@ -206,7 +206,13 @@ div#logodiv{
 	display: none;
 	transition: margin-top 0.5s;
 }
-
+#AddPost{
+	padding: 5px 15px !important;
+	margin-top: 20px !important; 
+	margin-left: 10px !important;
+	color: white !important;
+	background-color: #3fbbc0;
+}
 div.sidebar-small
 {	
 	height: 100%;

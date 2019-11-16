@@ -197,33 +197,31 @@
 					@endif
 				</div>
 				<!-- End of div of postContent -->
-				@auth
 				<div class="clearfix"></div>
 					<div class="options">
 						<button class="btn" title="The answer was usefull">
-							<a href="#">
+							@auth<a href="#">@endauth
 								<span class="fal fa-arrow-alt-up optionsIcons"></span> 
 								<span class="optionsText">Up-vote</span> 
 								<span class="votes">. 2</span>
-							</a>
+							@auth</a>@endauth
 						</button>
 						<button class="btn" title="The answer was not usefull">
-							<a href="#">
+							@auth<a href="#">@endauth
 								<span class="fal fa-arrow-alt-down optionsIcons"></span> 
 								<span class="optionsText">Down-vote</span>  
 								<span class="votes">. 2</span>
-							</a>
+							@auth</a>@endauth
 						</button>
 						<button class="btn" title="Follow the post for lates update">
-							<a href="#">
+							@auth<a href="#">@endauth
 								<span class="fal fa-wifi optionsIcons"></span> 
 								<span class="optionsText">Follow</span> 
 								<span class="votes">. 2</span>
-							</a>
+							@auth</a>@endauth
 						</button>
 						<button class="btn" title="All comments for this post" onclick="showAllComments({!!$post->id!!})">
-							<a href="javascript::void(0)">
-								<span class="fal fa-comment optionsIcons"></span> 
+							<a href="javascript::void(0)">								<span class="fal fa-comment optionsIcons"></span> 
 								<span class="optionsText">comments</span> 
 								<span class="votes">. {{count($post->comments)}}</span>
 							</a>
@@ -284,30 +282,32 @@
 								<img src="" id="commentImg-{{$post->id}}" >
 							</div>
 						</div>
-						<div id="commentPartImage">
-								@if(count(Auth::user()->owner->account->photos) > 0)
-									@if(Auth::user()->owner_type == 'App\NormalUser')
-										<img src="/storage/images/normalUsers/{{Auth::user()->owner->account->photos()->where('status',1)->first()->path}}" class="" >
+						@auth
+							<div id="commentPartImage">
+									@if(count(Auth::user()->owner->account->photos) > 0)
+										@if(Auth::user()->owner_type == 'App\NormalUser')
+											<img src="/storage/images/normalUsers/{{Auth::user()->owner->account->photos()->where('status',1)->first()->path}}" class="" >
+										@else
+											<img src="/storage/images/doctors/{{Auth::user()->owner->account->photos()->where('status',1)->first()->path}}" class="">
+										@endif
 									@else
-										<img src="/storage/images/doctors/{{Auth::user()->owner->account->photos()->where('status',1)->first()->path}}" class="">
+										<span class="fal fa-user" id="no-image-in-comment"></span>
 									@endif
-								@else
-									<span class="fal fa-user" id="no-image-in-comment"></span>
-								@endif
-						</div>
-						<div id="comment">
-							{!! Form::open(["method"=>"post","action"=>"CommentController@store","files"=>"true"]) !!}		
-								<div class="input-group">
-									{!! Form::file("photo",["class"=>"commentPhotoField","accept"=>"image/*","id"=>"commentPhotoField-$post->id","onchange"=>"showAndValidateFile($post->id)"]) !!}
-									<textarea  name="content" class="form-control commentField" placeholder="Add Comment to post..." id="commentField-{{$post->id}}" rows="1" maxlength="65500" 
-									onkeyup="do_resize_and_enable_button(this,{!! $post->id !!})">@if(old("post_id") == $post->id) {{old("content")}} @endif</textarea>
-									<input type="hidden" name="post_id" value= @if(old("post_id") == $post->id) {{old("post_id")}} @else {{$post->id}} @endif >
-									{!! Form::submit("Add Comment",["class"=>"btn  btn-sm addCommentBtn","id"=>"addCommentBtn-$post->id","disabled"=>"true","onclick"=>"validateCommentForm($post->id)"]) !!}
-									<i class="fal fa-camera commentPhotoButton" id="commentPhotoButton-$post->id" onclick="openCommentPhotoField({!!$post->id!!})"></i>
-								</div>
-							{!! Form::close() !!}
-							<div class="dropdown-divider"></div>
-						</div>
+							</div>
+							<div id="comment">
+								{!! Form::open(["method"=>"post","action"=>"CommentController@store","files"=>"true"]) !!}		
+									<div class="input-group">
+										{!! Form::file("photo",["class"=>"commentPhotoField","accept"=>"image/*","id"=>"commentPhotoField-$post->id","onchange"=>"showAndValidateFile($post->id)"]) !!}
+										<textarea  name="content" class="form-control commentField" placeholder="Add Comment to post..." id="commentField-{{$post->id}}" rows="1" maxlength="65500" 
+										onkeyup="do_resize_and_enable_button(this,{!! $post->id !!})">@if(old("post_id") == $post->id) {{old("content")}} @endif</textarea>
+										<input type="hidden" name="post_id" value= @if(old("post_id") == $post->id) {{old("post_id")}} @else {{$post->id}} @endif >
+										{!! Form::submit("Add Comment",["class"=>"btn  btn-sm addCommentBtn","id"=>"addCommentBtn-$post->id","disabled"=>"true","onclick"=>"validateCommentForm($post->id)"]) !!}
+										<i class="fal fa-camera commentPhotoButton" id="commentPhotoButton-$post->id" onclick="openCommentPhotoField({!!$post->id!!})"></i>
+									</div>
+								{!! Form::close() !!}
+								<div class="dropdown-divider"></div>
+							</div>
+						@endauth
 							<!-- Beggining of all comments part -->
 							<div class="allComments" id="allComments-{{$post->id}}">
 								@if(count($post->comments) > 0)
@@ -420,20 +420,22 @@
 										<!-- End of the part which display the reply image after its beign selected -->
 
 										<!-- Beggining of form for replies -->
-										<div class ="reply" id="reply-{{$comment->id}}">
-											{!! Form::open(["method"=>"post","action"=>"CommentReplyController@store","files"=>"true"]) !!}		
-												<div class="input-group">
-													{!! Form::file("replyPhoto",["class"=>"replyPhotoField","accept"=>"image/*","id"=>"replyPhotoField-$comment->id","onchange"=>"showAndValidateReplyFile($comment->id)"]) !!}
-													<textarea  name="replyContent" class="form-control replyField" placeholder="Add Reply..." id="replyField-{{$comment->id}}" rows="1" maxlength="65500" 
-													onkeyup="do_resize_and_enable_reply_button(this,{!! $comment->id !!})">@if(old("comment_id") == $comment->id) {{old("replyContent")}} @endif</textarea>
-													<input type="hidden" name="comment_id" value= @if(old("comment_id") == $comment->id) {{old("comment_id")}} @else {{$comment->id}} @endif >
-													<!-- This hidden field is responsible to take the post id with it because in return we need it to scrooll to all comments -->
-													<input type="hidden" name="post_id_for_replies" value= @if(old("post_id") == $post->id) {{old("post_id_for_replies")}} @else {{$post->id}} @endif >
-													{!! Form::submit("Reply",["class"=>"btn  btn-sm addReplyBtn","id"=>"addReplyBtn-$comment->id","disabled"=>"true","onclick"=>"validateReplyForm($comment->id)"]) !!}
-													<i class="fal fa-camera replyPhotoButton" id="replyPhotoButton-{{$comment->id}}" onclick="openReplyPhotoField({!!$comment->id!!})"></i>
-												</div>
-											{!! Form::close() !!}
-										</div>
+										@auth
+											<div class ="reply" id="reply-{{$comment->id}}">
+												{!! Form::open(["method"=>"post","action"=>"CommentReplyController@store","files"=>"true"]) !!}		
+													<div class="input-group">
+														{!! Form::file("replyPhoto",["class"=>"replyPhotoField","accept"=>"image/*","id"=>"replyPhotoField-$comment->id","onchange"=>"showAndValidateReplyFile($comment->id)"]) !!}
+														<textarea  name="replyContent" class="form-control replyField" placeholder="Add Reply..." id="replyField-{{$comment->id}}" rows="1" maxlength="65500" 
+														onkeyup="do_resize_and_enable_reply_button(this,{!! $comment->id !!})">@if(old("comment_id") == $comment->id) {{old("replyContent")}} @endif</textarea>
+														<input type="hidden" name="comment_id" value= @if(old("comment_id") == $comment->id) {{old("comment_id")}} @else {{$comment->id}} @endif >
+														<!-- This hidden field is responsible to take the post id with it because in return we need it to scrooll to all comments -->
+														<input type="hidden" name="post_id_for_replies" value= @if(old("post_id") == $post->id) {{old("post_id_for_replies")}} @else {{$post->id}} @endif >
+														{!! Form::submit("Reply",["class"=>"btn  btn-sm addReplyBtn","id"=>"addReplyBtn-$comment->id","disabled"=>"true","onclick"=>"validateReplyForm($comment->id)"]) !!}
+														<i class="fal fa-camera replyPhotoButton" id="replyPhotoButton-{{$comment->id}}" onclick="openReplyPhotoField({!!$comment->id!!})"></i>
+													</div>
+												{!! Form::close() !!}
+											</div>
+										@endauth
 										<!-- End of form for replies -->
 
 										<!-- Beggining of: of the showing all replies for a comment -->
@@ -486,16 +488,16 @@
 														<!-- Beggining of: options for comments -->
 															<div class="commetOptions">
 																<button class="btn" title="The answer was usefull">
-																	<a href="#">
+																	@auth<a href="#">@endauth
 																		<span class="fal fa-arrow-alt-up commentOptionsIcons"></span> 
 																		<span class="commentVotes">. 2</span>
-																	</a>
+																	@auth</a>@endauth
 																</button>
 																<button class="btn" title="The answer was not usefull">
-																	<a href="#">
+																	@auth<a href="#">@endauth
 																		<span class="fal fa-arrow-alt-down commentOptionsIcons"></span>  
 																		<span class="commentVotes">. 2</span>
-																	</a>
+																	@auth</a>@endauth
 																</button>
 															</div>
 														<!-- End of :options for comments-->
@@ -519,7 +521,6 @@
 						<!-- End Showing all comments part  -->
 					</div>
 					<!-- End of comment part -->
-				@endauth
 			@endforeach
 		@endif
 	</div>
