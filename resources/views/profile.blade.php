@@ -226,6 +226,7 @@
 								<span class="votes">. {{count($post->comments)}}</span>
 							</a>
 						</button>
+						@auth
 						<div class="btn float-right" id="shareBtn" title="All share options">
 							<a href="#" onclick="openShareOptions({{$post->id}})">
 								<span class="far fa-ellipsis-v optionsIcons"></span> 
@@ -244,6 +245,7 @@
 								{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-telegram"],"<span>","</span>")->telegram() !!}
 							</div>
 						</div>
+						@endauth
 					</div>
 
 					<!--Begginning  comments part  -->
