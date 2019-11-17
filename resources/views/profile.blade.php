@@ -361,22 +361,22 @@
 										<!-- Beggining of: options for comments -->
 										<div class="commetOptions">
 											<button class="btn" title="Reply" onclick="showReplies({!! $comment->id !!})">
-												<a href="javascript:void(0)">
+												@auth <a href="javascript:void(0)"> @endauth
 													<span class="fal fa-reply commentOptionsIcons"></span>  
 													<span class="commentVotes">. Reply.  {{count($comment->replies)}}</span>
-												</a>
+												@auth </a> @endauth
 											</button>
 											<button class="btn" title="The answer was usefull">
-												<a href="#">
+												@auth <a href="#"> @endauth
 													<span class="fal fa-arrow-alt-up commentOptionsIcons"></span> 
 													<span class="commentVotes">. 2</span>
-												</a>
+												@auth </a> @endauth
 											</button>
 											<button class="btn" title="The answer was not usefull">
-												<a href="#">
+												@auth <a href="#"> @endauth
 													<span class="fal fa-arrow-alt-down commentOptionsIcons"></span>  
 													<span class="commentVotes">. 2</span>
-												</a>
+												@auth </a> @endauth
 											</button>
 										</div>
 										<!-- End of :options for comments-->
