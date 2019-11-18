@@ -87,6 +87,7 @@ class PostController extends Controller
     }
 
 
+    // The funcion which add and update votes to post using ajax request
     public function Vote(Request $request){
         $type = $request->voteType; // the type of vote whether user click up vote or down vote
         $post_id = $request->post_id; // get the id of post 
@@ -122,4 +123,6 @@ class PostController extends Controller
 
 
     }
-}
+
+
+} // End of the controller class

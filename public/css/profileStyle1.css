@@ -152,7 +152,7 @@ div#postContent p{
 	font-size: 14px;
 }
 div#postImage{
-	width: 98%;
+	width: 100%;
 	border:1px solid lightgray;
 	border-radius: 8px;
 	margin-bottom: 12px;
@@ -681,6 +681,21 @@ div.reply-divider{
 	display: block;
 }
 
+
+
+/* class added using ajax to check span */
+.upVotedCheck{
+	font-size: 12px;
+	color: green;
+}
+button.postOptionsForGuest{
+	cursor: initial;
+}
+button.postOptionsForGuest a{
+	cursor: initial;
+}
+
+
 div::-webkit-scrollbar {
     width: 4px !important;
 }
@@ -791,7 +806,7 @@ div.allRepliessContent p{
 	}
 	div#postImage img{
 		max-width: 100%;
-		max-height: 200px !important
+		max-height: 298px !important
 	}
 	div#commentImage img{
 		max-height: 170px !important
@@ -1053,7 +1068,7 @@ div.allRepliessContent p{
 		margin-top: 5px;
 	}
 	div#postImage img{
-		max-height: 150px !important
+		max-height: 230px !important
 	}
 	div#commentImage img{
 		max-height: 120px !important

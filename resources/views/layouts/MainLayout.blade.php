@@ -3,7 +3,7 @@
 <head>
 	<title>@yield("title")</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<meta name="csrf-token" content="{{ csrf_token() }}">
+	<!-- <meta name="csrf-token" content="{{ csrf_token() }}"> -->
 	<!-- Link to bootstap app.css -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
@@ -14,7 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/main1.css')}}">
 	@elseif(Route::currentRouteName() == 'profile')
 	<!-- Link to local profile style for profile page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle12.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle1.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -207,7 +207,7 @@
 
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
-<script type="text/javascript" src="{{asset('js/profileScript111.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/profileScript.js')}}"></script>
 @endif
 
 

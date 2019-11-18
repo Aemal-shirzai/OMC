@@ -148,7 +148,7 @@
 				<!-- End of post owne pic -->
 				
 				<!-- start of div of postContent -->
-				<div id="postContent">
+				<div id="postContent" class="col-12">
 					<h5>{{$post->title}}</h5>
 					@guest
 					<div class="btn float-right shareBtnForGuest" id="shareBtn" title="All share options">
@@ -204,33 +204,75 @@
 
 				<div class="clearfix"></div>
 					<div class="options">
+
+						<!-- Beggining of the posts options that should be visible only for auth users -->
+						@auth
 						<button class="btn" onclick="vote('{{$post->id}}','upVote')" title="The answer was usefull">
-							@auth<a href="javascript:void(0)">@endauth
-								<span class="fal fa-arrow-alt-up optionsIcons"></span> 
-								<span class="optionsText">Up-vote</span> 
-								<span class="votes">. 2</span>
-							@auth</a>@endauth
+							<a href="javascript:void(0)">
+								<span id="upVotedCheck-{{$post->id}}" @if(Auth::user()->postsVotes()->where(["type"=>1,"to_type"=>"App\Post","to_id"=>$post->id])->first())
+									class = "fas fa-check upVotedCheck"
+								 @endif ></span>
+								<span class="fal fa-arrow-alt-up optionsIcons" id="postOptionsVoteUpIcon-{{$post->id}}" {{ Auth::user()->postsVotes()->where(["type"=>1,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "style=color:green;" : "" }}></span> 
+								<span class="optionsText" id="postOptionsVoteUpText-{{$post->id}}" {{ Auth::user()->postsVotes()->where(["type"=>1,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "style=color:green;" : "" }}>
+								{{ Auth::user()->postsVotes()->where(["type"=>1,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "Up-voted" : "Up-vote" }}</span> 
+								. <span class="votes" id="postOptionsVoteUpCount-{{$post->id}}">{{$post->votedBy()->where("type",1)->count()}}</span>
+							</a>
 						</button>
 						<button class="btn" onclick="vote('{{$post->id}}','voteDown')" title="The answer was not usefull">
-							@auth<a href="javascript:void(0)">@endauth
-								<span class="fal fa-arrow-alt-down optionsIcons"></span> 
-								<span class="optionsText">Down-vote</span>  
-								<span class="votes">. 2</span>
-							@auth</a>@endauth
+							<a href="javascript:void(0)">
+								<span id="downVotedCheck-{{$post->id}}" @if(Auth::user()->postsVotes()->where(["type"=>0,"to_type"=>"App\Post","to_id"=>$post->id])->first())
+									class = "fas fa-check upVotedCheck"
+								 @endif></span>
+								<span class="fal fa-arrow-alt-down optionsIcons" id="postOptionsDownVoteUpIcon-{{$post->id}}" {{ Auth::user()->postsVotes()->where(["type"=>0,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "style=color:green;" : "" }}></span> 
+								<span class="optionsText" id="postOptionsDownVoteText-{{$post->id}}" {{ Auth::user()->postsVotes()->where(["type"=>0,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "style=color:green;" : "" }}>{{ Auth::user()->postsVotes()->where(["type"=>0,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "Down-voted" : "Down-vote" }}</span>  
+								. <span class="votes" id="postOptionsVoteDownCount-{{$post->id}}">{{$post->votedBy()->where("type",0)->count()}}</span>
+							</a>
 						</button>
 						<button class="btn" title="Follow the post for lates update">
-							@auth<a href="#">@endauth
+							<a href="#">
 								<span class="fal fa-wifi optionsIcons"></span> 
 								<span class="optionsText">Follow</span> 
 								<span class="votes">. 2</span>
-							@auth</a>@endauth
+							</a>
 						</button>
+						@endauth
+						<!-- End of the posts options that should be visible only for auth users -->
+
+						<!-- Beggining of the posts options that should be visible only for gues users -->
+						@guest
+						<button class="btn postOptionsForGuest" title="The answer was usefull. You have to Login First">
+							<a href="javascript:void(0)">
+								<span class="far fa-arrow-alt-up optionsIcons"></span> 
+								<span class="optionsText">Up-vote</span> 
+								<span class="votes">. {{$post->votedBy()->where("type",1)->count()}}</span>
+							</a>
+						</button>
+						<button class="btn postOptionsForGuest" title="The answer was not usefull. You have to Login First">
+							<a href="javascript:void(0)">
+								<span class="fal fa-arrow-alt-down optionsIcons"></span> 
+								<span class="optionsText">Down-vote</span>  
+								<span class="votes">. {{$post->votedBy()->where("type",0)->count()}}</span>
+							</a>
+						</button>
+						<button class="btn postOptionsForGuest" title="Follow the post for lates update. You have to Login First">
+							<a href="javascript:void(0)">
+								<span class="fal fa-wifi optionsIcons"></span> 
+								<span class="optionsText">Follow</span> 
+								<span class="votes">. 2</span>
+							</a>
+						</button>
+						@endguest
+						<!-- End of the posts options that should be visible only for guest users -->
+
+						<!-- Beggining of the posts options that should be visible for both the  auth users and guest users -->
 						<button class="btn" title="All comments for this post" onclick="showAllComments({!!$post->id!!})">
 							<a href="javascript::void(0)">								<span class="fal fa-comment optionsIcons"></span> 
 								<span class="optionsText">comments</span> 
 								<span class="votes">. {{count($post->comments)}}</span>
 							</a>
 						</button>
+						<!-- End of the posts options that should be visible for both the  auth users and guest users -->
+
 						@auth
 						<div class="btn float-right" id="shareBtn" title="All share options">
 							<a href="#" onclick="openShareOptions({{$post->id}})">
@@ -594,11 +636,11 @@
 		</script>
 	@endif
 
+
+<!-- These variables are for ajax  token and route to which vote the post -->
 	<script type="text/javascript">
-		
 		var token = '{{ Session::token() }}';
 		var postVote = '{{route("postVote")}}';
-
 	</script>
 
 @endsection

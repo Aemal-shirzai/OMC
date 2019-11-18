@@ -24,6 +24,7 @@ class ProfileController extends Controller
      */
     public function index($username)
     {
+        // return Auth::user()->postsVotes()->where(["type"=>1,"to_type"=>"App\Post","to_id"=>1])->first();
 
         $user = Account::where("username",$username)->first();
         if($user){
