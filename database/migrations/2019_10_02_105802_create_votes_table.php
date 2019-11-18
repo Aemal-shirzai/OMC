@@ -15,13 +15,16 @@ class CreateVotesTable extends Migration
     {
         Schema::create('votes', function (Blueprint $table) {
             $table->bigIncrements('id');
-              // for user or doctor
-            $table->string("owner_type");
-            $table->bigInteger("owner_id")->unsigned();
-              // for user or post , question , comments and replies
+              // for user or doctor (ACCOUNT)
+            $table->bigInteger("account_id")->unsigned();
+              // for  post , question , comments and replies
             $table->string("to_type");
             $table->bigInteger("to_id")->unsigned();
+            $table->boolean("type"); // 1 for vote up and 0 for vote down
             $table->timestamps();
+
+
+            $table->foreign("account_id")->references("id")->on("accounts")->onDelete("cascade")->onUpdate("cascade");
         });
     }
 

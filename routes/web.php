@@ -35,9 +35,11 @@ Route::resource('/contactUs','ContactUsController');
 
 // Routes for Post
 Route::resource("/post","PostController");
+Route::POST("/posts/vote","PostController@vote")->name("postVote");
 
 // Routes for comments
 Route::resource("/comment","CommentController");
 
 // Routes for CommentReplies
 Route::resource("/reply","CommentReplyController");
+

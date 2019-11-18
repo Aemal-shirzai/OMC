@@ -232,8 +232,36 @@ $(document).ready(function(){
 		scrollTop: $("#allComments-"+post_id).scrollTop() + $("#allCommentsContent-"+comment_id).position().top},"fast");	
  }
 // End of reply error messsgae scroll
+
+
+// $(".vote").on("click",function(event){
+// 	event.preventDefault();
+// 	// This variable check which one is clicked vote up or votedown
+// 	var isVotedPositive = event.target.previousElementSibling == null;
+// 	var parent = event.target.parentNode.dataset['postId'];
+// 	console.log(parent);
+// 	// $.ajax({
+// 	// 	method : "POST",
+// 	// 	url:...,
+// 	// 	data : {isVotedPositive:isVotedPositive,postId:..., _token :token}
+// 	// });
+// });
+
 });
-	
+
+function vote(postId,type){
+	event.preventDefault();
+	$.ajax({
+		method: "post",
+		url : postVote,
+		data : {voteType:type,post_id:postId, _token: token},
+
+	})
+		.done(function(){
+		//////
+	});
+}
+
 // beggining of: the function which shows all comments
 function showAllComments(value){
 	$("#allComments-"+value).toggle();

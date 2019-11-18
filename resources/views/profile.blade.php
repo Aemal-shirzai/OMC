@@ -127,6 +127,8 @@
 		@if(count($user->owner->posts) > 0)
 			@foreach($user->owner->posts as $post)
 
+				<!-- Beggining of post owne pic -->
+				
 				<div id="postPic">
 					<div class="dropdown-divider col-10" id="divider"></div>
 					<a href="{{route('profile',$post->owner->account->username)}}">
@@ -143,6 +145,8 @@
 						</div>
 					</a>
 				</div>
+				<!-- End of post owne pic -->
+				
 				<!-- start of div of postContent -->
 				<div id="postContent">
 					<h5>{{$post->title}}</h5>
@@ -170,12 +174,12 @@
 						<img src="{{asset('images/bg-banner.jpg')}}" class="">
 					</div>
 					<div class="tags">
-						<span><a href="#">Headic</a></a></span>
+						<span><a href="#">Headic</a></span>
 						<span><a href="#">Pain</a></span>
 						<span><a href="#">Cancer</a></span>
 						<span><a href="#">Calcium</a></span>
 						<span><a href="#">Diabates</a></span>
-						<span><a href="#">Headic</a></a></span>
+						<span><a href="#">Headic</a></span>
 						<span><a href="#">Pain</a></span>
 						<span><a href="#">Cancer</a></span>
 						<span><a href="#">Calcium</a></span>
@@ -197,17 +201,18 @@
 					@endif
 				</div>
 				<!-- End of div of postContent -->
+
 				<div class="clearfix"></div>
 					<div class="options">
-						<button class="btn" title="The answer was usefull">
-							@auth<a href="#">@endauth
+						<button class="btn" onclick="vote('{{$post->id}}','upVote')" title="The answer was usefull">
+							@auth<a href="javascript:void(0)">@endauth
 								<span class="fal fa-arrow-alt-up optionsIcons"></span> 
 								<span class="optionsText">Up-vote</span> 
 								<span class="votes">. 2</span>
 							@auth</a>@endauth
 						</button>
-						<button class="btn" title="The answer was not usefull">
-							@auth<a href="#">@endauth
+						<button class="btn" onclick="vote('{{$post->id}}','voteDown')" title="The answer was not usefull">
+							@auth<a href="javascript:void(0)">@endauth
 								<span class="fal fa-arrow-alt-down optionsIcons"></span> 
 								<span class="optionsText">Down-vote</span>  
 								<span class="votes">. 2</span>
@@ -588,5 +593,12 @@
 			var post_id = {!! json_encode(old("post_id_for_replies")) !!};
 		</script>
 	@endif
+
+	<script type="text/javascript">
+		
+		var token = '{{ Session::token() }}';
+		var postVote = '{{route("postVote")}}';
+
+	</script>
 
 @endsection

@@ -12,6 +12,6 @@ class Vote extends Model
      * The attributes that are mass assignable.
     */
     protected $fillable = [
-    	"to_type",
+    	"type",
     ];
 }

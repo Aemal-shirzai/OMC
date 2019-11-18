@@ -9,7 +9,9 @@ use Illuminate\Notifications\Notifiable;
 use App\Phone;
 use App\Account;
 use App\Comment;
- use App\CommentReply;
+use App\CommentReply;
+use App\Post;
+
 class Account extends Authenticatable
 {
 	use Notifiable;
@@ -66,6 +68,11 @@ class Account extends Authenticatable
     // Relationship with comment_replies table
     public function replies(){
         return $this->hasMany(CommentReply::class);
+    }
+
+    // Relationship with posts Based on vote up and vote down (polymorphic many to many)
+    public function postsVotes(){
+        return $this->morphedByMany(Post::class,"to","votes","account_id")->withTimeStamps()->withPivot("type");
     }
 
 }

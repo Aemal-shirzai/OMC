@@ -25,7 +25,6 @@ class ProfileController extends Controller
     public function index($username)
     {
 
-
         $user = Account::where("username",$username)->first();
         if($user){
             return view('profile',compact("user"));

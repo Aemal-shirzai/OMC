@@ -3,6 +3,7 @@
 <head>
 	<title>@yield("title")</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<!-- Link to bootstap app.css -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
@@ -206,7 +207,7 @@
 
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
-<script type="text/javascript" src="{{asset('js/profileScript.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/profileScript111.js')}}"></script>
 @endif
 
 
