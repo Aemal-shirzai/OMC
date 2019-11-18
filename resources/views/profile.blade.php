@@ -212,19 +212,26 @@
 								<span id="upVotedCheck-{{$post->id}}" @if(Auth::user()->postsVotes()->where(["type"=>1,"to_type"=>"App\Post","to_id"=>$post->id])->first())
 									class = "fas fa-check upVotedCheck"
 								 @endif ></span>
+
 								<span class="fal fa-arrow-alt-up optionsIcons" id="postOptionsVoteUpIcon-{{$post->id}}" {{ Auth::user()->postsVotes()->where(["type"=>1,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "style=color:green;" : "" }}></span> 
+
 								<span class="optionsText" id="postOptionsVoteUpText-{{$post->id}}" {{ Auth::user()->postsVotes()->where(["type"=>1,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "style=color:green;" : "" }}>
-								{{ Auth::user()->postsVotes()->where(["type"=>1,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "Up-voted" : "Up-vote" }}</span> 
+								{{ Auth::user()->postsVotes()->where(["type"=>1,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "Up-voted" : "Up-vote" }}</span>
+
 								. <span class="votes" id="postOptionsVoteUpCount-{{$post->id}}">{{$post->votedBy()->where("type",1)->count()}}</span>
 							</a>
 						</button>
 						<button class="btn" onclick="vote('{{$post->id}}','voteDown')" title="The answer was not usefull">
 							<a href="javascript:void(0)">
+
 								<span id="downVotedCheck-{{$post->id}}" @if(Auth::user()->postsVotes()->where(["type"=>0,"to_type"=>"App\Post","to_id"=>$post->id])->first())
 									class = "fas fa-check upVotedCheck"
 								 @endif></span>
+
 								<span class="fal fa-arrow-alt-down optionsIcons" id="postOptionsDownVoteUpIcon-{{$post->id}}" {{ Auth::user()->postsVotes()->where(["type"=>0,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "style=color:green;" : "" }}></span> 
+
 								<span class="optionsText" id="postOptionsDownVoteText-{{$post->id}}" {{ Auth::user()->postsVotes()->where(["type"=>0,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "style=color:green;" : "" }}>{{ Auth::user()->postsVotes()->where(["type"=>0,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "Down-voted" : "Down-vote" }}</span>  
+
 								. <span class="votes" id="postOptionsVoteDownCount-{{$post->id}}">{{$post->votedBy()->where("type",0)->count()}}</span>
 							</a>
 						</button>
@@ -247,14 +254,14 @@
 								<span class="votes">. {{$post->votedBy()->where("type",1)->count()}}</span>
 							</a>
 						</button>
-						<button class="btn postOptionsForGuest" title="The answer was not usefull. You have to Login First">
+						<button class="btn OptionsForGuest" title="The answer was not usefull. You have to Login First">
 							<a href="javascript:void(0)">
 								<span class="fal fa-arrow-alt-down optionsIcons"></span> 
 								<span class="optionsText">Down-vote</span>  
 								<span class="votes">. {{$post->votedBy()->where("type",0)->count()}}</span>
 							</a>
 						</button>
-						<button class="btn postOptionsForGuest" title="Follow the post for lates update. You have to Login First">
+						<button class="btn OptionsForGuest" title="Follow the post for lates update. You have to Login First">
 							<a href="javascript:void(0)">
 								<span class="fal fa-wifi optionsIcons"></span> 
 								<span class="optionsText">Follow</span> 
@@ -295,9 +302,10 @@
 						@endauth
 					</div>
 
-					<!--Begginning  comments part  -->
+					<!--////////////////////////////////  Begginning  comments part  ///////////////////////////////////////////////////////////////////  -->
 					<div id="commentPart" style="margin-bottom: 45px;position: relative;">
-										<!-- Note: this div is used to show the error messages of both client side and serverside NOTE:ids names are confusing here -->
+						<!-- Note: this div is used to show the error messages of both client side and serverside NOTE:ids names are confusing here -->
+
 						<div class="alert alert-danger commentImageVideoErrorMsg" id="fileError-{{$post->id}}" >
 							<button class="close" onclick="closeMsgs({!! $post->id !!})">&times;</button>
 							<span id="msg-{{$post->id}}">
@@ -332,6 +340,7 @@
 							</div>
 						</div>
 						@auth
+							<!-- Beggining of div: The current authenticated user pic beside the comment form -->
 							<div id="commentPartImage">
 									@if(count(Auth::user()->owner->account->photos) > 0)
 										@if(Auth::user()->owner_type == 'App\NormalUser')
@@ -343,6 +352,10 @@
 										<span class="fal fa-user" id="no-image-in-comment"></span>
 									@endif
 							</div>
+							<!-- End of div: The current authenticated user pic beside the comment form -->
+
+							<!-- Beggining of div: The form for adding comments -->
+							
 							<div id="comment">
 								{!! Form::open(["method"=>"post","action"=>"CommentController@store","files"=>"true"]) !!}		
 									<div class="input-group">
@@ -356,12 +369,15 @@
 								{!! Form::close() !!}
 								<div class="dropdown-divider"></div>
 							</div>
+							<!-- End of div: The form for adding comments -->
 						@endauth
+
 							<!-- Beggining of all comments part -->
 							<div class="allComments" id="allComments-{{$post->id}}">
 								@if(count($post->comments) > 0)
 									<div class="mb-2 ml-2 comments-count">{{count($post->comments)}} Comments</div>
 									@foreach($post->comments as $comment)
+
 										<!-- Beggining of: Image part of comment owner -->
 										<div class="allcommentsOwnerImage">
 											@if(count($comment->comment_owner->photos) > 0)							
@@ -373,12 +389,14 @@
 											@else
 												<span class="fal fa-user" id="no-image-in-comment"></span>
 											@endif
+											<!-- Comment owner name -->
 											<div class="commentOwnerName">
 												<a href="{{route('profile',$comment->comment_owner->username)}}"><span>{{$comment->comment_owner->owner->fullName}}</span></a> 
 												@if($comment->created_at)
 													<span class="commentcreateTime">Commented:{{$comment->created_at->diffForHumans()}}</span>
 												@endif
 											</div>
+											<!-- End of comment owner name -->
 										</div>
 										<!-- End of: Image part of comment owner -->
 
@@ -394,6 +412,8 @@
 												@endif
 											@endif
 											
+											<!-- The image posted with comment  -->
+											
 											@if(count($comment->photos) > 0)
 												<div id="commentImage" class="text-center" style="overflow: hidden;">
 													<a href="/storage/images/comments/{{$comment->photos()->where('status',1)->first()->path}}" target="__blank">
@@ -402,29 +422,54 @@
 													</a>
 												</div>
 											@endif
+											<!--End of The image posted with comment  -->
 										</div>
 										<!-- End of: all comments content part -->
 
 										<!-- Beggining of: options for comments -->
 										<div class="commetOptions">
 											<button class="btn" title="Reply" onclick="showReplies({!! $comment->id !!})">
-												@auth <a href="javascript:void(0)"> @endauth
+												<a href="javascript:void(0)"> 
 													<span class="fal fa-reply commentOptionsIcons"></span>  
 													<span class="commentVotes">. Reply.  {{count($comment->replies)}}</span>
-												@auth </a> @endauth
+												</a> 
 											</button>
-											<button class="btn" title="The answer was usefull">
-												@auth <a href="#"> @endauth
+											@auth
+											<button class="btn" onclick="voteComments('{{ $comment->id }}','upVote')" title="The answer was usefull">
+												<a href="javascript:void(0)">
+													<span id="commentVotedUpCheck-{{$comment->id}}" 
+													@if(Auth::user()->commentsVotes()->where(["type"=>1,"votes.to_type"=>"App\Comment","votes.to_id"=>$comment->id])->first())
+														class = "fas fa-check upVotedCheck"
+													 @endif> </span>
+													<span class="fal fa-arrow-alt-up commentOptionsIcons" id="commentOptionsVoteUpIcon-{{$comment->id}}" {{ Auth::user()->commentsVotes()->where(["type"=>1,"votes.to_type"=>"App\Comment","votes.to_id"=>$comment->id])->first() ? "style=color:green;" : "" }}></span> 
+													. <span class="commentVotes" id="commentOptionsVoteUpCount-{{$comment->id}}">{{$comment->votedBy()->where("type",1)->count()}}</span>
+												</a>
+											</button>
+											<button class="btn" onclick="voteComments('{{ $comment->id }}','downVote')" title="The answer was not usefull">
+												<a href="javascript:void(0)">
+													<span id="commentVotedDownCheck-{{$comment->id}}" 
+													@if(Auth::user()->commentsVotes()->where(["type"=>0,"votes.to_type"=>"App\Comment","votes.to_id"=>$comment->id])->first())
+														class = "fas fa-check upVotedCheck"
+													 @endif> </span>
+													<span class="fal fa-arrow-alt-down commentOptionsIcons" id="commentOptionsVoteDownIcon-{{$comment->id}}" {{ Auth::user()->commentsVotes()->where(["type"=>0,"votes.to_type"=>"App\Comment","votes.to_id"=>$comment->id])->first() ? "style=color:green;" : "" }}></span>  
+													. <span class="commentVotes" id="commentOptionsVoteDownCount-{{$comment->id}}"> {{$comment->votedBy()->where("type",0)->count()}}</span>
+												</a>
+											</button>
+											@endauth
+											@guest
+											<button class="btn OptionsForGuest" title="The answer was usefull. You need to login First">
+												<a href="javascript:void(0)">
 													<span class="fal fa-arrow-alt-up commentOptionsIcons"></span> 
-													<span class="commentVotes">. 2</span>
-												@auth </a> @endauth
+													<span class="commentVotes">. {{$comment->votedBy()->where("type",1)->count()}}</span>
+												</a>
 											</button>
-											<button class="btn" title="The answer was not usefull">
-												@auth <a href="#"> @endauth
+											<button class="btn OptionsForGuest" title="The answer was not usefull. You need to login First">
+												<a href="javascript:void(0)">
 													<span class="fal fa-arrow-alt-down commentOptionsIcons"></span>  
-													<span class="commentVotes">. 2</span>
-												@auth </a> @endauth
+													<span class="commentVotes">. {{$comment->votedBy()->where("type",0)->count()}}</span>
+												</a>
 											</button>
+											@endguest
 										</div>
 										<!-- End of :options for comments-->
 
@@ -569,7 +614,7 @@
 						<div class="clearfix"></div>
 						<!-- End Showing all comments part  -->
 					</div>
-					<!-- End of comment part -->
+					<!-- ///////////////////////////////////////// End of comment part ////////////////////////////////////////////////////////////////-->
 			@endforeach
 		@endif
 	</div>
@@ -637,10 +682,11 @@
 	@endif
 
 
-<!-- These variables are for ajax  token and route to which vote the post -->
+<!-- These variables are for ajax  token and route to which vote the post, comments -->
 	<script type="text/javascript">
 		var token = '{{ Session::token() }}';
 		var postVote = '{{route("postVote")}}';
+		var commentVote = '{{route("commentVote")}}';
 	</script>
 
 @endsection

@@ -532,3 +532,59 @@ function vote(postId,type){
 		});  // done function end
 }
 //End of : The function which add and update vote to post
+
+
+
+
+//Beggining of : The function which add and update vote to commnets
+function voteComments(commentId,type){
+	event.preventDefault();
+	$.ajax({
+		//sending data using post method
+		method: "post",
+		// The url is passed from the profile blade
+		url : commentVote,
+		// the token is also passed from profile blade
+		data : {voteType:type,comment_id:commentId, _token: token},
+
+	})
+		.done(function(){ // if the request is done seccessfully thn:
+
+			if(type == "upVote"){ // if the up voted is clicked
+				if($("#commentVotedUpCheck-"+commentId).hasClass("fa-check")){ // if the up voted button has the class fa-check
+					$("#commentVotedUpCheck-"+commentId).removeClass("fas fa-check upVotedCheck"); // then remove that class from it, it means we click up vote for two reason to get our vote back or to vote someting and this is the first case
+			 		$("#commentOptionsVoteUpIcon-"+commentId).css("color","#666"); // change icon color
+				 	$("#commentOptionsVoteUpCount-"+commentId).text(parseInt($("#commentOptionsVoteUpCount-"+commentId).text())-1); // and substruct one from the up votes because we are not adding new vote we are just taking our vote back
+				 	
+				}else{ // if the voted button has no class fa-check it means we vote here not taking our vote back
+					if($("#commentVotedDownCheck-"+commentId).hasClass("fa-check")){ // here if the down the current user has down voted the post
+						$("#commentVotedDownCheck-"+commentId).removeClass("fas fa-check upVotedCheck"); // then remove the class from down voted votes
+				 		$("#commentOptionsVoteDownIcon-"+commentId).css("color","#666"); // change its icon color
+				 		$("#commentOptionsVoteDownCount-"+commentId).text(parseInt($("#commentOptionsVoteDownCount-"+commentId).text())-1); // and stubsturct one from the downvotes because adding the up vote because one user cant up vote and down vote a post at same time
+					}
+					$("#commentVotedUpCheck-"+commentId).addClass("fas fa-check upVotedCheck"); // if there is not class fa-check then add up vote that class
+			 		$("#commentOptionsVoteUpIcon-"+commentId).css("color","green"); //change icon color to green
+				 	$("#commentOptionsVoteUpCount-"+commentId).text(parseInt($("#commentOptionsVoteUpCount-"+commentId).text())+1); // and add one to the total of up voted votes
+				}
+			}if(type == "downVote"){ // if the user is clicking the down vote button
+				if($("#commentVotedDownCheck-"+commentId).hasClass("fa-check")){ // now if the down voted is already clicked it means it that the user has already down voted the post
+					$("#commentVotedDownCheck-"+commentId).removeClass("fas fa-check upVotedCheck"); // then remove it . because clicking one button for the second time should take the vote back
+			 		$("#commentOptionsVoteDownIcon-"+commentId).css("color","#666"); // change the icon color
+			 		$("#commentOptionsVoteDownCount-"+commentId).text(parseInt($("#commentOptionsVoteDownCount-"+commentId).text())-1); // and substrruct one from downvotes because we are taking our vote back
+				}else{ // if the user is clickin the down vote for first time
+					if($("#commentVotedUpCheck-"+commentId).hasClass("fa-check")){ // now if the user has already up voted the post then
+						$("#commentVotedUpCheck-"+commentId).removeClass("fas fa-check upVotedCheck"); // remove the upvoted from the user
+				 		$("#commentOptionsVoteUpIcon-"+commentId).css("color","#666"); // romve icon colors
+					 	$("#commentOptionsVoteUpCount-"+commentId).text(parseInt($("#commentOptionsVoteUpCount-"+commentId).text())-1);// and sustruct one fro the up votes because one user can not vote up and down at the same time
+					}
+					$("#commentVotedDownCheck-"+commentId).addClass("fas fa-check upVotedCheck"); // now add the class to down vote button because we are downvoting
+					$("#commentOptionsVoteDownIcon-"+commentId).css("color","green"); //change the icon color
+					$("#commentOptionsVoteDownCount-"+commentId).text(parseInt($("#commentOptionsVoteDownCount-"+commentId).text())+1); // and add one to the total of the down voted votes
+				}
+			}
+
+
+
+		});  // done function end
+}
+//End of : The function which add and update vote to comments

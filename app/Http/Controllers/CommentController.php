@@ -116,4 +116,43 @@ class CommentController extends Controller
     {
         //
     }
-}
+
+
+   // The funcion which add and update votes to post using ajax request
+    public function Vote(Request $request){
+        $type = $request->voteType; // the type of vote whether user click up vote or down vote
+        $comment_id = $request->comment_id; // get the id of comment 
+        $comment = Comment::find($comment_id); // To Find the the comment to which the vote is added or deleted 
+        if(!$comment){     
+            return null;
+        }
+        $user = Auth::user(); // to find the current authenticated user who click the upvote and downvote buttons
+        $userLikedComments = $user->commentsVotes->where("id",$comment_id)->first(); // the variable which stores the recoreds of the current user in pivot table , note: only the recoreds which belongs to the comment id  which the we found above
+
+
+        if($userLikedComments){ // if the user already voted that post
+            if($type === "upVote"){ // if the use is clicking the upvote button
+                if($userLikedComments->pivot->type == 0){ // if the user already voted and the vote is downvote
+                    $userLikedComments->pivot->update(["type"=>"1"]); //then come and just update that to upvote by changin 0 to 1
+                 }else{  //if the user already voted and the vote is upvote
+                    $user->commentsVotes()->detach($userLikedComments); // then come and remove the vote from the user
+                }
+            }else{ // if the user is clicking the downVote Button
+                if($userLikedComments->pivot->type == 0){ // the user is clickin downvote and the user already vote is downvote
+                    $user->commentsVotes()->detach($userLikedComments); // then remove the already vote
+                }else{ // the user is clicking downvote and the user already vote is upvote
+                    $userLikedComments->pivot->update(["type"=>"0"]); // then just update the vote type by changing 1 to 0
+                }
+            }
+        }else{ // if the user has not aleardy voted that comment
+            if($type === "upVote"){ // if the user has not aleardy voted that post and clicking the upVote button
+                $user->commentsVotes()->save($comment,["type"=>"1"]); // Then add a new record into the database with up vote type
+            }else{ // if the user has not aleardy voted that comment and clicking the downVote button
+                $user->commentsVotes()->save($comment,["type"=>"0"]); // Then add a new record into the database with down vote type
+            }
+        }
+
+
+    }// end of vote fuction
+
+}// end of controller function

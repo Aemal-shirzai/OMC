@@ -122,7 +122,7 @@ class PostController extends Controller
         }
 
 
-    }
+    } // end of vote function
 
 
 } // End of the controller class

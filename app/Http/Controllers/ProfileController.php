@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Post;
 use App\Account;
+use App\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class ProfileController extends Controller
@@ -24,7 +25,7 @@ class ProfileController extends Controller
      */
     public function index($username)
     {
-        // return Auth::user()->postsVotes()->where(["type"=>1,"to_type"=>"App\Post","to_id"=>1])->first();
+        // return Auth::user()->commentsVotes()->where(["type"=>1,"votes.to_type"=>"App\Comment"])->get();
 
         $user = Account::where("username",$username)->first();
         if($user){

@@ -36,4 +36,9 @@ class Comment extends Model
     public function replies(){
         return $this->hasMany(CommentReply::class);
     }
+
+    // Relationship with accounts table based on vote to comments (plymorphic many to many)
+    public function votedBy(){
+        return $this->morphToMany(Account::class,"to","votes","","account_id")->withTimeStamps()->withPivot("type");
+    }
 }

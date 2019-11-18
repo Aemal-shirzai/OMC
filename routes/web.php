@@ -40,6 +40,9 @@ Route::POST("/posts/vote","PostController@vote")->name("postVote");
 
 // Routes for comments
 Route::resource("/comment","CommentController");
+// This route is responsible for adding and updateing votes to comments using ajax request
+Route::POST("/comments/vote","CommentController@vote")->name("commentVote");
+
 
 // Routes for CommentReplies
 Route::resource("/reply","CommentReplyController");
