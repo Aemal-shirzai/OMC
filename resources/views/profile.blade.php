@@ -247,7 +247,7 @@
 
 						<!-- Beggining of the posts options that should be visible only for gues users -->
 						@guest
-						<button class="btn postOptionsForGuest" title="The answer was usefull. You have to Login First">
+						<button class="btn OptionsForGuest" title="The answer was usefull. You have to Login First">
 							<a href="javascript:void(0)">
 								<span class="far fa-arrow-alt-up optionsIcons"></span> 
 								<span class="optionsText">Up-vote</span> 
@@ -536,7 +536,7 @@
 										<div class="allReplies" id="allReplies-{{$comment->id}}">
 											<div class="dropdown-divider"></div>
 											@if(count($comment->replies) > 0)
-											<div class="mb-2 replies-count">{{count($comment->replies)}} Replies</div>
+											<b><div class="mb-2 replies-count">{{count($comment->replies)}} Replies</div></b>
 													@foreach($comment->replies as $reply)
 														<!-- replied by image -->
 														<div class="allRepliesOwnerImage">
@@ -581,18 +581,42 @@
 
 														<!-- Beggining of: options for comments -->
 															<div class="commetOptions">
-																<button class="btn" title="The answer was usefull">
-																	@auth<a href="#">@endauth
+																@auth
+																<button class="btn" onclick="voteReplies('{{$reply->id}}','upVote')" title="The answer was usefull">
+																	<a href="javascript:void(0)">
+																		<span id="replyVotedUpCheck-{{$reply->id}}" 
+																		@if(Auth::user()->repliesVotes()->where(["type"=>1,"votes.to_type"=>"App\CommentReply","votes.to_id"=>$reply->id])->first())
+																			class = "fas fa-check upVotedCheck"
+																		 @endif> </span>
+																		<span class="fal fa-arrow-alt-up commentOptionsIcons" id="replyOptionsVoteUpIcon-{{$reply->id}}" {{ Auth::user()->repliesVotes()->where(["type"=>1,"votes.to_type"=>"App\CommentReply","votes.to_id"=>$reply->id])->first() ? "style=color:green;" : "" }}></span> 
+																		<span class="commentVotes" id="replyOptionsVoteUpCount-{{$reply->id}}">{{$reply->votedBy()->where("type",1)->count()}}</span>
+																	</a>
+																</button>
+																<button class="btn" onclick="voteReplies('{{$reply->id}}','downVote')" title="The answer was not usefull">
+																	<a href="javascript:void(0)">
+																		<span id="replyVotedDownCheck-{{$reply->id}}" 
+																		@if(Auth::user()->repliesVotes()->where(["type"=>0,"votes.to_type"=>"App\CommentReply","votes.to_id"=>$reply->id])->first())
+																			class = "fas fa-check upVotedCheck"
+																		 @endif> </span>
+																		<span class="fal fa-arrow-alt-down commentOptionsIcons" id="replyOptionsVoteDownIcon-{{$reply->id}}" {{ Auth::user()->repliesVotes()->where(["type"=>0,"votes.to_type"=>"App\CommentReply","votes.to_id"=>$reply->id])->first() ? "style=color:green;" : "" }}></span>  
+																		<span class="commentVotes" id="replyOptionsVoteDownCount-{{$reply->id}}">{{$reply->votedBy()->where("type",0)->count()}}</span>
+																	</a>
+																</button>
+																@endauth
+																@guest
+																<button class="btn OptionsForGuest" title="The answer was usefull">
+																	<a href="javascript:void(0)">
 																		<span class="fal fa-arrow-alt-up commentOptionsIcons"></span> 
 																		<span class="commentVotes">. 2</span>
-																	@auth</a>@endauth
+																	</a>
 																</button>
-																<button class="btn" title="The answer was not usefull">
-																	@auth<a href="#">@endauth
+																<button class="btn btn OptionsForGuest" title="The answer was not usefull">
+																	<a href="javascript:void(0)">
 																		<span class="fal fa-arrow-alt-down commentOptionsIcons"></span>  
 																		<span class="commentVotes">. 2</span>
-																	@auth</a>@endauth
+																	</a>
 																</button>
+																@endguest
 															</div>
 														<!-- End of :options for comments-->
 														<div class="dropdown-divider reply-divider"></div>
@@ -682,11 +706,12 @@
 	@endif
 
 
-<!-- These variables are for ajax  token and route to which vote the post, comments -->
+<!-- These variables are for ajax  token and route to which vote the post, comments , replies-->
 	<script type="text/javascript">
 		var token = '{{ Session::token() }}';
 		var postVote = '{{route("postVote")}}';
 		var commentVote = '{{route("commentVote")}}';
+		var replyVote = '{{route("replyVote")}}';
 	</script>
 
 @endsection

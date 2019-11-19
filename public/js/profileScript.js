@@ -588,3 +588,57 @@ function voteComments(commentId,type){
 		});  // done function end
 }
 //End of : The function which add and update vote to comments
+
+
+// Begginign of the function which vote the replies
+
+function voteReplies(replyId,type)
+{
+	event.preventDefault();
+	$.ajax({
+		//sending data using post method
+		method: "post",
+		// The url is passed from the profile blade
+		url : replyVote,
+		// the token is also passed from profile blade
+		data : {voteType:type,reply_id:replyId, _token: token},
+
+	})
+		.done(function(){
+			if(type == "upVote"){ // if the up voted is clicked
+				if($("#replyVotedUpCheck-"+replyId).hasClass("fa-check")){ // if the up voted button has the class fa-check
+					$("#replyVotedUpCheck-"+replyId).removeClass("fas fa-check upVotedCheck"); // then remove that class from it, it means we click up vote for two reason to get our vote back or to vote someting and this is the first case
+			 		$("#replyOptionsVoteUpIcon-"+replyId).css("color","#666"); // change icon color
+				 	$("#replyOptionsVoteUpCount-"+replyId).text(parseInt($("#replyOptionsVoteUpCount-"+replyId).text())-1); // and substruct one from the up votes because we are not adding new vote we are just taking our vote back
+				 	
+				}else{ // if the voted button has no class fa-check it means we vote here not taking our vote back
+					if($("#replyVotedDownCheck-"+replyId).hasClass("fa-check")){ // here if the down the current user has down voted the post
+						$("#replyVotedDownCheck-"+replyId).removeClass("fas fa-check upVotedCheck"); // then remove the class from down voted votes
+				 		$("#replyOptionsVoteDownIcon-"+replyId).css("color","#666"); // change its icon color
+				 		$("#replyOptionsVoteDownCount-"+replyId).text(parseInt($("#replyOptionsVoteDownCount-"+replyId).text())-1); // and stubsturct one from the downvotes because adding the up vote because one user cant up vote and down vote a post at same time
+					}
+					$("#replyVotedUpCheck-"+replyId).addClass("fas fa-check upVotedCheck"); // if there is not class fa-check then add up vote that class
+			 		$("#replyVotedUpCheck-"+replyId).css("color","green"); //change icon color to green
+				 	$("#replyOptionsVoteUpCount-"+replyId).text(parseInt($("#replyOptionsVoteUpCount-"+replyId).text())+1); // and add one to the total of up voted votes
+				}
+			}if(type == "downVote"){ // if the user is clicking the down vote button
+				if($("#replyVotedDownCheck-"+replyId).hasClass("fa-check")){ // now if the down voted is already clicked it means it that the user has already down voted the post
+					$("#replyVotedDownCheck-"+replyId).removeClass("fas fa-check upVotedCheck"); // then remove it . because clicking one button for the second time should take the vote back
+			 		$("#replyOptionsVoteDownIcon-"+replyId).css("color","#666"); // change the icon color
+			 		$("#replyOptionsVoteDownCount-"+replyId).text(parseInt($("#replyOptionsVoteDownCount-"+replyId).text())-1); // and substrruct one from downvotes because we are taking our vote back
+				}else{ // if the user is clickin the down vote for first time
+					if($("#replyVotedUpCheck-"+replyId).hasClass("fa-check")){ // now if the user has already up voted the post then
+						$("#replyVotedUpCheck-"+replyId).removeClass("fas fa-check upVotedCheck"); // remove the upvoted from the user
+				 		$("#replyOptionsVoteUpIcon-"+replyId).css("color","#666"); // romve icon colors
+					 	$("#replyOptionsVoteUpCount-"+replyId).text(parseInt($("#replyOptionsVoteUpCount-"+replyId).text())-1);// and sustruct one fro the up votes because one user can not vote up and down at the same time
+					}
+					$("#replyVotedDownCheck-"+replyId).addClass("fas fa-check upVotedCheck"); // now add the class to down vote button because we are downvoting
+					$("#replyOptionsVoteDownIcon-"+replyId).css("color","green"); //change the icon color
+					$("#replyOptionsVoteDownCount-"+replyId).text(parseInt($("#replyOptionsVoteDownCount-"+replyId).text())+1); // and add one to the total of the down voted votes
+				}
+			}
+		});	
+}
+// End of the function which vote the replies
+
+

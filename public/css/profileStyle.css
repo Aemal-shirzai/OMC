@@ -689,10 +689,10 @@ div.reply-divider{
 	color: green;
 }
 button.OptionsForGuest{
-	cursor: initial;
+	cursor:default;
 }
 button.OptionsForGuest a{
-	cursor: initial;
+	cursor: default;
 }
 
 

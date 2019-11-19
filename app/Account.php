@@ -80,4 +80,8 @@ class Account extends Authenticatable
         return $this->morphedByMany(Comment::class,"to","votes","account_id")->withTimeStamps()->withPivot("type");
     }
 
+    // Relationship with replies table based on voting up and downn (polymorphic relationship many to mahy)
+    public function repliesVotes(){
+        return $this->morphedByMany(CommentReply::class,"to","votes","account_id")->withTimeStamps()->withPivot("type");
+    }
 }

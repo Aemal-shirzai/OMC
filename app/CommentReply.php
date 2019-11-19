@@ -31,4 +31,10 @@ class CommentReply extends Model
     public function photos(){
     	return $this->morphMany(Photo::class,"owner");
     }
+
+
+    // Relationship with accounts table base on beign voted (polymorphic many to many)
+    public function votedBy(){
+        return $this->morphToMany(Account::class,"to","votes","","account_id")->withTimeStamps()->withPivot("type");
+    }
 }
