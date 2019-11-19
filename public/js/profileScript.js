@@ -730,16 +730,21 @@ function followDoctor(doctorId){
 
 
 
-function deleteCommentPermission(commentId){
+// Beggging of the function which make sure user delete the comment
+function deleteCommentPermission(commentId, postId){
 	// var sure = $("#confirmationBox").fadeIn();
 	// $("#profileParent").css("opacity","0.4");
 	var sure = window.confirm("Are you sure?");
 	if(sure){
-		deleteComments(commentId);
+		deleteComments(commentId,postId);
 	}
 }
+// End of the function which make sure user delete the comment
 
-function deleteComments(commentId){
+// Beggining of the function which delete comment
+
+function deleteComments(commentId,postId){
+	
 	$("#commentDeleteButton-"+commentId).text(" Deleting...");
 	$("#commentDeleteButton-"+commentId).css("color","red");
 	$.ajax({
@@ -750,7 +755,45 @@ function deleteComments(commentId){
 		$("#allCommentsContent-"+commentId).slideUp('fast');
 		$("#allcommentsOwnerImage-"+commentId).slideUp('fast');
 		$("#commentOptions-"+commentId).hide();
+		$("#commentsCount-"+postId).text(parseInt($("#commentsCount-"+postId).text())-1);
+		$("#commentcounts1-"+postId).text(parseInt($("#commentcounts1-"+postId).text())-1);
 		$("#commentDeleteButton-"+commentId).text(" Delete");
 		$("#commentDeleteButton-"+commentId).css("color","#666");
 	});
 }
+// End of the function which delete comment
+
+
+
+
+// Beggging of the function which make sure user delete the reply
+function deleteReplyPermission(replyId, commentId){
+	// var sure = $("#confirmationBox").fadeIn();
+	// $("#profileParent").css("opacity","0.4");
+	var sure = window.confirm("Are you sure?");
+	if(sure){
+		deleteReplies(replyId,commentId);
+	}
+}
+// End of the function which make sure user delete the reply
+
+// Beggining of the function which delete replies
+function deleteReplies(replyId,commentId){
+	$("#deleteReplyButton-"+replyId).text(" Deleting...");
+	$("#deleteReplyButton-"+replyId).css("color","red");
+	$.ajax({
+		method: "DELETE",
+		url:deleteReply,
+		data:{reply_id:replyId,_token:token}
+	}).done(function(){
+		$("#allRepliessContent-"+replyId).slideUp('fast');
+		$("#replyOwnerInfo-"+replyId).slideUp('fast');
+		$("#repliesOptions-"+replyId).hide();
+		$("#replies-count-"+commentId).text(parseInt($("#replies-count-"+commentId).text())-1);
+		$("#replies-count1-"+commentId).text(parseInt($("#replies-count1-"+commentId).text())-1);
+		$("#deleteReplyButton-"+replyId).text(" Delete");
+		$("#deleteReplyButton-"+replyId).css("color","#666");
+	});
+}
+// End of the function which delete replies
+

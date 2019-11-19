@@ -7,6 +7,7 @@ use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CommentRequest;
+use Illuminate\Support\Facades\Storage;
 class CommentController extends Controller
 {
     public function __construct(){
@@ -120,6 +121,7 @@ class CommentController extends Controller
         //
     } 
 
+// Beggining of: function which is responsible for deleteing comments using ajax request
     public function delete(Request $request)
     {
         $user = Auth::user();
@@ -127,10 +129,17 @@ class CommentController extends Controller
         $comment = Comment::findOrFail($request->comment_id);
 
         if($user->comments()->where("comments.id",$request->comment_id)->first()){
+            if($comment->photos()->count() > 0){
+                foreach($comment->photos as $comment_photo){
+                    Storage::delete("public/images/comments/".$comment_photo->path);
+                    $comment_photo->delete();
+                }
+            }
+        
             $user->comments()->where("comments.id",$request->comment_id)->first()->delete();
         }
     }
-
+// End of : function which is responsible for deleteing comments using ajax request
 
 
 

@@ -299,7 +299,7 @@
 							<a href="javascript:void(0)">
 								<span class="fal fa-wifi optionsIcons"></span> 
 								<span class="optionsText">Follow</span> 
-								<span class="votes">. 2</span>
+								<span class="votes">. {{$post->favoritedBy()->count()}}</span>
 							</a>
 						</button>
 						@endguest
@@ -309,7 +309,7 @@
 						<button class="btn" title="All comments for this post" onclick="showAllComments({!!$post->id!!})">
 							<a href="javascript::void(0)">								<span class="fal fa-comment optionsIcons"></span> 
 								<span class="optionsText">comments</span> 
-								<span class="votes">. {{count($post->comments)}}</span>
+								.<span class="votes" id="commentcounts1-{{$post->id}}"> {{count($post->comments)}}</span>
 							</a>
 						</button>
 						<!-- End of the posts options that should be visible for both the  auth users and guest users -->
@@ -423,7 +423,7 @@
 							<!-- Beggining of all comments part -->
 							<div class="allComments" id="allComments-{{$post->id}}">
 								@if(count($post->comments) > 0)
-									<div class="mb-2 ml-2 comments-count">{{count($post->comments)}} Comments</div>
+									<b><div class="mb-2 ml-2 comments-count"><span id="commentsCount-{{$post->id}}">{{count($post->comments)}}</span> Comments</div></b>
 									@foreach($post->comments as $comment)
 
 										<!-- Beggining of: Image part of comment owner -->
@@ -479,7 +479,7 @@
 											<button class="btn" title="Reply" onclick="showReplies({!! $comment->id !!})">
 												<a href="javascript:void(0)"> 
 													<span class="fal fa-reply commentOptionsIcons"></span>  
-													<span class="commentVotes">. Reply.  {{count($comment->replies)}}</span>
+													<span class="commentVotes">. Reply.  <span id="replies-count1-{{$comment->id}}">{{count($comment->replies)}}</span> </span>
 												</a> 
 											</button>
 											@auth
@@ -509,7 +509,7 @@
 											<!-- Beggining of: Comment managing options delete and update -->
 											@if(Auth::user()->id === $comment->comment_owner->id)
 											<button class=" commentManageOptions fal fa-edit float-right"> Edit</button>
-											<button class="commentManageOptions fal fa-trash float-right" id="commentDeleteButton-{{$comment->id}}" onclick="deleteCommentPermission('{{$comment->id}}')"> Delete</button>
+											<button class="commentManageOptions fal fa-trash float-right" id="commentDeleteButton-{{$comment->id}}" onclick="deleteCommentPermission('{{$comment->id}}','{{$post->id}}')"> Delete</button>
 											@endif
 											<!-- End of Comment managing options delete and update -->
 
@@ -597,10 +597,10 @@
 										<div class="allReplies" id="allReplies-{{$comment->id}}">
 											<div class="dropdown-divider"></div>
 											@if(count($comment->replies) > 0)
-											<b><div class="mb-2 replies-count">{{count($comment->replies)}} Replies</div></b>
+											<b><div class="mb-2 replies-count"><span id="replies-count-{{$comment->id}}">{{count($comment->replies)}}</span> Replies</div></b>
 													@foreach($comment->replies as $reply)
 														<!-- replied by image -->
-														<div class="allRepliesOwnerImage">
+														<div class="allRepliesOwnerImage" id="replyOwnerInfo-{{$reply->id}}">
 															@if(count($reply->owner->photos) > 0)						
 																@if($reply->owner->owner_type == "App\Doctor")
 																	<img src="/storage/images/doctors/{{$reply->owner->photos()->where('status','1')->first()->path}}">
@@ -641,53 +641,53 @@
 														<!-- End of: all replies content part -->
 
 														<!-- Beggining of: options for comments -->
-															<div class="commetOptions">
-																@auth
-																<button class="btn" onclick="voteReplies('{{$reply->id}}','upVote')" title="The answer was usefull">
-																	<a href="javascript:void(0)">
-																		<span id="replyVotedUpCheck-{{$reply->id}}" 
-																		@if(Auth::user()->repliesVotes()->where(["type"=>1,"votes.to_type"=>"App\CommentReply","votes.to_id"=>$reply->id])->first())
-																			class = "fas fa-check upVotedCheck"
-																		 @endif> </span>
-																		<span class="fal fa-arrow-alt-up commentOptionsIcons" id="replyOptionsVoteUpIcon-{{$reply->id}}" {{ Auth::user()->repliesVotes()->where(["type"=>1,"votes.to_type"=>"App\CommentReply","votes.to_id"=>$reply->id])->first() ? "style=color:#3fbbc0;" : "" }}></span> 
-																		<span id="replyOptionsLoadingUpText-{{$reply->id}}"></span>
-																		<span class="commentVotes" id="replyOptionsVoteUpCount-{{$reply->id}}">{{$reply->votedBy()->where("type",1)->count()}}</span>
-																	</a>
-																</button>
-																<button class="btn" onclick="voteReplies('{{$reply->id}}','downVote')" title="The answer was not usefull">
-																	<a href="javascript:void(0)">
-																		<span id="replyVotedDownCheck-{{$reply->id}}" 
-																		@if(Auth::user()->repliesVotes()->where(["type"=>0,"votes.to_type"=>"App\CommentReply","votes.to_id"=>$reply->id])->first())
-																			class = "fas fa-check upVotedCheck"
-																		 @endif> </span>
-																		<span class="fal fa-arrow-alt-down commentOptionsIcons" id="replyOptionsVoteDownIcon-{{$reply->id}}" {{ Auth::user()->repliesVotes()->where(["type"=>0,"votes.to_type"=>"App\CommentReply","votes.to_id"=>$reply->id])->first() ? "style=color:#3fbbc0;" : "" }}></span>
-																		<span id="replyOptionsLoadingDownText-{{$reply->id}}"></span>  
-																		<span class="commentVotes" id="replyOptionsVoteDownCount-{{$reply->id}}">{{$reply->votedBy()->where("type",0)->count()}}</span>
-																	</a>
-																</button>
-																<!-- Beggining of: Comment managing options delete and update -->
-																	@if(Auth::user()->id === $reply->owner->id)
-																	<button class=" commentManageOptions fal fa-edit float-right"> Edit</button>
-																	<button class="commentManageOptions fal fa-trash float-right"> Delete</button>
-																	@endif
-																<!-- End of Comment managing options delete and update -->
+														<div class="commetOptions" id="repliesOptions-{{$reply->id}}">
+															@auth
+															<button class="btn" onclick="voteReplies('{{$reply->id}}','upVote')" title="The answer was usefull">
+																<a href="javascript:void(0)">
+																	<span id="replyVotedUpCheck-{{$reply->id}}" 
+																	@if(Auth::user()->repliesVotes()->where(["type"=>1,"votes.to_type"=>"App\CommentReply","votes.to_id"=>$reply->id])->first())
+																		class = "fas fa-check upVotedCheck"
+																	 @endif> </span>
+																	<span class="fal fa-arrow-alt-up commentOptionsIcons" id="replyOptionsVoteUpIcon-{{$reply->id}}" {{ Auth::user()->repliesVotes()->where(["type"=>1,"votes.to_type"=>"App\CommentReply","votes.to_id"=>$reply->id])->first() ? "style=color:#3fbbc0;" : "" }}></span> 
+																	<span id="replyOptionsLoadingUpText-{{$reply->id}}"></span>
+																	<span class="commentVotes" id="replyOptionsVoteUpCount-{{$reply->id}}">{{$reply->votedBy()->where("type",1)->count()}}</span>
+																</a>
+															</button>
+															<button class="btn" onclick="voteReplies('{{$reply->id}}','downVote')" title="The answer was not usefull">
+																<a href="javascript:void(0)">
+																	<span id="replyVotedDownCheck-{{$reply->id}}" 
+																	@if(Auth::user()->repliesVotes()->where(["type"=>0,"votes.to_type"=>"App\CommentReply","votes.to_id"=>$reply->id])->first())
+																		class = "fas fa-check upVotedCheck"
+																	 @endif> </span>
+																	<span class="fal fa-arrow-alt-down commentOptionsIcons" id="replyOptionsVoteDownIcon-{{$reply->id}}" {{ Auth::user()->repliesVotes()->where(["type"=>0,"votes.to_type"=>"App\CommentReply","votes.to_id"=>$reply->id])->first() ? "style=color:#3fbbc0;" : "" }}></span>
+																	<span id="replyOptionsLoadingDownText-{{$reply->id}}"></span>  
+																	<span class="commentVotes" id="replyOptionsVoteDownCount-{{$reply->id}}">{{$reply->votedBy()->where("type",0)->count()}}</span>
+																</a>
+															</button>
+															<!-- Beggining of: Comment managing options delete and update -->
+																@if(Auth::user()->id === $reply->owner->id)
+																<button class=" commentManageOptions fal fa-edit float-right"> Edit</button>
+																<button class="commentManageOptions fal fa-trash float-right" id="deleteReplyButton-{{$reply->id}}" onclick="deleteReplyPermission('{{$reply->id}}','{{$comment->id}}')"> Delete</button>
+																@endif
+															<!-- End of Comment managing options delete and update -->
 
-																@endauth
-																@guest
-																<button class="btn OptionsForGuest" title="The answer was usefull">
-																	<a href="javascript:void(0)">
-																		<span class="fal fa-arrow-alt-up commentOptionsIcons"></span> 
-																		<span class="commentVotes">. {{$reply->votedBy()->where("type",1)->count()}}</span>
-																	</a>
-																</button>
-																<button class="btn btn OptionsForGuest" title="The answer was not usefull">
-																	<a href="javascript:void(0)">
-																		<span class="fal fa-arrow-alt-down commentOptionsIcons"></span>  
-																		<span class="commentVotes">. {{$reply->votedBy()->where("type",0)->count()}}</span>
-																	</a>
-																</button>
-																@endguest
-															</div>
+															@endauth
+															@guest
+															<button class="btn OptionsForGuest" title="The answer was usefull">
+																<a href="javascript:void(0)">
+																	<span class="fal fa-arrow-alt-up commentOptionsIcons"></span> 
+																	<span class="commentVotes">. {{$reply->votedBy()->where("type",1)->count()}}</span>
+																</a>
+															</button>
+															<button class="btn btn OptionsForGuest" title="The answer was not usefull">
+																<a href="javascript:void(0)">
+																	<span class="fal fa-arrow-alt-down commentOptionsIcons"></span>  
+																	<span class="commentVotes">. {{$reply->votedBy()->where("type",0)->count()}}</span>
+																</a>
+															</button>
+															@endguest
+														</div>
 														<!-- End of :options for comments-->
 														<div class="dropdown-divider reply-divider"></div>
 													@endforeach
@@ -791,6 +791,9 @@
 
 		// This route is to delete comments
 		var deleteComment = '{{route("deleteComment")}}';
+
+		// This route is to delete comments
+		var deleteReply = '{{route("deleteReply")}}';
 	</script>
 
 @endsection

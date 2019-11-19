@@ -6,6 +6,7 @@ use App\CommentReply;
 use Illuminate\Http\Request;
 use App\Http\Requests\CommentReplyRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Comment;
 class CommentReplyController extends Controller
 {
@@ -120,6 +121,27 @@ class CommentReplyController extends Controller
     {
         //
     }
+
+// Beggining of: function which is responsible for deleteing replies using ajax request
+    public function delete(Request $request)
+    {
+        $user = Auth::user();
+        
+        $reply = CommentReply::findOrFail($request->reply_id);
+
+        if($user->replies()->where("comment_replies.id",$request->reply_id)->first()){
+            if($reply->photos()->count() > 0){
+                foreach($reply->photos as $reply_photo){
+                    Storage::delete("public/images/comment_replies/".$reply_photo->path);
+                    $reply_photo->delete();
+                }
+            }
+            $user->replies()->where("comment_replies.id",$request->reply_id)->first()->delete();
+        }
+    }
+// End of : function which is responsible for deleteing replies using ajax request
+
+
 
 // The funcion which add and update votes to replies using ajax request
     public function Vote(Request $request){

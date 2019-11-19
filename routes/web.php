@@ -53,6 +53,8 @@ Route::DELETE("/comments/delete","CommentController@delete")->name("deleteCommen
 Route::resource("/reply","CommentReplyController");
 // This route is responsible for adding and updateing votes to replies using ajax request
 Route::POST("/replies/vote","CommentReplyController@vote")->name("replyVote");
+// Deleting replies using ajax
+Route::DELETE("/replies/delete","CommentReplyController@delete")->name("deleteReply");
 
 
 // Route for managing normal user following the doctor
