@@ -30,7 +30,7 @@
 					@if(Auth::user()->username == $user->username)
 						<a href="#" class="btn btn-md editFollowBtn"><i class="fad fa-edit"></i> Edit Profile</a>
 					@else
-						@if($user->owner_type == "App\Doctor")
+						@if($user->owner_type == "App\Doctor" && Auth::user()->owner_type != "App\Doctor")
 							<a href="#" class="btn btn-md editFollowBtn"><i class="fad fa-plus"></i> Follow</a>
 						@endif
 					@endif
