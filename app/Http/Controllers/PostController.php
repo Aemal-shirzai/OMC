@@ -87,7 +87,7 @@ class PostController extends Controller
     }
 
 
-    // The funcion which add and update votes to post using ajax request
+// The funcion which add and update votes to post using ajax request
     public function Vote(Request $request){
         $type = $request->voteType; // the type of vote whether user click up vote or down vote
         $post_id = $request->post_id; // get the id of post 
@@ -122,7 +122,31 @@ class PostController extends Controller
         }
 
 
-    } // end of vote function
+    } 
+// end of vote function
+
+
+// Beggining of : The function which add the post favorites by normal usrs
+    
+    public function favorite(Request $request){
+    
+       $user = Auth::user(); // Current Authenticated user
+       $post = Post::findOrFail($request->post_id); // The post which is going to be added as favorites
+       // return $user->owner->favoritePosts()->where("posts.id",1)->first();
+       if($user->owner_type == "App\NormalUser"){
+
+            // if the currnet user has already added the post to favorite
+            if($user->owner->favoritePosts()->where("posts.id",$request->post_id)->first()){
+                $user->owner->favoritePosts()->detach($post);
+            }else{// if the user has not already added the post to favorite
+                $user->owner->favoritePosts()->save($post);
+            }
+       }
+
+    } 
+// End of :The function which add the post favorites by normal usrs
+
+
 
 
 } // End of the controller class

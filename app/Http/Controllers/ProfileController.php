@@ -27,6 +27,9 @@ class ProfileController extends Controller
     {
         // return Auth::user()->commentsVotes()->where(["type"=>1,"votes.to_type"=>"App\Comment"])->get();
 
+        // $user = Auth::user();
+        // return $user->owner->favoritePosts()->where("posts.id",1)->first();
+
         $user = Account::where("username",$username)->first();
         if($user){
             return view('profile',compact("user"));

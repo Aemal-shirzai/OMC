@@ -34,7 +34,7 @@ class AccountPolicy
     }
 
      public function normalUser_related(Account $user){
-        return $user->owner_type === "App\User";
+        return $user->owner_type === "App\NormalUser";
     }
 
 

@@ -501,8 +501,8 @@ function vote(postId,type){
 				 		$("#postOptionsVoteDownCount-"+postId).text(parseInt($("#postOptionsVoteDownCount-"+postId).text())-1); // and stubsturct one from the downvotes because adding the up vote because one user cant up vote and down vote a post at same time
 					}
 					$("#upVotedCheck-"+postId).addClass("fas fa-check upVotedCheck"); // if there is not class fa-check then add up vote that class
-			 		$("#postOptionsVoteUpIcon-"+postId).css("color","green"); //change icon color to green
-				 	$("#postOptionsVoteUpText-"+postId).css("color","green"); // change text color
+			 		$("#postOptionsVoteUpIcon-"+postId).css("color","#3fbbc0"); //change icon color to green
+				 	$("#postOptionsVoteUpText-"+postId).css("color","#3fbbc0"); // change text color
 				 	$("#postOptionsVoteUpText-"+postId).text("Up-voted");	// change button text
 				 	$("#postOptionsVoteUpCount-"+postId).text(parseInt($("#postOptionsVoteUpCount-"+postId).text())+1); // and add one to the total of up voted votes
 				}
@@ -523,9 +523,9 @@ function vote(postId,type){
 					 	$("#postOptionsVoteUpCount-"+postId).text(parseInt($("#postOptionsVoteUpCount-"+postId).text())-1);// and sustruct one fro the up votes because one user can not vote up and down at the same time
 					}
 					$("#downVotedCheck-"+postId).addClass("fas fa-check upVotedCheck"); // now add the class to down vote button because we are downvoting
-					$("#postOptionsDownVoteText-"+postId).css("color","green"); //change the text color
+					$("#postOptionsDownVoteText-"+postId).css("color","#3fbbc0"); //change the text color
 					$("#postOptionsDownVoteText-"+postId).text("Down-voted"); //change the button text
-					$("#postOptionsDownVoteUpIcon-"+postId).css("color","green"); //change the icon color
+					$("#postOptionsDownVoteUpIcon-"+postId).css("color","#3fbbc0"); //change the icon color
 					$("#postOptionsVoteDownCount-"+postId).text(parseInt($("#postOptionsVoteDownCount-"+postId).text())+1); // and add one to the total of the down voted votes
 				}
 			}
@@ -563,7 +563,7 @@ function voteComments(commentId,type){
 				 		$("#commentOptionsVoteDownCount-"+commentId).text(parseInt($("#commentOptionsVoteDownCount-"+commentId).text())-1); // and stubsturct one from the downvotes because adding the up vote because one user cant up vote and down vote a post at same time
 					}
 					$("#commentVotedUpCheck-"+commentId).addClass("fas fa-check upVotedCheck"); // if there is not class fa-check then add up vote that class
-			 		$("#commentOptionsVoteUpIcon-"+commentId).css("color","green"); //change icon color to green
+			 		$("#commentOptionsVoteUpIcon-"+commentId).css("color","#3fbbc0"); //change icon color to green
 				 	$("#commentOptionsVoteUpCount-"+commentId).text(parseInt($("#commentOptionsVoteUpCount-"+commentId).text())+1); // and add one to the total of up voted votes
 				}
 			}if(type == "downVote"){ // if the user is clicking the down vote button
@@ -578,7 +578,7 @@ function voteComments(commentId,type){
 					 	$("#commentOptionsVoteUpCount-"+commentId).text(parseInt($("#commentOptionsVoteUpCount-"+commentId).text())-1);// and sustruct one fro the up votes because one user can not vote up and down at the same time
 					}
 					$("#commentVotedDownCheck-"+commentId).addClass("fas fa-check upVotedCheck"); // now add the class to down vote button because we are downvoting
-					$("#commentOptionsVoteDownIcon-"+commentId).css("color","green"); //change the icon color
+					$("#commentOptionsVoteDownIcon-"+commentId).css("color","#3fbbc0"); //change the icon color
 					$("#commentOptionsVoteDownCount-"+commentId).text(parseInt($("#commentOptionsVoteDownCount-"+commentId).text())+1); // and add one to the total of the down voted votes
 				}
 			}
@@ -618,7 +618,7 @@ function voteReplies(replyId,type)
 				 		$("#replyOptionsVoteDownCount-"+replyId).text(parseInt($("#replyOptionsVoteDownCount-"+replyId).text())-1); // and stubsturct one from the downvotes because adding the up vote because one user cant up vote and down vote a post at same time
 					}
 					$("#replyVotedUpCheck-"+replyId).addClass("fas fa-check upVotedCheck"); // if there is not class fa-check then add up vote that class
-			 		$("#replyVotedUpCheck-"+replyId).css("color","green"); //change icon color to green
+			 		$("#replyVotedUpCheck-"+replyId).css("color","#3fbbc0"); //change icon color to green
 				 	$("#replyOptionsVoteUpCount-"+replyId).text(parseInt($("#replyOptionsVoteUpCount-"+replyId).text())+1); // and add one to the total of up voted votes
 				}
 			}if(type == "downVote"){ // if the user is clicking the down vote button
@@ -633,7 +633,7 @@ function voteReplies(replyId,type)
 					 	$("#replyOptionsVoteUpCount-"+replyId).text(parseInt($("#replyOptionsVoteUpCount-"+replyId).text())-1);// and sustruct one fro the up votes because one user can not vote up and down at the same time
 					}
 					$("#replyVotedDownCheck-"+replyId).addClass("fas fa-check upVotedCheck"); // now add the class to down vote button because we are downvoting
-					$("#replyOptionsVoteDownIcon-"+replyId).css("color","green"); //change the icon color
+					$("#replyOptionsVoteDownIcon-"+replyId).css("color","#3fbbc0"); //change the icon color
 					$("#replyOptionsVoteDownCount-"+replyId).text(parseInt($("#replyOptionsVoteDownCount-"+replyId).text())+1); // and add one to the total of the down voted votes
 				}
 			}
@@ -642,3 +642,27 @@ function voteReplies(replyId,type)
 // End of the function which vote the replies
 
 
+function followPost(postId){
+	event.preventDefault();
+	$.ajax({
+		// the method the data should be sent with
+		method : "POST",
+
+		// the route to which the data should go
+		url: postFavorites,
+
+		// The data which should be send 
+		data: {post_id:postId,_token:token}
+
+	}).done(function(){
+		if($("#favoriteButton-"+postId).hasClass("followed")){
+			$("#favoriteButton-"+postId).removeClass("followed");
+			$("#favoritesPostCount-"+postId).text(parseInt($("#favoritesPostCount-"+postId).text())-1);
+			$("#followOptionText-"+postId).text("Follow");
+		}else{
+			$("#favoriteButton-"+postId).addClass("followed");
+			$("#favoritesPostCount-"+postId).text(parseInt($("#favoritesPostCount-"+postId).text())+1);
+			$("#followOptionText-"+postId).text("Un-follow");
+		}
+	});
+}

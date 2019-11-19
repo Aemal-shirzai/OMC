@@ -686,13 +686,16 @@ div.reply-divider{
 /* class added using ajax to check span */
 .upVotedCheck{
 	font-size: 12px;
-	color: green;
+	color: #3fbbc0;
 }
 button.OptionsForGuest{
 	cursor:default;
 }
 button.OptionsForGuest a{
 	cursor: default;
+}
+button.followed span{
+	color: #3fbbc0;
 }
 
 

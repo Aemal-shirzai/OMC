@@ -37,11 +37,16 @@ Route::resource('/contactUs','ContactUsController');
 Route::resource("/post","PostController");
 // This route is responsible for adding and updateing votes to post using ajax request
 Route::POST("/posts/vote","PostController@vote")->name("postVote");
+// This route is resposible for adding post to favorites by normal user
+Route::POST("/posts/favorites","PostController@favorite")->name("postFavorites");
+
 
 // Routes for comments
 Route::resource("/comment","CommentController");
 // This route is responsible for adding and updateing votes to comments using ajax request
 Route::POST("/comments/vote","CommentController@vote")->name("commentVote");
+
+
 
 
 // Routes for CommentReplies
