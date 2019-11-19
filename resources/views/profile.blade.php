@@ -5,8 +5,15 @@
 
 @endsection
 @section("content")
+
+<div id="confirmationBox">
+	<div id="text">Are You Sure You Want To Delete?</div>
+	<div id="text"><small>Remember: There is no comeback</small></div>
+	<a href="javascript:void(0)" onclick="return true;" class="btn btn-danger btn-sm">Delete</a>
+	<a href="javascript:void(0)" onclick="return false;" class="btn btn-light btn-sm">Cancel</a>
+</div>
 <div id="profileParent" style="position: relative;">
-	<div>
+	<div style="margin-bottom: 104px;">
 	<div class="container" id="profileHeading">
 		<div id="profileImageParent">
 			<div id="profileImage" class="">
@@ -313,8 +320,22 @@
 								<span class="far fa-ellipsis-v optionsIcons"></span> 
 							</a>
 							<div class="shareOptions" id="shareOptions-{{$post->id}}">
+								
+								@if(Auth::user()->id === $post->owner->account->id)
+								<p class="text-center">Manage</p>
+								<span title="Edit Post">
+									<li>
+										<a href="#" class="PostEditDelete"><span class="fas fa-edit"></span> Edit</a>
+									</li>
+								</span>
+								<span title="Delete Post">
+									<li>
+										<a href="#" class="PostEditDelete"><span class="fas fa-trash"></span> Delete</a>
+									</li>
+								</span>
+								@endif
+								<!-- <div class="dropdown-divider"></div> -->
 								<p class="text-center">Share</p>
-								<!-- <a href="" class="fab fa-facebook"> Facebook</a> -->
 								{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-facebook"],"<span>","</span>")->facebook() !!}
 								<div class="dropdown-divider"></div>
 								{!! Share::page(route('post.show',$post->id),null,['class'=>'share','id'=>"share-twitter"],"<span>","</span>")->twitter() !!}
@@ -330,7 +351,7 @@
 					</div>
 
 					<!--////////////////////////////////  Begginning  comments part  ///////////////////////////////////////////////////////////////////  -->
-					<div id="commentPart" style="margin-bottom: 45px;position: relative;">
+					<div id="commentPart">
 						<!-- Note: this div is used to show the error messages of both client side and serverside NOTE:ids names are confusing here -->
 
 						<div class="alert alert-danger commentImageVideoErrorMsg" id="fileError-{{$post->id}}" >
@@ -406,7 +427,7 @@
 									@foreach($post->comments as $comment)
 
 										<!-- Beggining of: Image part of comment owner -->
-										<div class="allcommentsOwnerImage">
+										<div class="allcommentsOwnerImage" id="allcommentsOwnerImage-{{$comment->id}}">
 											@if(count($comment->comment_owner->photos) > 0)							
 												@if($comment->comment_owner->owner_type == "App\Doctor")
 													<img src="/storage/images/doctors/{{$comment->comment_owner->photos()->where('status','1')->first()->path}}">
@@ -454,7 +475,7 @@
 										<!-- End of: all comments content part -->
 
 										<!-- Beggining of: options for comments -->
-										<div class="commetOptions">
+										<div class="commetOptions" id="commentOptions-{{$comment->id}}">
 											<button class="btn" title="Reply" onclick="showReplies({!! $comment->id !!})">
 												<a href="javascript:void(0)"> 
 													<span class="fal fa-reply commentOptionsIcons"></span>  
@@ -484,6 +505,14 @@
 													. <span class="commentVotes" id="commentOptionsVoteDownCount-{{$comment->id}}"> {{$comment->votedBy()->where("type",0)->count()}}</span>
 												</a>
 											</button>
+
+											<!-- Beggining of: Comment managing options delete and update -->
+											@if(Auth::user()->id === $comment->comment_owner->id)
+											<button class=" commentManageOptions fal fa-edit float-right"> Edit</button>
+											<button class="commentManageOptions fal fa-trash float-right" id="commentDeleteButton-{{$comment->id}}" onclick="deleteCommentPermission('{{$comment->id}}')"> Delete</button>
+											@endif
+											<!-- End of Comment managing options delete and update -->
+
 											@endauth
 											@guest
 											<button class="btn OptionsForGuest" title="The answer was usefull. You need to login First">
@@ -499,6 +528,9 @@
 												</a>
 											</button>
 											@endguest
+											
+
+
 										</div>
 										<!-- End of :options for comments-->
 
@@ -633,6 +665,13 @@
 																		<span class="commentVotes" id="replyOptionsVoteDownCount-{{$reply->id}}">{{$reply->votedBy()->where("type",0)->count()}}</span>
 																	</a>
 																</button>
+																<!-- Beggining of: Comment managing options delete and update -->
+																	@if(Auth::user()->id === $reply->owner->id)
+																	<button class=" commentManageOptions fal fa-edit float-right"> Edit</button>
+																	<button class="commentManageOptions fal fa-trash float-right"> Delete</button>
+																	@endif
+																<!-- End of Comment managing options delete and update -->
+
 																@endauth
 																@guest
 																<button class="btn OptionsForGuest" title="The answer was usefull">
@@ -749,6 +788,9 @@
 
 		// This route is to add doctors to follow by normal user
 		var DoctorFollow = '{{route("DoctorFollow")}}';
+
+		// This route is to delete comments
+		var deleteComment = '{{route("deleteComment")}}';
 	</script>
 
 @endsection

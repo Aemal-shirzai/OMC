@@ -1,3 +1,21 @@
+div#confirmationBox{
+	width: 273px;
+	height: 160px;
+	background: white;
+	box-shadow:  0px 0px 10px 3px #b1a0a0;
+	border-radius: 10px;
+	position: fixed;
+	z-index: 1;
+	top:42%;
+	left: 34%;
+	padding: 20px 20px;
+	overflow: hidden;
+	display: none;
+}
+div#confirmationBox a{
+	margin: 37px 25px;
+}
+
 div#profileParent{
 	background-color: white;
 	overflow: hidden;
@@ -297,6 +315,9 @@ div.shareOptions a#share-facebook::after{
 	content: "Facebook";
 	margin-left: 3px;
 }
+.PostEditDelete{
+	font-size: 11px !important;
+}
 div.shareOptions a#share-twitter::after{
 	content: "Twitter";
 	margin-left: 3px;
@@ -451,6 +472,17 @@ div.commentSuccessMsgs, div.replySuccessMsgs{
 	font-size: 12px;
 	display: none;
 	margin-left: 36px;
+}
+button.commentManageOptions{
+	background: inherit;
+    border: none;
+    font-weight: normal !important;
+    font-size: 10px;
+
+}
+button.commentManageOptions:focus{
+	outline: 0px;
+
 }
 /* Showing all comments part */
 div.allComments{
@@ -771,6 +803,7 @@ textarea::-webkit-scrollbar {
 		max-width: 128px;
 		max-height: 128px;
 	}
+	
 	span.removeEditCommentPhotoText{
 		font-size: 11px;
 	}
@@ -866,7 +899,9 @@ div.allRepliessContent p{
 		border-radius: 12px;
 		padding: 20px 5px;
 	}	
-
+	button.commentManageOptions{
+	    font-size: 9px;
+	}
 	div#commentPartImage{
 		display: inline-block;
 		float: left;
@@ -1153,6 +1188,9 @@ div.allRepliessContent p{
 		float: left;
 		overflow: hidden;
 		width: 7%;
+	}
+	button.commentManageOptions{
+	    font-size: 9px;
 	}
 	div#commentPartImage img{
 		width: 20px;

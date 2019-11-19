@@ -118,7 +118,21 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         //
+    } 
+
+    public function delete(Request $request)
+    {
+        $user = Auth::user();
+        
+        $comment = Comment::findOrFail($request->comment_id);
+
+        if($user->comments()->where("comments.id",$request->comment_id)->first()){
+            $user->comments()->where("comments.id",$request->comment_id)->first()->delete();
+        }
     }
+
+
+
 
 
    // The funcion which add and update votes to post using ajax request

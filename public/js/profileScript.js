@@ -725,7 +725,32 @@ function followDoctor(doctorId){
 		}
 	});
 }
-
-
 // End of the : Function responsible for following the doctors by normal users
 
+
+
+
+function deleteCommentPermission(commentId){
+	// var sure = $("#confirmationBox").fadeIn();
+	// $("#profileParent").css("opacity","0.4");
+	var sure = window.confirm("Are you sure?");
+	if(sure){
+		deleteComments(commentId);
+	}
+}
+
+function deleteComments(commentId){
+	$("#commentDeleteButton-"+commentId).text(" Deleting...");
+	$("#commentDeleteButton-"+commentId).css("color","red");
+	$.ajax({
+		method: "DELETE",
+		url:deleteComment,
+		data:{comment_id:commentId,_token:token}
+	}).done(function(){
+		$("#allCommentsContent-"+commentId).slideUp('fast');
+		$("#allcommentsOwnerImage-"+commentId).slideUp('fast');
+		$("#commentOptions-"+commentId).hide();
+		$("#commentDeleteButton-"+commentId).text(" Delete");
+		$("#commentDeleteButton-"+commentId).css("color","#666");
+	});
+}
