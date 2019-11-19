@@ -472,6 +472,11 @@ if(document.documentElement.scrollTop > 360){
 
 //Beggining of : The function which add and update vote to post
 function vote(postId,type){
+	if(type == "upVote"){
+		$("#postOptionsVoteUpText-"+postId).text("Loading..");
+	}else{
+		$("#postOptionsDownVoteText-"+postId).text("Loading..");
+	}
 	event.preventDefault();
 	$.ajax({
 		//sending data using post method
@@ -538,6 +543,11 @@ function vote(postId,type){
 
 //Beggining of : The function which add and update vote to commnets
 function voteComments(commentId,type){
+	if(type == "upVote"){
+		$("#commentOptionsLoadingUpText-"+commentId).text("Loading...");
+	}else{
+		$("#commentOptionsLoadingDownText-"+commentId).text("Loading...");	
+	}
 	event.preventDefault();
 	$.ajax({
 		//sending data using post method
@@ -554,31 +564,37 @@ function voteComments(commentId,type){
 				if($("#commentVotedUpCheck-"+commentId).hasClass("fa-check")){ // if the up voted button has the class fa-check
 					$("#commentVotedUpCheck-"+commentId).removeClass("fas fa-check upVotedCheck"); // then remove that class from it, it means we click up vote for two reason to get our vote back or to vote someting and this is the first case
 			 		$("#commentOptionsVoteUpIcon-"+commentId).css("color","#666"); // change icon color
+			 		$("#commentOptionsLoadingUpText-"+commentId).text("");
 				 	$("#commentOptionsVoteUpCount-"+commentId).text(parseInt($("#commentOptionsVoteUpCount-"+commentId).text())-1); // and substruct one from the up votes because we are not adding new vote we are just taking our vote back
 				 	
 				}else{ // if the voted button has no class fa-check it means we vote here not taking our vote back
 					if($("#commentVotedDownCheck-"+commentId).hasClass("fa-check")){ // here if the down the current user has down voted the post
 						$("#commentVotedDownCheck-"+commentId).removeClass("fas fa-check upVotedCheck"); // then remove the class from down voted votes
 				 		$("#commentOptionsVoteDownIcon-"+commentId).css("color","#666"); // change its icon color
+				 		$("#commentOptionsLoadingDownText-"+commentId).text("");
 				 		$("#commentOptionsVoteDownCount-"+commentId).text(parseInt($("#commentOptionsVoteDownCount-"+commentId).text())-1); // and stubsturct one from the downvotes because adding the up vote because one user cant up vote and down vote a post at same time
 					}
 					$("#commentVotedUpCheck-"+commentId).addClass("fas fa-check upVotedCheck"); // if there is not class fa-check then add up vote that class
 			 		$("#commentOptionsVoteUpIcon-"+commentId).css("color","#3fbbc0"); //change icon color to green
+			 		$("#commentOptionsLoadingUpText-"+commentId).text("");
 				 	$("#commentOptionsVoteUpCount-"+commentId).text(parseInt($("#commentOptionsVoteUpCount-"+commentId).text())+1); // and add one to the total of up voted votes
 				}
 			}if(type == "downVote"){ // if the user is clicking the down vote button
 				if($("#commentVotedDownCheck-"+commentId).hasClass("fa-check")){ // now if the down voted is already clicked it means it that the user has already down voted the post
 					$("#commentVotedDownCheck-"+commentId).removeClass("fas fa-check upVotedCheck"); // then remove it . because clicking one button for the second time should take the vote back
 			 		$("#commentOptionsVoteDownIcon-"+commentId).css("color","#666"); // change the icon color
+			 		$("#commentOptionsLoadingDownText-"+commentId).text("");
 			 		$("#commentOptionsVoteDownCount-"+commentId).text(parseInt($("#commentOptionsVoteDownCount-"+commentId).text())-1); // and substrruct one from downvotes because we are taking our vote back
 				}else{ // if the user is clickin the down vote for first time
 					if($("#commentVotedUpCheck-"+commentId).hasClass("fa-check")){ // now if the user has already up voted the post then
 						$("#commentVotedUpCheck-"+commentId).removeClass("fas fa-check upVotedCheck"); // remove the upvoted from the user
 				 		$("#commentOptionsVoteUpIcon-"+commentId).css("color","#666"); // romve icon colors
+				 		$("#commentOptionsLoadingUpText-"+commentId).text("");
 					 	$("#commentOptionsVoteUpCount-"+commentId).text(parseInt($("#commentOptionsVoteUpCount-"+commentId).text())-1);// and sustruct one fro the up votes because one user can not vote up and down at the same time
 					}
 					$("#commentVotedDownCheck-"+commentId).addClass("fas fa-check upVotedCheck"); // now add the class to down vote button because we are downvoting
 					$("#commentOptionsVoteDownIcon-"+commentId).css("color","#3fbbc0"); //change the icon color
+					$("#commentOptionsLoadingDownText-"+commentId).text("");
 					$("#commentOptionsVoteDownCount-"+commentId).text(parseInt($("#commentOptionsVoteDownCount-"+commentId).text())+1); // and add one to the total of the down voted votes
 				}
 			}
@@ -594,6 +610,11 @@ function voteComments(commentId,type){
 
 function voteReplies(replyId,type)
 {
+	if(type == "upVote"){
+		$("#replyOptionsLoadingUpText-"+replyId).text("Loading...");
+	}else{
+		$("#replyOptionsLoadingDownText-"+replyId).text("Loading...");
+	}
 	event.preventDefault();
 	$.ajax({
 		//sending data using post method
@@ -609,31 +630,37 @@ function voteReplies(replyId,type)
 				if($("#replyVotedUpCheck-"+replyId).hasClass("fa-check")){ // if the up voted button has the class fa-check
 					$("#replyVotedUpCheck-"+replyId).removeClass("fas fa-check upVotedCheck"); // then remove that class from it, it means we click up vote for two reason to get our vote back or to vote someting and this is the first case
 			 		$("#replyOptionsVoteUpIcon-"+replyId).css("color","#666"); // change icon color
+			 		$("#replyOptionsLoadingUpText-"+replyId).text("");
 				 	$("#replyOptionsVoteUpCount-"+replyId).text(parseInt($("#replyOptionsVoteUpCount-"+replyId).text())-1); // and substruct one from the up votes because we are not adding new vote we are just taking our vote back
 				 	
 				}else{ // if the voted button has no class fa-check it means we vote here not taking our vote back
 					if($("#replyVotedDownCheck-"+replyId).hasClass("fa-check")){ // here if the down the current user has down voted the post
 						$("#replyVotedDownCheck-"+replyId).removeClass("fas fa-check upVotedCheck"); // then remove the class from down voted votes
 				 		$("#replyOptionsVoteDownIcon-"+replyId).css("color","#666"); // change its icon color
+				 		$("#replyOptionsLoadingDownText-"+replyId).text("");
 				 		$("#replyOptionsVoteDownCount-"+replyId).text(parseInt($("#replyOptionsVoteDownCount-"+replyId).text())-1); // and stubsturct one from the downvotes because adding the up vote because one user cant up vote and down vote a post at same time
 					}
 					$("#replyVotedUpCheck-"+replyId).addClass("fas fa-check upVotedCheck"); // if there is not class fa-check then add up vote that class
 			 		$("#replyVotedUpCheck-"+replyId).css("color","#3fbbc0"); //change icon color to green
+			 		$("#replyOptionsLoadingUpText-"+replyId).text("");
 				 	$("#replyOptionsVoteUpCount-"+replyId).text(parseInt($("#replyOptionsVoteUpCount-"+replyId).text())+1); // and add one to the total of up voted votes
 				}
 			}if(type == "downVote"){ // if the user is clicking the down vote button
 				if($("#replyVotedDownCheck-"+replyId).hasClass("fa-check")){ // now if the down voted is already clicked it means it that the user has already down voted the post
 					$("#replyVotedDownCheck-"+replyId).removeClass("fas fa-check upVotedCheck"); // then remove it . because clicking one button for the second time should take the vote back
 			 		$("#replyOptionsVoteDownIcon-"+replyId).css("color","#666"); // change the icon color
+			 		$("#replyOptionsLoadingDownText-"+replyId).text("");
 			 		$("#replyOptionsVoteDownCount-"+replyId).text(parseInt($("#replyOptionsVoteDownCount-"+replyId).text())-1); // and substrruct one from downvotes because we are taking our vote back
 				}else{ // if the user is clickin the down vote for first time
 					if($("#replyVotedUpCheck-"+replyId).hasClass("fa-check")){ // now if the user has already up voted the post then
 						$("#replyVotedUpCheck-"+replyId).removeClass("fas fa-check upVotedCheck"); // remove the upvoted from the user
 				 		$("#replyOptionsVoteUpIcon-"+replyId).css("color","#666"); // romve icon colors
+				 		$("#replyOptionsLoadingUpText-"+replyId).text("");
 					 	$("#replyOptionsVoteUpCount-"+replyId).text(parseInt($("#replyOptionsVoteUpCount-"+replyId).text())-1);// and sustruct one fro the up votes because one user can not vote up and down at the same time
 					}
 					$("#replyVotedDownCheck-"+replyId).addClass("fas fa-check upVotedCheck"); // now add the class to down vote button because we are downvoting
 					$("#replyOptionsVoteDownIcon-"+replyId).css("color","#3fbbc0"); //change the icon color
+					$("#replyOptionsLoadingDownText-"+replyId).text("");
 					$("#replyOptionsVoteDownCount-"+replyId).text(parseInt($("#replyOptionsVoteDownCount-"+replyId).text())+1); // and add one to the total of the down voted votes
 				}
 			}
@@ -642,7 +669,9 @@ function voteReplies(replyId,type)
 // End of the function which vote the replies
 
 
+// Beggining of the : Function responsible for following the posts by normal users
 function followPost(postId){
+	$("#followOptionText-"+postId).text("Loading...");
 	event.preventDefault();
 	$.ajax({
 		// the method the data should be sent with
@@ -666,3 +695,37 @@ function followPost(postId){
 		}
 	});
 }
+// End of the : Function responsible for following the posts by normal users
+
+
+// Beggining of the : Function responsible for following the doctors by normal users
+
+function followDoctor(doctorId){
+	$("#followButtonText").text("Loading...");
+	event.preventDefault();
+	$.ajax({
+	// the method the data should be sent with
+	method : "POST",
+
+	// the route to which the data should go
+	url: DoctorFollow,
+
+	// The data which should be send 
+	data: {doctor_id:doctorId, _token:token}
+
+	}).done(function(){
+		if($("#followButtonIcon").hasClass("fa-check")){
+			$("#followButtonIcon").removeClass("fa-check");
+			$("#followButtonIcon").addClass("fa-plus");
+			$("#followButtonText").text("Follow");
+		}else{
+			$("#followButtonIcon").addClass("fa-check");
+			$("#followButtonIcon").removeClass("fa-plus");
+			$("#followButtonText").text("Following");
+		}
+	});
+}
+
+
+// End of the : Function responsible for following the doctors by normal users
+

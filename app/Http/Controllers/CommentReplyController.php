@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Comment;
 class CommentReplyController extends Controller
 {
+    public function __construct(){
+        $this->middleware("auth");
+    }
     /**
      * Display a listing of the resource.
      *

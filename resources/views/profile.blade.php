@@ -30,8 +30,22 @@
 					@if(Auth::user()->username == $user->username)
 						<a href="#" class="btn btn-md editFollowBtn"><i class="fad fa-edit"></i> Edit Profile</a>
 					@else
+					<!-- This if means that show the button when the current user is not a doctor and the the user to which the profile belongs to is a doctor it means only normal users can see this on the profile of only doctros  -->
 						@if($user->owner_type == "App\Doctor" && Auth::user()->owner_type != "App\Doctor")
-							<a href="#" class="btn btn-md editFollowBtn"><i class="fad fa-plus"></i> Follow</a>
+							<a href="javascript:void(0)" id="followButton" onclick="followDoctor('{{$user->owner->id}}')" class="btn btn-md editFollowBtn">
+								<i id="followButtonIcon" @if(Auth::user()->owner->following()->where('doctors.id',$user->owner->id)->first()) class='fad fa-check' 
+								@else 
+									class='fad fa-plus'
+								@endif></i> 
+
+								<span id="followButtonText">
+								@if(Auth::user()->owner->following()->where('doctors.id',$user->owner->id)->first()) 
+									Following
+								@else 
+									Follow
+								@endif
+								</span>
+							</a>
 						@endif
 					@endif
 				@endauth
@@ -455,6 +469,7 @@
 														class = "fas fa-check upVotedCheck"
 													 @endif> </span>
 													<span class="fal fa-arrow-alt-up commentOptionsIcons" id="commentOptionsVoteUpIcon-{{$comment->id}}" {{ Auth::user()->commentsVotes()->where(["type"=>1,"votes.to_type"=>"App\Comment","votes.to_id"=>$comment->id])->first() ? "style=color:#3fbbc0;" : "" }}></span> 
+													<span id="commentOptionsLoadingUpText-{{$comment->id}}"></span>
 													. <span class="commentVotes" id="commentOptionsVoteUpCount-{{$comment->id}}">{{$comment->votedBy()->where("type",1)->count()}}</span>
 												</a>
 											</button>
@@ -465,6 +480,7 @@
 														class = "fas fa-check upVotedCheck"
 													 @endif> </span>
 													<span class="fal fa-arrow-alt-down commentOptionsIcons" id="commentOptionsVoteDownIcon-{{$comment->id}}" {{ Auth::user()->commentsVotes()->where(["type"=>0,"votes.to_type"=>"App\Comment","votes.to_id"=>$comment->id])->first() ? "style=color:#3fbbc0;" : "" }}></span>  
+													<span id="commentOptionsLoadingDownText-{{$comment->id}}"></span>
 													. <span class="commentVotes" id="commentOptionsVoteDownCount-{{$comment->id}}"> {{$comment->votedBy()->where("type",0)->count()}}</span>
 												</a>
 											</button>
@@ -602,6 +618,7 @@
 																			class = "fas fa-check upVotedCheck"
 																		 @endif> </span>
 																		<span class="fal fa-arrow-alt-up commentOptionsIcons" id="replyOptionsVoteUpIcon-{{$reply->id}}" {{ Auth::user()->repliesVotes()->where(["type"=>1,"votes.to_type"=>"App\CommentReply","votes.to_id"=>$reply->id])->first() ? "style=color:#3fbbc0;" : "" }}></span> 
+																		<span id="replyOptionsLoadingUpText-{{$reply->id}}"></span>
 																		<span class="commentVotes" id="replyOptionsVoteUpCount-{{$reply->id}}">{{$reply->votedBy()->where("type",1)->count()}}</span>
 																	</a>
 																</button>
@@ -611,7 +628,8 @@
 																		@if(Auth::user()->repliesVotes()->where(["type"=>0,"votes.to_type"=>"App\CommentReply","votes.to_id"=>$reply->id])->first())
 																			class = "fas fa-check upVotedCheck"
 																		 @endif> </span>
-																		<span class="fal fa-arrow-alt-down commentOptionsIcons" id="replyOptionsVoteDownIcon-{{$reply->id}}" {{ Auth::user()->repliesVotes()->where(["type"=>0,"votes.to_type"=>"App\CommentReply","votes.to_id"=>$reply->id])->first() ? "style=color:#3fbbc0;" : "" }}></span>  
+																		<span class="fal fa-arrow-alt-down commentOptionsIcons" id="replyOptionsVoteDownIcon-{{$reply->id}}" {{ Auth::user()->repliesVotes()->where(["type"=>0,"votes.to_type"=>"App\CommentReply","votes.to_id"=>$reply->id])->first() ? "style=color:#3fbbc0;" : "" }}></span>
+																		<span id="replyOptionsLoadingDownText-{{$reply->id}}"></span>  
 																		<span class="commentVotes" id="replyOptionsVoteDownCount-{{$reply->id}}">{{$reply->votedBy()->where("type",0)->count()}}</span>
 																	</a>
 																</button>
@@ -620,13 +638,13 @@
 																<button class="btn OptionsForGuest" title="The answer was usefull">
 																	<a href="javascript:void(0)">
 																		<span class="fal fa-arrow-alt-up commentOptionsIcons"></span> 
-																		<span class="commentVotes">. 2</span>
+																		<span class="commentVotes">. {{$reply->votedBy()->where("type",1)->count()}}</span>
 																	</a>
 																</button>
 																<button class="btn btn OptionsForGuest" title="The answer was not usefull">
 																	<a href="javascript:void(0)">
 																		<span class="fal fa-arrow-alt-down commentOptionsIcons"></span>  
-																		<span class="commentVotes">. 2</span>
+																		<span class="commentVotes">. {{$reply->votedBy()->where("type",0)->count()}}</span>
 																	</a>
 																</button>
 																@endguest
@@ -728,6 +746,9 @@
 
 		// This route is to add post to favorite
 		var postFavorites = '{{route("postFavorites")}}';
+
+		// This route is to add doctors to follow by normal user
+		var DoctorFollow = '{{route("DoctorFollow")}}';
 	</script>
 
 @endsection

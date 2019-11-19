@@ -47,9 +47,11 @@ Route::resource("/comment","CommentController");
 Route::POST("/comments/vote","CommentController@vote")->name("commentVote");
 
 
-
-
 // Routes for CommentReplies
 Route::resource("/reply","CommentReplyController");
 // This route is responsible for adding and updateing votes to replies using ajax request
 Route::POST("/replies/vote","CommentReplyController@vote")->name("replyVote");
+
+
+// Route for managing normal user following the doctor
+Route::post("/follow/doctors","NormalUserController@DoctorFollow")->name("DoctorFollow");

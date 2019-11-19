@@ -13,4 +13,6 @@ class Follow extends Model
    		table name
    */
    	//protected $table = "follows";
+
+
 }

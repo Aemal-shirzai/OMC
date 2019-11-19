@@ -15,7 +15,7 @@ class ProfileController extends Controller
      */
     public function __construct()
     {
-        #$this->middleware('auth');
+        $this->middleware('auth')->except("index");
     }
 
     /**
@@ -25,10 +25,6 @@ class ProfileController extends Controller
      */
     public function index($username)
     {
-        // return Auth::user()->commentsVotes()->where(["type"=>1,"votes.to_type"=>"App\Comment"])->get();
-
-        // $user = Auth::user();
-        // return $user->owner->favoritePosts()->where("posts.id",1)->first();
 
         $user = Account::where("username",$username)->first();
         if($user){

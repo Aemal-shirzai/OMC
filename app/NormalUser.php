@@ -66,4 +66,9 @@ class NormalUser extends Model
     public function favoritePosts(){
         return $this->morphedByMany(Post::class,"fav","favorites","normalUser_id")->withTimeStamps();
     }
+
+    // Relationship with doctors table based on following them
+    public function following(){
+        return $this->belongsToMany(Doctor::class,"follows","normal_user_id","doctor_id")->withTimeStamps();
+    }
 }

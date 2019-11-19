@@ -206,12 +206,20 @@ div#logodiv{
 	display: none;
 	transition: margin-top 0.5s;
 }
-#AddPost{
-	padding: 5px 15px !important;
-	margin-top: 20px !important; 
+/*.AddPostAskQuestion{
+	padding: 3px 15px !important;
+	margin-top: 21px !important; 
 	margin-left: 10px !important;
 	color: white !important;
 	background-color: #3fbbc0;
+}*/
+.AddPostAskQuestionSmall{
+	padding: 3px 15px !important;
+	margin-top: -4px !important; 
+	margin-left: 10px !important;
+	color: #3fbbc0 !important;
+	font-weight: bold;
+	background-color: white;
 }
 div.sidebar-small
 {	
@@ -384,8 +392,19 @@ div#social-links a:nth-child(5){
 }
 
 
+
+
 @media screen and (max-width:1000px) and (min-width: 641px){
 	div#sidebar-large a:not(:first-child){
+		display: none;
+	}
+	.AddPostAskQuestionSmall{
+		float: left;
+		margin-top: 1px !important;
+		font-size: 11px !important;
+	
+	}
+	span#timeAndDate{
 		display: none;
 	}
 	a#signout{
@@ -412,5 +431,16 @@ div#social-links a:nth-child(5){
 	div#dropdownContent{
 		margin-left: -88px !important;
 	}	
+
 }
 
+@media screen and (max-width: 640px){
+	.AddPostAskQuestionSmall{
+		padding-top: 4px !important;
+		float: left;
+		margin-top: 3px !important;
+		margin-left: -22px !important;
+		font-size: 9px !important;
+	
+	}
+}

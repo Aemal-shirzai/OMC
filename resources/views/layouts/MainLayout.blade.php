@@ -8,13 +8,13 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle.css')}}">
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/main1.css')}}">
 	@elseif(Route::currentRouteName() == 'profile')
 	<!-- Link to local profile style for profile page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle1.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -66,10 +66,19 @@
 			<span class="float-left" id="timeAndDate">{{ Carbon\Carbon::now("Asia/kabul") }}</span>
 			<a href="#" class="far fa-search @auth search-icon1 @endauth " id="search-icon"></a>&nbsp;
 			@auth
+			@can("Doctor_related",Auth::user())
+				<a href="#" class ="AddPostAskQuestionSmall btn btn-sm">Add Post</a>
+			@endcan
+			@can("normalUser_related",Auth::user())
+				<a href="#" class ="AddPostAskQuestionSmall btn btn-sm">Add Question</a>
+			@endcan
+		@endauth
+			@auth
 				<a href="#" onclick="document.getElementById('logoutForm').submit();event.preventDefault()" id="signout" class="login-register">Sign Out</a>
 				{!! Form::open(["method"=>"POST","action"=>"Auth\LoginController@logout","id"=>"logoutForm"]) !!}
 				{!! Form::close() !!}
 			@endauth
+			
 			@guest
 				<a href="{{route('login')}}" class="login-register">Login</a>
 				<a href="{{route('register')}}" class="login-register">Register</a>
@@ -92,11 +101,14 @@
 		<div id="logodiv" class="float-left">
 		<a href="#"><img src="{{asset('images/logo1.png')}}" class="img-fluid"></a>
 		</div>
-		@auth
+		<!-- @auth
 			@can("Doctor_related",Auth::user())
-				<a href="#" id ="AddPost" class="btn btn-sm">Add Post</a>
+				<a href="#" class ="AddPostAskQuestion btn btn-sm">Add Post</a>
 			@endcan
-		@endauth
+			@can("normalUser_related",Auth::user())
+				<a href="#" class ="AddPostAskQuestion btn btn-sm">Ask Question</a>
+			@endcan
+		@endauth -->
 		<a href="javascript:void(0)" class="btn btn-light btn-sm openbtn" onclick="openNav()"><i class="far fa-bars"></i></a>
 		@auth
 		<div class="float-right" id="userProfileParent">
@@ -147,6 +159,7 @@
 			@endif
 		@endif
 	@endauth
+     
 
 	@yield("content")
 
@@ -201,13 +214,13 @@
 <script src="{{ asset('js/share.js') }}"></script>
 
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/MainLayoutScript1.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/MainLayoutScript.js')}}"></script>
 
 
 
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
-<script type="text/javascript" src="{{asset('js/profileScript1.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/profileScript.js')}}"></script>
 @endif
 
 

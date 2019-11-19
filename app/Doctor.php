@@ -60,4 +60,9 @@ class Doctor extends Model
         return $this->hasMany(Post::class);
     }
 
+    // Relationship with normalusers table based on being followed by them
+    public function followed(){
+        return $this->belongsToMany(Doctor::class,"follows","doctor_id","normal_user_id")->withTimeStamps();
+    }
+
 }
