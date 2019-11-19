@@ -15,13 +15,14 @@ class CreateFavoritesTable extends Migration
     {
         Schema::create('favorites', function (Blueprint $table) {
             $table->bigIncrements('id');
-             // for user or doctor
-            $table->string("owner_type");
-            $table->bigInteger("owner_id")->unsigned();
-             // for post and question
+            // Normal Users
+            $table->bigInteger("normalUser_id")->unsigned();
+            // for post and question
             $table->string("fav_type");
             $table->bigInteger("fav_id")->unsigned();
             $table->timestamps();
+
+            $table->foreign("normalUser_id")->references("id")->on("normal_users")->onDelete("cascade")->onUpdate("cascade");
         });
     }
 

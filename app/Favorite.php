@@ -11,7 +11,5 @@ class Favorite extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = [
-    	"fav_type",
-    ];
+
 }

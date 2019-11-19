@@ -84,4 +84,6 @@ class Account extends Authenticatable
     public function repliesVotes(){
         return $this->morphedByMany(CommentReply::class,"to","votes","account_id")->withTimeStamps()->withPivot("type");
     }
+
+    
 }

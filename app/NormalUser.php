@@ -11,6 +11,7 @@ use App\District;
 use App\Phone;
 use App\Photo;
 use App\Comment;
+use App\Post;
 class NormalUser extends Model
 {
     /**
@@ -60,4 +61,9 @@ class NormalUser extends Model
     public function district(){
         return $this->belongsTo(District::class);
     } 
+
+    // Relationship with the post  table based on adding them to favorite 
+    public function favoritePosts(){
+        return $this->morphedByMany(Post::class,"fav","favorites","normalUser_id")->withTimeStamps();
+    }
 }
