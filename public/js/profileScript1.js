@@ -734,10 +734,15 @@ function followDoctor(doctorId,type){
 				$("#followButtonAllIcon-"+doctorId).removeClass("fa-check");
 				$("#followButtonAllIcon-"+doctorId).addClass("fa-plus");
 				$("#followingButtonTextAll-"+doctorId).text("Follow");
+				$("#followingCount").text(parseInt($("#followingCount").text())-1);
+				$("#followingCountSmall").text(parseInt($("#followingCountSmall").text())-1);
 			}else{
 				$("#followButtonAllIcon-"+doctorId).addClass("fa-check");
 				$("#followButtonAllIcon-"+doctorId).removeClass("fa-plus");
+				$("#followingCount").text(parseInt($("#followingCount").text())+1);
 				$("#followingButtonTextAll-"+doctorId).text("Following");
+				$("#followingCountSmall").text(parseInt($("#followingCountSmall").text())+1);
+
 			}
 		}
 	});

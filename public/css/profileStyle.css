@@ -150,6 +150,7 @@ div#postPic span#createTime{
 	display: table;
 	font-size: 10px;
 	margin-top: -4px;
+
 }
 div#postContent{
 	display: block;
@@ -776,13 +777,13 @@ div.followingOwnerImage img{
     border-radius: 50%;
 }
 span.no-image-in-following{
-	padding: 14px 16px;
+	padding: 12px 15px;
     border-radius: 50%;
 	border: 1px solid #3fbbc0;
  	color: #3fbbc0;
-    font-size: 22px;
-    height: 50px;
-    width: 50px;
+    font-size: 19px;
+    height: 45px;
+    width: 45px;
 }
 div.followingInfo{
 	display: inline-block;
@@ -795,11 +796,21 @@ div.followingInfo{
 	border: 1px solid #c9dbdc;
 	font-weight: bold;
 	font-size: 12px;
+	margin-top:-22px; 
 	transition: 0.5s;
 }
 .followingButtonAll:hover{
 	background-color: #3fbbc0;
 	color: white;
+}
+.followedBy{
+	color: #828282;
+	display: table;
+	font-size: 10px;
+	margin-top: -3px;
+}
+span#countFollowingSmall{
+	display: none;
 }
 /* End Following part for normal user */
 
@@ -877,12 +888,37 @@ div.followingInfo{
 	/* End of the form of replies */
 
 /* Beggining of the showing all replies */
-div.allRepliessContent p{
-	padding-right: 1px; 
-	margin-left: 10px;
-}
+	div.allRepliessContent p{
+		padding-right: 1px; 
+		margin-left: 10px;
+	}
 /* End of the showing all replies */
+
+/* Beggining Following part for normal user */
+div#followingParent{
+	width: 63%;
+}
+div.followingOwnerImage img{
+	height: 45px;
+    width: 45px;
+}
+span.no-image-in-following{
+	padding: 12px 13px;
+    font-size: 18px;
+    height: 42px;
+    width: 42px;
+}
+.followingButtonAll{
+	font-size: 10px;
+	margin-top:-31px; 
+}
+.followedBy{
+	font-size: 9px;	
+}
+/* End Following part for normal user */
 	
+
+
 }
 
 /* below ipon pro //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
@@ -1056,7 +1092,35 @@ div.allRepliessContent p{
 		left: 8px;
 	}
 /* End of the form of replies */
-	 
+
+/* Beggining Following part for normal user */
+div#followingParent{
+	width: 80%;
+}
+div.followingOwnerImage{
+	width: 13%;
+}
+div.followingOwnerImage img{
+	height: 45px;
+    width: 45px;
+}
+span.no-image-in-following{
+	padding: 11px 13px;
+    height: 42px;
+    width: 42px;
+}
+.followingButtonAll{
+	font-size: 10px;
+	margin-top:-27px; 
+}
+.followedBy{
+	color: #828282;
+	display: table;
+	font-size: 9px;
+	margin-top: -3px;
+	
+}
+/* End Following part for normal user */	 
 
 
 }
@@ -1397,12 +1461,53 @@ div.allRepliessContent p{
 
 /* End of the showing all replies */
 
-
-
 *::-webkit-scrollbar {
 	width: 1px;
 }
- 
+
+
+/* Beggining Following part for normal user */
+div#followingParent{
+	width: 100%;
+	padding: 6px 2px;
+}
+div.followingOwnerImage{
+	width: 15%;
+}
+div.followingOwnerImage img{
+	height: 40px;
+    width: 40px;
+}
+span.no-image-in-following{
+	padding: 9px 12px;
+    font-size: 17px;
+    height: 37px;
+    width: 37px;
+}
+div.followingInfo{
+	width: 83%;
+	margin-top: 12px !important;
+}
+div.followingInfo span{
+	margin-left: 5px
+}
+.name{
+	font-size: 10px;
+}
+.followingButtonAll{
+	font-size: 8px;
+	margin-top:-27px; 
+}
+.followedBy{
+	font-size: 7px;
+}
+span#countFollowingSmall{
+	display:inline-block;
+	font-size: 10px;
+	color: #828282;
+	font-weight: bold;
+}
+/* End Following part for normal user */ 
 
 
 } 

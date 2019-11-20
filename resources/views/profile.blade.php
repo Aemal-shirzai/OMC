@@ -124,7 +124,7 @@
 					<button class="tabLinks" onclick="openContent(event,'following')">
 						<span class="fad fa-users btn-icon-large"></span> 
 						<span class="fal fa-users btn-icon"></span> 
-						<span class="btnText">Following {{Auth::user()->owner->following()->count()}}</span>
+						<span class="btnText">Following <span id="followingCount">{{Auth::user()->owner->following()->count()}}</span></span>
 					</button>
 					<button class="tabLinks" onclick="openContent(event,'fullInfoUser')">
 						<span class="fad fa-info-square btn-icon-large"></span> 
@@ -740,6 +740,7 @@
 
 
 	<div id="following" class="tab-content">
+		<span id="countFollowingSmall">Following: <span id="followingCountSmall">{{Auth::user()->owner->following()->count()}}</span></span>
 		<div id="followingParent" style=""> 
 			@if(Auth::user()->owner->following()->count() > 0)
 				@foreach(Auth::user()->owner->following as $following)
@@ -750,13 +751,15 @@
 							@else
 								<span class="fal fa-user no-image-in-following"></span>
 							@endif
+
 						</div>
 
 						<div class="followingInfo" id="followingInfo-{{$following->id}}">
-							<span>{{$following->fullName}}</span>
+							<a href="{{route('profile',$following->account->username)}}" class="name"><span>{{$following->fullName}}</span></a>
+							<span class="followedBy">Followed By you and {{$following->followed()->count()-1}} others</span>
 							<a href="javascript:void(0)" class="btn btn-sm float-right followingButtonAll" class="" id="followingButtonAll-{{$following->id}}" onclick="followDoctor('{{$following->id}}','All')">
 								<i class="fad fa-check" id="followButtonAllIcon-{{$following->id}}"></i>
-								<span id="followingButtonTextAll-{{$following->id}}">Following</span>
+								<span class="followingButtonTextAll" id="followingButtonTextAll-{{$following->id}}">Following</span>
 							</a>
 						</div>
 					</div>
