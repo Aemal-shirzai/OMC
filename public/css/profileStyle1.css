@@ -1,4 +1,4 @@
-div#confirmationBox{
+div.confirmationBox{
 	width: 273px;
 	height: 160px;
 	background: white;
@@ -7,12 +7,12 @@ div#confirmationBox{
 	position: fixed;
 	z-index: 1;
 	top:42%;
-	left: 34%;
+	left: 39%;
 	padding: 20px 20px;
 	overflow: hidden;
 	display: none;
 }
-div#confirmationBox a{
+div.confirmationBox a{
 	margin: 37px 25px;
 }
 
@@ -747,7 +747,61 @@ textarea::-webkit-scrollbar {
 *::-webkit-scrollbar-thumb {
   background-color:gray !important;
   outline: 1px solid slategrey !important;
+} 
+
+
+
+/* Beggining Following part for normal user */
+div#followingParent{
+	background: white;
+	border-top: 1px solid #efefef;
+	width: 60%;
+	overflow: hidden;
+	margin: 0 auto;
+	padding: 13px 13px;
 }
+div.followingContent{
+	overflow: hidden;
+}
+div.followingOwnerImage{
+	padding: 12px 5px;
+	float: left;
+	overflow: hidden;
+	width: 12%;
+	display: inline-block;
+}
+div.followingOwnerImage img{
+	height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+span.no-image-in-following{
+	padding: 14px 16px;
+    border-radius: 50%;
+	border: 1px solid #3fbbc0;
+ 	color: #3fbbc0;
+    font-size: 22px;
+    height: 50px;
+    width: 50px;
+}
+div.followingInfo{
+	display: inline-block;
+	width: 80%;
+	font-weight: bold;
+	font-size: 13px;
+	margin-top: 20px !important;
+}
+.followingButtonAll{
+	border: 1px solid #c9dbdc;
+	font-weight: bold;
+	font-size: 12px;
+	transition: 0.5s;
+}
+.followingButtonAll:hover{
+	background-color: #3fbbc0;
+	color: white;
+}
+/* End Following part for normal user */
 
 /* iphod pro /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 1200px) and (min-width: 1024px){
@@ -1008,6 +1062,19 @@ div.allRepliessContent p{
 }
 /* 640  - 769 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 @media screen and (max-width: 767px){
+	div.confirmationBox{
+		width: 217px;
+	    height: 116px;
+	    top: 42%;
+	    left: 21%;
+	    padding: 20px 20px;
+	    font-size: 10px;
+	}
+	div.confirmationBox a{
+		    margin: 23px 19px;
+    		font-size: 10px;
+	}
+
 	#tags{
 		display: none;
 	}

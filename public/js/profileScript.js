@@ -700,8 +700,13 @@ function followPost(postId){
 
 // Beggining of the : Function responsible for following the doctors by normal users
 
-function followDoctor(doctorId){
-	$("#followButtonText").text("Loading...");
+function followDoctor(doctorId,type){
+	if(type == "one"){
+		$("#followButtonText").text("Loading...");
+		
+	}else if(type == "All"){
+		$("#followingButtonTextAll-"+doctorId).text("Loading...");
+	}
 	event.preventDefault();
 	$.ajax({
 	// the method the data should be sent with
@@ -714,14 +719,26 @@ function followDoctor(doctorId){
 	data: {doctor_id:doctorId, _token:token}
 
 	}).done(function(){
-		if($("#followButtonIcon").hasClass("fa-check")){
-			$("#followButtonIcon").removeClass("fa-check");
-			$("#followButtonIcon").addClass("fa-plus");
-			$("#followButtonText").text("Follow");
-		}else{
-			$("#followButtonIcon").addClass("fa-check");
-			$("#followButtonIcon").removeClass("fa-plus");
-			$("#followButtonText").text("Following");
+		if(type == "one"){
+			if($("#followButtonIcon").hasClass("fa-check")){
+				$("#followButtonIcon").removeClass("fa-check");
+				$("#followButtonIcon").addClass("fa-plus");
+				$("#followButtonText").text("Follow");
+			}else{
+				$("#followButtonIcon").addClass("fa-check");
+				$("#followButtonIcon").removeClass("fa-plus");
+				$("#followButtonText").text("Following");
+			}
+		}else if(type == "All"){
+			if($("#followButtonAllIcon-"+doctorId).hasClass("fa-check")){
+				$("#followButtonAllIcon-"+doctorId).removeClass("fa-check");
+				$("#followButtonAllIcon-"+doctorId).addClass("fa-plus");
+				$("#followingButtonTextAll-"+doctorId).text("Follow");
+			}else{
+				$("#followButtonAllIcon-"+doctorId).addClass("fa-check");
+				$("#followButtonAllIcon-"+doctorId).removeClass("fa-plus");
+				$("#followingButtonTextAll-"+doctorId).text("Following");
+			}
 		}
 	});
 }
@@ -731,16 +748,21 @@ function followDoctor(doctorId){
 
 
 // Beggging of the function which make sure user delete the comment
-function deleteCommentPermission(commentId, postId){
-	// var sure = $("#confirmationBox").fadeIn();
-	// $("#profileParent").css("opacity","0.4");
-	var sure = window.confirm("Are you sure?");
-	if(sure){
-		deleteComments(commentId,postId);
-	}
-}
-// End of the function which make sure user delete the comment
+function deleteCommentPermission(commentId, type){
 
+	$("#commentConfirmationBox-"+commentId).fadeIn();
+	// $("#profileParent").css("opacity","0.4");
+	// $("#confirmationBox-"+commentId).css("opacity","1");
+	// var sure = window.confirm("Are you sure?");
+	// if(sure){
+	// 	deleteComments(commentId,postId);
+	// }
+}
+
+// End of the function which make sure user delete the comment
+function closePermissionBox(commentId){
+	$("#commentConfirmationBox-"+commentId).fadeOut();
+}
 // Beggining of the function which delete comment
 
 function deleteComments(commentId,postId){
@@ -755,6 +777,8 @@ function deleteComments(commentId,postId){
 		$("#allCommentsContent-"+commentId).slideUp('fast');
 		$("#allcommentsOwnerImage-"+commentId).slideUp('fast');
 		$("#commentOptions-"+commentId).hide();
+		$("#allReplies-"+commentId).slideUp("fast");
+
 		$("#commentsCount-"+postId).text(parseInt($("#commentsCount-"+postId).text())-1);
 		$("#commentcounts1-"+postId).text(parseInt($("#commentcounts1-"+postId).text())-1);
 		$("#commentDeleteButton-"+commentId).text(" Delete");
@@ -767,15 +791,15 @@ function deleteComments(commentId,postId){
 
 
 // Beggging of the function which make sure user delete the reply
-function deleteReplyPermission(replyId, commentId){
-	// var sure = $("#confirmationBox").fadeIn();
-	// $("#profileParent").css("opacity","0.4");
-	var sure = window.confirm("Are you sure?");
-	if(sure){
-		deleteReplies(replyId,commentId);
-	}
+function deleteReplyPermission(replyId){
+ $("#replyConfirmationBox-"+replyId).fadeIn();	
 }
 // End of the function which make sure user delete the reply
+
+function closeDeleteReplyPermission(replyId){
+ $("#replyConfirmationBox-"+replyId).fadeOut();
+}
+
 
 // Beggining of the function which delete replies
 function deleteReplies(replyId,commentId){

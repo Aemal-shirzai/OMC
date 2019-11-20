@@ -26,6 +26,14 @@ class ProfileController extends Controller
     public function index($username)
     {
 
+        // if(Auth::user()->owner_type == "App\NormalUser"){
+        //      $following = Auth::user()->owner->following;
+        //      foreach($following as $f){
+        //         if($f->account->photos()->where("status",1)->first())
+        //             echo $f->account->photos()->where("status",1)->first()->path;  
+        //         }
+        //      }
+        // }
         $user = Account::where("username",$username)->first();
         if($user){
             return view('profile',compact("user"));

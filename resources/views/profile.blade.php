@@ -5,13 +5,6 @@
 
 @endsection
 @section("content")
-
-<div id="confirmationBox">
-	<div id="text">Are You Sure You Want To Delete?</div>
-	<div id="text"><small>Remember: There is no comeback</small></div>
-	<a href="javascript:void(0)" onclick="return true;" class="btn btn-danger btn-sm">Delete</a>
-	<a href="javascript:void(0)" onclick="return false;" class="btn btn-light btn-sm">Cancel</a>
-</div>
 <div id="profileParent" style="position: relative;">
 	<div style="margin-bottom: 104px;">
 	<div class="container" id="profileHeading">
@@ -39,7 +32,7 @@
 					@else
 					<!-- This if means that show the button when the current user is not a doctor and the the user to which the profile belongs to is a doctor it means only normal users can see this on the profile of only doctros  -->
 						@if($user->owner_type == "App\Doctor" && Auth::user()->owner_type != "App\Doctor")
-							<a href="javascript:void(0)" id="followButton" onclick="followDoctor('{{$user->owner->id}}')" class="btn btn-md editFollowBtn">
+							<a href="javascript:void(0)" id="followButton" onclick="followDoctor('{{$user->owner->id}}','one')" class="btn btn-md editFollowBtn">
 								<i id="followButtonIcon" @if(Auth::user()->owner->following()->where('doctors.id',$user->owner->id)->first()) class='fad fa-check' 
 								@else 
 									class='fad fa-plus'
@@ -96,7 +89,7 @@
 <div id="pofileContentPart" class="container">
 	
 		<div id="tabs">
-				@if($user->owner_type == 'App\Doctor')
+				@if($user->owner_type == "App\Doctor")
 					<button class="tabLinks active" onclick="openContent(event,'posts')">
 						<span class="fal fa-th btn-icon-large"></span> 
 						<span class="fal fa-th btn-icon"></span> 
@@ -131,7 +124,7 @@
 					<button class="tabLinks" onclick="openContent(event,'following')">
 						<span class="fad fa-users btn-icon-large"></span> 
 						<span class="fal fa-users btn-icon"></span> 
-						<span class="btnText">Following</span>
+						<span class="btnText">Following {{Auth::user()->owner->following()->count()}}</span>
 					</button>
 					<button class="tabLinks" onclick="openContent(event,'fullInfoUser')">
 						<span class="fad fa-info-square btn-icon-large"></span> 
@@ -505,13 +498,21 @@
 													. <span class="commentVotes" id="commentOptionsVoteDownCount-{{$comment->id}}"> {{$comment->votedBy()->where("type",0)->count()}}</span>
 												</a>
 											</button>
+											
 
 											<!-- Beggining of: Comment managing options delete and update -->
 											@if(Auth::user()->id === $comment->comment_owner->id)
 											<button class=" commentManageOptions fal fa-edit float-right"> Edit</button>
-											<button class="commentManageOptions fal fa-trash float-right" id="commentDeleteButton-{{$comment->id}}" onclick="deleteCommentPermission('{{$comment->id}}','{{$post->id}}')"> Delete</button>
+											<button class="commentManageOptions fal fa-trash float-right" id="commentDeleteButton-{{$comment->id}}" onclick="deleteCommentPermission('{{$comment->id}}')"> Delete</button>
 											@endif
 											<!-- End of Comment managing options delete and update -->
+
+											<div class="confirmationBox" id="commentConfirmationBox-{{$comment->id}}">
+												<div id="text">Are You Sure You Want To Delete?</div>
+												<div id="text"><small>Remember: There is no comeback</small></div>
+												<a href="javascript:void(0)" onclick="deleteComments('{{$comment->id}}','{{$post->id}}')" class="btn btn-danger btn-sm">Delete</a>
+												<a href="javascript:void(0)" onclick="closePermissionBox('{{$comment->id}}')" class="btn btn-light btn-sm">Cancel</a>
+											</div>
 
 											@endauth
 											@guest
@@ -668,9 +669,17 @@
 															<!-- Beggining of: Comment managing options delete and update -->
 																@if(Auth::user()->id === $reply->owner->id)
 																<button class=" commentManageOptions fal fa-edit float-right"> Edit</button>
-																<button class="commentManageOptions fal fa-trash float-right" id="deleteReplyButton-{{$reply->id}}" onclick="deleteReplyPermission('{{$reply->id}}','{{$comment->id}}')"> Delete</button>
+																<button class="commentManageOptions fal fa-trash float-right" id="deleteReplyButton-{{$reply->id}}" onclick="deleteReplyPermission('{{$reply->id}}')"> Delete</button>
 																@endif
 															<!-- End of Comment managing options delete and update -->
+
+															<div class="confirmationBox" id="replyConfirmationBox-{{$reply->id}}">
+																<div id="text">Are You Sure You Want To Delete?</div>
+																<div id="text"><small>Remember: There is no comeback</small></div>
+																<a href="javascript:void(0)" onclick="deleteReplies('{{$reply->id}}','{{$comment->id}}')" class="btn btn-danger btn-sm">Delete</a>
+																<a href="javascript:void(0)" onclick="closeDeleteReplyPermission('{{$reply->id}}')" class="btn btn-light btn-sm">Cancel</a>
+														</div>
+
 
 															@endauth
 															@guest
@@ -728,12 +737,38 @@
 	<div id="questions" class="tab-content">
 		This is questions parts
 	</div>
+
+
 	<div id="following" class="tab-content">
-		Thisis following part
+		<div id="followingParent" style=""> 
+			@if(Auth::user()->owner->following()->count() > 0)
+				@foreach(Auth::user()->owner->following as $following)
+					<div class="followingContent" id="followingContent-{{$following->id}}">
+						<div class="followingOwnerImage" id="followingOwnerImage-{{$following->id}}">
+							@if($following->account->photos()->where('status',1)->first())
+								<img src="/storage/images/doctors/{{$following->account->photos()->where('status',1)->first()->path}}" class="img-fluid">
+							@else
+								<span class="fal fa-user no-image-in-following"></span>
+							@endif
+						</div>
+
+						<div class="followingInfo" id="followingInfo-{{$following->id}}">
+							<span>{{$following->fullName}}</span>
+							<a href="javascript:void(0)" class="btn btn-sm float-right followingButtonAll" class="" id="followingButtonAll-{{$following->id}}" onclick="followDoctor('{{$following->id}}','All')">
+								<i class="fad fa-check" id="followButtonAllIcon-{{$following->id}}"></i>
+								<span id="followingButtonTextAll-{{$following->id}}">Following</span>
+							</a>
+						</div>
+					</div>
+					<div class="dropdown-divider"></div>
+				@endforeach				
+			@endif
+
+		</div>
 	</div>
-	<div id="fullInfoUser" class="tab-content"> 
-		This is full info part user
-	</div>
+
+
+	<div id="fullInfoUser" class="tab-content">This is full info part user</div>
 @endif
 </div>
 
