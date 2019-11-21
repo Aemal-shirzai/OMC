@@ -453,6 +453,7 @@ if(txt.trim().length > 0 ){
 
  // Call the function of which chagne the pososition of tags div in profile page 
 window.onscroll = function() {
+	changeMenuSize();
 	showToButton();
 	changeTagsPosition();
 };	

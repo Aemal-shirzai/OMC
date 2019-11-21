@@ -3,6 +3,7 @@ window.onscroll = function() {
 	changeMenuSize();
 	showToButton();
 };
+alert("donefsafas");
 // Beggining of the function which change the size of the search box , largenavbar and the header when scroll
 function changeMenuSize(){
 	if(document.body.scrollTop > 10 || document.documentElement.scrollTop > 10){
@@ -14,6 +15,7 @@ function changeMenuSize(){
 		document.getElementById("search-box").style.height= "36px";
 		document.getElementById("search-close-button").style.height= "36px";
 		document.getElementById("search-close-button").style.paddingTop= "5px";
+		$(".AddPostAskQuestionSmall").attr("style","margin-top: -10px !important");
 	}else{
 		document.getElementById("header-div").style.padding = "10px";
 		document.getElementById("sidebar-large").style.marginTop = "-2px";
@@ -22,6 +24,7 @@ function changeMenuSize(){
 		document.getElementById("search-box").style.height= "46px";
 		document.getElementById("search-close-button").style.height= "46px";
 		document.getElementById("search-close-button").style.paddingTop= "9px";
+		$(".AddPostAskQuestionSmall").attr("style","margin-top: -4px !important");
 	}
 }
 // End of the function which change the size of the search box , largenavbar and the header

@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle111.css')}}">
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/main1.css')}}">
@@ -67,10 +67,10 @@
 			<a href="#" class="far fa-search @auth search-icon1 @endauth " id="search-icon"></a>&nbsp;
 			@auth
 			@can("Doctor_related",Auth::user())
-				<a href="#" class ="AddPostAskQuestionSmall btn btn-sm">Add Post</a>
+				<a href="#" class ="AddPostAskQuestionSmall btn btn-sm" id="addPost">Add Post</a>
 			@endcan
 			@can("normalUser_related",Auth::user())
-				<a href="#" class ="AddPostAskQuestionSmall btn btn-sm">Add Question</a>
+				<a href="#" class ="AddPostAskQuestionSmall btn btn-sm" id="addQustion">Add Question</a>
 			@endcan
 		@endauth
 			@auth
@@ -215,7 +215,7 @@
 <script src="{{ asset('js/share.js') }}"></script>
 
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/MainLayoutScript1.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/MainLayoutScript222.js')}}"></script>
 
 
 
