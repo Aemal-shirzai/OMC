@@ -5,7 +5,7 @@ window.onscroll = function() {
 };
 // Beggining of the function which change the size of the search box , largenavbar and the header when scroll
 function changeMenuSize(){
-	if(document.documentElement.scrollTop > 10){
+	if(document.body.scrollTop > 10 || document.documentElement.scrollTop > 10){
 		document.getElementById("header-div").style.padding = "7px";
 		document.getElementById("sidebar-large").style.marginTop = "-12px";
 		document.getElementById("sidebar-large").style.height = "65x";
@@ -27,7 +27,7 @@ function changeMenuSize(){
 // End of the function which change the size of the search box , largenavbar and the header
 
 function showToButton(){
-	if(document.documentElement.scrollTop > 400){
+	if(document.body.scrollTop > 400 || document.documentElement.scrollTop > 400){
 		document.getElementById("topButton").style.display = "inline-block";
 	}else{
 		document.getElementById("topButton").style.display = "none";

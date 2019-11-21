@@ -458,7 +458,7 @@ window.onscroll = function() {
 };	
 // Beggining of the function which change the pososition of tags div in profile page 
 function changeTagsPosition(){
-	if(document.documentElement.scrollTop > 360){
+	if(document.body.scrollTop > 360 || document.documentElement.scrollTop > 360){
 	document.getElementById('tags').setAttribute("style","position:fixed; right:130px;top: 130px; padding:12px 15px; transition: 0.5s; width:200px;");
 	}else{
 		document.getElementById('tags').setAttribute("style","float: right; position: relative;right: 130px; width:200px; top: 130px;padding: 12px 15px; transition: 0.5s;")
