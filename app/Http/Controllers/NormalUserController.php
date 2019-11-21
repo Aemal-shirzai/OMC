@@ -114,4 +114,31 @@ class NormalUserController extends Controller
     }
 // End of the function responsible for managing normal user following doctors 
 
+// Beggining of the function responsible for removing followers by doctors
+    public function removeFollower(Request $request){
+
+        //grab follwer (Normal user)
+        $follower = NormalUser::findOrFail($request->follower_id);
+
+        // current user
+        $user = Auth::user();
+
+        // The current user should be only Dcoor
+        if($user->owner_type != "App\Doctor"){
+            ///// mssage here will add later on some error return
+        }
+
+
+        // if the that user is in the list of the current authinticated doctor follower list
+        if($user->owner->followed()->where("normal_users.id",$request->follower_id)->first()){
+            // Then remove that user from the current doctor follwing list
+            $user->owner->followed()->detach($follower);
+        }else{
+            /// if not in the list then return some error message
+        }
+    }
+// End of the function responsible for removing followers by doctors
+
+
+
 } // End of controller

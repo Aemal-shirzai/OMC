@@ -41,7 +41,7 @@ class AccountPolicy
 
     public function view(Account $user, Account $account)
     {
-        //
+        return $user->username === $account->username;
     }
 
     /**

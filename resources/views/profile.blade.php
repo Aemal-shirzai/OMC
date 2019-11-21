@@ -103,7 +103,7 @@
 					<button class="tabLinks" onclick="openContent(event,'followers')">
 						<span class="fad fa-users btn-icon-large"></span> 
 						<span class="fal fa-users btn-icon"></span> 
-						<span class="btnText">Followers</span>
+						<span class="btnText">Followers <span id="followerCount">{{$user->owner->followed()->count()}}</span>
 					</button>
 					<button class="tabLinks" onclick="openContent(event,'fullInfo')">
 						<span class="fad fa-info-square btn-icon-large"></span> 
@@ -124,7 +124,7 @@
 					<button class="tabLinks" onclick="openContent(event,'following')">
 						<span class="fad fa-users btn-icon-large"></span> 
 						<span class="fal fa-users btn-icon"></span> 
-						<span class="btnText">Following <span id="followingCount">{{Auth::user()->owner->following()->count()}}</span></span>
+						<span class="btnText">Following <span id="followingCount">{{$user->owner->following()->count()}}</span></span>
 					</button>
 					<button class="tabLinks" onclick="openContent(event,'fullInfoUser')">
 						<span class="fad fa-info-square btn-icon-large"></span> 
@@ -724,9 +724,47 @@
 	<div id="achievements" class="tab-content" >
 		This is achivements parts
 	</div>
+
 	<div id="followers" class="tab-content">
-		Thisis followrs part
+		<span id="countFollowingSmall">Followers: <span id="followerCountSmall">{{$user->owner->followed()->count()}}</span></span>
+		<div id="followingParent">
+			@if($user->owner->followed()->count() > 0)
+				@foreach($user->owner->followed as $follower)
+					<div class="followingContent" id="followerContent-{{$follower->id}}">
+						<div class="followingOwnerImage" id="followerOwnerImage-{{$follower->id}}">
+							@if($follower->account->photos()->where('status',1)->first())
+								<img src="/storage/images/normalUsers/{{$follower->account->photos()->where('status',1)->first()->path}}" class="img-fluid">
+							@else
+								<span class="fal fa-user no-image-in-following"></span>
+							@endif
+
+						</div>
+
+						<div class="followingInfo" id="followerInfo-{{$follower->id}}">
+							<a href="{{route('profile',$follower->account->username)}}" class="name"><span>{{$follower->fullName}}</span></a>
+							<span class="followedBy">Following {{$follower->following()->count()}}</span>
+
+							@can("view",$user)
+							<a href="javascript:void(0)" class="btn btn-sm float-right followingButtonAll" class="" id="followerButton-{{$follower->id}}" onclick="deleteFollowerConfirmation('{{$follower->id}}')">
+								<i class="fal fa-times" id="followerButtonIcon-{{$follower->id}}"></i>
+								<span class="followingButtonTextAll" id="followerButton-{{$follower->id}}">Remove</span>
+							</a>
+							@endcan
+
+						</div>
+						<div class="confirmationBox" id="followerConfirmationBox-{{$follower->id}}">
+							<div id="text">Are You Sure To Remove?</div>
+							<div id="text"><small>Remember: There is no comeback</small></div>
+							<a href="javascript:void(0)" onclick="removeFollowers('{{$follower->id}}')" class="btn btn-danger btn-sm">Delete</a>
+							<a href="javascript:void(0)" onclick="followerClosePermissionBox('{{$follower->id}}')" class="btn btn-light btn-sm">Cancel</a>
+						</div>
+						<div class="dropdown-divider"></div>
+					</div>
+				@endforeach				
+			@endif
+		</div>
 	</div>
+
 	<div id="fullInfo" class="tab-content"> 
 		This is full info part
 	</div>
@@ -740,10 +778,10 @@
 
 
 	<div id="following" class="tab-content">
-		<span id="countFollowingSmall">Following: <span id="followingCountSmall">{{Auth::user()->owner->following()->count()}}</span></span>
+		<span id="countFollowingSmall">Following: <span id="followingCountSmall">{{$user->owner->following()->count()}}</span></span>
 		<div id="followingParent" style=""> 
-			@if(Auth::user()->owner->following()->count() > 0)
-				@foreach(Auth::user()->owner->following as $following)
+			@if($user->owner->following()->count() > 0)
+				@foreach($user->owner->following as $following)
 					<div class="followingContent" id="followingContent-{{$following->id}}">
 						<div class="followingOwnerImage" id="followingOwnerImage-{{$following->id}}">
 							@if($following->account->photos()->where('status',1)->first())
@@ -756,11 +794,17 @@
 
 						<div class="followingInfo" id="followingInfo-{{$following->id}}">
 							<a href="{{route('profile',$following->account->username)}}" class="name"><span>{{$following->fullName}}</span></a>
-							<span class="followedBy">Followed By you and {{$following->followed()->count()-1}} others</span>
+							<span class="followedBy">Followed By {{$following->followed()->count()}}</span>
+							
+							
+							@can("view",$user)
 							<a href="javascript:void(0)" class="btn btn-sm float-right followingButtonAll" class="" id="followingButtonAll-{{$following->id}}" onclick="followDoctor('{{$following->id}}','All')">
 								<i class="fad fa-check" id="followButtonAllIcon-{{$following->id}}"></i>
 								<span class="followingButtonTextAll" id="followingButtonTextAll-{{$following->id}}">Following</span>
 							</a>
+							@endcan
+							
+
 						</div>
 					</div>
 					<div class="dropdown-divider"></div>
@@ -824,14 +868,17 @@
 		// This route is to add post to favorite
 		var postFavorites = '{{route("postFavorites")}}';
 
-		// This route is to add doctors to follow by normal user
-		var DoctorFollow = '{{route("DoctorFollow")}}';
-
 		// This route is to delete comments
 		var deleteComment = '{{route("deleteComment")}}';
 
 		// This route is to delete comments
 		var deleteReply = '{{route("deleteReply")}}';
+
+		// This route is to add and remove doctors to follow by normal user
+		var DoctorFollow = '{{route("DoctorFollow")}}';
+
+		// This route is to rmove normalusers from follower list by doctors
+		var removeFollower = '{{route("removeFollower")}}';
 	</script>
 
 @endsection

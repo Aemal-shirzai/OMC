@@ -59,3 +59,5 @@ Route::DELETE("/replies/delete","CommentReplyController@delete")->name("deleteRe
 
 // Route for managing normal user following the doctor
 Route::post("/follow/doctors","NormalUserController@DoctorFollow")->name("DoctorFollow");
+// Route for removing followers by doctors
+Route::post("/remove/follower/","NormalUserController@removeFollower")->name("removeFollower");

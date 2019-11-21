@@ -11,7 +11,7 @@ use App\District;
 use App\Photo;
 use App\Post;
 use App\Comment;
-
+use App\NormalUser;
 class Doctor extends Model
 {
     /**
@@ -62,7 +62,7 @@ class Doctor extends Model
 
     // Relationship with normalusers table based on being followed by them
     public function followed(){
-        return $this->belongsToMany(Doctor::class,"follows","doctor_id","normal_user_id")->withTimeStamps();
+        return $this->belongsToMany(NormalUser::class,"follows","doctor_id","normal_user_id")->withTimeStamps();
     }
 
 }

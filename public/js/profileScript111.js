@@ -753,15 +753,8 @@ function followDoctor(doctorId,type){
 
 
 // Beggging of the function which make sure user delete the comment
-function deleteCommentPermission(commentId, type){
-
+function deleteCommentPermission(commentId){
 	$("#commentConfirmationBox-"+commentId).fadeIn();
-	// $("#profileParent").css("opacity","0.4");
-	// $("#confirmationBox-"+commentId).css("opacity","1");
-	// var sure = window.confirm("Are you sure?");
-	// if(sure){
-	// 	deleteComments(commentId,postId);
-	// }
 }
 
 // End of the function which make sure user delete the comment
@@ -771,7 +764,7 @@ function closePermissionBox(commentId){
 // Beggining of the function which delete comment
 
 function deleteComments(commentId,postId){
-	
+	event.preventDefault();
 	$("#commentDeleteButton-"+commentId).text(" Deleting...");
 	$("#commentDeleteButton-"+commentId).css("color","red");
 	$.ajax({
@@ -805,9 +798,9 @@ function closeDeleteReplyPermission(replyId){
  $("#replyConfirmationBox-"+replyId).fadeOut();
 }
 
-
 // Beggining of the function which delete replies
 function deleteReplies(replyId,commentId){
+	event.preventDefault();
 	$("#deleteReplyButton-"+replyId).text(" Deleting...");
 	$("#deleteReplyButton-"+replyId).css("color","red");
 	$.ajax({
@@ -824,5 +817,35 @@ function deleteReplies(replyId,commentId){
 		$("#deleteReplyButton-"+replyId).css("color","#666");
 	});
 }
-// End of the function which delete replies
+// End of the function which delete replies-count1
 
+
+
+// removing followers confirmation box 
+function deleteFollowerConfirmation(followerId){
+ $("#followerConfirmationBox-"+followerId).fadeIn();
+}
+function followerClosePermissionBox(followerId){
+ $("#followerConfirmationBox-"+followerId).fadeOut();
+}
+// removing followers confirmation box
+
+
+// Beggining of the function responsible for removing followers by doctors
+function removeFollowers(userId){
+	$("#followerConfirmationBox-"+userId).fadeOut("fast");
+	$("#followerButton-"+userId).text("Removing...");
+	$("#followerButton-"+userId).css("color","red");
+	event.preventDefault();
+
+	$.ajax({
+		method: "POST",
+		url: removeFollower,
+		data:{follower_id:userId, _token:token}
+	}).done(function(){
+		$("#followerContent-"+userId).slideUp();
+		$("#followerCount").text(parseInt($("#followerCount").text())-1);
+		$("#followerCountSmall").text(parseInt($("#followerCountSmall").text())-1);
+	});
+}
+// End of the function responsible for removing followers by doctors
