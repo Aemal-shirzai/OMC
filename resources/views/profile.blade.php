@@ -755,7 +755,7 @@
 						<div class="confirmationBox" id="followerConfirmationBox-{{$follower->id}}">
 							<div id="text">Are You Sure To Remove?</div>
 							<div id="text"><small>Remember: There is no comeback</small></div>
-							<a href="javascript:void(0)" onclick="removeFollowers('{{$follower->id}}')" class="btn btn-danger btn-sm">Delete</a>
+							<a href="javascript:void(0)" onclick="removeFollowers('{{$follower->id}}')" class="btn btn-danger btn-sm">Remove</a>
 							<a href="javascript:void(0)" onclick="followerClosePermissionBox('{{$follower->id}}')" class="btn btn-light btn-sm">Cancel</a>
 						</div>
 						<div class="dropdown-divider"></div>

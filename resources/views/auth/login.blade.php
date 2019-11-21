@@ -19,7 +19,7 @@
         </div>
         <div class="form-element-parent">
             {!! Form::password("password",["id"=>"password","class"=>"form-control form_element input-in-login" ,"placeholder"=>"Password","onkeyup"=>"enableButton()"]) !!}
-            <i class="fad fa-lock form-element-icon"></i>
+            <i class="fad fa-key form-element-icon"></i>
             <p id="loginPasswordError"></p>
         </div>
         {!! Form::checkbox("remember",null,null,["style"=>"clear:both"]) !!} 

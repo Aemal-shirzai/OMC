@@ -15,7 +15,9 @@ div.confirmationBox{
 div.confirmationBox a{
 	margin: 37px 25px;
 }
-
+a#topButtonP:focus{
+	box-shadow: none;
+}
 div#profileParent{
 	background-color: white;
 	overflow: hidden;

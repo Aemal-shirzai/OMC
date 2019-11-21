@@ -452,7 +452,10 @@ if(txt.trim().length > 0 ){
 
 
  // Call the function of which chagne the pososition of tags div in profile page 
-window.onscroll = function() {changeTagsPosition()};	
+window.onscroll = function() {
+	showToButton();
+	changeTagsPosition();
+};	
 // Beggining of the function which change the pososition of tags div in profile page 
 function changeTagsPosition(){
 	if(document.documentElement.scrollTop > 360){

@@ -1,5 +1,8 @@
 // Call the function of which chagne size of search box , large navbar and header when scroll
-window.onscroll = function() {changeMenuSize()};
+window.onscroll = function() {
+	changeMenuSize();
+	showToButton();
+};
 // Beggining of the function which change the size of the search box , largenavbar and the header when scroll
 function changeMenuSize(){
 	if(document.documentElement.scrollTop > 10){
@@ -22,6 +25,19 @@ function changeMenuSize(){
 	}
 }
 // End of the function which change the size of the search box , largenavbar and the header
+
+function showToButton(){
+	if(document.documentElement.scrollTop > 400){
+		document.getElementById("topButton").style.display = "inline-block";
+	}else{
+		document.getElementById("topButton").style.display = "none";
+	}
+}
+
+function goToTop(){
+	$("html,body").animate({scrollTop:0},"slow");
+}
+
 
 // Begining of: function which open the small sidebar
 function openNav() {

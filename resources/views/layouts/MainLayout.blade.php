@@ -8,13 +8,13 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle1.css')}}">
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/main1.css')}}">
 	@elseif(Route::currentRouteName() == 'profile')
 	<!-- Link to local profile style for profile page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle1.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -160,6 +160,7 @@
 		@endif
 	@endauth
      
+    <a href="javascript:void(0)" title="Go to top" id="topButton" onclick="goToTop()" class="btn btn-sm" style=""><b>Top</b></a> 
 
 	@yield("content")
 
@@ -214,13 +215,13 @@
 <script src="{{ asset('js/share.js') }}"></script>
 
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/MainLayoutScript.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/MainLayoutScript1.js')}}"></script>
 
 
 
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
-<script type="text/javascript" src="{{asset('js/profileScript111.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/profileScript.js')}}"></script>
 @endif
 
 
