@@ -18,6 +18,9 @@ class CreateQuestionsTable extends Migration
             $table->string("title");
             $table->Text("content");
             $table->bigInteger("normal_user_id")->unsigned();
+
+            $table->integer("UpVotes")->nullable();
+            $table->integer("DownVotes")->nullable();
             $table->timestamps();
 
             $table->foreign("normal_user_id")->references("id")->on("normal_users")->onDelete("cascade")->onUpdate("cascade");

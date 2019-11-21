@@ -111,6 +111,9 @@ class NormalUserController extends Controller
         }else{ // if the doctor is not already followed by the normal user
             $user->owner->following()->save($doctor);
         }
+
+        $followers = $doctor->followed()->count();
+        $doctor->update(["followers"=>$followers]);
     }
 // End of the function responsible for managing normal user following doctors 
 
@@ -133,6 +136,9 @@ class NormalUserController extends Controller
         if($user->owner->followed()->where("normal_users.id",$request->follower_id)->first()){
             // Then remove that user from the current doctor follwing list
             $user->owner->followed()->detach($follower);
+
+            $followers = $user->owner->followed()->count();
+            $user->owner->update(["followers"=>$followers]);
         }else{
             /// if not in the list then return some error message
         }

@@ -28,7 +28,8 @@ class Doctor extends Model
         "country_id",
         "province_id",
         "Bio",
-        "district_id"
+        "district_id",
+        "followers"
     ];
 
     /*

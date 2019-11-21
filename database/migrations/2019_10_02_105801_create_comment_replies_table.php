@@ -20,6 +20,9 @@ class CreateCommentRepliesTable extends Migration
             $table->bigInteger("comment_id")->unsigned();
             // Account table
             $table->bigInteger("account_id")->unsigned();
+
+            $table->integer("UpVotes")->nullable();
+            $table->integer("DownVotes")->nullable();
             $table->timestamps();
 
             $table->foreign("comment_id")->references("id")->on("comments")->onDelete("cascade")->onUpdate("cascade");

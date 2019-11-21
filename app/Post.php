@@ -15,7 +15,9 @@ class Post extends Model
 
     protected $fillable = [
     	"title",
-    	"content"
+    	"content",
+        "UpVotes",
+        "DownVotes",
     ];
 
     // Relationship with doctors

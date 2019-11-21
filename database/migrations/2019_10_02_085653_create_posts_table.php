@@ -18,6 +18,8 @@ class CreatePostsTable extends Migration
             $table->string("title");
             $table->Text("content");
             $table->bigInteger("doctor_id")->unsigned();
+            $table->integer("UpVotes")->nullable();
+            $table->integer("DownVotes")->nullable();
             $table->timestamps();
 
             $table->foreign("doctor_id")->references("id")->on("doctors")->onDelete("cascade")->onUpdate("cascade");

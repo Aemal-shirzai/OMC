@@ -13,7 +13,9 @@ class CommentReply extends Model
      */
     protected $fillable = [
     	"account_id",
-    	"content"
+    	"content",
+        "UpVotes",
+        "DownVotes",
     ];
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -18,7 +19,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+  
     }
 
     /**
@@ -106,6 +107,7 @@ class PostController extends Controller
             if($type === "upVote"){ // if the use is clicking the upvote button
                 if($userLikedPost->pivot->type == 0){ // if the user already voted and the vote is downvote
                     $userLikedPost->pivot->update(["type"=>"1"]); //then come and just update that to upvote by changin 0 to 1
+
                  }else{  //if the user already voted and the vote is upvote
                     $user->postsVotes()->detach($userLikedPost); // then come and remove the vote from the user
                 }
@@ -124,6 +126,9 @@ class PostController extends Controller
             }
         }
 
+        $upVotes = $post->votedBy()->where('type',1)->count();
+        $downVotes = $post->votedBy()->where('type',0)->count();
+        $post->update(["UpVotes"=>$upVotes,"DownVotes"=>$downVotes]);
 
     } 
 // end of vote function

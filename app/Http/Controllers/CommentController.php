@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use App\Post;
+use App\Doctor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CommentRequest;
@@ -20,7 +21,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -177,6 +178,10 @@ class CommentController extends Controller
                 $user->commentsVotes()->save($comment,["type"=>"0"]); // Then add a new record into the database with down vote type
             }
         }
+
+        $upVotes = $comment->votedBy()->where('type',1)->count();
+        $downVotes = $comment->votedBy()->where('type',0)->count();
+        $comment->update(["UpVotes"=>$upVotes,"DownVotes"=>$downVotes]);
 
 
     }// end of vote fuction

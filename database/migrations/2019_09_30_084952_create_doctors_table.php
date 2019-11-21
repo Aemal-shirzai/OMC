@@ -24,6 +24,7 @@ class CreateDoctorsTable extends Migration
             $table->boolean("gender");
             $table->datetime("DateOfBirth")->nullable();
             $table->Text("Bio")->nullable();
+            $table->integer("followers")->nullable();
             $table->timestamps();
 
             $table->foreign("country_id")->references("id")->on("countries")->onDelete("set null")->onUpdate("set null");

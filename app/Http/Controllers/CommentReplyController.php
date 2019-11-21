@@ -20,7 +20,7 @@ class CommentReplyController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -176,6 +176,10 @@ class CommentReplyController extends Controller
                 $user->repliesVotes()->save($reply,["type"=>"0"]); // Then add a new record into the database with down vote type
             }
         }
+
+        $upVotes = $reply->votedBy()->where('type',1)->count();
+        $downVotes = $reply->votedBy()->where('type',0)->count();
+        $reply->update(["UpVotes"=>$upVotes,"DownVotes"=>$downVotes]);
 
 
     }// end of vote fuction

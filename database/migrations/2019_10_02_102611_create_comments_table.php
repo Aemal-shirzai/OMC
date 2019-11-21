@@ -22,6 +22,8 @@ class CreateCommentsTable extends Migration
             // for post or question
             $table->string("to_type");
             $table->bigInteger("to_id")->unsigned();
+            $table->integer("UpVotes")->nullable();
+            $table->integer("DownVotes")->nullable();
             $table->timestamps();
 
             $table->foreign("account_id")->references("id")->on("accounts")->onDelete("cascade")->onUpdate("cascade");

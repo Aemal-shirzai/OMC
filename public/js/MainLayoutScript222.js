@@ -3,7 +3,6 @@ window.onscroll = function() {
 	changeMenuSize();
 	showToButton();
 };
-alert("donefsafas");
 // Beggining of the function which change the size of the search box , largenavbar and the header when scroll
 function changeMenuSize(){
 	if(document.body.scrollTop > 10 || document.documentElement.scrollTop > 10){
@@ -15,7 +14,13 @@ function changeMenuSize(){
 		document.getElementById("search-box").style.height= "36px";
 		document.getElementById("search-close-button").style.height= "36px";
 		document.getElementById("search-close-button").style.paddingTop= "5px";
-		$(".AddPostAskQuestionSmall").attr("style","margin-top: -10px !important");
+		if($(window).width() > 1000){
+			$(".AddPostAskQuestionSmall").attr("style","margin-top: -10px !important");
+			
+		}else{
+			// $(".AddPostAskQuestionSmall").attr("style","margin-top: -10px !important");
+		}
+		
 	}else{
 		document.getElementById("header-div").style.padding = "10px";
 		document.getElementById("sidebar-large").style.marginTop = "-2px";
@@ -24,7 +29,13 @@ function changeMenuSize(){
 		document.getElementById("search-box").style.height= "46px";
 		document.getElementById("search-close-button").style.height= "46px";
 		document.getElementById("search-close-button").style.paddingTop= "9px";
-		$(".AddPostAskQuestionSmall").attr("style","margin-top: -4px !important");
+		if($(window).width() > 1000){
+			$(".AddPostAskQuestionSmall").attr("style","margin-top: -4px !important");
+			
+		}else{
+			// $(".AddPostAskQuestionSmall").attr("style","margin-top: -10px !important");
+		}
+		
 	}
 }
 // End of the function which change the size of the search box , largenavbar and the header
@@ -213,6 +224,7 @@ $("document").ready(function(){
 		}else{
 			// This else hide the dropdown content menue when screen is resized
 			$("#dropdownContent").hide();
+			$(".AddPostAskQuestionSmall").attr("style","margin-top: 0px !important");
 		}
 	});
 // End of :  to automatically hide the small slidebar when the screen gets large 

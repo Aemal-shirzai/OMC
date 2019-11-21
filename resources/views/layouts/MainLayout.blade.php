@@ -40,6 +40,7 @@
 		@endauth
 		<div class="dropdown-divider"></div>
 		<a href="{{route('main')}}" @if(Route::currentRouteName() == 'main')class="active" @endif><span class="fal fa-home"></span> Home</a>
+		<a href="{{route('posts.index')}}" @if(Route::currentRouteName() == 'posts.index')class="active" @endif><span class="fal fa-th"></span> Posts</a>
 		<a href="#"><span class="fal fa-user-md"></span> Doctors</a>
 		<a href="#"><span class="fal fa-tags"></span> Tags</a>
 		<a href="javascript:void(0)" class="contactUs"><span class="fal fa-envelope"></span> Contact Us</a>
@@ -136,6 +137,7 @@
 		<a href="javascript:void(0)" class="contactUs">Contact Us</a>
 		<a href="#">Tags</a>
 		<a href="#">Doctors</a>
+		<a href="{{route('posts.index')}}" @if(Route::currentRouteName() == 'posts.index')class="active" @endif>Posts</a>
 		<a href="{{route('main')}}" @if(Route::currentRouteName() == 'main')class="active" @endif>Home</a>
 		</div>
 	</div>

@@ -34,7 +34,7 @@ Route::get('/profile/{user}', 'ProfileController@index')->name('profile');
 Route::resource('/contactUs','ContactUsController');
 
 // Routes for Post
-Route::resource("/post","PostController");
+Route::resource("/posts","PostController");
 // This route is responsible for adding and updateing votes to post using ajax request
 Route::POST("/posts/vote","PostController@vote")->name("postVote");
 // This route is resposible for adding post to favorites by normal user
@@ -42,7 +42,7 @@ Route::POST("/posts/favorites","PostController@favorite")->name("postFavorites")
 
 
 // Routes for comments
-Route::resource("/comment","CommentController");
+Route::resource("/comments","CommentController");
 // This route is responsible for adding and updateing votes to comments using ajax request
 Route::POST("/comments/vote","CommentController@vote")->name("commentVote");
 // Deleting comment using ajax
@@ -50,7 +50,7 @@ Route::DELETE("/comments/delete","CommentController@delete")->name("deleteCommen
 
 
 // Routes for CommentReplies
-Route::resource("/reply","CommentReplyController");
+Route::resource("/replies","CommentReplyController");
 // This route is responsible for adding and updateing votes to replies using ajax request
 Route::POST("/replies/vote","CommentReplyController@vote")->name("replyVote");
 // Deleting replies using ajax
