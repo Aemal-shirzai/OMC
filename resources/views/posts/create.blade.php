@@ -4,7 +4,7 @@
 
 @section("content")
 
-<div class="container" id="addPostParent">
+<div class="" id="addPostParent">
 	<h3 id="mainTitle">Add your post</h3>
 	<!-- Beggingon of : PART ONE  TIPS -->
 	<div id="tips" class="card">
@@ -45,6 +45,99 @@
 		</div> <!-- End of card body -->
 	</div>	<!-- End of card -->
 	<!-- End of : PART ONE  TIPS -->
+
+	<!-- Second part Form -->
+	<div id="formParent">
+		{!! Form::open(["id"=>"postAddingForm"]) !!}
+			<div class="form-elements">
+				{!! Form::label("title","Title",["class"=>"labels"]) !!}
+				<small class="smallNotes">Be specific in choosing the title for your post</small>
+				{!! Form::text("title",null,["class"=>"form-control postFormInputs","placeholder"=>"e.g. The side effects of alchahol on hearth"]) !!}
+			</div>
+			<div class="form-elements">
+				{!! Form::label("content","Content",["class"=>"labels"]) !!}
+				<small class="smallNotes">Add the description of the title and any optional extra preference links</small>
+				{!! Form::textarea("content",null,["class"=>"form-control postFormInputs","id"=>"postTextarea","placeholder"=>"The shorter the better","maxLength"=>"65500"]) !!}
+			</div>
+			<div class="form-elements">
+				<!-- {!! Form::label("photo","Add Photo",["class"=>"labels"]) !!}
+				<small class="smallNotes">Adding photo is not always recommanded</small> -->
+				{!! Form::file("photo",["class"=>"form-control","id"=>"postPhotoField",'accept'=>"image/*","disabled"=>"true","style"=>"display:none;"]) !!}
+				<span class="fal fa-image" id="imageIcon" onclick="openPostPhotoField()"></span>
+			</div>
+			<div class="form-elements">
+				{!! Form::label("tags","Tags",["class"=>"labels"]) !!}
+				<small class="smallNotes">Add up to 3 tags to your post which will describe what your post is about</small>
+				<span class="far fa-question float-right mr-1" id="tagInfoIcon" onclick="showTagInfo()"></span>
+				<div id="tagInfo">
+					<h6>How to add tags</h6>
+					<span>Tags help poeple find your post, and describe your post</span>
+					<ul>
+						<li>Click the (click here to select tags) button bellow the content part</li>
+						<li>You will be opend a list of tags you can select maximum 3 tags for your post</li>
+						<li>Choose the tags which are the most relevent to your post</li>
+					</ul>
+					<h6>If your desired tag is not in list:</h6>
+					<span>Then just add your post without tags and <a href="#">ask US to add one for you</a></span>
+				</div>
+				<a href="javascrip:void(0)" onclick="showTags()" id="addTagLink" class="btn  btn-sm">click here to select tags</a>
+				<div id="tags">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Tag Name</th>
+								<th>Select</th>
+							</tr>
+						</thead>
+						<tbody>
+							<span>Choose with maximum of 3 tags</span>
+							<a href="javascript:void(0)" onclick="showTags()" class="btn btn-sm" id="tagsDoneBtn">Done</a>
+							<tr>
+								<td><label> Headic </label></td>
+								<td>{!! Form::checkbox("tag[]",null,null) !!}</td>
+							</tr>
+							<tr>
+								<td><label> Cancer </label></td>
+								<td>{!! Form::checkbox("tag[]",null,null) !!}</td>
+							</tr>
+							<tr>
+								<td><label> Diabate </label></td>
+								<td>{!! Form::checkbox("tag[]",null,null) !!}</td>
+							</tr>
+							<tr>
+								<td><label> Skin </label></td>
+								<td>{!! Form::checkbox("tag[]",null,null) !!}</td>
+							</tr>
+							<tr>
+								<td><label> Malarya </label></td>
+								<td>{!! Form::checkbox("tag[]",null,null) !!}</td>
+							</tr>
+							<tr>
+								<td><label> Golokoz </label></td>
+								<td>{!! Form::checkbox("tag[]",null,null) !!}</td>
+							</tr>
+							<tr>
+								<td><label> HalfDying </label></td>
+								<td>{!! Form::checkbox("tag[]",null,null) !!}</td>
+							</tr>
+							<tr>
+								<td><label> FullDying </label></td>
+								<td>{!! Form::checkbox("tag[]",null,null) !!}</td>
+							</tr>
+							<tr>
+								<td><label> NotINControl </label></td>
+								<td>{!! Form::checkbox("tag[]",null,null) !!}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="form-elements text-center">
+				{!! Form::submit("Add Post",["class"=>"btn btn-sm","disabled"=>"true","id"=>"submitButton"]) !!}
+			</div>
+		{!! Form::close() !!}
+	</div>
+	<!-- End of Second par form -->
 
 	<div class="clearfix"></div>
 </div>

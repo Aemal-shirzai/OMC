@@ -46,3 +46,24 @@ $(window).resize(function(){
 			// $("#tipsIconForSmall").addClass("fa-chevron-down");
 		}
 });
+
+// Begginng of the functions which display and hide how to add tag info
+function showTagInfo(){
+	$("#tagInfo").toggle();
+}
+// End of the functions which display and hide how to add tag info
+
+// Begginng of the functions which display and hide how to add tags
+function showTags(){
+	$("#tags").toggle();
+}
+// End of the functions which display and hide how to add tags
+
+// Beggining of the function which opens the photofiled input for adding post
+
+function openPostPhotoField(){
+	var field = document.getElementById("postPhotoField");
+	field.disabled = false;
+	field.click();
+}
+// End of the function which opens the photofiled input for adding post
