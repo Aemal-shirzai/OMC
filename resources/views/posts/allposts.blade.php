@@ -1,4 +1,4 @@
-@extends("../layouts.MainLayout.blade.php")
+@extends("../layouts.MainLayout")
 
 @section("title", "OMC All Posts")
 

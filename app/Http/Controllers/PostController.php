@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class PostController extends Controller
 {
     public function __construct(){
-        $this->middleware("auth");
+        $this->middleware("auth")->except("index");
     }
     /**
      * Display a listing of the resource.
@@ -19,7 +19,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        
+        $posts = Post::all();
+        return view("posts.allPosts",compact("posts")); 
     }
 
     /**
@@ -29,7 +30,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        if($this->authorize("doctor_related",Auth::user())){
+            
+            return view("posts.create");
+
+        }
     }
 
 

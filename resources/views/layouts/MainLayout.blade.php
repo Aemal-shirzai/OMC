@@ -9,12 +9,19 @@
 
 	<!-- Link to local css file -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle111.css')}}">
+	
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/main1.css')}}">
+	
 	@elseif(Route::currentRouteName() == 'profile')
 	<!-- Link to local profile style for profile page -->
+	
 	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle1.css')}}">
+	
+	@elseif(Route::currentRouteName() == 'posts.create')
+	<!-- Link to local  style for posts page -->
+	<link rel="stylesheet" type="text/css" href="{{asset('css/postsStyle1.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -68,7 +75,7 @@
 			<a href="#" class="far fa-search @auth search-icon1 @endauth " id="search-icon"></a>&nbsp;
 			@auth
 			@can("Doctor_related",Auth::user())
-				<a href="#" class ="AddPostAskQuestionSmall btn btn-sm" id="addPost">Add Post</a>
+				<a href="{{route('posts.create')}}" class ="AddPostAskQuestionSmall btn btn-sm" id="addPost">Add Post</a>
 			@endcan
 			@can("normalUser_related",Auth::user())
 				<a href="#" class ="AddPostAskQuestionSmall btn btn-sm" id="addQustion">Add Question</a>
@@ -224,6 +231,10 @@
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
 <script type="text/javascript" src="{{asset('js/profileScript.js')}}"></script>
+
+@elseif(Route::currentRouteName() == 'posts.create')
+<!-- Link to local  js for posts page -->
+<script type="text/javascript" src="{{asset('js/postsScripts.js')}}"></script>
 @endif
 
 
