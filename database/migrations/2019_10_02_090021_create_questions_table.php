@@ -21,6 +21,7 @@ class CreateQuestionsTable extends Migration
 
             $table->integer("UpVotes")->nullable();
             $table->integer("DownVotes")->nullable();
+            $table->integer("follower")->nullable();
             $table->timestamps();
 
             $table->foreign("normal_user_id")->references("id")->on("normal_users")->onDelete("cascade")->onUpdate("cascade");

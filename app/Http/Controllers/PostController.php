@@ -19,7 +19,7 @@ class PostController extends Controller
      */
     public function index()
     {
-  
+        
     }
 
     /**
@@ -151,6 +151,8 @@ class PostController extends Controller
             }
        }
 
+       $followers = $post->favoritedBy()->count();
+       $post->update(["follower"=>$followers]);
     } 
 // End of :The function which add the post favorites by normal usrs
 

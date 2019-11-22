@@ -14,5 +14,6 @@ class Question extends Model
     	"content",
         "UpVotes",
         "DownVotes",
+        "follower",
     ];
 }

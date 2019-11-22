@@ -18,6 +18,7 @@ class Post extends Model
     	"content",
         "UpVotes",
         "DownVotes",
+        "follower",
     ];
 
     // Relationship with doctors
