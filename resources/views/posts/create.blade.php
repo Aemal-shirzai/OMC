@@ -48,39 +48,64 @@
 
 	<!-- Second part Form -->
 	<div id="formParent">
+		@if(count($errors) > 0)
+			@foreach($errors->all() as $error)
+				<div class="alert alert-danger">{{$error}}</div>
+			@endforeach
+		@endif
 		{!! Form::open(["method"=>"POST","action"=>"PostController@store","files"=>"true","id"=>"postAddingForm"]) !!}
 			<div class="form-elements">
 				{!! Form::label("title","Title",["class"=>"labels"]) !!}
 				<small class="smallNotes">Be specific in choosing the title for your post</small>
-				{!! Form::text("title",null,["class"=>"form-control postFormInputs","placeholder"=>"e.g. The side effects of alchahol on hearth"]) !!}
+				{!! Form::text("title",null,["class"=>"form-control postFormInputs". ($errors->has('title') ? ' formErrorForFields' : ''),"placeholder"=>"e.g. The side effects of alchahol on hearth"]) !!}
+				<span class="ErrorMessage">
+					@error('title')
+						{{ $message }}
+					@enderror
+				</span>
 			</div>
 			<div class="form-elements">
 				{!! Form::label("content","Content",["class"=>"labels"]) !!}
 				<small class="smallNotes">Add the description of the title and any optional extra preference links</small>
-				{!! Form::textarea("content",null,["class"=>"form-control postFormInputs","id"=>"postTextarea","placeholder"=>"The shorter the better","maxLength"=>"65500"]) !!}
+				{!! Form::textarea("content",null,["class"=>"form-control postFormInputs". ($errors->has('title') ? ' formErrorForFields' : ''),"id"=>"postTextarea","placeholder"=>"The shorter the better","maxLength"=>"65500"]) !!}
+				<span class="ErrorMessage">
+					@error('content')
+						{{ $message }}
+					@enderror
+				</span>
 			</div>
 			<div class="form-elements">
-				<!-- {!! Form::label("photo","Add Photo",["class"=>"labels"]) !!}
-				<small class="smallNotes">Adding photo is not always recommanded</small> -->
-				{!! Form::file("photo",["class"=>"form-control","id"=>"postPhotoField",'accept'=>"image/*","disabled"=>"true","style"=>"display:none;"]) !!}
+				{!! Form::file("photo",["class"=>"form-control","id"=>"postPhotoField","disabled"=>"true","style"=>"display:none;"]) !!}
 				<span class="fal fa-image" id="imageIcon" onclick="openPostPhotoField()"></span>
+				<span class="ErrorMessage ml-1">
+					@error('photo')
+						{{ $message }}
+					@enderror
+				</span>
 			</div>
 			<div class="form-elements">
 				{!! Form::label("tags","Tags",["class"=>"labels"]) !!}
-				<small class="smallNotes">Add up to 3 tags to your post which will describe what your post is about</small>
+				<small class="smallNotes">Add up to 5 tags to your post which will describe what your post is about</small>
 				<span class="far fa-question float-right mr-1" id="tagInfoIcon" onclick="showTagInfo()"></span>
 				<div id="tagInfo">
 					<h6>How to add tags</h6>
 					<span>Tags help poeple find your post, and describe your post</span>
 					<ul>
 						<li>Click the (click here to select tags) button bellow the content part</li>
-						<li>You will be opend a list of tags you can select maximum 3 tags for your post</li>
+						<li>You will be opend a list of tags you can select maximum 5 tags for your post</li>
 						<li>Choose the tags which are the most relevent to your post</li>
 					</ul>
 					<h6>If your desired tag is not in list:</h6>
 					<span>Then just add your post without tags and <a href="#">ask US to add one for you</a></span>
 				</div>
-				<a href="javascrip:void(0)" onclick="showTags()" id="addTagLink" class="btn  btn-sm">click here to select tags</a>
+				<a href="javascrip:void(0)" onclick="showTags()" id="addTagLink" class="btn  btn-sm {{($errors->has('tags') ? 'errorButton' : '')}}"  >click here to select tags</a>
+				
+				<div class="clearfix"></div>
+				<span class="ErrorMessage float-right mr-1">
+					@error('tags')
+						{{ $message }}
+					@enderror
+				</span>
 				<div id="tags">
 					<table class="table">
 						<thead>
@@ -90,7 +115,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<span>Choose with maximum of 3 tags</span>
+							<span>Choose with maximum of 5 tags</span>
 							<a href="javascript:void(0)" onclick="showTags()" class="btn btn-sm" id="tagsDoneBtn">Done</a>
 							@if(count($d_categories) > 0)
 							@foreach($d_categories as $d_category)

@@ -234,7 +234,7 @@
 
 @elseif(Route::currentRouteName() == 'posts.create')
 <!-- Link to local  js for posts page -->
-<script type="text/javascript" src="{{asset('js/postsScripts.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/postsScripts1.js')}}"></script>
 @endif
 
 

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
-use App\DiseaseCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use App\Http\Requests\PostRequest;
+use App\Post;
+use App\DiseaseCategory;
+
 
 class PostController extends Controller
 {
@@ -46,29 +47,32 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        $user = Auth::user()->owner;
-        $post = $user->posts()->create($request->all());
-        if($request->tags){
-            foreach($request->tags as $tagId){
-                $tag = DiseaseCategory::findOrFail($tagId);
-                 $post->tags()->save($tag);
-             }
-        }
+        if($this->authorize("doctor_related",Auth::user())){
 
-        if($request->hasFile("photo")){
-            $photo = $request->file("photo");
-            $fullName = $photo->getClientOriginalName();
-            $onlyExtentsion = $photo->getClientOriginalExtension();
-            $onlyName = pathinfo($fullName,PATHINFO_FILENAME);
-            $nameToBeStored = $onlyName . time() . $onlyExtentsion;
+            $user = Auth::user()->owner;
+            $post = $user->posts()->create($request->all());
 
-            $photo->storeAs("public/images/posts/",$nameToBeStored);
-            $post->photos()->create(["path"=>$nameToBeStored,"status"=>1]);
+            if($request->tags){
+                foreach($request->tags as $tagId){
+                    $tag = DiseaseCategory::findOrFail($tagId);
+                     $post->tags()->save($tag);
+                 }
+            } // end of adding tags part
 
-        }
+            if($request->hasFile("photo")){
+                $photo = $request->file("photo");
+                $fullName = $photo->getClientOriginalName();
+                $onlyExtentsion = $photo->getClientOriginalExtension();
+                $onlyName = pathinfo($fullName,PATHINFO_FILENAME);
+                $nameToBeStored = $onlyName . time() . $onlyExtentsion;
 
+                $photo->storeAs("public/images/posts/",$nameToBeStored);
+                $post->photos()->create(["path"=>$nameToBeStored,"statuse"=>1]);
+
+            } // End of adding photo
+        } // end of checking authorization
     }
 
     /**
