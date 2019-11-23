@@ -132,7 +132,9 @@
 					</table>
 				</div>
 			</div>
-			<div class="form-elements text-center">
+			<div class="clearfix"></div>
+			<div class="form-elements">
+				<div class="dropdown-divider"></div>
 				{!! Form::submit("Add Post",["class"=>"btn btn-sm","disabled"=>"true","id"=>"submitButton"]) !!}
 			</div>
 		{!! Form::close() !!}

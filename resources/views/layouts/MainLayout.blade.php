@@ -21,7 +21,7 @@
 	
 	@elseif(Route::currentRouteName() == 'posts.create')
 	<!-- Link to local  style for posts page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/postsStyle.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/postsStyle1.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -234,7 +234,7 @@
 
 @elseif(Route::currentRouteName() == 'posts.create')
 <!-- Link to local  js for posts page -->
-<script type="text/javascript" src="{{asset('js/postsScripts1.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/postsScripts.js')}}"></script>
 @endif
 
 

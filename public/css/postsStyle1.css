@@ -108,8 +108,10 @@ span#tagInfoIcon{
 	border: 1px solid #3fbbc0;
 	color: white;
 	overflow: hidden;
+	margin-top: 20px;
+	float: right;
+	margin-right: -13px; 
 	transition: .5s;
-	margin-top: 12px;
 }
 div#tagInfo{
 	background-color: white;
@@ -155,16 +157,20 @@ div#tags{
 	max-height: 370px;
 	overflow-y: auto;
 	overflow-x: visible;
-	left: 201px;
-	top: -280px;
+	left: 260px;
+	top: -295px;
 	padding: 12px 12px;
 	font-size: 12px;
 	font-weight: bold;
 	color: #6c6f71;
 	width: 336px;
 	box-shadow:0 4px 8px rgba(59,64,69,0.2);
-	border-radius: 5px;
+	border-radius: 10px;
 	display: none;
+}
+td{
+	padding:0 !important;
+	padding-top: 3px !important;
 }
 div#tags label{
 	color: #9ba1a7;
@@ -188,7 +194,8 @@ a#tagsDoneBtn{
 #submitButton{
 	background-color: #56c161;
 	color: white;
-	margin: 0 auto;
+	margin-top: 30px;
+	
 }
 
 /* end of second part form */
@@ -212,7 +219,17 @@ div::-webkit-scrollbar {
 
 /* ///////////////////////////////////////////////////////////////// IPHAD PRO /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 1200px) and (min-width: 1024px){
-
+	#addTagLink{
+		margin-top: 20px;
+		margin-right: 9px;
+	}
+	div#tags{
+		width: 240px !important ;
+		left: 283px;
+		top: -307px;
+		font-size: 11px;
+		display: inline-block;
+	}
 }
 
 /* ///////////////////////////////////////////////////////////////// IPHAD /////////////////////////////////////////////////////////////////// */
@@ -250,6 +267,54 @@ div::-webkit-scrollbar {
 		font-size: 12px
 	}
 	/*End of part one*/
+
+/* Begging of second part form */
+	div#formParent{
+		margin-top: 20px !important;
+		width: 100%;
+	}
+	.smallNotes{
+		font-size: 11px;
+	}
+	.postFormInputs{
+		font-size: 11px;
+	}
+	#addTagLink{
+		margin-top: 20px;
+	}
+	div#tagInfo{
+		right: -3px;
+		top: -242px;
+		font-size: 11px;
+		width: 300px;
+	}
+	div#tagInfo h6{
+		font-weight: bold;
+		color: #9ba1a7;
+		font-size: 12px;
+	}
+
+	div#tags{
+		width: 240px !important ;
+		left: 283px;
+		top: -307px;
+		font-size: 11px;
+		display: inline-block;
+	}
+	a#tagsDoneBtn{
+	    position: sticky;
+	    z-index: 1;
+	    right: 0px;
+	    font-size: 9px;
+	}
+	#submitButton{
+		background-color: #56c161;
+		color: white;
+		
+		margin: 0 auto;
+	}
+
+/* end of second part form */
 }
 
 /* ///////////////////////////////////////////////////////////////// Samll sizes /////////////////////////////////////////////////////////////////// */
@@ -301,6 +366,54 @@ div::-webkit-scrollbar {
 		font-size: 12px
 	}
 	/*End of part one*/	
+
+/* Begging of second part form */
+	div#formParent{
+		margin-top: 25px !important;
+		width: 100%;
+	}
+	.smallNotes{
+		font-size: 11px;
+	}
+	.postFormInputs{
+		font-size: 11px;
+	}
+	#addTagLink{
+		margin-top: 20px;
+	}
+	div#tagInfo{
+		right: -5px;
+		top: -225px;
+		font-size: 11px;
+		width: 300px;
+	}
+	div#tagInfo h6{
+		font-weight: bold;
+		color: #9ba1a7;
+		font-size: 12px;
+	}
+
+	div#tags{
+		width: 240px !important ;
+		left: 0px;
+		top: -307px;
+		font-size: 11px;
+	}
+	a#tagsDoneBtn{
+	    position: sticky;
+	    z-index: 1;
+	    right: 0px;
+	    font-size: 9px;
+	}
+	#submitButton{
+		background-color: #56c161;
+		color: white;
+		width: 100%;
+		margin: 0 auto;
+	}
+
+/* end of second part form */
+
 }
 
 /* ///////////////////////////////////////////////////////////////// Very Samll sizes /////////////////////////////////////////////////////////////////// */
@@ -317,5 +430,49 @@ div::-webkit-scrollbar {
 		font-size: 18px;
 	}
 	/*End of part one*/
+
+	/* Begging of second part form */
+	div#formParent{
+		margin-top: 20px !important;
+	}
+	.smallNotes{
+		font-size: 10px;
+	}
+	.postFormInputs{
+		font-size: 10px;
+	}
+	#addTagLink{
+		font-size: 11px;
+		margin-right: 0px;
+	}
+	div#tagInfo{
+		top: -210px;
+		font-size: 10px;
+		width: 250px;
+	}
+	div#tagInfo h6{
+		font-size: 11px;
+	}
+
+	div#tags{
+		width: 240px !important ;
+		left: 0px;
+		height: 347px;
+		top: -261px;
+		font-size: 11px;
+	}
+	
+	
+	a#tagsDoneBtn{
+	    position: sticky;
+	    z-index: 1;
+	    right: 0px;
+	    font-size: 9px;
+	}
+	#submitButton{
+		font-size: 10px;
+	}
+
+/* end of second part form */
 }
 
