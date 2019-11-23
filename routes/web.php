@@ -46,7 +46,7 @@ Route::resource("/comments","CommentController");
 // This route is responsible for adding and updateing votes to comments using ajax request
 Route::POST("/comments/vote","CommentController@vote")->name("commentVote");
 // Deleting comment using ajax
-Route::DELETE("/comments/delete","CommentController@delete")->name("deleteComment");
+Route::DELETE("/comment/delete","CommentController@delete")->name("deleteComment");
 
 
 // Routes for CommentReplies
