@@ -154,11 +154,11 @@ div#tags{
 	background-color: white;
 	position: absolute;
 	z-index: 1;
-	max-height: 370px;
+	max-height: 310px;
 	overflow-y: auto;
 	overflow-x: visible;
 	left: 260px;
-	top: -295px;
+	top: -240px;
 	padding: 12px 12px;
 	font-size: 12px;
 	font-weight: bold;
@@ -226,9 +226,8 @@ div::-webkit-scrollbar {
 	div#tags{
 		width: 240px !important ;
 		left: 283px;
-		top: -307px;
+		top: -231px;
 		font-size: 11px;
-		display: inline-block;
 	}
 }
 
@@ -297,9 +296,8 @@ div::-webkit-scrollbar {
 	div#tags{
 		width: 240px !important ;
 		left: 283px;
-		top: -307px;
+		top: -235px;
 		font-size: 11px;
-		display: inline-block;
 	}
 	a#tagsDoneBtn{
 	    position: sticky;
@@ -396,7 +394,7 @@ div::-webkit-scrollbar {
 	div#tags{
 		width: 240px !important ;
 		left: 0px;
-		top: -307px;
+		top: -223px;
 		font-size: 11px;
 	}
 	a#tagsDoneBtn{
@@ -458,7 +456,7 @@ div::-webkit-scrollbar {
 		width: 240px !important ;
 		left: 0px;
 		height: 347px;
-		top: -261px;
+		top: -223px;
 		font-size: 11px;
 	}
 	

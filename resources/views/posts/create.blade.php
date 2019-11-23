@@ -48,7 +48,7 @@
 
 	<!-- Second part Form -->
 	<div id="formParent">
-		{!! Form::open(["id"=>"postAddingForm"]) !!}
+		{!! Form::open(["method"=>"POST","action"=>"PostController@store","files"=>"true","id"=>"postAddingForm"]) !!}
 			<div class="form-elements">
 				{!! Form::label("title","Title",["class"=>"labels"]) !!}
 				<small class="smallNotes">Be specific in choosing the title for your post</small>
@@ -92,42 +92,14 @@
 						<tbody>
 							<span>Choose with maximum of 3 tags</span>
 							<a href="javascript:void(0)" onclick="showTags()" class="btn btn-sm" id="tagsDoneBtn">Done</a>
+							@if(count($d_categories) > 0)
+							@foreach($d_categories as $d_category)
 							<tr>
-								<td><label> Headic </label></td>
-								<td>{!! Form::checkbox("tag[]",null,null) !!}</td>
+								<td><label> {{$d_category->category}} </label></td>
+								<td>{!! Form::checkbox("tags[]",$d_category->id,null) !!}</td>
 							</tr>
-							<tr>
-								<td><label> Cancer </label></td>
-								<td>{!! Form::checkbox("tag[]",null,null) !!}</td>
-							</tr>
-							<tr>
-								<td><label> Diabate </label></td>
-								<td>{!! Form::checkbox("tag[]",null,null) !!}</td>
-							</tr>
-							<tr>
-								<td><label> Skin </label></td>
-								<td>{!! Form::checkbox("tag[]",null,null) !!}</td>
-							</tr>
-							<tr>
-								<td><label> Malarya </label></td>
-								<td>{!! Form::checkbox("tag[]",null,null) !!}</td>
-							</tr>
-							<tr>
-								<td><label> Golokoz </label></td>
-								<td>{!! Form::checkbox("tag[]",null,null) !!}</td>
-							</tr>
-							<tr>
-								<td><label> HalfDying </label></td>
-								<td>{!! Form::checkbox("tag[]",null,null) !!}</td>
-							</tr>
-							<tr>
-								<td><label> FullDying </label></td>
-								<td>{!! Form::checkbox("tag[]",null,null) !!}</td>
-							</tr>
-							<tr>
-								<td><label> NotINControl </label></td>
-								<td>{!! Form::checkbox("tag[]",null,null) !!}</td>
-							</tr>
+							@endforeach
+							@endif
 						</tbody>
 					</table>
 				</div>
@@ -135,7 +107,7 @@
 			<div class="clearfix"></div>
 			<div class="form-elements">
 				<div class="dropdown-divider"></div>
-				{!! Form::submit("Add Post",["class"=>"btn btn-sm","disabled"=>"true","id"=>"submitButton"]) !!}
+				{!! Form::submit("Add Post",["class"=>"btn btn-sm",""=>"","id"=>"submitButton"]) !!}
 			</div>
 		{!! Form::close() !!}
 	</div>

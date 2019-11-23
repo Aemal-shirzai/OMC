@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\DiseaseCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -30,13 +31,13 @@ class PostController extends Controller
      */
     public function create()
     {
+
         if($this->authorize("doctor_related",Auth::user())){
-            
-            return view("posts.create");
+            $d_categories = DiseaseCategory::orderBy("category","asc")->get();       
+            return view("posts.create",compact("d_categories"));
 
         }
     }
-
 
 
     /**
@@ -47,7 +48,27 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user()->owner;
+        $post = $user->posts()->create($request->all());
+        if($request->tags){
+            foreach($request->tags as $tagId){
+                $tag = DiseaseCategory::findOrFail($tagId);
+                 $post->tags()->save($tag);
+             }
+        }
+
+        if($request->hasFile("photo")){
+            $photo = $request->file("photo");
+            $fullName = $photo->getClientOriginalName();
+            $onlyExtentsion = $photo->getClientOriginalExtension();
+            $onlyName = pathinfo($fullName,PATHINFO_FILENAME);
+            $nameToBeStored = $onlyName . time() . $onlyExtentsion;
+
+            $photo->storeAs("public/images/posts/",$nameToBeStored);
+            $post->photos()->create(["path"=>$nameToBeStored,"status"=>1]);
+
+        }
+
     }
 
     /**

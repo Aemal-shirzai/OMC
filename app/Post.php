@@ -7,6 +7,7 @@ use App\Doctor;
 use App\Comment;
 use App\Account;
 use App\NormalUser;
+use App\DiseaseCategory;
 class Post extends Model
 {
     /**
@@ -45,5 +46,10 @@ class Post extends Model
     // Relationship with NormalUser table base on added to favorites
     public function favoritedBy(){
         return $this->morphToMany(NormalUser::class,"fav","favorites","","normalUser_id")->withTimeStamps();
+    }
+
+    // Relationship with disease category or tags table
+    public function tags(){
+        return $this->morphToMany(DiseaseCategory::class,"owner","post_and_question_category","","disease_category_id")->withTimeStamps();
     }
 }

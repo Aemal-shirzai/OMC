@@ -184,20 +184,17 @@
 						</div>
 					</div>
 					@endguest
+					@if($post->photos()->count() > 0)
 					<div id="postImage" class="text-center">
-						<img src="{{asset('images/bg-banner.jpg')}}" class="">
+						<img src="/storage/images/posts/{{$post->photos()->where('status',1)->first()->path}}" class="">
 					</div>
+					@endif
 					<div class="tags">
-						<span><a href="#">Headic</a></span>
-						<span><a href="#">Pain</a></span>
-						<span><a href="#">Cancer</a></span>
-						<span><a href="#">Calcium</a></span>
-						<span><a href="#">Diabates</a></span>
-						<span><a href="#">Headic</a></span>
-						<span><a href="#">Pain</a></span>
-						<span><a href="#">Cancer</a></span>
-						<span><a href="#">Calcium</a></span>
-						<span><a href="#">Diabates</a></span>
+						@if($post->tags()->count() > 0)
+							@foreach($post->tags as $tag)
+								<span><a href="#">{{$tag->category}}</a></span>
+							@endforeach
+						@endif
 					</div>
 					@if($post->content)
 						@if(strlen($post->content) > 1000)
