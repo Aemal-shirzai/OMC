@@ -138,8 +138,8 @@
 <div class="container">
 @if($user->owner_type == 'App\Doctor')
 	<div id="posts" class="tab-content" >
-		@if(count($user->owner->posts) > 0)
-			@foreach($user->owner->posts as $post)
+		@if(count($posts) > 0)
+			@foreach($posts as $post)
 
 				<!-- Beggining of post owne pic -->
 				

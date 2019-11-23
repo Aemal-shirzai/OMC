@@ -40,7 +40,7 @@ class PostRequest extends FormRequest
             "content.max" => "Too long text content",
             "tags.number" => "Invalid data inserted for tags",
             "tags.max"     => "Only 5 tags are allowed",
-            "photo.image" => "Only photos are allowed",
+            "photo.image" => "Only photos are allowed...",
             "photo.max" => "File too large. max 10MB...",
 
         ];

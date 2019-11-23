@@ -69,10 +69,14 @@ class PostController extends Controller
                 $nameToBeStored = $onlyName . time() . $onlyExtentsion;
 
                 $photo->storeAs("public/images/posts/",$nameToBeStored);
-                $post->photos()->create(["path"=>$nameToBeStored,"statuse"=>1]);
+                $post->photos()->create(["path"=>$nameToBeStored,"status"=>1]);
 
             } // End of adding photo
         } // end of checking authorization
+
+        if($post){
+            return back()->with("postAddSuccess","Your post was added!");
+        }
     }
 
     /**

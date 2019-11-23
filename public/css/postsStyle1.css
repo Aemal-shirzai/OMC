@@ -88,9 +88,13 @@ div.form-elements{
 .postFormInputs::placeholder{
 	color: #9ba1a7 !important;
 }
-span#imageIcon{
+a#imageIcon{
 	font-size: 30px;
-	cursor: pointer;
+	text-decoration: none;
+	color: #9ba1a7;
+}
+a#imageIcon:hover{
+	color: #3fbbc0;
 }
 span#tagInfoIcon{
 	background-color: green;
@@ -103,7 +107,7 @@ span#tagInfoIcon{
 }
 #addTagLink{
 	display: block;
-	width: 190px;
+	width: 200px;
 	background-color: #3fbbc0;
 	border: 1px solid #3fbbc0;
 	color: white;
@@ -197,7 +201,50 @@ a#tagsDoneBtn{
 	margin-top: 30px;
 	
 }
+div#PhotoParentDiv{
+	border:1px solid lightgray;
+	overflow: hidden;
+	width: 73%;
+	border-radius: 4px;
+	display: none;
+}
+div#PhotoParentDiv img{
+	max-width: 220px;
+	border-radius: 4px;
+}
+span#changePhoto{
+	font-size: 11px;
+	float: left; 
+	color: #3fbbc0;
+	cursor: pointer;
+	margin-top: 4px;
+}
+span#removePhoto{
+	font-size: 11px;
+	float: right;
+	cursor: pointer;
+	color: #e3342f;
+	margin-top: 4px;
+}
+div#invalidFile{
+	box-shadow: 0px 0px 20px 0px #d7f3e3; 
+	overflow: hidden;
+	position: absolute;
+	z-index: 1;
+	left: 240px;
+	width: 40%;
+	height: 35px;
+    padding-top: 6px;
+	display: none;
+}
+div#invalidFile span#invalidFileMessage{
+	font-size: 11px;
+	font-weight: bold;
+}
 
+span#changePhoto:hover ,span#removePhoto:hover {
+	text-decoration: underline;
+}
 /* the class added when an error occurs */
 .formErrorForFields{
 	border:1px solid red;
@@ -211,11 +258,27 @@ a#tagsDoneBtn{
 	background-color: #e3342f !important;
 	border: 1px solid #e3342f !important;
 }
-
+.messages{
+	box-shadow: 0px 0px 20px 0px #d7f3e3; 
+	overflow: hidden;
+	position: absolute;
+	left: 273px;
+	width: 45%;
+	height: 35px;
+    padding-top: 6px;
+    font-size: 11px;
+    font-weight:bold;
+}
+.messsages a{
+	color: #3fbbc0;
+}
 /* end of second part form */
 
 
 div::-webkit-scrollbar {
+    width: 4px !important;
+}
+textarea::-webkit-scrollbar {
     width: 4px !important;
 }
  
@@ -242,6 +305,9 @@ div::-webkit-scrollbar {
 		left: 283px;
 		top: -231px;
 		font-size: 11px;
+	}
+	.messages{
+		width: 52%;
 	}
 }
 
@@ -325,11 +391,14 @@ div::-webkit-scrollbar {
 		
 		margin: 0 auto;
 	}
-
+	.messages{
+		left: 185px;
+		width: 69%%;
+	}
 /* end of second part form */
 }
 
-/* ///////////////////////////////////////////////////////////////// Samll sizes /////////////////////////////////////////////////////////////////// */
+/* ///////////////////////////////////////////////////////////////// Samll sizes rotate /////////////////////////////////////////////////////////////////// */
 
 @media screen and (max-width: 767px){
 	/*Begging of part one*/
@@ -395,7 +464,7 @@ div::-webkit-scrollbar {
 	}
 	div#tagInfo{
 		right: -5px;
-		top: -225px;
+		top: -238px;
 		font-size: 11px;
 		width: 300px;
 	}
@@ -407,8 +476,8 @@ div::-webkit-scrollbar {
 
 	div#tags{
 		width: 240px !important ;
-		left: 0px;
-		top: -223px;
+		left: 258px;
+    	top: -245px;
 		font-size: 11px;
 	}
 	a#tagsDoneBtn{
@@ -426,10 +495,49 @@ div::-webkit-scrollbar {
 	.ErrorMessage{
 		font-size: 11px;
 	}
+	div#invalidFile{
+		left: 146px;
+		width: 46%;
+	}
+	div#invalidFile span#invalidFileMessage{
+		font-size: 10px;
+		font-weight: bold;
+	}
+	.messages{
+		left: 167px;
+		width: 68%;
+		height: 40px;
+	    font-size: 10px;
+	    font-weight:bold;
+	}
+
 /* end of second part form */
 
 }
 
+/* ///////////////////////////////////////////////////////////////// Samll sizes /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 468px){
+	div#tags{
+		width: 240px !important ;
+		left: 0px;
+		top: -223px;
+		font-size: 11px;
+	}
+		div#tagInfo{
+		top: -225px;
+	}
+	div#invalidFile{
+		left: 42px;
+		width: 86%;
+	}
+	.messages{
+		left: 15px;
+		width: 92%;
+		z-index: 1;
+		font-size: 8px;
+		font-weight: bold
+	}
+}
 /* ///////////////////////////////////////////////////////////////// Very Samll sizes /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 320px){
 	/*Begging of part one*/
@@ -489,7 +597,12 @@ div::-webkit-scrollbar {
 	.ErrorMessage{
 		font-size: 10px;
 	}
-
+	div#invalidFile{
+		width: 84%;
+	}
+	.messages{
+		width: 91%;
+	}
 /* end of second part form */
 }
 
