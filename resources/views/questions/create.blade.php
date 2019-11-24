@@ -11,10 +11,10 @@
 				{{ session("postAddSuccess") }} you can view it by <a href="{{route('profile',Auth::user()->username)}}">visiting your profile</a> or by <a href="{{route('questions.index')}}">visiting qustions page</a>
 			</div>
 		@endif
-	<h3 id="mainTitle">Add your Question</h3>
+	<h3 id="mainTitle">Ask your Question</h3>
 	<!-- Beggingon of : PART ONE  TIPS -->
 	<div id="tips" class="card">
-		<div class="card-header" id="headerForLarge"><span id="noteHeading">Make Your Question More Efficient</span></div>
+		<div class="card-header" id="headerForLarge"><span id="noteHeading">Tips for asking a good question</span></div>
 		<div class="card-header" id="headerForSmall"  onclick="showTipsContent();"><span id="noteHeading">Make Your Question More Efficient <i class="far fa-chevron-down float-right" id="tipsIconForSmall"></i></span></div>
 		
 		<div class="card-body" id="tipsContent">

@@ -17,11 +17,11 @@
 	@elseif(Route::currentRouteName() == 'profile')
 	<!-- Link to local profile style for profile page -->
 	
-	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle111.css')}}">
 	
 	@elseif(Route::currentRouteName() == 'posts.create' || Route::currentRouteName() == 'questions.create')
 	<!-- Link to local  style for posts page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/postsStyle1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsStyle.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -78,7 +78,7 @@
 				<a href="{{route('posts.create')}}" class ="AddPostAskQuestionSmall btn btn-sm" id="addPost">Add Post</a>
 			@endcan
 			@can("normalUser_related",Auth::user())
-				<a href="{{route('questions.create')}}" class ="AddPostAskQuestionSmall btn btn-sm" id="addQustion">Add Question</a>
+				<a href="{{route('questions.create')}}" class ="AddPostAskQuestionSmall btn btn-sm" id="addQustion">Ask Question</a>
 			@endcan
 		@endauth
 			@auth
@@ -230,11 +230,11 @@
 
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
-<script type="text/javascript" src="{{asset('js/profileScript1.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/profileScript.js')}}"></script>
 
 @elseif(Route::currentRouteName() == 'posts.create' || Route::currentRouteName() == 'questions.create')
 <!-- Link to local  js for posts page -->
-<script type="text/javascript" src="{{asset('js/postsScripts.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/postsAndQuestionsScripts.js')}}"></script>
 @endif
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PostRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Post;
 use App\DiseaseCategory;
 
@@ -167,8 +168,7 @@ class PostController extends Controller
 // end of vote function
 
 
-// Beggining of : The function which add the post favorites by normal usrs
-    
+// Beggining of : The function which add the post favorites by normal usrs   
     public function favorite(Request $request){
     
        $user = Auth::user(); // Current Authenticated user
@@ -191,5 +191,40 @@ class PostController extends Controller
 
 
 
+// Beggining fo the function wich delete posts using ajax
+    public function delete(Request $request){
+        
+        if($this->authorize("doctor_related",Auth::user())){
 
-} // End of the controller class
+            // find post
+            $post = Post::findOrFail($request->post_id);
+            //  if the user which is requesting to delte the post really has this post or not
+            if(Auth::user()->owner->posts()->where("posts.id",$request->post_id)->first()){
+
+                // To delte the photo for the post
+                if($post->photos()->count() > 0){
+                    foreach($post->photos as $photo){
+                        Storage::delete("public/images/posts/".$photo->path);
+                        $photo->delete();
+                    }
+                }
+
+                // To delte the tags for the post
+                if($post->tags()->count() > 0){
+                    $post->tags()->sync([]);
+                }
+
+                // To delte the post
+                $post->delete();
+
+            }
+
+        } // End of authorize function
+    }
+// End fo the function wich delete posts using ajax
+
+
+
+
+} 
+// End of the controller class

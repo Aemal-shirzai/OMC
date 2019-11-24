@@ -39,6 +39,8 @@ Route::resource("/posts","PostController");
 Route::POST("/posts/vote","PostController@vote")->name("postVote");
 // This route is resposible for adding post to favorites by normal user
 Route::POST("/posts/favorites","PostController@favorite")->name("postFavorites");
+// This route is responsible for deleting post using ajax request
+Route::DELETE("/post/delete","PostController@delete")->name("deletePost");
 
 
 // Routes for comments

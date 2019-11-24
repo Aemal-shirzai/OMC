@@ -58,7 +58,7 @@
                 Find and ask qustions ralated to medical and share your answers with others. <a href="{{route('register')}}">Sign up</a> for free account.   
             </p>
             <div class="text-center"> 
-                <a href="#" class="btn btn-sm descriptionContentButtons">Ask Question</a>
+                <a href="{{route('questions.create')}}" class="btn btn-sm descriptionContentButtons">Ask Question</a>
                 <a href="#" class="btn btn-sm descriptionContentButtons">Find Qustion</a>
             </div>
         </div>

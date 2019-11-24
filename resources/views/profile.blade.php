@@ -141,9 +141,9 @@
 		@if(count($posts) > 0)
 			@foreach($posts as $post)
 
+			<div id="mainPost-{{$post->id}}">
 				<!-- Beggining of post owne pic -->
-				
-				<div id="postPic">
+				<div class="postPic" id="postPic-{{$post->id}}">
 					<div class="dropdown-divider col-10" id="divider"></div>
 					<a href="{{route('profile',$post->owner->account->username)}}">
 						@if(count($post->owner->account->photos) > 0)
@@ -162,7 +162,7 @@
 				<!-- End of post owne pic -->
 				
 				<!-- start of div of postContent -->
-				<div id="postContent" class="col-12">
+				<div id="postContent-{{$post->id}}" class="postContent col-12">
 					<h5>{{$post->title}}</h5>
 					@guest
 					<div class="btn float-right shareBtnForGuest" id="shareBtn" title="All share options">
@@ -266,6 +266,12 @@
 							</a>
 						</button>
 						@endcan
+						<div class="confirmationBox" id="postConfirmationBox-{{$post->id}}">
+							<div id="text">Are You Sure To Delete?</div>
+							<div id="text"><small>Remember: There is no comeback</small></div>
+							<a href="javascript:void(0)" onclick="deletePosts('{{$post->id}}')" class="btn btn-danger btn-sm">Remove</a>
+							<a href="javascript:void(0)" onclick="postClosePermissionBox('{{$post->id}}')" class="btn btn-light btn-sm">Cancel</a>
+						</div>
 						@endauth
 						<!-- End of the posts options that should be visible only for auth users -->
 
@@ -320,7 +326,7 @@
 								</span>
 								<span title="Delete Post">
 									<li>
-										<a href="#" class="PostEditDelete"><span class="fas fa-trash"></span> Delete</a>
+										<a href="javascript:void(0)" id="postDeleteOption-{{$post->id}}" class="PostEditDelete" onclick="openPostConfirmation('{{$post->id}}')"><span class="fas fa-trash"></span> <Span id="postDeleteText-{{$post->id}}">Delete</Span></a>
 									</li>
 								</span>
 								@endif
@@ -715,6 +721,7 @@
 						<!-- End Showing all comments part  -->
 					</div>
 					<!-- ///////////////////////////////////////// End of comment part ////////////////////////////////////////////////////////////////-->
+			</div> <!-- End of main post div  -->
 			@endforeach
 		@endif
 	</div>
@@ -876,6 +883,9 @@
 
 		// This route is to rmove normalusers from follower list by doctors
 		var removeFollower = '{{route("removeFollower")}}';
+
+		// This route is delete the post by post owner
+		var deletePost = '{{route("deletePost")}}';
 	</script>
 
 @endsection

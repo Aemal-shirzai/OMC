@@ -121,7 +121,7 @@ span.btn-icon{
 div#posts{
 	padding: 0 20%;
 }
-div#postPic{
+div.postPic{
 	overflow: hidden;
 	width: 100%;
 	float: left;
@@ -130,16 +130,16 @@ div#divider{
 	margin-left: 52px;
 	border-color: #d0d0d0;
 }
-div#postPic img{
+div.postPic img{
 	width: 40px;
 	height: 40px;
 	display: inline-block;
 	border-radius: 50%;
 }
-div#postPic a:hover{
+div.postPic a:hover{
 	text-decoration: none;
 }
-div#postPic a:hover span#fullName{
+div.postPic a:hover span#fullName{
 	text-decoration: underline;
 }
 div#ownerName{
@@ -147,14 +147,14 @@ div#ownerName{
 	display: inline-block;
 	padding-left: 12px;
 }
-div#postPic span#createTime{
+div.postPic span#createTime{
 	color: #828282;
 	display: table;
 	font-size: 10px;
 	margin-top: -4px;
 
 }
-div#postContent{
+div.postContent{
 	display: block;
 	float: left;
 	overflow-y: auto;
@@ -165,11 +165,11 @@ a.readMoreLess{
 	font-size: 11px;
 	color: #3fbbc0;
 }
-div#postContent h5{
+div.postContent h5{
 	font-weight: bold;
 	font-size: 14px;
 }
-div#postContent p{
+div.postContent p{
 	word-wrap: break-word;
 	text-align: justify;
 	font-size: 14px;
@@ -180,7 +180,7 @@ div#postImage{
 	border-radius: 8px;
 	margin-bottom: 12px;
 }
-div#postContent img{
+div.postContent img{
 	border-radius: 5px;
 }
 div#postImage img{
@@ -931,7 +931,7 @@ span.no-image-in-following{
 	div#posts{
 		padding: 0 14% !important;
 	}
-	div#postContent{
+	div.postContent{
 		padding: 4px 10px;
 	}
 	div#postImage img{
@@ -1217,24 +1217,24 @@ span.no-image-in-following{
 	div#posts{
 		padding: 0 0;
 	}
-	div#postPic span#createTime{
+	div.postPic span#createTime{
 		font-size: 8px;
 		margin-top: -1px;
 	}
-	div#postContent h5{
+	div.postContent h5{
 		font-size: 12px;
 		margin-top: 12px;
 		margin-bottom: 0px;
 		margin-left: 3px;
 	}
-	div#postContent{
+	div.postContent{
 		padding: 0 0;
 	}
-	div#postContent p{
+	div.postContent p{
 		word-break: keep-all;
 		font-size: 13px;
 	}
-	div#postContent{
+	div.postContent{
 		padding-right: 5px !important;
 	}
 	div#postImage{
@@ -1246,7 +1246,7 @@ span.no-image-in-following{
 	div#commentImage img{
 		max-height: 120px !important
 	}
-	div#postPic img{
+	div.postPic img{
 		width: 35px;
 		height: 35px;
 	}
@@ -1554,10 +1554,10 @@ span#countFollowingSmall{
 	}
 
 	/*post part*/
-	div#postContent h5{
+	div.postContent h5{
 		font-size: 13px;
 	}
-	div#postContent p{
+	div.postContent p{
 		font-size: 12px;
 	}
 	div#commentImage img{
@@ -1608,6 +1608,9 @@ span#countFollowingSmall{
 
 	div.allCommentsContent p{
 		font-size: 10px;
+	}
+	div.commetOptions button{
+		font-size: 9px;
 	}
 /*End of showing all comments part*/
 

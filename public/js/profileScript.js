@@ -854,3 +854,30 @@ function removeFollowers(userId){
 	});
 }
 // End of the function responsible for removing followers by doctors
+
+
+
+// deleting post confirmation box 
+function openPostConfirmation(postId){
+ $("#postConfirmationBox-"+postId).fadeIn();
+}
+function postClosePermissionBox(postId){
+ $("#postConfirmationBox-"+postId).fadeOut();
+}
+// deleging posts confirmation box
+
+
+// Beggining of the function which delete posts in profile
+function deletePosts(postId){
+	$("#postDeleteText-"+postId).text("Loading ...");
+	$("#postDeleteOption-"+postId).css("color","red");
+	$("#postConfirmationBox-"+postId).fadeOut();
+	$.ajax({
+		method: "DELETE",
+		url: deletePost,
+		data:{post_id:postId,_token:token}
+	}).done(function(){
+		$("#mainPost-"+postId).slideUp('fast');
+	});
+}
+// End of the function which delete posts in profile
