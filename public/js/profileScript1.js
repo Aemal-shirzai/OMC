@@ -780,6 +780,7 @@ function deleteComments(commentId,postId){
 		$("#allcommentsOwnerImage-"+commentId).slideUp('fast');
 		$("#commentOptions-"+commentId).hide();
 		$("#allReplies-"+commentId).slideUp("fast");
+		$("#reply-"+commentId).slideUp("fast");
 
 		$("#commentsCount-"+postId).text(parseInt($("#commentsCount-"+postId).text())-1);
 		$("#commentcounts1-"+postId).text(parseInt($("#commentcounts1-"+postId).text())-1);

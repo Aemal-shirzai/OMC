@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Post;
+use App\Question;
 class DiseaseCategory extends Model
 {
 	/**
@@ -18,5 +19,8 @@ class DiseaseCategory extends Model
     	return $this->morphedByMany(Post::class,"owner","post_and_question_category","disease_category_id");
     }
 
-    //will add for question later
+    //relationship with quesitons
+    public function quesions(){
+        return $this->morphedByMany(Question::class,"owner","post_and_question_category","disease_category_id");
+    }
 }

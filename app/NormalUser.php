@@ -12,6 +12,7 @@ use App\Phone;
 use App\Photo;
 use App\Comment;
 use App\Post;
+use App\Question;
 class NormalUser extends Model
 {
     /**
@@ -71,4 +72,9 @@ class NormalUser extends Model
     public function following(){
         return $this->belongsToMany(Doctor::class,"follows","normal_user_id","doctor_id")->withTimeStamps();
     }
+
+    // Relationship with qustions table
+    public function questions(){
+        return $this->hasMany(Question::class,"normal_user_id","id");
+    }   
 }

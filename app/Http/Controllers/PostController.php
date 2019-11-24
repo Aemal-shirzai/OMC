@@ -72,11 +72,10 @@ class PostController extends Controller
                 $post->photos()->create(["path"=>$nameToBeStored,"status"=>1]);
 
             } // End of adding photo
+            if($post){
+                return back()->with("postAddSuccess","Your post was added!");
+            }
         } // end of checking authorization
-
-        if($post){
-            return back()->with("postAddSuccess","Your post was added!");
-        }
     }
 
     /**

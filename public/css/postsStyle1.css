@@ -120,9 +120,8 @@ span#tagInfoIcon{
 div#tagInfo{
 	background-color: white;
 	position: absolute;
-	z-index: 1;
 	right: 0px;
-	top: -243px;
+	top: -260px;
 	padding: 12px 12px;
 	font-size: 12px;
 	font-weight: bold;
@@ -157,11 +156,10 @@ div#tagInfo:after{
 div#tags{
 	background-color: white;
 	position: absolute;
-	z-index: 1;
 	max-height: 310px;
 	overflow-y: auto;
 	overflow-x: visible;
-	left: 260px;
+	left: 250px;
 	top: -240px;
 	padding: 12px 12px;
 	font-size: 12px;
@@ -183,7 +181,7 @@ a#tagsDoneBtn{
     background-color: #3fbbc0;
     position: sticky;
     z-index: 1;
-    top: 299px;
+    top: 250px;
     float: right;
     right: 12px;
     border-radius: 50%;
@@ -272,6 +270,10 @@ span#changePhoto:hover ,span#removePhoto:hover {
 .messsages a{
 	color: #3fbbc0;
 }
+#questionSuccess{
+	top: 20px;
+	left: 309px;
+}
 /* end of second part form */
 
 
@@ -308,6 +310,11 @@ textarea::-webkit-scrollbar {
 	}
 	.messages{
 		width: 52%;
+	}
+	#questionSuccess{
+		top: 20px;
+		z-index: 1;
+		left: 90px;
 	}
 }
 
@@ -394,6 +401,12 @@ textarea::-webkit-scrollbar {
 	.messages{
 		left: 185px;
 		width: 69%%;
+	}
+	#questionSuccess{
+		top: 20px;
+		z-index: 1;
+		left: 23px;
+		width: 70%;
 	}
 /* end of second part form */
 }
@@ -510,7 +523,12 @@ textarea::-webkit-scrollbar {
 	    font-size: 10px;
 	    font-weight:bold;
 	}
-
+	#questionSuccess{
+		top: 1px;
+	    z-index: 1;
+	    left: 13px;
+	    width: 93%;
+	}
 /* end of second part form */
 
 }
@@ -602,6 +620,13 @@ textarea::-webkit-scrollbar {
 	}
 	.messages{
 		width: 91%;
+	}
+	#questionSuccess{
+		top: 1px;
+		z-index: 1;
+		left: 11px;
+		width: 93%;
+		font-size: 7px;
 	}
 /* end of second part form */
 }

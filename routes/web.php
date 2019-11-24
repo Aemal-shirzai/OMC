@@ -48,6 +48,9 @@ Route::POST("/comments/vote","CommentController@vote")->name("commentVote");
 // Deleting comment using ajax
 Route::DELETE("/comment/delete","CommentController@delete")->name("deleteComment");
 
+// Routes for questions
+Route::resource("/questions","QuestionController");
+
 
 // Routes for CommentReplies
 Route::resource("/replies","CommentReplyController");
