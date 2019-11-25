@@ -17,14 +17,14 @@
 	@elseif(Route::currentRouteName() == 'profile')
 	<!-- Link to local profile style for profile page -->
 	
-	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle111.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle1.css')}}">
 	
 	@elseif(Route::currentRouteName() == 'posts.create' || Route::currentRouteName() == 'questions.create')
 	<!-- Link to local  style for posts add page -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsStyle.css')}}">
 	@elseif(Route::currentRouteName() == 'posts.index' || Route::currentRouteName() == 'questions.index')
 	<!-- Link to local styles for posts list page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsListStyle2.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsListStyle1.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -240,7 +240,7 @@
 <script type="text/javascript" src="{{asset('js/postsAndQuestionsScripts.js')}}"></script>
 @elseif(Route::currentRouteName() == 'posts.index' || Route::currentRouteName() == 'questions.index')
 <!-- Link to local  js for posts page -->
-<script type="text/javascript" src="{{asset('js/postsAndQuestionsListScripts2.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/postsAndQuestionsListScripts.js')}}"></script>
 
 @endif
 

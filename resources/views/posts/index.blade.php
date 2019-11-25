@@ -210,7 +210,7 @@
 					</div>
 					@endauth
 				</div>
-				<div class="dropdown-divider col-10" id="divider"></div>
+				
 			<!-- End of opstions for posts -->
 
 			<!--////////////////////////////////  Begginning  comments part  ///////////////////////////////////////////////////////////////////  -->
@@ -277,7 +277,6 @@
 								<i class="fal fa-camera commentPhotoButton" id="commentPhotoButton-$post->id" onclick="openCommentPhotoField({!!$post->id!!})"></i>
 							</div>
 						{!! Form::close() !!}
-						<div class="dropdown-divider"></div>
 					</div>
 					<!-- End of div: The form for adding comments -->
 				@endauth
@@ -465,7 +464,6 @@
 
 							<!-- Beggining of: of the showing all replies for a comment -->
 							<div class="allReplies" id="allReplies-{{$comment->id}}">
-								<div class="dropdown-divider"></div>
 								@if(count($comment->replies) > 0)
 								<b><div class="mb-2 replies-count"><span id="replies-count-{{$comment->id}}">{{count($comment->replies)}}</span> Replies</div></b>
 										@foreach($comment->replies as $reply)
@@ -586,6 +584,7 @@
 			<div class="clearfix"></div>
 			<!-- End Showing all comments part  -->
 			</div>
+			<div class="dropdown-divider col-10 mt-2 bg" id="divider"></div>
 			<!-- ///////////////////////////////////////// End of comment part ////////////////////////////////////////////////////////////////-->
 			
 		</div>

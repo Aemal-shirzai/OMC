@@ -6,7 +6,7 @@
 @endsection
 @section("content")
 <div id="profileParent" style="position: relative;">
-	<div style="margin-bottom: 104px;">
+	<div style="margin-bottom: 12px;">
 	<div class="container" id="profileHeading">
 		<div id="profileImageParent">
 			<div id="profileImage" class="">
@@ -410,7 +410,7 @@
 										<i class="fal fa-camera commentPhotoButton" id="commentPhotoButton-$post->id" onclick="openCommentPhotoField({!!$post->id!!})"></i>
 									</div>
 								{!! Form::close() !!}
-								<div class="dropdown-divider"></div>
+								<!-- <div class="dropdown-divider"></div> -->
 							</div>
 							<!-- End of div: The form for adding comments -->
 						@endauth
@@ -598,7 +598,7 @@
 
 										<!-- Beggining of: of the showing all replies for a comment -->
 										<div class="allReplies" id="allReplies-{{$comment->id}}">
-											<div class="dropdown-divider"></div>
+											
 											@if(count($comment->replies) > 0)
 											<b><div class="mb-2 replies-count"><span id="replies-count-{{$comment->id}}">{{count($comment->replies)}}</span> Replies</div></b>
 													@foreach($comment->replies as $reply)

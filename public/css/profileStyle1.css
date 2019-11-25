@@ -20,7 +20,6 @@ a#topButtonP:focus{
 }
 div#profileParent{
 	background-color: white;
-	overflow: hidden;
 }
 div#profileHeading{
 	margin-top: 40px;
@@ -120,6 +119,7 @@ span.btn-icon{
 /* post section */
 div#posts{
 	padding: 0 20%;
+	margin-bottom: 13px !important;
 }
 div.postPic{
 	overflow: hidden;
@@ -129,6 +129,7 @@ div.postPic{
 div#divider{
 	margin-left: 52px;
 	border-color: #d0d0d0;
+	margin-bottom: 12px;
 }
 div.postPic img{
 	width: 40px;
@@ -157,8 +158,6 @@ div.postPic span#createTime{
 div.postContent{
 	display: block;
 	float: left;
-	overflow: hidden;
-	margin-bottom: 12px;
 	padding: 4px 53px;
 }
 a.readMoreLess{
@@ -173,6 +172,7 @@ div.postContent p{
 	word-wrap: break-word;
 	text-align: justify;
 	font-size: 14px;
+	margin-bottom: 0px;
 }
 div#postImage{
 	width: 100%;
@@ -361,7 +361,7 @@ div#commentPart{
 	border:1px solid #f1f1f1;
 	border-radius: 12px;
 	margin: 0 auto;
-	padding: 40px 25px;
+	padding: 20px 25px;
 }
 
 div#commentPartImage{
@@ -845,8 +845,9 @@ span#countFollowingSmall{
 
 	/* options part */
 	div.options button{
-		font-size: 10px;
+		font-size: 8px;
 	}
+
 	div.shareOptions{
 		margin-left: -70px;
 	}
@@ -958,7 +959,7 @@ span.no-image-in-following{
 		display: none;
 	}
 	div.options button{
-		font-size: 10px;
+		font-size: 12px;
 	}
 	div.shareOptions{
 		width: 95px;
@@ -986,7 +987,7 @@ span.no-image-in-following{
 /* comments part */
 	div#commentPart{
 		background-color: #fbfbfd;
-		width: 85%;
+		width: 100%;
 		border:1px solid #f1f1f1;
 		border-radius: 12px;
 		padding: 20px 5px;
@@ -1010,7 +1011,6 @@ span.no-image-in-following{
 	}
 	.commentField{
 		font-size: 11px;
-		width: 100% !important;
 		margin-left: 5px;
 		margin-bottom: 5px !important;
 	}
