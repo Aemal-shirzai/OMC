@@ -1,25 +1,25 @@
 @extends("../layouts.MainLayout")
 
-@section("title", "OMC All Posts")
+@section("title", "OMC All Questions")
 
 @section("content")
 
 <div class="container" id="listParent">
-	@if(count($posts) > 0)
-	@foreach($posts as $post)
-		<div class="mainContent" id="mainContent-{{$post->id}}">
+	@if(count($questions) > 0)
+	@foreach($questions as $question)
+		<div class="mainContent" id="mainContent-{{$question->id}}">
 			<!-- owner information about post or questions -->
-			<div class="ownerInfo" id="ownerInfo-{{$post->id}}">
-				<a href="{{route('profile',$post->owner->account->username)}}">
-					@if(count($post->owner->account->photos) > 0)
-						<img src="/storage/images/doctors/{{$post->owner->account->photos()->where('status',1)->first()->path}}">
+			<div class="ownerInfo" id="ownerInfo-{{$question->id}}">
+				<a href="{{route('profile',$question->owner->account->username)}}">
+					@if(count($question->owner->account->photos) > 0)
+						<img src="/storage/images/normalUsers/{{$question->owner->account->photos()->where('status',1)->first()->path}}">
 					@else
 						<span class="fal fa-user" id="no-owner-image"></span>
 					@endif
 					<div id="ownerName">
-						<span id="fullName">{{$post->owner->fullName}}</span> 
-						@if($post->created_at)
-							<span id="createTime">Posted:{{$post->created_at->diffForHumans()}}</span>
+						<span id="fullName">{{$question->owner->fullName}}</span> 
+						@if($question->created_at)
+							<span id="createTime">Asked:{{$question->created_at->diffForHumans()}}</span>
 						@endif
 					</div>
 				</a>
@@ -27,52 +27,52 @@
 			<!--End owner information about post or questions -->
 			
 			<!-- Beggingin of the content part -->
-			<div id="content-{{$post->id}}" class="content col-12">
-				<h5>{{$post->title}}</h5>
+			<div id="content-{{$question->id}}" class="content col-12">
+				<h5>{{$question->title}}</h5>
 				@guest
 				<div class="btn float-right shareBtnForGuest" id="shareBtn" title="All share options">
-					<a href="#" onclick="openShareOptions({{$post->id}})">
+					<a href="#" onclick="openShareOptions({{$question->id}})">
 						<span class="far fa-ellipsis-h optionsIcons"></span> 
 					</a>
-					<div class="shareOptions shareOptionsForGuest" id="shareOptions-{{$post->id}}">
+					<div class="shareOptions shareOptionsForGuest" id="shareOptions-{{$question->id}}">
 						<p class="text-center">Share</p>
 						<!-- <a href="" class="fab fa-facebook"> Facebook</a> -->
-						{!! Share::page(route('posts.show',$post->id),null,['class'=>'share','id'=>"share-facebook"],"<span>","</span>")->facebook() !!}
+						{!! Share::page(route('questions.show',$question->id),null,['class'=>'share','id'=>"share-facebook"],"<span>","</span>")->facebook() !!}
 						<div class="dropdown-divider"></div>
-						{!! Share::page(route('posts.show',$post->id),null,['class'=>'share','id'=>"share-twitter"],"<span>","</span>")->twitter() !!}
+						{!! Share::page(route('questions.show',$question->id),null,['class'=>'share','id'=>"share-twitter"],"<span>","</span>")->twitter() !!}
 						<div class="dropdown-divider"></div>
-						{!! Share::page(route('posts.show',$post->id),null,['class'=>'share','id'=>"share-linkedIn"],"<span>","</span>")->linkedin() !!}
+						{!! Share::page(route('questions.show',$question->id),null,['class'=>'share','id'=>"share-linkedIn"],"<span>","</span>")->linkedin() !!}
 						<div class="dropdown-divider"></div>
-						{!! Share::page(route('posts.show',$post->id),null,['class'=>'share','id'=>"share-whatsapp"],"<span>","</span>")->whatsapp() !!}
+						{!! Share::page(route('questions.show',$question->id),null,['class'=>'share','id'=>"share-whatsapp"],"<span>","</span>")->whatsapp() !!}
 						<div class="dropdown-divider"></div>
-						{!! Share::page(route('posts.show',$post->id),null,['class'=>'share','id'=>"share-telegram"],"<span>","</span>")->telegram() !!}
+						{!! Share::page(route('questions.show',$question->id),null,['class'=>'share','id'=>"share-telegram"],"<span>","</span>")->telegram() !!}
 					</div>
 				</div>
 				@endguest
-				@if($post->photos()->count() > 0)
+				@if($question->photos()->count() > 0)
 				<div class="contentImage text-center">
-					<img src="/storage/images/posts/{{$post->photos()->where('status',1)->first()->path}}" class="">
+					<img src="/storage/images/questions/{{$question->photos()->where('status',1)->first()->path}}" class="">
 				</div>
 				@endif
-				<div class="tags @if($post->photos()->count() > 0 )text-center @endif">
-					@if($post->tags()->count() > 0)
-						@foreach($post->tags as $tag)
+				<div class="tags @if($question->photos()->count() > 0 )text-center @endif">
+					@if($question->tags()->count() > 0)
+						@foreach($question->tags as $tag)
 							<span><a href="#">{{$tag->category}}</a></span>
 						@endforeach
 					@endif
 				</div>
-				@if($post->content)
-					@if(strlen($post->content) > 1000)
-						<p id="halfContent-{{$post->id}}">
-							{{ Str::limit($post->content,1000)}} 
-							<a href="javascript:void(0)" class="readMoreLess" onclick="showComplete({!! $post->id !!},'post')">Read More...</a>
+				@if($question->content)
+					@if(strlen($question->content) > 1000)
+						<p id="halfContent-{{$question->id}}">
+							{{ Str::limit($question->content,1000)}} 
+							<a href="javascript:void(0)" class="readMoreLess" onclick="showComplete({!! $question->id !!},'post')">Read More...</a>
 						</p>
-						<p id="completeContent-{{$post->id}}" style="display: none;">
-							{{ $post->content}}
-							<a href="javascript:void(0)" class="readMoreLess" onclick="showLess({!! $post->id !!},'post')">Read Less...</a>
+						<p id="completeContent-{{$question->id}}" style="display: none;">
+							{{ $question->content}}
+							<a href="javascript:void(0)" class="readMoreLess" onclick="showLess({!! $question->id !!},'post')">Read Less...</a>
 						</p>
 					@else
-						<p>{{ $post->content }}</p>
+						<p>{{ $question->content }}</p>
 					@endif
 				@endif
 			</div>
@@ -83,42 +83,42 @@
 				<div class="options">
 					<!-- Beggining of the posts options that should be visible only for auth users -->
 					@auth
-					<button class="btn" onclick="vote('{{$post->id}}','upVote')" title="The answer was usefull">
+					<button class="btn" onclick="voteQuestion('{{$question->id}}','upVote')" title="The answer was usefull">
 						<a href="javascript:void(0)">
-							<span id="upVotedCheck-{{$post->id}}" @if(Auth::user()->postsVotes()->where(["type"=>1,"to_type"=>"App\Post","to_id"=>$post->id])->first())
+							<span id="upVotedCheck-{{$question->id}}" @if(Auth::user()->questionsVotes()->where(["type"=>1,"to_type"=>"App\Question","to_id"=>$question->id])->first())
 								class = "fas fa-check upVotedCheck"
 							 @endif ></span>
 
-							<span class="fal fa-arrow-alt-up optionsIcons" id="postOptionsVoteUpIcon-{{$post->id}}" {{ Auth::user()->postsVotes()->where(["type"=>1,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "style=color:#3fbbc0;" : "" }}></span> 
+							<span class="fal fa-arrow-alt-up optionsIcons" id="postOptionsVoteUpIcon-{{$question->id}}" {{ Auth::user()->questionsVotes()->where(["type"=>1,"to_type"=>"App\Question","to_id"=>$question->id])->first() ? "style=color:#3fbbc0;" : "" }}></span> 
 
-							<span class="optionsText" id="postOptionsVoteUpText-{{$post->id}}" {{ Auth::user()->postsVotes()->where(["type"=>1,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "style=color:#3fbbc0;" : "" }}>
-							{{ Auth::user()->postsVotes()->where(["type"=>1,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "Up-voted" : "Up-vote" }}</span>
+							<span class="optionsText" id="postOptionsVoteUpText-{{$question->id}}" {{ Auth::user()->questionsVotes()->where(["type"=>1,"to_type"=>"App\Question","to_id"=>$question->id])->first() ? "style=color:#3fbbc0;" : "" }}>
+							{{ Auth::user()->questionsVotes()->where(["type"=>1,"to_type"=>"App\Question","to_id"=>$question->id])->first() ? "Up-voted" : "Up-vote" }}</span>
 
-							. <span class="votes" id="postOptionsVoteUpCount-{{$post->id}}">{{$post->votedBy()->where("type",1)->count()}}</span>
+							. <span class="votes" id="postOptionsVoteUpCount-{{$question->id}}">{{$question->votedBy()->where("type",1)->count()}}</span>
 						</a>
 					</button>
-					<button class="btn" onclick="vote('{{$post->id}}','voteDown')" title="The answer was not usefull">
+					<button class="btn" onclick="voteQuestion('{{$question->id}}','voteDown')" title="The answer was not usefull">
 						<a href="javascript:void(0)">
 
-							<span id="downVotedCheck-{{$post->id}}" @if(Auth::user()->postsVotes()->where(["type"=>0,"to_type"=>"App\Post","to_id"=>$post->id])->first())
+							<span id="downVotedCheck-{{$question->id}}" @if(Auth::user()->questionsVotes()->where(["type"=>0,"to_type"=>"App\Question","to_id"=>$question->id])->first())
 								class = "fas fa-check upVotedCheck"
 							 @endif></span>
 
-							<span class="fal fa-arrow-alt-down optionsIcons" id="postOptionsDownVoteUpIcon-{{$post->id}}" {{ Auth::user()->postsVotes()->where(["type"=>0,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "style=color:#3fbbc0;" : "" }}></span> 
+							<span class="fal fa-arrow-alt-down optionsIcons" id="postOptionsDownVoteUpIcon-{{$question->id}}" {{ Auth::user()->questionsVotes()->where(["type"=>0,"to_type"=>"App\Question","to_id"=>$question->id])->first() ? "style=color:#3fbbc0;" : "" }}></span> 
 
-							<span class="optionsText" id="postOptionsDownVoteText-{{$post->id}}" {{ Auth::user()->postsVotes()->where(["type"=>0,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "style=color:#3fbbc0;" : "" }}>{{ Auth::user()->postsVotes()->where(["type"=>0,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "Down-voted" : "Down-vote" }}</span>  
+							<span class="optionsText" id="postOptionsDownVoteText-{{$question->id}}" {{ Auth::user()->questionsVotes()->where(["type"=>0,"to_type"=>"App\Question","to_id"=>$question->id])->first() ? "style=color:#3fbbc0;" : "" }}>{{ Auth::user()->questionsVotes()->where(["type"=>0,"to_type"=>"App\Question","to_id"=>$question->id])->first() ? "Down-voted" : "Down-vote" }}</span>  
 
-							. <span class="votes" id="postOptionsVoteDownCount-{{$post->id}}">{{$post->votedBy()->where("type",0)->count()}}</span>
+							. <span class="votes" id="postOptionsVoteDownCount-{{$question->id}}">{{$question->votedBy()->where("type",0)->count()}}</span>
 						</a>
 					</button>
 					@can("normalUser_related",Auth::user())
-					<button class="btn {{ Auth::user()->owner->favoritePosts()->where(['fav_type'=>'App\Post','fav_id'=>$post->id])->first() ? 'followed' : '' }}" onclick="followPost('{{$post->id}}')" id="favoriteButton-{{$post->id}}" title="Follow the post for lates update">
+					<button class="btn {{ Auth::user()->owner->favoriteQuestions()->where(['fav_type'=>'App\Question','fav_id'=>$question->id])->first() ? 'followed' : '' }}" onclick="followQuestion('{{$question->id}}')" id="favoriteButton-{{$question->id}}" title="Follow the question for lates update">
 						<a href="javascript:void(0)">
 							<span class="fal fa-wifi optionsIcons"></span> 
-							<span class="optionsText" id="followOptionText-{{$post->id}}">
-								{{ Auth::user()->owner->favoritePosts()->where(['fav_type'=>'App\Post','fav_id'=>$post->id])->first() ? 'Un-follow' : 'Follow' }}
+							<span class="optionsText" id="followOptionText-{{$question->id}}">
+								{{ Auth::user()->owner->favoriteQuestions()->where(['fav_type'=>'App\Question','fav_id'=>$question->id])->first() ? 'Un-follow' : 'Follow' }}
 							</span> 
-							. <span class="votes" id="favoritesPostCount-{{$post->id}}"> {{$post->favoritedBy()->count()}}</span>
+							. <span class="votes" id="favoritesPostCount-{{$question->id}}"> {{$question->favoritedBy()->count()}}</span>
 						</a>
 					</button>
 					@endcan
@@ -127,15 +127,15 @@
 						<a href="javascript:void(0)">
 							<span class="fal fa-wifi optionsIcons"></span> 
 							<span class="optionsText">Followed by</span> 
-							<span class="votes">. {{$post->favoritedBy()->count()}}</span>
+							<span class="votes">. {{$question->favoritedBy()->count()}}</span>
 						</a>
 					</button>
 					@endcan
-					<div class="confirmationBox" id="postConfirmationBox-{{$post->id}}">
+					<div class="confirmationBox" id="postConfirmationBox-{{$question->id}}">
 						<div id="text">Are You Sure To Delete?</div>
 						<div id="text"><small>Remember: There is no comeback</small></div>
-						<a href="javascript:void(0)" onclick="deletePosts('{{$post->id}}')" class="btn btn-danger btn-sm">Remove</a>
-						<a href="javascript:void(0)" onclick="postClosePermissionBox('{{$post->id}}')" class="btn btn-light btn-sm">Cancel</a>
+						<a href="javascript:void(0)" onclick="deleteQuestions('{{$question->id}}')" class="btn btn-danger btn-sm">Remove</a>
+						<a href="javascript:void(0)" onclick="postClosePermissionBox('{{$question->id}}')" class="btn btn-light btn-sm">Cancel</a>
 					</div>
 					@endauth
 					<!-- End of the posts options that should be visible only for auth users -->
@@ -146,43 +146,43 @@
 						<a href="javascript:void(0)">
 							<span class="far fa-arrow-alt-up optionsIcons"></span> 
 							<span class="optionsText">Up-vote</span> 
-							<span class="votes">. {{$post->votedBy()->where("type",1)->count()}}</span>
+							<span class="votes">. {{$question->votedBy()->where("type",1)->count()}}</span>
 						</a>
 					</button>
 					<button class="btn OptionsForGuest" title="The answer was not usefull. You have to Login First">
 						<a href="javascript:void(0)">
 							<span class="fal fa-arrow-alt-down optionsIcons"></span> 
 							<span class="optionsText">Down-vote</span>  
-							<span class="votes">. {{$post->votedBy()->where("type",0)->count()}}</span>
+							<span class="votes">. {{$question->votedBy()->where("type",0)->count()}}</span>
 						</a>
 					</button>
 					<button class="btn OptionsForGuest" title="Follow the post for lates update. You have to Login First">
 						<a href="javascript:void(0)">
 							<span class="fal fa-wifi optionsIcons"></span> 
 							<span class="optionsText">Follow</span> 
-							<span class="votes">. {{$post->favoritedBy()->count()}}</span>
+							<span class="votes">. {{$question->favoritedBy()->count()}}</span>
 						</a>
 					</button>
 					@endguest
 					<!-- End of the posts options that should be visible only for guest users -->
 
 					<!-- Beggining of the posts options that should be visible for both the  auth users and guest users -->
-					<button class="btn" title="All comments for this post" onclick="showAllComments({!!$post->id!!})">
-						<a href="javascript::void(0)">								<span class="fal fa-comment optionsIcons"></span> 
+					<button class="btn" title="All comments for this post" onclick="showAllComments({!!$question->id!!})">
+						<a href="javascript::void(0)">	<span class="fal fa-comment optionsIcons"></span> 
 							<span class="optionsText">comments</span> 
-							.<span class="votes" id="commentcounts1-{{$post->id}}"> {{count($post->comments)}}</span>
+							.<span class="votes" id="commentcounts1-{{$question->id}}"> {{count($question->comments)}}</span>
 						</a>
 					</button>
 					<!-- End of the posts options that should be visible for both the  auth users and guest users -->
 
 					@auth
 					<div class="btn float-right" id="shareBtn" title="All share options">
-						<a href="#" onclick="openShareOptions({{$post->id}})">
+						<a href="#" onclick="openShareOptions({{$question->id}})">
 							<span class="far fa-ellipsis-v optionsIcons"></span> 
 						</a>
-						<div class="shareOptions" id="shareOptions-{{$post->id}}">
+						<div class="shareOptions" id="shareOptions-{{$question->id}}">
 							
-							@if(Auth::user()->id === $post->owner->account->id)
+							@if(Auth::user()->id === $question->owner->account->id)
 							<p class="text-center">Manage</p>
 							<span title="Edit Post">
 								<li>
@@ -191,21 +191,21 @@
 							</span>
 							<span title="Delete Post">
 								<li>
-									<a href="javascript:void(0)" id="postDeleteOption-{{$post->id}}" class="PostEditDelete" onclick="openPostConfirmation('{{$post->id}}')"><span class="fas fa-trash"></span> <Span id="postDeleteText-{{$post->id}}">Delete</Span></a>
+									<a href="javascript:void(0)" id="postDeleteOption-{{$question->id}}" class="PostEditDelete" onclick="openPostConfirmation('{{$question->id}}')"><span class="fas fa-trash"></span> <Span id="postDeleteText-{{$question->id}}">Delete</Span></a>
 								</li>
 							</span>
 							@endif
 							<!-- <div class="dropdown-divider"></div> -->
 							<p class="text-center">Share</p>
-							{!! Share::page(route('posts.show',$post->id),null,['class'=>'share','id'=>"share-facebook"],"<span>","</span>")->facebook() !!}
+							{!! Share::page(route('questions.show',$question->id),null,['class'=>'share','id'=>"share-facebook"],"<span>","</span>")->facebook() !!}
 							<div class="dropdown-divider"></div>
-							{!! Share::page(route('posts.show',$post->id),null,['class'=>'share','id'=>"share-twitter"],"<span>","</span>")->twitter() !!}
+							{!! Share::page(route('questions.show',$question->id),null,['class'=>'share','id'=>"share-twitter"],"<span>","</span>")->twitter() !!}
 							<div class="dropdown-divider"></div>
-							{!! Share::page(route('posts.show',$post->id),null,['class'=>'share','id'=>"share-linkedIn"],"<span>","</span>")->linkedin() !!}
+							{!! Share::page(route('questions.show',$question->id),null,['class'=>'share','id'=>"share-linkedIn"],"<span>","</span>")->linkedin() !!}
 							<div class="dropdown-divider"></div>
-							{!! Share::page(route('posts.show',$post->id),null,['class'=>'share','id'=>"share-whatsapp"],"<span>","</span>")->whatsapp() !!}
+							{!! Share::page(route('questions.show',$question->id),null,['class'=>'share','id'=>"share-whatsapp"],"<span>","</span>")->whatsapp() !!}
 							<div class="dropdown-divider"></div>
-							{!! Share::page(route('posts.show',$post->id),null,['class'=>'share','id'=>"share-telegram"],"<span>","</span>")->telegram() !!}
+							{!! Share::page(route('questions.show',$question->id),null,['class'=>'share','id'=>"share-telegram"],"<span>","</span>")->telegram() !!}
 						</div>
 					</div>
 					@endauth
@@ -217,9 +217,9 @@
 			<div id="commentPart">
 				<!-- Note: this div is used to show the error messages of both client side and serverside NOTE:ids names are confusing here -->
 
-				<div class="alert alert-danger commentImageVideoErrorMsg" id="fileError-{{$post->id}}" >
-					<button class="close" onclick="closeMsgs({!! $post->id !!})">&times;</button>
-					<span id="msg-{{$post->id}}">
+				<div class="alert alert-danger commentImageVideoErrorMsg" id="fileError-{{$question->id}}" >
+					<button class="close" onclick="closeMsgs({!! $question->id !!})">&times;</button>
+					<span id="msg-{{$question->id}}">
 						@error('photo')
 							{{ $message }}
 						@enderror
@@ -233,21 +233,21 @@
 					* 2- to make its display availible usring js. Because if i just relay on the the session if statemetn
 					* then when the request response come then it show the smae messagses above all the comments.			
 				 -->
-					<div class="alert alert-success commentSuccessMsgs" id="successMsg-{{$post->id}}">
+					<div class="alert alert-success commentSuccessMsgs" id="successMsg-{{$question->id}}">
 						<button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
 							{{session('commentSuccess')}}
 					</div>
 				@endif
-				<div class="commentImageDiv" id="commentImageDiv-{{$post->id}}" style="">
-					<button class="close removeImage" onclick="removeImage({!! $post->id !!})" >
+				<div class="commentImageDiv" id="commentImageDiv-{{$question->id}}" style="">
+					<button class="close removeImage" onclick="removeImage({!! $question->id !!})" >
 						&times; 
 						<span class="removeEditCommentPhotoText"> Remove photo</span>
 					</button>
-					<a href="javascript:void(0)" class="fal fa-edit ml-2" onclick="openCommentPhotoField({!!$post->id!!})">
+					<a href="javascript:void(0)" class="fal fa-edit ml-2" onclick="openCommentPhotoField({!!$question->id!!})">
 						<span class="removeEditCommentPhotoText">Change photo</span>
 					</a>
 					<div class="text-center" style="overflow: hidden;">
-						<img src="" id="commentImg-{{$post->id}}" >
+						<img src="" id="commentImg-{{$question->id}}" >
 					</div>
 				</div>
 				@auth
@@ -269,12 +269,12 @@
 					<div id="comment">
 						{!! Form::open(["method"=>"post","action"=>"CommentController@store","files"=>"true"]) !!}		
 							<div class="input-group">
-								{!! Form::file("photo",["class"=>"commentPhotoField","accept"=>"image/*","id"=>"commentPhotoField-$post->id","onchange"=>"showAndValidateFile($post->id)"]) !!}
-								<textarea  name="content" class="form-control commentField" placeholder="Add Comment to post..." id="commentField-{{$post->id}}" rows="1" maxlength="65500" 
-								onkeyup="do_resize_and_enable_button(this,{!! $post->id !!})">@if(old("post_id") == $post->id) {{old("content")}} @endif</textarea>
-								<input type="hidden" name="post_id" value= @if(old("post_id") == $post->id) {{old("post_id")}} @else {{$post->id}} @endif >
-								{!! Form::submit("Add Comment",["class"=>"btn  btn-sm addCommentBtn","id"=>"addCommentBtn-$post->id","disabled"=>"true","onclick"=>"validateCommentForm($post->id)"]) !!}
-								<i class="fal fa-camera commentPhotoButton" id="commentPhotoButton-$post->id" onclick="openCommentPhotoField({!!$post->id!!})"></i>
+								{!! Form::file("photo",["class"=>"commentPhotoField","accept"=>"image/*","id"=>"commentPhotoField-$question->id","onchange"=>"showAndValidateFile($question->id)"]) !!}
+								<textarea  name="content" class="form-control commentField" placeholder="Add Comment to post..." id="commentField-{{$question->id}}" rows="1" maxlength="65500" 
+								onkeyup="do_resize_and_enable_button(this,{!! $question->id !!})">@if(old("question_id") == $question->id) {{old("content")}} @endif</textarea>
+								<input type="hidden" name="question_id" value= @if(old("post_id") == $question->id) {{old("question_id")}} @else {{$question->id}} @endif >
+								{!! Form::submit("Add Comment",["class"=>"btn  btn-sm addCommentBtn","id"=>"addCommentBtn-$question->id","disabled"=>"true","onclick"=>"validateCommentForm($question->id)"]) !!}
+								<i class="fal fa-camera commentPhotoButton" id="commentPhotoButton-$question->id" onclick="openCommentPhotoField({!!$question->id!!})"></i>
 							</div>
 						{!! Form::close() !!}
 					</div>
@@ -282,10 +282,10 @@
 				@endauth
 
 				<!-- Beggining of all comments part -->
-				<div class="allComments" id="allComments-{{$post->id}}">
-					@if(count($post->comments) > 0)
-						<b><div class="mb-2 ml-2 comments-count"><span id="commentsCount-{{$post->id}}">{{count($post->comments)}}</span> Comments</div></b>
-						@foreach($post->comments as $comment)
+				<div class="allComments" id="allComments-{{$question->id}}">
+					@if(count($question->comments) > 0)
+						<b><div class="mb-2 ml-2 comments-count"><span id="commentsCount-{{$question->id}}">{{count($question->comments)}}</span> Comments</div></b>
+						@foreach($question->comments as $comment)
 
 							<!-- Beggining of: Image part of comment owner -->
 							<div class="allcommentsOwnerImage" id="allcommentsOwnerImage-{{$comment->id}}">
@@ -378,7 +378,7 @@
 								<div class="confirmationBox" id="commentConfirmationBox-{{$comment->id}}">
 									<div id="text">Are You Sure You Want To Delete?</div>
 									<div id="text"><small>Remember: There is no comeback</small></div>
-									<a href="javascript:void(0)" onclick="deleteComments('{{$comment->id}}','{{$post->id}}')" class="btn btn-danger btn-sm">Delete</a>
+									<a href="javascript:void(0)" onclick="deleteComments('{{$comment->id}}','{{$question->id}}')" class="btn btn-danger btn-sm">Delete</a>
 									<a href="javascript:void(0)" onclick="closePermissionBox('{{$comment->id}}')" class="btn btn-light btn-sm">Cancel</a>
 								</div>
 
@@ -452,8 +452,8 @@
 											<textarea  name="replyContent" class="form-control replyField" placeholder="Add Reply..." id="replyField-{{$comment->id}}" rows="1" maxlength="65500" 
 											onkeyup="do_resize_and_enable_reply_button(this,{!! $comment->id !!})">@if(old("comment_id") == $comment->id) {{old("replyContent")}} @endif</textarea>
 											<input type="hidden" name="comment_id" value= @if(old("comment_id") == $comment->id) {{old("comment_id")}} @else {{$comment->id}} @endif >
-											<!-- This hidden field is responsible to take the post id with it because in return we need it to scrooll to all comments -->
-											<input type="hidden" name="post_id_for_replies" value= @if(old("post_id") == $post->id) {{old("post_id_for_replies")}} @else {{$post->id}} @endif >
+											<!-- This hidden field is responsible to take the post id with it because in return we need it to scrooll to all comments --> 
+											<input type="hidden" name="question_id_for_replies" value= @if(old("question_id") == $question->id) {{old("question_id_for_replies")}} @else {{$question->id}} @endif >
 											{!! Form::submit("Reply",["class"=>"btn  btn-sm addReplyBtn","id"=>"addReplyBtn-$comment->id","disabled"=>"true","onclick"=>"validateReplyForm($comment->id)"]) !!}
 											<i class="fal fa-camera replyPhotoButton" id="replyPhotoButton-{{$comment->id}}" onclick="openReplyPhotoField({!!$comment->id!!})"></i>
 										</div>
@@ -594,17 +594,17 @@
 
 
 @section("scripts")
-@if(session('post_id'))
+@if(session('question_id'))
 		<script type="text/javascript">
 			var scroll = "on";
-			var toScrollToPostQuestion_id = {!! json_encode(session('post_id')) !!};
+			var toScrollToPostQuestion_id = {!! json_encode(session('question_id')) !!};
 		</script>
 	@endif
 <!-- Error msgs of adding comment -->
 	@error("photo")
 		<script type="text/javascript">
 			var scroll = "on1";
-			var toScrollToPostQuestion_id = {!! json_encode(old("post_id")) !!};
+			var toScrollToPostQuestion_id = {!! json_encode(old("question_id")) !!};
 		</script>
 	@enderror
 
@@ -621,19 +621,19 @@
 		<script type="text/javascript">
 			var scroll = "toReplyError";
 			var comment_id = {!! json_encode(old("comment_id")) !!};
-			var ToScrollTo_id = {!! json_encode(old("post_id_for_replies")) !!};
+			var ToScrollTo_id = {!! json_encode(old("question_id_for_replies")) !!};
 		</script>
 	@endif
 
 <!-- These variables are for ajax  token and route to which vote the post, comments , replies-->
 	<script type="text/javascript">
 		var token = '{{ Session::token() }}';
-		var postVote = '{{route("postVote")}}';
+		var questionVote = '{{route("questionVote")}}';
 		var commentVote = '{{route("commentVote")}}';
 		var replyVote = '{{route("replyVote")}}';
 
-		// This route is to add post to favorite
-		var postFavorites = '{{route("postFavorites")}}';
+		// This route is to add qiestion to favorite
+		var questionFavorites = '{{route("questionFavorites")}}';
 
 		// This route is to delete comments
 		var deleteComment = '{{route("deleteComment")}}';
@@ -641,14 +641,14 @@
 		// This route is to delete comments
 		var deleteReply = '{{route("deleteReply")}}';
 
-		// This route is to add and remove doctors to follow by normal user
-		var DoctorFollow = '{{route("DoctorFollow")}}';
+		// // This route is to add and remove doctors to follow by normal user
+		// var DoctorFollow = '{{route("DoctorFollow")}}';
 
-		// This route is to rmove normalusers from follower list by doctors
-		var removeFollower = '{{route("removeFollower")}}';
+		// // This route is to rmove normalusers from follower list by doctors
+		// var removeFollower = '{{route("removeFollower")}}';
 
 		// This route is delete the post by post owner
-		var deletePost = '{{route("deletePost")}}';
+		var deleteQuestion = '{{route("deleteQuestion")}}';
 	</script>
 
 @endsection

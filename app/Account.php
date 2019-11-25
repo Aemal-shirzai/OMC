@@ -11,6 +11,7 @@ use App\Account;
 use App\Comment;
 use App\CommentReply;
 use App\Post;
+use App\Question;
 
 class Account extends Authenticatable
 {
@@ -73,6 +74,11 @@ class Account extends Authenticatable
     // Relationship with posts Based on vote up and vote down (polymorphic many to many)
     public function postsVotes(){
         return $this->morphedByMany(Post::class,"to","votes","account_id")->withTimeStamps()->withPivot("type");
+    }  
+
+    // Relationship with quesions Based on vote up and vote down (polymorphic many to many)
+    public function questionsVotes(){
+        return $this->morphedByMany(Question::class,"to","votes","account_id")->withTimeStamps()->withPivot("type");
     }
 
     // Relationship with comments Based on vote up and vote down (polymorphic many to many)

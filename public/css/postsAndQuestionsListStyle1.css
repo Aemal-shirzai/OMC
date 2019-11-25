@@ -19,7 +19,7 @@ a#topButtonP:focus{
 	box-shadow: none;
 }
 div#listParent{
-	overflow:hidden;
+
 }
 div.mainContent{
 	width: 100%;
@@ -96,6 +96,17 @@ div.contentImage img{
 	max-width: 100%;
 	max-height: 300px !important;
 	border-radius: 5px;
+}
+div#commentImage{
+	width: 98%;
+	margin-bottom: 12px;
+	border-radius: 5px;
+	border:1px solid lightgray !important;
+}
+div#commentImage img{
+	max-width: 100%;
+	max-height: 200px !important;
+	border-radius:5px;
 }
 div.tags{
 	margin-bottom: 2px;
@@ -312,7 +323,6 @@ div#comment{
 }
 
 div.commentImageDiv{
-	background-color: ;
 	width: 98%;
 	display: none;
 	overflow: hidden;
@@ -666,7 +676,9 @@ textarea::-webkit-scrollbar {
 		margin-top:5px;
 		font-size: 13px;
 	}
-	
+	div#commentImage img{
+		max-height: 170px !important
+	}
 	div.content p{
 		font-size: 13px;
 	}
@@ -809,7 +821,9 @@ div.contentImage{
 div.contentImage img{
 	max-height: 200px !important;
 }
-
+div#commentImage img{
+	max-height: 120px !important
+}
 div.tags span a{
 	font-size: 8px;
 }
@@ -1053,5 +1067,7 @@ span.commentOptionsIcons{
 div.commetOptions button{
 	font-size: 6px !important;
 }
-
+div#commentImage img{
+		max-height: 100px !important;
+}
 }

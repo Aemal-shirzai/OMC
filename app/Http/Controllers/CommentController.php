@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Comment;
 use App\Post;
 use App\Doctor;
+use App\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CommentRequest;
@@ -46,35 +47,66 @@ class CommentController extends Controller
             return back()->withInput()->with("error","The comment content can not be null");
         }
         $user = Auth::user();
-    
         // in order to store the correct account_id column in the commments table we need to know the current account_id the is stroed in the id column of the current loged in user account table
         $account_id  = $user->id;
-        // to find the post to which the comment is added by hellping the post_id which is comming from a hidden input in the comment section
-        $post = Post::findOrFail($request->post_id);
-        //add column account_id to array request
-        $request->merge(["account_id"=>$account_id]);
-        // create the comment for the post
-        $comment = $post->comments()->create($request->all());
 
-        // if the request has photo then add it by the help of comment and photos relationship (photos)
-        if($request->hasFile("photo")){
-            $photo = $request->file("photo");
-            $fullName  = $photo->getClientOriginalName();
-            $onlyName = pathinfo($fullName,PATHINFO_FILENAME);
-            $extension = $photo->getClientOriginalExtension();
-            $nameToBeStored = $onlyName.time(). "." .$extension;
-            $folder = "public/images/comments/";
-            $photo->storeAs($folder,$nameToBeStored);
-            $comment->photos()->create(["path"=>$nameToBeStored,"status"=>"1"]);
-        }
+        // to store for questions
+        if(url()->previous() == route('questions.index')){
+
+            // to find the post to which the comment is added by hellping the post_id which is comming from a hidden input in the comment section
+            $question = Question::findOrFail($request->question_id);
+            //add column account_id to array request
+            $request->merge(["account_id"=>$account_id]);
+            // create the comment for the post
+            $comment = $question->comments()->create($request->all());
+
+            // if the request has photo then add it by the help of comment and photos relationship (photos)
+            if($request->hasFile("photo")){
+                $photo = $request->file("photo");
+                $fullName  = $photo->getClientOriginalName();
+                $onlyName = pathinfo($fullName,PATHINFO_FILENAME);
+                $extension = $photo->getClientOriginalExtension();
+                $nameToBeStored = $onlyName.time(). "." .$extension;
+                $folder = "public/images/comments/";
+                $photo->storeAs($folder,$nameToBeStored);
+                $comment->photos()->create(["path"=>$nameToBeStored,"status"=>"1"]);
+            }
 
 
-        if($comment){
-            return back()->with(["commentSuccess"=>"Your Comment has been Added.","post_id"=>$request->post_id]);
-        }else{
-            return back()->with(["error"=>"Comment Not"]);
-        }
+            if($comment){
+                return back()->with(["commentSuccess"=>"Your Comment has been Added.","question_id"=>$request->question_id]);
+            }else{
+                return back()->with(["error"=>"Comment Not"]);
+            }
+        }else{ // to store for posts
 
+            // to find the post to which the comment is added by hellping the post_id which is comming from a hidden input in the comment section
+            $post = Post::findOrFail($request->post_id);
+            //add column account_id to array request
+            $request->merge(["account_id"=>$account_id]);
+            // create the comment for the post
+            $comment = $post->comments()->create($request->all());
+
+            // if the request has photo then add it by the help of comment and photos relationship (photos)
+            if($request->hasFile("photo")){
+                $photo = $request->file("photo");
+                $fullName  = $photo->getClientOriginalName();
+                $onlyName = pathinfo($fullName,PATHINFO_FILENAME);
+                $extension = $photo->getClientOriginalExtension();
+                $nameToBeStored = $onlyName.time(). "." .$extension;
+                $folder = "public/images/comments/";
+                $photo->storeAs($folder,$nameToBeStored);
+                $comment->photos()->create(["path"=>$nameToBeStored,"status"=>"1"]);
+            }
+
+
+            if($comment){
+                return back()->with(["commentSuccess"=>"Your Comment has been Added.","post_id"=>$request->post_id]);
+            }else{
+                return back()->with(["error"=>"Comment Not"]);
+            }
+        } 
+        // End of else
     }
 
     /**

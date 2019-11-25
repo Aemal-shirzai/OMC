@@ -52,6 +52,12 @@ Route::DELETE("/comment/delete","CommentController@delete")->name("deleteComment
 
 // Routes for questions
 Route::resource("/questions","QuestionController");
+// This route is responsible for adding and updateing votes to question using ajax request
+Route::POST("/question/vote","QuestionController@vote")->name("questionVote");
+// This route is resposible for adding question to favorites by normal user
+Route::POST("/question/favorites","QuestionController@favorite")->name("questionFavorites");
+// This route is responsible for deleting question using ajax request
+Route::DELETE("/question/delete","QuestionController@delete")->name("deleteQuestion");
 
 
 // Routes for CommentReplies
@@ -59,7 +65,7 @@ Route::resource("/replies","CommentReplyController");
 // This route is responsible for adding and updateing votes to replies using ajax request
 Route::POST("/replies/vote","CommentReplyController@vote")->name("replyVote");
 // Deleting replies using ajax
-Route::DELETE("/replies/delete","CommentReplyController@delete")->name("deleteReply");
+Route::DELETE("/reply/delete","CommentReplyController@delete")->name("deleteReply");
 
 
 // Route for managing normal user following the doctor

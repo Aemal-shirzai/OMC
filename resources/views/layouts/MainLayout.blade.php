@@ -51,6 +51,7 @@
 		<div class="dropdown-divider"></div>
 		<a href="{{route('main')}}" @if(Route::currentRouteName() == 'main')class="active" @endif><span class="fal fa-home"></span> Home</a>
 		<a href="{{route('posts.index')}}" @if(Route::currentRouteName() == 'posts.index')class="active" @endif><span class="fal fa-th"></span> Posts</a>
+		<a href="{{route('questions.index')}}" @if(Route::currentRouteName() == 'questions.index')class="active" @endif><span class="fal fa-th"></span> Questions</a>
 		<a href="#"><span class="fal fa-user-md"></span> Doctors</a>
 		<a href="#"><span class="fal fa-tags"></span> Tags</a>
 		<a href="javascript:void(0)" class="contactUs"><span class="fal fa-envelope"></span> Contact Us</a>
@@ -107,10 +108,10 @@
 		{!! Form::close() !!}
 	</div> <!-- search box div end -->
 
-	<div id="sidebar-large"> <!-- navbar for large screen div start  -->
+	<div id="sidebar-large" style=""> <!-- navbar for large screen div start  -->
 		<div class="container">
-		<div id="logodiv" class="float-left">
-		<a href="#"><img src="{{asset('images/logo1.png')}}" class="img-fluid"></a>
+		<div id="logodiv" style="" class="float-left">
+		<a href="#"><img src="{{asset('images/logo3.png')}}" class="img-fluid"></a>
 		</div>
 		<!-- @auth
 			@can("Doctor_related",Auth::user())
@@ -147,6 +148,7 @@
 		<a href="javascript:void(0)" class="contactUs">Contact Us</a>
 		<a href="#">Tags</a>
 		<a href="#">Doctors</a>
+		<a href="{{route('questions.index')}}" @if(Route::currentRouteName() == 'questions.index')class="active" @endif> Questions</a>
 		<a href="{{route('posts.index')}}" @if(Route::currentRouteName() == 'posts.index')class="active" @endif>Posts</a>
 		<a href="{{route('main')}}" @if(Route::currentRouteName() == 'main')class="active" @endif>Home</a>
 		</div>
@@ -240,7 +242,7 @@
 <script type="text/javascript" src="{{asset('js/postsAndQuestionsScripts.js')}}"></script>
 @elseif(Route::currentRouteName() == 'posts.index' || Route::currentRouteName() == 'questions.index')
 <!-- Link to local  js for posts page -->
-<script type="text/javascript" src="{{asset('js/postsAndQuestionsListScripts.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/postsAndQuestionsListScripts1.js')}}"></script>
 
 @endif
 

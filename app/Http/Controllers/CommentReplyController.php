@@ -71,7 +71,12 @@ class CommentReplyController extends Controller
 
 
         if($reply){
-            return back()->with(["replySuccess"=>"Your reply has been Added.","comment_id"=>$request->comment_id,"post_id"=>$request->post_id_for_replies]);
+            if(url()->previous() == route('questions.index')){
+                 return back()->with(["replySuccess"=>"Your reply has been Added.","comment_id"=>$request->comment_id,"ToScrollTo_id"=>$request->question_id_for_replies]);
+            }else{
+                return back()->with(["replySuccess"=>"Your reply has been Added.","comment_id"=>$request->comment_id,"ToScrollTo_id"=>$request->post_id_for_replies]);
+               
+            }
         }else{
             return back()->with(["replyError"=>"Reply Not added"]);
         }
