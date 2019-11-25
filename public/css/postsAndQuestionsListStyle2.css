@@ -1,0 +1,627 @@
+div.confirmationBox{
+	width: 273px;
+	height: 160px;
+	background: white;
+	box-shadow:  0px 0px 10px 3px #b1a0a0;
+	border-radius: 10px;
+	position: fixed;
+	z-index: 1;
+	top:42%;
+	left: 39%;
+	padding: 20px 20px;
+	overflow: hidden;
+	display: none;
+}
+div.confirmationBox a{
+	margin: 37px 25px;
+}
+a#topButtonP:focus{
+	box-shadow: none;
+}
+div#listParent{
+
+	overflow:hidden;
+}
+div.mainContent{
+	overflow: hidden;
+	width: 100%;
+	padding: 12px 100px;
+}
+div#divider{
+	margin: 0 auto ;
+	border-color: #d0d0d0;
+}
+div.ownerInfo img{
+	width: 40px; 
+	height: 40px;
+	display: inline-block;
+	border-radius: 50%;
+}
+#no-owner-image{
+	padding: 11px 13px;
+    border-radius: 50%;
+	border: 1px solid #3fbbc0;
+ 	color: #3fbbc0;
+    font-size: 15px;
+    height: 40px;
+    width: 40px;
+}
+div#ownerName{
+	color: #3fbbc0;
+	display: inline-block;
+	padding-left: 12px;
+}
+div.mainContent span#createTime{
+	color: #828282;
+	display: table;
+	font-size: 10px;
+	margin-top: -4px;
+}
+div.mainContent a:hover{
+	text-decoration: none;
+}
+div.mainContent a:hover span#fullName{
+	text-decoration: underline;
+}
+
+div.content{
+	display: block;
+	float: left;
+	overflow:hidden;
+	margin-bottom: 12px;
+	padding: 4px 53px;
+	text-align: justify;
+}
+a.readMoreLess{
+	font-size: 11px;
+	color: #3fbbc0;
+}
+div.content h5{
+	font-weight: bold;
+	font-size: 14px;
+}
+div.content p{
+	word-wrap: break-word;
+	text-align: justify;
+	font-size: 14px;
+}
+div.contentImage{
+	width: 80%;
+	border:1px solid lightgray;
+	border-radius: 8px;
+	margin: 0 auto;
+	margin-bottom: 12px;
+}
+div.contentImage img{
+	max-width: 100%;
+	max-height: 300px !important;
+	border-radius: 5px;
+}
+div.tags{
+	margin-bottom: 2px;
+}
+div.tags span{
+	background-color: #efefef;
+	border-radius: 4px;
+	padding: 0 5px;
+}
+div.tags span a{
+	font-size: 10px;
+}
+/* options for  part */
+div.options{
+	width: 85%;
+	margin: 0 auto;
+	text-align: center;
+	margin-bottom: 12px;
+}
+div.options button{
+	border-radius: 15px;
+	font-weight: bold;
+	font-size: 11px;
+	color: #666;
+	height: 35px;
+	margin-bottom: 4px;
+	transition: .5s;
+}
+div#shareBtn{
+	position: relative;
+}
+div.shareBtnForGuest{
+	margin-top: -35px;
+}
+div.options button a{
+	color: #666;
+	text-decoration: none;
+}
+div#shareBtn a{
+	color: #666;
+}
+div#shareBtn a:hover{
+	color: #3fbbc0;
+}
+div.options button:focus{
+	box-shadow: none;
+}
+div.options button:hover{
+	background-color: #fbfbfds;
+}
+
+span.votes{
+	font-weight: lighter;
+}
+span.optionsIcons{
+	font-size: 16px;
+	margin-right: 4px;
+}
+div.options button:hover span.optionsIcons{
+	color: #3fbbc0;
+}
+div.shareOptions{
+	position: absolute;
+	z-index: 1 !important;
+	box-shadow: rgba(27, 31, 35, 0.15) 0px 1px 15px;
+	padding: 2px 12px;
+	display: none;
+	width: 100px;
+	margin-left: -50px;
+	margin-top: 17px;
+	text-align: left;
+	background-color: white;
+	border-color: rgba(27, 31, 35, 0.15);
+	border-radius: 4px;
+
+}
+div.shareOptions::after{
+	position: absolute;
+	content: "";
+	width: 18px;
+	height: 18px;
+	transform: rotate(45deg);
+	top: -9px;
+	left: 42%;
+	background-color: white;
+	border-top: 1px solid  #c3bfbf;
+	border-left: 1px solid  #c3bfbf;
+	border-right: 0px solid  white;
+	border-bottom: 0px solid  white;
+}
+	div.shareOptionsForGuest{
+		margin-left: -50px;
+	}
+	div.shareOptionsForGuest::after{
+		top: -10px;
+		left: 48%;
+	}
+div.shareOptions  li{
+	list-style-type: none;
+}
+div.shareOptions a.social-button span{
+	text-decoration: none;
+	font-size: 11px;
+	margin-left: 3px;
+}
+div.shareOptions a#share-facebook::after{
+	content: "Facebook";
+	margin-left: 3px;
+}
+.PostEditDelete{
+	font-size: 11px !important;
+}
+div.shareOptions a#share-twitter::after{
+	content: "Twitter";
+	margin-left: 3px;
+}
+div.shareOptions a#share-linkedIn::after{
+	content: "Linkedin";
+	margin-left: 3px;
+}
+div.shareOptions a#share-whatsapp::after{
+	content: "Whatsapp";
+	margin-left: 3px;
+}
+div.shareOptions a#share-telegram::after{
+	content: "Telegram";
+	margin-left: 3px;
+}
+div.shareOptions a.share{
+	font-size: 11px;
+}
+
+div.shareOptions div.dropdown-divider{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+div.shareOptions p{
+	font-weight: bold;
+	color: #666;
+	margin-bottom: 5px;
+	margin-top: 4px;
+	font-size: 11px;
+}
+
+/* Comment part */
+div#commentPart{
+	background-color: #fbfbfd;
+	width: 85%;
+	border:1px solid #f1f1f1;
+	border-radius: 12px;
+	margin: 0 auto;
+	padding: 40px 25px;
+}
+
+div#commentPartImage{
+	display: inline-block;
+	float: left;
+	overflow: hidden;
+	width: 7%;
+}
+div#commentPartImage img{
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	border-radius: 50%;
+}
+div#comment{
+	display: inline-block;
+	width: 93%; 
+}
+.commentField{
+	border-radius: 10px !important;
+	font-size: 12px;
+	overflow: hidden;
+	resize: none;	
+	padding: 5px 30px;
+	z-index: 0 !important;
+}
+.commentField:focus{
+	box-shadow: 0px 0px 1px 0px #3fbbc0;
+}
+.addCommentBtn{
+	border:1px solid #3fbbc0;
+	background-color: #3fbbc0;
+	border-radius: 40px;
+	color: white;
+	height: 30px;
+	margin-left: 6px;
+	font-size:12px; 
+	transition: 0.5s;
+}
+.addCommentBtn:hover{
+	color: white;
+}
+
+#no-image-in-comment{
+	padding: 7px 7px;
+    border-radius: 50%;
+    border: 1px solid #3fbbc0;
+    color: #3fbbc0;
+    font-size: 15px;
+    height: 30px;
+    width: 30px;
+}
+.commentPhotoButton{
+	position: absolute !important;
+	color: #3fbbc0;
+	top: 6px;
+	font-size: 18px;
+	left: 6px;
+	cursor: pointer;
+}
+.commentPhotoField{
+	display: none;
+}
+
+div.commentImageDiv{
+	background-color: ;
+	width: 98%;
+	display: none;
+	overflow: hidden;
+    max-height: 180px;
+    border-radius: 10px;
+    border:1px solid lightgray;
+    overflow: hidden;
+    padding: 12px 20px;
+    margin-bottom: 12px;
+}
+div.commentImageDiv img{
+	max-width: 150px;
+	max-height: 150px;
+	border-radius: 12px;
+}
+button.removeImage{
+	color: red;
+	font-size: 18px !important; 
+}
+.removeEditCommentPhotoText{
+	font-size: 12px !important;
+}
+div.commentImageDiv a{
+	float: left;
+}
+div.commentImageDiv a:hover{
+	color: black;
+	text-decoration: none;
+}
+div.commentImageDiv button:focus{
+	outline: none;
+}
+div.commentImageVideoErrorMsg, div.replyImageVideoErrorMsg{
+	box-shadow: 0px 0px 20px 0px #d7f3e3;
+	width: 80%;
+	display: none;
+	margin-top: 7px; 
+	font-size: 12px;
+	overflow: hidden;
+	margin-left: 49px;
+    height: 36px;
+    padding-top: 8px;
+}
+div.commentSuccessMsgs, div.replySuccessMsgs{
+	box-shadow: 0px 0px 20px 0px #d7f3e3;
+	width: 80%;
+	font-size: 12px;
+	display: none;
+	margin-left: 36px;
+}
+button.commentManageOptions{
+	background: inherit;
+    border: none;
+    font-weight: normal !important;
+    font-size: 10px;
+
+}
+button.commentManageOptions:focus{
+	outline: 0px;
+
+}
+/* Showing all comments part */
+div.allComments{
+	position: relative;
+	overflow: auto;
+	margin-bottom: 15px;
+	background-color: #fbfbfd;
+	padding: 12px 0px;
+	padding-left:30px;  
+	display: none;
+	max-height: 800px;
+}
+.no-comment{
+	font-size: 11px;
+}
+.comments-count{
+	margin-left: 30px !important;
+	font-size: 11px;
+}
+div.allcommentsOwnerImage{
+	display: inline-block;
+	float: left;
+	width: 100%;
+	overflow: hidden;
+}
+div.allcommentsOwnerImage img{
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	border-radius: 50%;
+}
+div.commentOwnerName{
+	display: inline-block;
+}
+div.commentOwnerName a{
+	margin-left: 3px;
+	color: #3fbbc0;
+	font-weight: bold;
+	font-size: 12px;
+}
+div.commentOwnerName span.commentcreateTime{
+	color: #828282;
+	display: table;
+	margin-left: 3px;
+	margin-top: -5px;
+	font-size: 10px;
+}
+div.allCommentsContent p{
+	padding-right: 4px; 
+	font-size: 12px;
+}
+div#dividerForComments{
+	margin-top:0;
+	margin-bottom: 10px;
+}
+/*End of showing all comments part*/
+/* Beggining :options part for comments part*/
+div.commetOptions{
+	width: 100%;
+	margin: 0 auto;
+}
+div.commetOptions button{
+	border-radius: 15px;
+	font-weight: bold;
+	font-size: 11px;
+	color: #666;
+	height: 25px;
+	margin-bottom: 4px;
+	transition: .5s;
+}
+div.commetOptions button:focus{
+	box-shadow: none;
+}
+div.commetOptions button:hover{
+	background-color: #efefef;
+}
+div.commetOptions button a{
+	color: #666;
+	text-decoration: none;
+}
+span.commentVotes{
+	font-weight: lighter;
+}
+span.commentOptionsIcons{
+	font-size: 12px;
+}
+div.commetOptions button:hover span.commentOptionsIcons{
+	color: #3fbbc0;
+}
+/* End :options part for comments part*/
+
+/* Beggining of the form of replies */
+div.reply{
+	display: none;
+	width: 93%; 
+	margin-left: 5px;
+	margin-bottom: 5px;
+	margin-bottom: 12px;
+	margin-top: 12px;
+	padding: 0 12px;
+	
+}
+.replyField{
+	border-radius: 10px !important;
+	font-size: 11px;
+	overflow: hidden;
+	resize: none;	
+	padding: 5px 30px;
+	z-index: 0 !important;
+}
+.replyField:focus{
+	box-shadow: 0px 0px 1px 0px #3fbbc0;
+}
+.addReplyBtn{
+	border:1px solid #3fbbc0;
+	background-color: #3fbbc0;
+	border-radius: 40px;
+	color: white;
+	height: 30px;
+	margin-left: 6px;
+	font-size:12px; 
+	transition: 0.5s;
+}
+.addReplyBtn:hover{
+	color: white;
+}
+
+.replyPhotoButton{
+	position: absolute !important;
+	color: #3fbbc0;
+	top: 6px;
+	font-size: 16px;
+	left: 6px;
+	cursor: pointer;
+}
+.replyPhotoField{
+	display: none;
+}
+/* End of the form of replies */
+
+/* Beggining of the showing all replies */
+div.allReplies{
+	overflow:hidden;
+	border-left: 1px solid #f2f2f2;
+	padding-left: 30px;
+	display: none;
+	margin-bottom: 12px;
+}
+div.reply-parent{
+	display: none;
+}
+div.allRepliesOwnerImage{
+	display: inline-block;
+	float: left;
+	width: 100%;
+	overflow: hidden;
+}
+div.allRepliesOwnerImage img{
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	border-radius: 50%;
+}
+div.replyOwnerName{
+	display: inline-block;
+}
+div.replyOwnerName a{
+	margin-left: 3px;
+	color: black;
+	font-weight: bold;
+	font-size: 12px;
+}
+div.replyOwnerName span.replyCreateTime{
+	color: #828282;
+	display: table;
+	margin-left: 3px;
+	margin-top: -5px;
+	font-size: 10px;
+}
+div.allRepliessContent p{
+	padding-right: 4px; 
+	font-size: 12px;
+	margin-left: 27px;
+	overflow:hidden;
+	margin-bottom: 4px;
+}
+.replyImage{
+	width: 80%;
+	margin:0 auto;
+	margin-bottom: 12px;
+	border:1px solid lightgray;
+	border-radius: 5px;
+}
+.replyImage img{
+	max-width: 100%;
+	max-height: 160px !important;
+	border-radius:5px;
+}
+#no-image-in-reply{
+	padding: 6px 6px;
+    border-radius: 50%;
+    border: 1px solid #3fbbc0;
+    color: #3fbbc0;
+    font-size: 12px;
+    height: 25px;
+    width: 25px;
+}
+div.reply-divider{
+	margin-top: 0px;
+}
+
+.replies-count{
+	font-size: 11px;
+}
+/* End of the showing all replies */
+
+
+
+/* class added using ajax to check span */
+.upVotedCheck{
+	font-size: 12px;
+	color: #3fbbc0;
+}
+button.OptionsForGuest{
+	cursor:default;
+}
+button.OptionsForGuest a{
+	cursor: default;
+}
+button.followed span{
+	color: #3fbbc0;
+}
+
+
+div::-webkit-scrollbar {
+    width: 4px !important;
+}
+textarea::-webkit-scrollbar {
+    width: 4px !important;
+}
+ 
+*::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3) !important;
+}
+ 
+*::-webkit-scrollbar-thumb {
+  background-color:gray !important;
+  outline: 1px solid slategrey !important;
+} 
+

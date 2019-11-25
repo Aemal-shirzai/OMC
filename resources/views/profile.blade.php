@@ -215,7 +215,6 @@
 
 				<div class="clearfix"></div>
 					<div class="options">
-
 						<!-- Beggining of the posts options that should be visible only for auth users -->
 						@auth
 						<button class="btn" onclick="vote('{{$post->id}}','upVote')" title="The answer was usefull">
