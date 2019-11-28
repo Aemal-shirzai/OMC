@@ -24,7 +24,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsStyle.css')}}">
 	@elseif(Route::currentRouteName() == 'posts.index' || Route::currentRouteName() == 'questionsSortBy' || Route::currentRouteName() == 'postsSortBy' || Route::currentRouteName() == 'questions.index')
 	<!-- Link to local styles for posts list page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsListStyle11.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsListStyle.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->

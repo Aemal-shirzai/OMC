@@ -106,7 +106,7 @@ div#Forguests{
 	right: 94px;
 	width: 20%;
 	float: right;
-	margin-top: 100px;
+	margin-top: 79px;
     background-color: white;
     box-shadow: 0 1px 3px rgba(59,64,69,0.2);
     padding: 20px 6px;
@@ -572,13 +572,16 @@ textarea::-webkit-scrollbar {
 
 /* ///////////////////////////////////////////////////////////////// Samll sizes rotate /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 767px){
+body{
+	background-color: white;
+}
 div#footer{
 	margin-top: 30px;
 }
 /* main content part */
 .title{
 	width: 100%;
-	padding-left: 12px;
+	/*padding-left: 12px;*/
 }
 .title h3{
 	font-size: 14px;
@@ -586,6 +589,7 @@ div#footer{
 }
 .orderBy{
 	width: 100%;
+	background-color: white;
 }
 
 .orderBy a{
@@ -614,8 +618,8 @@ div.mainContent{
 	width: 100%;
 	padding: 12px 0px;
 	box-shadow: none;
-	background-color: inherit;
-	border-top: 2px solid white;
+	background-color: white;
+	border-top: 1px solid lightgray;
 }
 div.ownerInfo img{
 	width: 35px; 

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 class QuestionController extends Controller
 {
     public function __construct(){
-        $this->middleware("auth")->except(["index","sortBy"]);
+        $this->middleware("auth")->except(["index","sortBy","show"]);
     }
     /**
      * Display a listing of the resource.
