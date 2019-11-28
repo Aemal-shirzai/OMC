@@ -41,7 +41,8 @@ Route::POST("/posts/vote","PostController@vote")->name("postVote");
 Route::POST("/posts/favorites","PostController@favorite")->name("postFavorites");
 // This route is responsible for deleting post using ajax request
 Route::DELETE("/post/delete","PostController@delete")->name("deletePost");
-
+// sort posts route
+Route::get("/{type}/posts","PostController@sortBy")->name("postsSortBy");
 
 // Routes for comments
 Route::resource("/comments","CommentController");
@@ -58,6 +59,8 @@ Route::POST("/question/vote","QuestionController@vote")->name("questionVote");
 Route::POST("/question/favorites","QuestionController@favorite")->name("questionFavorites");
 // This route is responsible for deleting question using ajax request
 Route::DELETE("/question/delete","QuestionController@delete")->name("deleteQuestion");
+// sort questions route
+Route::get("/{type}/questions","QuestionController@sortBy")->name("questionsSortBy");
 
 
 // Routes for CommentReplies

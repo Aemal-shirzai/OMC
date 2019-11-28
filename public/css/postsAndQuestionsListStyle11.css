@@ -1,0 +1,734 @@
+div#footer{
+	margin-top: 500px;
+}
+body{
+	background-color: #fbfbfc;
+}
+div.confirmationBox{
+	width: 273px;
+	height: 160px;
+	background: white;
+	box-shadow:  0px 0px 10px 3px #b1a0a0;
+	border-radius: 10px;
+	position: fixed;
+	z-index: 1;
+	top:42%;
+	left: 39%;
+	padding: 20px 20px;
+	overflow: hidden;
+	display: none;
+}
+div.confirmationBox a{
+	margin: 37px 25px;
+}
+a#topButtonP:focus{
+	box-shadow: none;
+}
+div#followDoctorParent{
+	position: absolute;
+	right: 95px;
+	float: right;
+	top: 110px;
+	width: 23%;
+	margin-top: 100px;
+	/*margin-top: 81px;*/
+	overflow: hidden;
+	box-shadow:  0 1px 3px rgba(59,64,69,0.2);
+}
+#card-heading{
+	font-size: 11px;
+	font-weight: bold;
+	color:#9ba1a7;
+}
+.card-header{
+	background-color: #fbfbfd;
+}
+.card-body{
+	padding: 6px 8px;
+}
+.doctorImage{
+	width: 17%;
+	overflow: hidden;
+	float: left;
+	display: inline-block;
+}
+.doctorImage img{
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+}
+.followDoctor{
+	width: 83% !important;
+	display: inline-block;
+}
+.fullName{
+	margin-left: 5px;
+	font-size: 11px;
+	font-weight: bold;
+	display: inline-block;
+}
+.followedBy{
+	margin-left: 5px;
+	display: table;
+	font-size: 9px;
+}
+.followingButton{
+	background-color: #3fbbc0;
+	color: white;
+	font-size: 10px;
+	margin-top: -27px;
+}
+.no-image-in-following{
+	padding: 8px 10px;
+    border-radius: 50%;
+	border: 1px solid #3fbbc0;
+ 	color: #3fbbc0;
+    font-size: 16px;
+    height: 35px;
+    width: 35px;
+}
+.followingButton:hover{
+	color: white;
+}
+div#forDoctors{
+	position: absolute;
+	width: 19%;
+	right: 94px;
+	float: right;
+	margin-top: 100px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(59,64,69,0.2);
+    padding: 20px 6px;
+    font-size: 13px;
+}
+div#Forguests{
+	position: absolute;	
+	right: 94px;
+	width: 20%;
+	float: right;
+	margin-top: 100px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(59,64,69,0.2);
+    padding: 20px 6px;
+    font-size: 13px;
+}
+#forGuests a{
+	color: #3fbbc0;
+}
+#forGuests a{
+	color: #3fbbc0;
+}
+.forGuestsBtn{
+	font-size: 10px;
+	border:1px solid #3fbbc0;
+	margin-top: 8px;
+	transition: .5s;
+}
+.forGuestsBtn:hover{
+	background-color: #3fbbc0;
+	color: white;
+}
+.iconsForDoctors{
+	color: #3fbbc0;
+	font-size: 25px;
+	margin-bottom: 12px;
+}
+
+/* main content part */
+.title{
+	margin-top: 14px;
+	width: 73%;
+}
+.orderBy{
+	width: 73%;
+	direction: ltr;
+	background-color: #fbfbfd;
+	overflow: hidden;
+}
+.orderByOptionParent{
+	border:1px solid gainsboro;
+	border-radius: 4px;
+	margin-left: 8px;
+	margin-bottom: 12px;
+	box-shadow: 1px -1px 7px 1px rgba(59,64,69,0.2);
+}
+.orderBy a{
+	/*border-right:1px solid #3fbbc0;*/
+	/*margin-left: 12px;*/
+	color: #9ba1a7;
+	transition: 0.5s;
+}
+.sortText{
+	color: #9ba1a7;
+	padding-top: 4px;
+}
+.orderBy a:hover{
+	color: white;
+	background-color: #3fbbc0;
+}
+div#listParent{
+
+}
+div.mainContent{
+	background-color: white;
+	width: 73%;
+	padding: 12px 12px;
+	box-shadow: 0 4px 8px rgba(59,64,69,0.2);
+	/*box-shadow:  0 2px 5px rgba(59,64,69,0.2);	*/
+	/*margin-top: 12px;*/
+}
+div#divider{
+	margin: 0 auto ;
+	border-color: #f1f1f1;
+}
+div.ownerInfo img{
+	width: 40px; 
+	height: 40px;
+	display: inline-block;
+	border-radius: 50%;
+}
+#no-owner-image{
+	padding: 11px 13px;
+    border-radius: 50%;
+	border: 1px solid #3fbbc0;
+ 	color: #3fbbc0;
+    font-size: 15px;
+    height: 40px;
+    width: 40px;
+}
+div#ownerName{
+	display: inline-block;
+	font-weight: bold;
+
+	padding-left: 12px;
+}
+div#ownerName a{
+	color: #3fbbc0;
+}
+div.mainContent span#createTime{
+	color: #828282;
+	font-weight: normal;
+	display: table;
+	font-size: 10px;
+	margin-top: -4px;
+}
+div.mainContent a:hover{
+	text-decoration: none;
+}
+div.mainContent a:hover span#fullName{
+	text-decoration: underline;
+}
+
+div.content{
+	display: block;
+	float: left;
+	padding: 4px 53px;
+	text-align: justify;
+}
+.readMoreLess{
+	font-size: 11px;
+	color: #3fbbc0;
+}
+.readMoreLess:hover{
+	text-decoration: underline !important;
+}
+div.content h5{
+	font-weight: bold;
+	font-size: 14px;
+}
+div.content p{
+	word-wrap: break-word;
+	text-align: justify;
+	font-size: 14px;
+	margin-bottom: 0px;
+}
+div.contentImage{
+	width: 100%;
+	border:1px solid lightgray;
+	border-radius: 8px;
+	margin: 0 auto;
+	margin-bottom: 12px;
+}
+div.contentImage img{
+	max-width: 100%;
+	max-height: 230px !important;
+	border-radius: 5px;
+}
+div#commentImage{
+	width: 98%;
+	margin-bottom: 12px;
+	border-radius: 5px;
+	border:1px solid lightgray !important;
+}
+div#commentImage img{
+	max-width: 100%;
+	max-height: 200px !important;
+	border-radius:5px;
+}
+div.tags{
+	margin-bottom: 2px;
+}
+div.tags span{
+	background-color: #efefef;
+	border-radius: 4px;
+	padding: 0 5px;
+}
+div.tags span a{
+	font-size: 10px;
+}
+/* options for  part */
+div.options{
+	width: 85%;
+	margin: 0 auto;
+	text-align: center;
+}
+div.options button{
+	border-radius: 15px;
+	font-weight: bold;
+	font-size: 10px;
+	height: 35px;
+	margin-bottom: 4px;
+	transition: .5s;
+}
+div#shareBtn{
+	position: relative;
+}
+div.shareBtnForGuest{
+	margin-top: -35px;
+}
+div.options button a{
+	color: #666;
+	text-decoration: none;
+}
+div#shareBtn a{
+	color: #666;
+}
+div#shareBtn a:hover{
+	color: #3fbbc0;
+}
+div.options button:focus{
+	box-shadow: none;
+}
+div.options button:hover{
+	background-color: #fbfbfds;
+}
+
+span.votes{
+	font-weight: lighter;
+}
+span.optionsIcons{
+	font-size: 16px;
+	margin-right: 4px;
+}
+div.options button:hover span.optionsIcons{
+	color: #3fbbc0;
+}
+div.shareOptions{
+	position: absolute;
+	z-index: 1 !important;
+	box-shadow: rgba(27, 31, 35, 0.15) 0px 1px 15px;
+	padding: 2px 12px;
+	display: none;
+	width: 100px;
+	margin-left: -50px;
+	margin-top: 17px;
+	text-align: left;
+	background-color: white;
+	border-color: rgba(27, 31, 35, 0.15);
+	border-radius: 4px;
+
+}
+div.shareOptions::after{
+	position: absolute;
+	content: "";
+	width: 18px;
+	height: 18px;
+	transform: rotate(45deg);
+	top: -9px;
+	left: 42%;
+	background-color: white;
+	border-top: 1px solid  #c3bfbf;
+	border-left: 1px solid  #c3bfbf;
+	border-right: 0px solid  white;
+	border-bottom: 0px solid  white;
+}
+	div.shareOptionsForGuest{
+		margin-left: -50px;
+	}
+	div.shareOptionsForGuest::after{
+		top: -10px;
+		left: 48%;
+	}
+div.shareOptions  li{
+	list-style-type: none;
+}
+div.shareOptions a.social-button span{
+	text-decoration: none;
+	font-size: 11px;
+	margin-left: 3px;
+}
+div.shareOptions a#share-facebook::after{
+	content: "Facebook";
+	margin-left: 3px;
+}
+.PostEditDelete{
+	font-size: 11px !important;
+}
+div.shareOptions a#share-twitter::after{
+	content: "Twitter";
+	margin-left: 3px;
+}
+div.shareOptions a#share-linkedIn::after{
+	content: "Linkedin";
+	margin-left: 3px;
+}
+div.shareOptions a#share-whatsapp::after{
+	content: "Whatsapp";
+	margin-left: 3px;
+}
+div.shareOptions a#share-telegram::after{
+	content: "Telegram";
+	margin-left: 3px;
+}
+div.shareOptions a.share{
+	font-size: 11px;
+}
+
+div.shareOptions div.dropdown-divider{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+div.shareOptions p{
+	font-weight: bold;
+	color: #666;
+	margin-bottom: 5px;
+	margin-top: 4px;
+	font-size: 10px;
+}
+
+
+/* class added using ajax to check span */
+.upVotedCheck{
+	font-size: 12px;
+	color: #3fbbc0;
+}
+button.OptionsForGuest{
+	cursor:default;
+}
+button.OptionsForGuest a{
+	cursor: default;
+}
+button.followed span{
+	color: #3fbbc0;
+}
+
+
+div::-webkit-scrollbar {
+    width: 2px !important;
+}
+textarea::-webkit-scrollbar {
+    width: 4px !important;
+}
+ 
+*::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3) !important;
+}
+ 
+*::-webkit-scrollbar-thumb {
+  background-color:gray !important;
+  outline: 1px solid slategrey !important;
+} 
+
+
+/* ///////////////////////////////////////////////////////////////// IPHAD PRO /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 1200px) and (min-width: 1024px){
+	div#followDoctorParent{
+		right: 40px !important;
+	}
+	div#forDoctors{
+		right: 49px;
+	}
+	div#Forguests{	
+		right: 49px;
+	}
+	div.contentImage{
+		width: 100%;
+		border:1px solid lightgray;
+		border-radius: 8px;
+		margin: 0 auto;
+		margin-bottom: 12px;
+	}
+
+	div.options button{
+		font-size: 9px;
+	}
+
+	div#followDoctorParent{
+		right: 70px;
+	}
+	#card-heading{
+		font-size: 9px;
+	}
+	.fullName{
+		font-size: 9px;
+	}
+	.followedBy{
+		font-size: 8px;
+	}
+	.followingButtonAll{
+		font-size: 9px;
+	}
+	.doctorImage img{
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+	}
+
+}
+
+
+/* ///////////////////////////////////////////////////////////////// IPHAD /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 1023px) and (min-width: 768px){
+	div#footer{
+		margin-top: 30px;
+	}
+	div.confirmationBox{
+		top:38%;
+		left: 32%;
+	}
+	div#followDoctorParent{
+		display: none;
+	}
+	div#forDoctors{
+		display: none;
+	}
+	div#Forguests{
+		display: none;
+	}
+	/* main content part */
+	.title{
+		width: 100%;
+	}
+	.title h3{
+		font-size: 16px;
+		font-weight: bold;
+	}
+	.orderBy{
+		width: 100%;
+	}
+	.orderBy a{
+		font-size: 12px;
+	}
+	div.mainContent{
+		width: 100%;
+		padding: 2px 20px;
+		box-shadow: 0 1px 1px rgba(59,64,69,0.2);
+	}
+	div.contentImage{
+		width: 100%;
+	}
+	div.content h5{
+		margin-bottom:2px;
+		margin-top:5px;
+		font-size: 13px;
+	}
+	div#commentImage img{
+		max-height: 170px !important
+	}
+	div.content p{
+		font-size: 13px;
+	}
+	div.contentImage img{
+		max-width: 100%;
+		max-height: 270px !important;
+		border-radius: 5px;
+	}
+	div.tags span a{
+		font-size: 8px;
+	}
+	div.options button{
+		font-size: 8px;
+	}
+	span.optionsIcons{
+		font-size: 13px;
+	}
+	div.shareOptions a.social-button span{
+		font-size: 10px;
+	}
+	.PostEditDelete{
+		font-size: 10px !important;
+	}
+
+	
+	span.optionsText{
+		display:none;
+	}
+	
+	
+	
+}
+
+
+/* ///////////////////////////////////////////////////////////////// Samll sizes rotate /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 767px){
+div#footer{
+	margin-top: 30px;
+}
+/* main content part */
+.title{
+	width: 100%;
+	padding-left: 12px;
+}
+.title h3{
+	font-size: 14px;
+	font-weight: bold;
+}
+.orderBy{
+	width: 100%;
+}
+
+.orderBy a{
+	/*border-right:1px solid #3fbbc0;*/
+	/*margin-left: 12px;*/
+	font-size: 9px;
+}
+.sortText{
+	display: none;
+	/*font-size: 9px;
+	padding-top: 6px;
+	padding-left: 12px;
+	float: left !important;*/
+}
+
+div#followDoctorParent{
+	display: none;
+}
+div#forDoctors{
+	display: none;
+}
+div#Forguests{
+	display: none;
+}
+div.mainContent{
+	width: 100%;
+	padding: 12px 0px;
+	box-shadow: none;
+	background-color: inherit;
+	border-top: 2px solid white;
+}
+div.ownerInfo img{
+	width: 35px; 
+	height: 35px;
+}
+#no-owner-image{
+	padding: 10px 11px;
+    font-size: 14px;
+    height: 35px;
+    width: 35px;
+}
+div#ownerName{
+	font-size:11px;
+	padding-left: 10px;
+}
+div.mainContent span#createTime{
+	font-size: 8px;
+}
+div.content{
+	padding: 4px 4px;
+}
+a.readMoreLess{
+	font-size: 10px;
+}
+div.content h5{
+	margin-bottom:0;
+	margin-top:5px;
+	font-size: 11px;
+}
+div.content p{
+	font-size: 12px;
+}
+div.contentImage{
+	width: 100%;
+}
+div.contentImage img{
+	max-height: 200px !important;
+}
+
+div.tags span a{
+	font-size: 8px;
+}
+/* options for  part */
+div.options{
+	width: 100%;
+	text-align: left;
+}
+span.optionsText{
+	display:none;
+}
+div.options button{
+	font-size: 9px;
+}
+span.optionsIcons{
+	font-size: 12px;
+}
+div.shareOptions{
+	margin-left: -74px;
+}
+div.shareOptions::after{
+	left: 66%;
+}
+div.shareOptions a.social-button span{
+	font-size: 9px;
+}
+
+.PostEditDelete{
+	font-size: 9px !important;
+}
+
+div.shareOptions p{
+	font-size: 9px;
+}
+
+/* class added using ajax to check span */
+.upVotedCheck{
+	font-size: 9px;
+	color: #3fbbc0;
+}
+button.OptionsForGuest{
+	cursor:default;
+}
+button.OptionsForGuest a{
+	cursor: default;
+}
+button.followed span{
+	color: #3fbbc0;
+}
+}	
+
+
+/* ///////////////////////////////////////////////////////////////// Samll sizes /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 468px){
+	div.confirmationBox{
+	width: 227px;
+	height: 140px;
+	top:41%;
+	left: 17%;
+	font-size: 12px;
+	padding: 20px 20px;
+
+}
+div.confirmationBox a{
+	margin: 27px 17px;
+	font-size: 9px;
+}
+a#topButtonP:focus{
+	box-shadow: none;
+}
+}
+
+
+/* ///////////////////////////////////////////////////////////////// Very Samll sizes /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 320px){
+
+}

@@ -24,11 +24,27 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->get();
+        $posts = Post::latest()->paginate(20);
         $mostVotedDoctors = Doctor::orderBy("followers","desc")->get();
         // This number is for blade to show how many doctors
         $numberOfDoctors = 1;
         return view("posts.index",compact("posts","mostVotedDoctors","numberOfDoctors")); 
+    }
+
+
+
+    public function sortBy($type){
+        if($type == "top"){
+            $posts = Post::orderBy("upVotes","desc")->paginate(20);
+        }else if($type == "down"){
+            $posts = Post::orderBy("downVotes","desc")->paginate(20);   
+        }else if($type == "mostFollowed"){
+            $posts = Post::orderBy("follower","desc")->paginate(20);
+        }
+        $mostVotedDoctors = Doctor::orderBy("followers","desc")->paginate(20);
+        // This number is for blade to show how many doctors
+        $numberOfDoctors = 1;
+        return view("posts.index",compact("posts","mostVotedDoctors","numberOfDoctors","type"));
     }
 
 
@@ -95,6 +111,7 @@ class PostController extends Controller
     {
         return "done";
     }
+
 
     /**
      * Show the form for editing the specified resource.

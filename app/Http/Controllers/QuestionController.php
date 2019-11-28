@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 class QuestionController extends Controller
 {
     public function __construct(){
-        $this->middleware("auth")->except("index");
+        $this->middleware("auth")->except(["index","sortBy"]);
     }
     /**
      * Display a listing of the resource.
@@ -22,11 +22,25 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $questions = Question::latest()->get();
+        $questions = Question::latest()->paginate(20);
         $mostVotedDoctors = Doctor::orderBy("followers","desc")->get();
         // This number is for blade to show how many doctors
         $numberOfDoctors = 1;
         return view("questions.index",compact("questions","mostVotedDoctors","numberOfDoctors"));
+    }
+
+    public function sortBy($type){
+        if($type == "top"){
+            $questions = Question::orderBy("upVotes","desc")->paginate(20);
+        }else if($type == "down"){
+            $questions = Question::orderBy("downVotes","desc")->paginate(20);   
+        }else if($type == "mostFollowed"){
+            $questions = Question::orderBy("follower","desc")->paginate(20);
+        }
+        $mostVotedDoctors = Doctor::orderBy("followers","desc")->paginate(20);
+        // This number is for blade to show how many doctors
+        $numberOfDoctors = 1;
+        return view("questions.index",compact("questions","mostVotedDoctors","numberOfDoctors","type"));
     }
 
     /**
