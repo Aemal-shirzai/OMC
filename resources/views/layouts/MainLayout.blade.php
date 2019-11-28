@@ -242,7 +242,7 @@
 <script type="text/javascript" src="{{asset('js/postsAndQuestionsScripts.js')}}"></script>
 @elseif(Route::currentRouteName() == 'posts.index' || Route::currentRouteName() == 'questions.index')
 <!-- Link to local  js for posts page -->
-<script type="text/javascript" src="{{asset('js/postsAndQuestionsListScripts1.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/postsAndQuestionsListScripts.js')}}"></script>
 
 @endif
 

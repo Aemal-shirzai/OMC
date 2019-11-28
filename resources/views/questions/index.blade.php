@@ -32,9 +32,9 @@
 								<span class="followedBy">Followed By {{$mostVotedDoctor->followed()->count()}}</span>
 								
 								@can("view",Auth::user())
-								<a href="javascript:void(0)" class="btn btn-sm float-right followingButtonAll" class="" id="followingButtonAll" onclick="followDoctor('{{$mostVotedDoctor->id}}','All')">
-									<i class="{{ Auth::user()->owner->following()->where('doctors.id',$mostVotedDoctor->id)->first() ? 'fad fa-check' : 'fad fa-plus' }}" id="followButtonAllIcon-{{$mostVotedDoctor->id}}"></i>
-									<span class="followingButtonTextAll" id="followingButtonTextAll-{{$mostVotedDoctor->id}}">
+								<a href="javascript:void(0)" class="btn btn-sm float-right followingButton" class="" id="followingButton-{{$mostVotedDoctor->id}}" onclick="followDoctor('{{$mostVotedDoctor->id}}')">
+									<i class="{{ Auth::user()->owner->following()->where('doctors.id',$mostVotedDoctor->id)->first() ? 'fad fa-check' : 'fad fa-plus' }}" id="followButtonIcon-{{$mostVotedDoctor->id}}"></i>
+									<span class="followingButtonText" id="followingButtonText-{{$mostVotedDoctor->id}}">
 										@if(Auth::user()->owner->following()->where("doctors.id",$mostVotedDoctor->id)->first())
 											Following
 										@else
@@ -54,6 +54,9 @@
 				@endif
 				<!-- End of : To list only the doctors which are not in the following list of current authenticted user -->
 			@endforeach
+			@if(count($mostVotedDoctors) == count(Auth::user()->owner->following))
+				<h5 class="text-center mt-2" style="font-size: 12px;">You are following all doctors!</h5>
+			@endif
 			@endif
 		</div> <!-- End of card body -->
 	</div>	<!-- End of card -->
@@ -752,8 +755,8 @@
 		// This route is to delete comments
 		var deleteReply = '{{route("deleteReply")}}';
 
-		// // This route is to add and remove doctors to follow by normal user
-		// var DoctorFollow = '{{route("DoctorFollow")}}';
+		// This route is to add and remove doctors to follow by normal user
+		var DoctorFollow = '{{route("DoctorFollow")}}';
 
 		// // This route is to rmove normalusers from follower list by doctors
 		// var removeFollower = '{{route("removeFollower")}}';

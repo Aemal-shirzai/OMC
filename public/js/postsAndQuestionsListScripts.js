@@ -875,3 +875,36 @@ function deleteQuestions(questiontId){
 	});
 }
 // End of the function which delete question in profile
+
+
+// Beggining of the : Function responsible for following the doctors by normal users
+
+function followDoctor(doctorId){
+	$("#followingButtonText-"+doctorId).text("Loading...");
+	event.preventDefault();
+	$.ajax({
+	// the method the data should be sent with
+	method : "POST",
+
+	// the route to which the data should go
+	url: DoctorFollow,
+
+	// The data which should be send 
+	data: {doctor_id:doctorId, _token:token}
+
+	}).done(function(){
+	
+		if($("#followButtonIcon-"+doctorId).hasClass("fa-check")){
+			$("#followButtonIcon-"+doctorId).removeClass("fa-check");
+			$("#followButtonIcon-"+doctorId).addClass("fa-plus");
+			$("#followingButtonText-"+doctorId).text("Follow");
+		}else{
+			$("#followButtonIcon-"+doctorId).addClass("fa-check");
+			$("#followButtonIcon-"+doctorId).removeClass("fa-plus");
+			$("#followingButtonText-"+doctorId).text("Following");
+		}
+	
+	});
+}
+// End of the : Function responsible for following the doctors by normal users
+

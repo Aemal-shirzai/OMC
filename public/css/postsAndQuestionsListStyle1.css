@@ -68,7 +68,7 @@ div#followDoctorParent{
 	display: table;
 	font-size: 9px;
 }
-.followingButtonAll{
+.followingButton{
 	background-color: #3fbbc0;
 	color: white;
 	font-size: 10px;
@@ -83,7 +83,7 @@ div#followDoctorParent{
     height: 35px;
     width: 35px;
 }
-.followingButtonAll:hover{
+.followingButton:hover{
 	color: white;
 }
 div#forDoctors{
@@ -94,7 +94,6 @@ div#forDoctors{
     background-color: white;
     box-shadow: 0 4px 8px rgba(59,64,69,0.2);
     padding: 20px 6px;
-    border-radius: 7px;
     font-size: 13px;
 }
 div#Forguests{
@@ -105,7 +104,6 @@ div#Forguests{
     background-color: white;
     box-shadow: 0 4px 8px rgba(59,64,69,0.2);
     padding: 20px 6px;
-    border-radius: 7px;
     font-size: 13px;
 }
 #forGuests a{
