@@ -461,6 +461,10 @@ textarea::-webkit-scrollbar {
 	}
 	/*End of part one*/	
 
+	div#PhotoParentDiv{
+		width: 100%;
+	}
+
 /* Begging of second part form */
 	div#formParent{
 		margin-top: 25px !important;

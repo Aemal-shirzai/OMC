@@ -89,7 +89,7 @@ class PostController extends Controller
                 $fullName = $photo->getClientOriginalName();
                 $onlyExtentsion = $photo->getClientOriginalExtension();
                 $onlyName = pathinfo($fullName,PATHINFO_FILENAME);
-                $nameToBeStored = $onlyName . time() . $onlyExtentsion;
+                $nameToBeStored = $onlyName . time() . "." .$onlyExtentsion;
 
                 $photo->storeAs("public/images/posts/",$nameToBeStored);
                 $post->photos()->create(["path"=>$nameToBeStored,"status"=>1]);
@@ -109,7 +109,10 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return "done";
+        $mostVotedDoctors = Doctor::orderBy("followers","desc")->get();
+        // This number is for blade to show how many doctors
+        $numberOfDoctors = 1;
+        return view("posts.show",compact('post','mostVotedDoctors','numberOfDoctors'));
     }
 
 

@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle111.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle1.css')}}">
 	
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
@@ -21,10 +21,13 @@
 	
 	@elseif(Route::currentRouteName() == 'posts.create' || Route::currentRouteName() == 'questions.create')
 	<!-- Link to local  style for posts add page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsStyle.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsStyle1.css')}}">
 	@elseif(Route::currentRouteName() == 'posts.index' || Route::currentRouteName() == 'questionsSortBy' || Route::currentRouteName() == 'postsSortBy' || Route::currentRouteName() == 'questions.index')
 	<!-- Link to local styles for posts list page -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsListStyle.css')}}">
+	@elseif(Route::currentRouteName() == 'posts.show' || Route::currentRouteName() == 'questions.show')
+	<!-- Link to local styles for posts list page -->
+	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsSingleStyle.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -243,7 +246,9 @@
 @elseif(Route::currentRouteName() == 'posts.index' || Route::currentRouteName() == 'postsSortBy' || Route::currentRouteName() == 'questionsSortBy' || Route::currentRouteName() == 'questions.index')
 <!-- Link to local  js for posts page -->
 <script type="text/javascript" src="{{asset('js/postsAndQuestionsListScripts11.js')}}"></script>
-
+@elseif(Route::currentRouteName() == 'posts.show' || Route::currentRouteName() == 'questions.show')
+<!-- Link to local  js for singl posts and questions page -->
+<script type="text/javascript" src="{{asset('js/postsAndQuestionsSingleScripts11.js')}}"></script>
 @endif
 
 

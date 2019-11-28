@@ -80,7 +80,7 @@ class QuestionController extends Controller
                 $fullName = $photo->getClientOriginalName();
                 $onlyExtentsion = $photo->getClientOriginalExtension();
                 $onlyName = pathinfo($fullName,PATHINFO_FILENAME);
-                $nameToBeStored = $onlyName . time() . $onlyExtentsion;
+                $nameToBeStored = $onlyName . time() . "." .$onlyExtentsion;
 
                 $photo->storeAs("public/images/questions/",$nameToBeStored);
                 $question->photos()->create(["path"=>$nameToBeStored,"status"=>1]);

@@ -121,6 +121,7 @@ div#sidebar-large{
 	position: fixed;
 	z-index: 1;
 	top: 48px;
+	box-shadow: 0 1px 3px rgba(59,64,69,0.2);
 	#overflow: hidden;
 	transition: 0.5s !important;
 }

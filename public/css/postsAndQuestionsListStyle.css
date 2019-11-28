@@ -140,7 +140,7 @@ div#Forguests{
 	width: 73%;
 }
 .orderBy{
-	width: 73%;
+	width: 65%;
 	direction: ltr;
 	background-color: #fbfbfd;
 	overflow: hidden;
@@ -171,11 +171,12 @@ div#listParent{
 }
 div.mainContent{
 	background-color: white;
-	width: 73%;
+	width: 65%;
 	padding: 12px 12px;
 	box-shadow: 0 4px 8px rgba(59,64,69,0.2);
 	/*box-shadow:  0 2px 5px rgba(59,64,69,0.2);	*/
-	/*margin-top: 12px;*/
+	margin-top: 1px;
+
 }
 div#divider{
 	margin: 0 auto ;
@@ -234,7 +235,7 @@ div.content{
 }
 div.content h5{
 	font-weight: bold;
-	font-size: 14px;
+	font-size: 13px;
 }
 div.content p{
 	word-wrap: break-word;
@@ -423,6 +424,13 @@ button.followed span{
 	color: #3fbbc0;
 }
 
+/*  some styles are different in single page showing    */
+
+/* single page main content  */
+.singlePageMain{
+
+}
+
 
 div::-webkit-scrollbar {
     width: 2px !important;
@@ -509,19 +517,22 @@ textarea::-webkit-scrollbar {
 	/* main content part */
 	.title{
 		width: 100%;
+		padding-left: 55px;
 	}
 	.title h3{
 		font-size: 16px;
 		font-weight: bold;
 	}
 	.orderBy{
-		width: 100%;
+		width: 85%;
+		margin: 0 auto;
 	}
 	.orderBy a{
 		font-size: 12px;
 	}
 	div.mainContent{
-		width: 100%;
+		width: 85%;
+		margin: 0 auto;
 		padding: 2px 20px;
 		box-shadow: 0 1px 1px rgba(59,64,69,0.2);
 	}
