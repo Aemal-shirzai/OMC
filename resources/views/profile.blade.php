@@ -813,7 +813,6 @@
 					<div class="dropdown-divider"></div>
 				@endforeach				
 			@endif
-
 		</div>
 	</div>
 

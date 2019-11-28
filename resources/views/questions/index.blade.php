@@ -5,6 +5,115 @@
 @section("content")
 
 <div class="container" id="listParent">
+		<!-- Beggingon of : showiing 10 most followed doctors for normal users-->
+	@can("normalUser_related",Auth::user())
+	<div id="followDoctorParent" class="card">
+		<div class="card-header"><span id="card-heading">The doctors may help you find your solutions.</span></div>
+		<div class="card-body" id="" style="">
+			@if(count($mostVotedDoctors) > 0)
+			@foreach($mostVotedDoctors as $mostVotedDoctor)
+				<!-- To list only the doctors which are not in the following list of current authenticted user -->
+				@if(Auth::user()->owner->following()->where("doctors.id", "=" , $mostVotedDoctor->id)->count() < 1)
+					<!-- This if check to display only 10 doctors -->
+					@if($numberOfDoctors <= 10)
+						<div id="doctorsFollowList">
+								<div class="doctorImage" id="dcotorImage">
+									@if($mostVotedDoctor->account->photos()->where('status',1)->first())
+										<img src="/storage/images/doctors/{{$mostVotedDoctor->account->photos()->where('status',1)->first()->path}}" class="img-fluid">
+									@else
+										<span class="fal fa-user no-image-in-following"></span>
+									@endif
+								</div>
+
+							<div class="followDoctor" id="followDoctor">
+								<a href="{{route('profile',$mostVotedDoctor->account->username)}}" class="fullName">
+									<span>{{$mostVotedDoctor->fullName}}</span>
+								</a>
+								<span class="followedBy">Followed By {{$mostVotedDoctor->followed()->count()}}</span>
+								
+								@can("view",Auth::user())
+								<a href="javascript:void(0)" class="btn btn-sm float-right followingButtonAll" class="" id="followingButtonAll" onclick="followDoctor('{{$mostVotedDoctor->id}}','All')">
+									<i class="{{ Auth::user()->owner->following()->where('doctors.id',$mostVotedDoctor->id)->first() ? 'fad fa-check' : 'fad fa-plus' }}" id="followButtonAllIcon-{{$mostVotedDoctor->id}}"></i>
+									<span class="followingButtonTextAll" id="followingButtonTextAll-{{$mostVotedDoctor->id}}">
+										@if(Auth::user()->owner->following()->where("doctors.id",$mostVotedDoctor->id)->first())
+											Following
+										@else
+											Follow
+										@endif
+									</span>
+								</a>
+								@endcan
+							</div>	
+							<div class="dropdown-divider"></div>
+						</div><!-- End of points div -->
+					@endif
+					<!--End of : This if check to display only 10 doctors for normal users-->
+					@php
+						$numberOfDoctors++;
+					@endphp
+				@endif
+				<!-- End of : To list only the doctors which are not in the following list of current authenticted user -->
+			@endforeach
+			@endif
+		</div> <!-- End of card body -->
+	</div>	<!-- End of card -->
+	@endcan
+	<!-- End of : showiing 10 most followed doctors -->
+
+	<!-- Beggingon of : showing some tips and options for doctors-->
+	@can("Doctor_related",Auth::user())
+	<div id="forDoctors">
+		<div class="text-center">
+		     <span class="fad fa-bullhorn col-12 text-center iconsForDoctors"></span>
+		     Increase your publicity by accelerating your discovery through omc <a href="#">advertising</a>.
+		</div>
+		<div class="dropdown-divider"></div>
+		<div id="" class="text-center">
+		     <span class="fad fa-share-alt col-12 text-center iconsForDoctors"></span>
+		      Share your knowladege regarding health with other by adding a <a href="#">post</a> to your profile.
+		</div>
+		<div class="dropdown-divider"></div>
+		<div id="" class="text-center">
+		     <span class="fad fa-star-half-alt col-12 text-center iconsForDoctors"></span>
+		      Help poeple diffrentiate the right and wrong information by <a href="#">voting</a> others poeple work.
+		</div>
+	</div>
+	@endcan
+	<!-- End of : showing some tips and options for doctors -->
+
+	<!-- Begginng of the part to show news and options for guests -->
+	@guest
+	<div id="Forguests">
+		<div class="text-center">
+		    <span class="fad fa-user-md-chat col-12 text-center iconsForDoctors"></span>
+		      Find your medical experts regarding to their location, profession, and publicity. <a href="{{route('register')}}">Sign up</a> for free account.
+		    <div class="text-center"> 
+            	<a href="#" class="btn btn-sm forGuestsBtn">Find Doctors</a>
+            </div>
+		</div>
+		<div class="dropdown-divider"></div>
+		<div id="" class="text-center">
+		    <span class="fad fa-question-circle col-12 text-center iconsForDoctors"></span>
+		       Find and ask qustions ralated to medical and share your answers with others. <a href="{{route('register')}}">Sign up</a> for free account.
+		    <div class="text-center"> 
+                <a href="{{route('questions.create')}}" class="btn btn-sm forGuestsBtn">Ask Question</a>
+            </div>
+
+		</div>
+		<div class="dropdown-divider"></div>
+		<div id="" class="text-center">
+		    <span class="fas fa-ad col-12 text-center iconsForDoctors"></span>
+		      Search and find the latest advertisements and share your advertisements through omc. <a href="{{route('register')}}">Sign up</a> for free account.
+		    <div class="text-center"> 
+               <a href="javascript:void(0)" id="forUsersViewAds" class="btn btn-sm forGuestsBtn">View ads</a>
+               <a href="#" class="btn btn-sm forGuestsBtn">Add your ads</a>
+            </div>
+		</div>
+	</div>
+	@endguest
+	<!-- End of the part to show news and options for guests -->
+
+
 	@if(count($questions) > 0)
 	@foreach($questions as $question)
 		<div class="mainContent" id="mainContent-{{$question->id}}">
@@ -589,6 +698,8 @@
 			
 		</div>
 	@endforeach
+	@else
+	<h4>No Question found to display!</h4>
 	@endif
 </div>
 

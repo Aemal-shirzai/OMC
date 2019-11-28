@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Post;
+use App\Doctor;
+use App\NormalUser;
 use App\DiseaseCategory;
 
 
@@ -23,8 +25,12 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::latest()->get();
-        return view("posts.index",compact("posts")); 
+        $mostVotedDoctors = Doctor::orderBy("followers","desc")->get();
+        // This number is for blade to show how many doctors
+        $numberOfDoctors = 1;
+        return view("posts.index",compact("posts","mostVotedDoctors","numberOfDoctors")); 
     }
+
 
     /**
      * Show the form for creating a new resource.

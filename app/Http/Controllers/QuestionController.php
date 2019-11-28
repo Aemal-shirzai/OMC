@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Question;
+use App\Doctor;
 use App\DiseaseCategory;
 use Illuminate\Http\Request;
 use App\Http\Requests\QuestionRequest;
@@ -22,7 +23,10 @@ class QuestionController extends Controller
     public function index()
     {
         $questions = Question::latest()->get();
-        return view("questions.index",compact("questions"));
+        $mostVotedDoctors = Doctor::orderBy("followers","desc")->get();
+        // This number is for blade to show how many doctors
+        $numberOfDoctors = 1;
+        return view("questions.index",compact("questions","mostVotedDoctors","numberOfDoctors"));
     }
 
     /**

@@ -1,3 +1,6 @@
+div#footer{
+	margin-top: 500px;
+}
 div.confirmationBox{
 	width: 273px;
 	height: 160px;
@@ -18,12 +21,122 @@ div.confirmationBox a{
 a#topButtonP:focus{
 	box-shadow: none;
 }
+div#followDoctorParent{
+	position: absolute;
+	right: 95px;
+	float: right;
+	top: 110px;
+	width: 23%;
+	margin-top: 19px;
+	/*margin-top: 81px;*/
+	overflow: hidden;
+	box-shadow:  0 3px 6px rgba(59,64,69,0.2);
+}
+#card-heading{
+	font-size: 11px;
+	font-weight: bold;
+	color:#9ba1a7;
+}
+.card-header{
+	background-color: #fbfbfd;
+}
+.card-body{
+	padding: 6px 8px;
+}
+.doctorImage{
+	width: 17%;
+	overflow: hidden;
+	float: left;
+	display: inline-block;
+}
+.doctorImage img{
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+}
+.followDoctor{
+	width: 83% !important;
+	display: inline-block;
+}
+.fullName{
+	margin-left: 5px;
+	font-size: 11px;
+	display: inline-block;
+}
+.followedBy{
+	margin-left: 5px;
+	display: table;
+	font-size: 9px;
+}
+.followingButtonAll{
+	background-color: #3fbbc0;
+	color: white;
+	font-size: 10px;
+	margin-top: -27px;
+}
+.no-image-in-following{
+	padding: 8px 10px;
+    border-radius: 50%;
+	border: 1px solid #3fbbc0;
+ 	color: #3fbbc0;
+    font-size: 16px;
+    height: 35px;
+    width: 35px;
+}
+.followingButtonAll:hover{
+	color: white;
+}
+div#forDoctors{
+	position: absolute;
+	width: 19%;
+	right: 94px;
+	float: right;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(59,64,69,0.2);
+    padding: 20px 6px;
+    border-radius: 7px;
+    font-size: 13px;
+}
+div#Forguests{
+	position: absolute;	
+	right: 94px;
+	width: 20%;
+	float: right;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(59,64,69,0.2);
+    padding: 20px 6px;
+    border-radius: 7px;
+    font-size: 13px;
+}
+#forGuests a{
+	color: #3fbbc0;
+}
+#forGuests a{
+	color: #3fbbc0;
+}
+.forGuestsBtn{
+	font-size: 10px;
+	border:1px solid #3fbbc0;
+	margin-top: 8px;
+	transition: .5s;
+}
+.forGuestsBtn:hover{
+	background-color: #3fbbc0;
+	color: white;
+}
+.iconsForDoctors{
+	color: #3fbbc0;
+	font-size: 25px;
+	margin-bottom: 12px;
+}
 div#listParent{
 
 }
 div.mainContent{
-	width: 100%;
-	padding: 12px 150px;
+	width: 73%;
+	padding: 12px 6px;
+	box-shadow:  0 2px 5px rgba(59,64,69,0.2);	
+	margin-top: 12px;
 }
 div#divider{
 	margin: 0 auto ;
@@ -86,7 +199,7 @@ div.content p{
 	margin-bottom: 0px;
 }
 div.contentImage{
-	width: 80%;
+	width: 100%;
 	border:1px solid lightgray;
 	border-radius: 8px;
 	margin: 0 auto;
@@ -94,7 +207,7 @@ div.contentImage{
 }
 div.contentImage img{
 	max-width: 100%;
-	max-height: 300px !important;
+	max-height: 320px !important;
 	border-radius: 5px;
 }
 div#commentImage{
@@ -655,6 +768,27 @@ textarea::-webkit-scrollbar {
 		font-size: 9px;
 	}
 
+	div#followDoctorParent{
+		right: 70px;
+	}
+	#card-heading{
+		font-size: 9px;
+	}
+	.fullName{
+		font-size: 9px;
+	}
+	.followedBy{
+		font-size: 8px;
+	}
+	.followingButtonAll{
+		font-size: 9px;
+	}
+	.doctorImage img{
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+	}
+
 }
 
 
@@ -664,9 +798,19 @@ textarea::-webkit-scrollbar {
 		top:38%;
 		left: 32%;
 	}
+	div#followDoctorParent{
+		display: none;
+	}
+	div#forDoctors{
+		display: none;
+	}
+	div#Forguests{
+		display: none;
+	}
 	div.mainContent{
 		width: 100%;
 		padding: 12px 0px;
+		box-shadow:  none;
 	}
 	div.contentImage{
 		width: 100%;
@@ -780,9 +924,19 @@ textarea::-webkit-scrollbar {
 
 /* ///////////////////////////////////////////////////////////////// Samll sizes rotate /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 767px){
+div#followDoctorParent{
+	display: none;
+}
+div#forDoctors{
+	display: none;
+}
+div#Forguests{
+	display: none;
+}
 div.mainContent{
 	width: 100%;
 	padding: 12px 0px;
+	box-shadow: none;
 }
 div.ownerInfo img{
 	width: 35px; 
