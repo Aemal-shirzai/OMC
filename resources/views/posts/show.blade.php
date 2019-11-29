@@ -150,7 +150,7 @@
 			@endforeach
 			</div>
 		@else
-			<h4>No Voters</h4>
+			<h4>No followers</h4>
 		@endif
 	</div>
 
