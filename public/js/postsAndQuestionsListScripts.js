@@ -140,10 +140,12 @@ function followDoctor(doctorId){
 			$("#followButtonIcon-"+doctorId).removeClass("fa-check");
 			$("#followButtonIcon-"+doctorId).addClass("fa-plus");
 			$("#followingButtonText-"+doctorId).text("Follow");
+			$("#followCount-"+doctorId).text(parseInt($("#followCount-"+doctorId).text())-1);
 		}else{
 			$("#followButtonIcon-"+doctorId).addClass("fa-check");
 			$("#followButtonIcon-"+doctorId).removeClass("fa-plus");
 			$("#followingButtonText-"+doctorId).text("Following");
+			$("#followCount-"+doctorId).text(parseInt($("#followCount-"+doctorId).text())+1);
 		}
 	
 	});

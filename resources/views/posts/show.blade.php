@@ -5,6 +5,156 @@
 @section("content")
 
 <div class="container" id="listParent" style="">
+
+	<!-- Up voters list -->
+	<div class="relatedInfoList" id="upVotersList">
+		<div class="relatedInfoHeader">
+			<button class="close" onclick="closeUpVotersList()">&times;</button>
+			<h6>Up-voters</h6>
+		</div>
+		@if($post->votedBy()->where("type",1)->count() > 0)
+			<div class="relatedInfoBody" >
+			@foreach($post->votedBy()->where("type",1)->get() as $voter)
+				<div class="voterFollowerImage" id="voterFollowerImage">
+					@if($voter->photos()->where('status',1)->first())
+						@if($voter->owner_type == "App\Doctor")
+							<img src="/storage/images/doctors/{{$voter->photos()->where('status',1)->first()->path}}" class="img-fluid">
+						@else
+							<img src="/storage/images/normalUsers/{{$voter->photos()->where('status',1)->first()->path}}" class="img-fluid">
+						@endif
+					@else
+						<span class="fal fa-user no-image-in-relatedInfo"></span>
+					@endif
+				</div>
+
+				<div class="followDoctor" id="followDoctor">
+					<a href="{{route('profile',$voter->username)}}" class="fullNameRelatedInfo">
+						<span>{{$voter->owner->fullName}}</span>
+					</a>
+					@if($voter->owner_type == "App\Doctor")
+						<span class="ByRelatedInfo">Followed By 
+							<span id="followCount-{{$voter->id}}">{{$voter->owner->followed()->count()}} </span>
+						</span>
+					@else
+						<span class="ByRelatedInfo">
+							<span id="username-{{$voter->id}}">{{$voter->username}} </span>
+						</span>
+					@endif
+					@can("normalUser_related",Auth::user())
+					@if($voter->owner_type == "App\Doctor")
+					<a href="javascript:void(0)" class="btn btn-sm float-right followingButton" class="" id="followingButtonup-{{$voter->id}}" onclick="followDoctor('{{$voter->id}}','fromUpvoters')">
+						<i class="{{ Auth::user()->owner->following()->where('doctors.id',$voter->id)->first() ? 'fad fa-check' : 'fad fa-plus' }}" id="followButtonIconUp-{{$voter->id}}"></i>
+						<span class="followingButtonText" id="followingButtonTextUp-{{$voter->id}}">
+							@if(Auth::user()->owner->following()->where("doctors.id",$voter->id)->first())
+								Following
+							@else
+								Follow
+							@endif
+						</span>
+					</a>
+					@endif
+					@endcan
+				</div>	
+				<div class="dropdown-divider"></div>
+			@endforeach
+			</div>
+		@else
+			<h4>No Voters</h4>
+		@endif
+	</div>
+
+	<!-- Down voters list -->
+	<div class="relatedInfoList" id="DownVotersList">
+		<div class="relatedInfoHeader">
+			<button class="close" onclick="closeDownVotersList()">&times;</button>
+			<h6>Down-voters</h6>
+		</div>
+		@if($post->votedBy()->where("type",0)->count() > 0)
+			<div class="relatedInfoBody" >
+			@foreach($post->votedBy()->where("type",0)->get() as $voter)
+				<div class="voterFollowerImage" id="voterFollowerImage">
+					@if($voter->photos()->where('status',1)->first())
+						@if($voter->owner_type == "App\Doctor")
+							<img src="/storage/images/doctors/{{$voter->photos()->where('status',1)->first()->path}}" class="img-fluid">
+						@else
+							<img src="/storage/images/normalUsers/{{$voter->photos()->where('status',1)->first()->path}}" class="img-fluid">
+						@endif
+					@else
+						<span class="fal fa-user no-image-in-relatedInfo"></span>
+					@endif
+				</div>
+
+				<div class="followDoctor" id="followDoctor">
+					<a href="{{route('profile',$voter->username)}}" class="fullNameRelatedInfo">
+						<span>{{$voter->owner->fullName}}</span>
+					</a>
+					@if($voter->owner_type == "App\Doctor")
+						<span class="ByRelatedInfo">Followed By 
+							<span id="followCount-{{$voter->id}}">{{$voter->owner->followed()->count()}} </span>
+						</span>
+					@else
+						<span class="ByRelatedInfo">
+							<span id="username-{{$voter->id}}">{{$voter->username}} </span>
+						</span>
+					@endif
+					@can("normalUser_related",Auth::user())
+					@if($voter->owner_type == "App\Doctor")
+					<a href="javascript:void(0)" class="btn btn-sm float-right followingButton" class="" id="followingButtonup-{{$voter->id}}" onclick="followDoctor('{{$voter->id}}','fromUpvoters')">
+						<i class="{{ Auth::user()->owner->following()->where('doctors.id',$voter->id)->first() ? 'fad fa-check' : 'fad fa-plus' }}" id="followButtonIconUp-{{$voter->id}}"></i>
+						<span class="followingButtonText" id="followingButtonTextUp-{{$voter->id}}">
+							@if(Auth::user()->owner->following()->where("doctors.id",$voter->id)->first())
+								Following
+							@else
+								Follow
+							@endif
+						</span>
+					</a>
+					@endif
+					@endcan
+				</div>	
+				<div class="dropdown-divider"></div>
+			@endforeach
+			</div>
+		@else
+			<h4>No Voters</h4>
+		@endif
+	</div>
+	<!-- Folowers list -->
+	<div class="relatedInfoList" id="follwersList">
+		<div class="relatedInfoHeader">
+			<button class="close" onclick="closeFollowersList()">&times;</button>
+			<h6>Followers</h6>
+		</div>
+		@if($post->favoritedBy()->count() > 0)
+			<div class="relatedInfoBody" >
+			@foreach($post->favoritedBy as $follower)
+				<div class="voterFollowerImage" id="voterFollowerImage">
+					@if($follower->account->photos()->where('status',1)->first())
+						<img src="/storage/images/normalUsers/{{$follower->account->photos()->where('status',1)->first()->path}}" class="img-fluid">
+					@else
+						<span class="fal fa-user no-image-in-relatedInfo"></span>
+					@endif
+				</div>
+
+				<div class="followDoctor" id="followDoctor">
+					
+					<a href="{{route('profile',$follower->account->username)}}" class="fullNameRelatedInfo">
+						<span>{{$follower->fullName}}</span>
+					</a>
+	
+					<span class="ByRelatedInfo">
+						<span id="username-{{$follower->id}}">{{$follower->account->username}} </span>
+					</span>
+				</div>	
+				<div class="dropdown-divider"></div>
+			@endforeach
+			</div>
+		@else
+			<h4>No Voters</h4>
+		@endif
+	</div>
+
+
 	<!-- Beggingon of : showiing 10 most followed doctors for normal users-->
 	@can("normalUser_related",Auth::user())
 	<div id="followDoctorParent" class="card">
@@ -29,10 +179,10 @@
 								<a href="{{route('profile',$mostVotedDoctor->account->username)}}" class="fullName">
 									<span>{{$mostVotedDoctor->fullName}}</span>
 								</a>
-								<span class="followedBy">Followed By {{$mostVotedDoctor->followed()->count()}}</span>
+								<span class="followedBy">Followed By <span id="followCount-{{$mostVotedDoctor->id}}">{{$mostVotedDoctor->followed()->count()}}</span></span>
 								
 								@can("view",Auth::user())
-								<a href="javascript:void(0)" class="btn btn-sm float-right followingButton" class="" id="followingButton-{{$mostVotedDoctor->id}}" onclick="followDoctor('{{$mostVotedDoctor->id}}')">
+								<a href="javascript:void(0)" class="btn btn-sm float-right followingButton" class="" id="followingButton-{{$mostVotedDoctor->id}}" onclick="followDoctor('{{$mostVotedDoctor->id}}','mostVoted')">
 									<i class="{{ Auth::user()->owner->following()->where('doctors.id',$mostVotedDoctor->id)->first() ? 'fad fa-check' : 'fad fa-plus' }}" id="followButtonIcon-{{$mostVotedDoctor->id}}"></i>
 									<span class="followingButtonText" id="followingButtonText-{{$mostVotedDoctor->id}}">
 										@if(Auth::user()->owner->following()->where("doctors.id",$mostVotedDoctor->id)->first())
@@ -123,10 +273,10 @@
 			<div id="heading">
 				<h2>{{$post->title}}</h2>
 				<div id="relatedInfo">
-					<a href="" class="btn btn-sm">View Up Voters <span class="count" id="upVoters">{{$post->votedBy()->where("type",1)->count()}}</span></a>
-					<a href="" class="btn btn-sm">View Down Voters <span class="count" id="downVoters">{{$post->votedBy()->where("type",0)->count()}}</span></a>
-					<a href="" class="btn btn-sm">View Followers <span class="count" id="follwers">{{$post->favoritedBy()->count()}}</span></a>
-					<a href="" class="btn btn-sm">View Comments <span class="count" id="allcommentsF">{{$post->comments()->count()}}</a>
+					<a href="javascript:void(0)" onclick="openUpVotersList()" class="btn btn-sm">View Up Voters <span class="count" id="upVoters">{{$post->votedBy()->where("type",1)->count()}}</span></a>
+					<a href="javascript:void(0)" onclick="openDownVotersList()" class="btn btn-sm">View Down Voters <span class="count" id="downVoters">{{$post->votedBy()->where("type",0)->count()}}</span></a>
+					<a href="javascript:void(0)" onclick="openFollowersList()" class="btn btn-sm">View Followers <span class="count" id="follwers">{{$post->favoritedBy()->count()}}</span></a>
+					<a href="javascript:void(0)" class="btn btn-sm" onclick="showAllComments()" >View Comments <span class="count" id="">{{$post->comments()->count()}}</a>
 				</div>
 
 				<!-- Beggining of: Manage and share options -->
@@ -181,7 +331,7 @@
 					</div>
 				</a>
 				@can("normalUser_related",Auth::user())
-				<a href="javascript:void(0)" id="followButton" onclick="followDoctor('{{$post->owner->id}}')" class="btn btn-sm float-right">
+				<a href="javascript:void(0)" id="followButton" onclick="followDoctor('{{$post->owner->id}}','profile')" class="btn btn-sm float-right">
 					<span id="followButtonIcon" class="fad {{Auth::user()->owner->following()->where('doctors.id',$post->owner->id)->first() ? 'fa-check' : 'fa-plus' }}"></span> 
 					<span id="followingButtonText">
 					{{ Auth::user()->owner->following()->where('doctors.id',$post->owner->id)->first() ? 'Following' : 'Follow' }}
@@ -210,11 +360,11 @@
 					@if(strlen($post->content) > 800)
 						<p id="halfContent">
 							{{ Str::limit($post->content,800)}} 
-							<a href="javascript:void(0)" class="readMoreLess" onclick="showComplete('post')">Read More...</a>
+							<a href="javascript:void(0)" class="readMoreLess" onclick="showComplete({!!$post->id!!},'post')">Read More...</a>
 						</p>
 						<p id="completeContent" style="display: none;">
 							{{ $post->content}}
-							<a href="javascript:void(0)" class="readMoreLess" onclick="showLess('post')">Read Less...</a>
+							<a href="javascript:void(0)" class="readMoreLess" onclick="showLess({!!$post->id!!},'post')">Read Less...</a>
 						</p>
 					@else
 						<p>{{ $post->content }}</p>
@@ -310,10 +460,10 @@
 				<!-- End of the posts options that should be visible only for guest users -->
 
 				<!-- Beggining of the posts options that should be visible for both the  auth users and guest users -->
-				<button class="btn" title="All comments for this post" onclick="showAllComments({!!$post->id!!})">
+				<button class="btn" title="All comments for this post" onclick="showAllComments()">
 					<a href="javascript::void(0)">								<span class="fal fa-comment optionsIcons"></span> 
 						<span class="ContentOptionsText">comments</span> 
-						.<span class="votes" id="commentcounts1-{{$post->id}}"> {{count($post->comments)}}</span>
+						.<span class="votes" id="commentcounts1"> {{count($post->comments)}}</span>
 					</a>
 				</button>
 				<!-- End of the posts options that should be visible for both the  auth users and guest users -->
@@ -394,10 +544,10 @@
 				@endauth
 
 				<!-- Beggining of all comments part -->
-				<div class="allComments" id="allComments-{{$post->id}}">
+				<div class="allComments" id="allComments">
 					@if(count($post->comments) > 0)
-						<b><div class="mb-2 ml-2 comments-count"><span id="commentsCount-{{$post->id}}">{{count($post->comments)}}</span> Comments</div></b>
-						@foreach($post->comments as $comment)
+						<b><div class="mb-2 ml-2 comments-count"><span id="commentsCount">{{count($post->comments)}}</span> Comments</div></b>
+						@foreach($post->comments()->orderBy("created_at","desc")->get() as $comment)
 
 							<!-- Beggining of: Image part of comment owner -->
 							<div class="allcommentsOwnerImage" id="allcommentsOwnerImage-{{$comment->id}}">
@@ -425,8 +575,8 @@
 							<div class="allCommentsContent" id="allCommentsContent-{{$comment->id}}">
 								
 								@if($comment->content)
-									@if(strlen($comment->content) > 500)
-										<p id="halfComment-{{$comment->id}}">{{Str::limit($comment->content,500)}} <a href="javascript:void(0)" class="readMoreLess" onclick="showComplete({!! $comment->id !!},'comment')">Read more...</a></p>	
+									@if(strlen($comment->content) > 300)
+										<p id="halfComment-{{$comment->id}}">{{Str::limit($comment->content,300)}} <a href="javascript:void(0)" class="readMoreLess" onclick="showComplete({!! $comment->id !!},'comment')">Read more...</a></p>	
 										<p id="completeComment-{{$comment->id}}" style="display: none;">{{$comment->content}} <a href="javascript:void(0)" class="readMoreLess" onclick="showLess({!! $comment->id !!},'comment')">Read less...</a></p>
 									@else
 										<p>{{ $comment->content }}</p>
@@ -560,12 +710,10 @@
 								<div class ="reply" id="reply-{{$comment->id}}">
 									{!! Form::open(["method"=>"post","action"=>"CommentReplyController@store","files"=>"true"]) !!}		
 										<div class="input-group">
-											{!! Form::file("replyPhoto",["class"=>"replyPhotoField","accept"=>"image/*","id"=>"replyPhotoField-$comment->id","onchange"=>"showAndValidateReplyFile($comment->id)"]) !!}
+											{!! Form::file("replyPhoto",["class"=>"replyPhotoField","id"=>"replyPhotoField-$comment->id","onchange"=>"showAndValidateReplyFile($comment->id)"]) !!}
 											<textarea  name="replyContent" class="form-control replyField" placeholder="Add Reply..." id="replyField-{{$comment->id}}" rows="1" maxlength="65500" 
 											onkeyup="do_resize_and_enable_reply_button(this,{!! $comment->id !!})">@if(old("comment_id") == $comment->id) {{old("replyContent")}} @endif</textarea>
 											<input type="hidden" name="comment_id" value= @if(old("comment_id") == $comment->id) {{old("comment_id")}} @else {{$comment->id}} @endif >
-											<!-- This hidden field is responsible to take the post id with it because in return we need it to scrooll to all comments -->
-											<input type="hidden" name="post_id_for_replies" value= @if(old("post_id") == $post->id) {{old("post_id_for_replies")}} @else {{$post->id}} @endif >
 											{!! Form::submit("Reply",["class"=>"btn  btn-sm addReplyBtn","id"=>"addReplyBtn-$comment->id","disabled"=>"true","onclick"=>"validateReplyForm($comment->id)"]) !!}
 											<i class="fal fa-camera replyPhotoButton" id="replyPhotoButton-{{$comment->id}}" onclick="openReplyPhotoField({!!$comment->id!!})"></i>
 										</div>
@@ -578,7 +726,7 @@
 							<div class="allReplies" id="allReplies-{{$comment->id}}">
 								@if(count($comment->replies) > 0)
 								<b><div class="mb-2 replies-count"><span id="replies-count-{{$comment->id}}">{{count($comment->replies)}}</span> Replies</div></b>
-										@foreach($comment->replies as $reply)
+										@foreach($comment->replies()->orderBy("created_at","desc")->get() as $reply)
 											<!-- replied by image -->
 											<div class="allRepliesOwnerImage" id="replyOwnerInfo-{{$reply->id}}">
 												@if(count($reply->owner->photos) > 0)						
@@ -727,7 +875,6 @@
 		<script type="text/javascript">
 			var scroll = "toReplySuccess";
 			var comment_id = {!! json_encode(session('comment_id')) !!};
-			var ToScrollTo_id = {!! json_encode(session('ToScrollTo_id')) !!};
 		</script>
 	@endif
 
@@ -735,7 +882,6 @@
 		<script type="text/javascript">
 			var scroll = "toReplyError";
 			var comment_id = {!! json_encode(old("comment_id")) !!};
-			var ToScrollTo_id = {!! json_encode(old("post_id_for_replies")) !!};
 		</script>
 	@endif
 <!-- These variables are for ajax  token and route to which vote the post, comments , replies-->
@@ -747,6 +893,12 @@
 
 		// This route is to add post to favorite
 		var postFavorites = '{{route("postFavorites")}}';
+
+		// This route is to delete comments
+		var deleteComment = '{{route("deleteComment")}}';
+
+		// This route is to delete comments
+		var deleteReply = '{{route("deleteReply")}}';
 
 		// This route is to add post to favorite
 		var postFavorites = '{{route("postFavorites")}}';

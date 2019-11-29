@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>	
 <html>
 <head>
 	<title>@yield("title")</title>
@@ -24,7 +24,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsStyle1.css')}}">
 	@elseif(Route::currentRouteName() == 'posts.index' || Route::currentRouteName() == 'questionsSortBy' || Route::currentRouteName() == 'postsSortBy' || Route::currentRouteName() == 'questions.index')
 	<!-- Link to local styles for posts list page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsListStyle.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsListStyle1.css')}}">
 	@elseif(Route::currentRouteName() == 'posts.show' || Route::currentRouteName() == 'questions.show')
 	<!-- Link to local styles for posts list page -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsSingleStyle.css')}}">
@@ -245,10 +245,10 @@
 <script type="text/javascript" src="{{asset('js/postsAndQuestionsScripts.js')}}"></script>
 @elseif(Route::currentRouteName() == 'posts.index' || Route::currentRouteName() == 'postsSortBy' || Route::currentRouteName() == 'questionsSortBy' || Route::currentRouteName() == 'questions.index')
 <!-- Link to local  js for posts page -->
-<script type="text/javascript" src="{{asset('js/postsAndQuestionsListScripts11.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/postsAndQuestionsListScripts.js')}}"></script>
 @elseif(Route::currentRouteName() == 'posts.show' || Route::currentRouteName() == 'questions.show')
 <!-- Link to local  js for singl posts and questions page -->
-<script type="text/javascript" src="{{asset('js/postsAndQuestionsSingleScripts11.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/postsAndQuestionsSingleScripts222.js')}}"></script>
 @endif
 
 

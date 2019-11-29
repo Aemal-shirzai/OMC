@@ -29,7 +29,7 @@
 								<a href="{{route('profile',$mostVotedDoctor->account->username)}}" class="fullName">
 									<span>{{$mostVotedDoctor->fullName}}</span>
 								</a>
-								<span class="followedBy">Followed By {{$mostVotedDoctor->followed()->count()}}</span>
+								<span class="followedBy">Followed By <span id="followCount-{{$mostVotedDoctor->id}}">{{$mostVotedDoctor->followed()->count()}}</span></span>
 								
 								@can("view",Auth::user())
 								<a href="javascript:void(0)" class="btn btn-sm float-right followingButton" class="" id="followingButton-{{$mostVotedDoctor->id}}" onclick="followDoctor('{{$mostVotedDoctor->id}}')">

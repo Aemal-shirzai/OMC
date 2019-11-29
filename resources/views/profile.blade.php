@@ -847,7 +847,7 @@
 		<script type="text/javascript">
 			var scroll = "toReplySuccess";
 			var comment_id = {!! json_encode(session('comment_id')) !!};
-			var post_id = {!! json_encode(session('post_id')) !!};
+			var post_id = {!! json_encode(session('ToScrollTo_id')) !!};
 		</script>
 	@endif
 

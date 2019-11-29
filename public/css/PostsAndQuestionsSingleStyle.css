@@ -2,6 +2,83 @@ div#footer{
 	margin-top: 500px;
 }
 
+div.relatedInfoList{
+	width: 360px;
+    background: white;
+    box-shadow: 0px 0px 10px 3px #eaeaea;
+    border-radius: 10px;
+    position: fixed;
+    z-index: 1;
+    top: 42%;
+    left: 24%;
+    overflow: hidden;
+	display: none;
+}
+.relatedInfoHeader{
+    width: 100%;
+   	max-height: 40px;
+    box-shadow: 0 1px 3px rgba(59,64,69,0.2);
+    overflow: hidden;
+    text-align: center;
+}
+.relatedInfoBody{
+	padding: 5px 12px;
+	height: 311px;
+	overflow: auto;
+}
+div.relatedInfoHeader button.close{
+	margin-right: 5px;
+    font-size: 44px;
+    margin-top: -7px;
+    font-weight: lighter;
+}
+div.relatedInfoHeader h6{
+	font-weight: bold;
+    font-size: 14px;
+    padding-top: 11px;
+    color: #9ba1a7;
+}
+div.relatedInfoList h4{
+	font-weight: bold;
+    font-size: 14px;
+    padding-top: 11px;
+    text-align: center;
+    color: #9ba1a7;
+}
+.voterFollowerImage{
+	width: 14%;
+	overflow: hidden;
+	float: left;
+	display: inline-block;
+}
+.voterFollowerImage img{
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+}
+.no-image-in-relatedInfo{
+	padding: 8px 10px;
+    border-radius: 50%;
+	border: 1px solid #3fbbc0;
+ 	color: #3fbbc0;
+    font-size: 16px;
+    height: 35px;
+    width: 35px;
+}
+
+.fullNameRelatedInfo{
+	margin-left: 1px;
+	font-size: 11px;
+	font-weight: bold;
+	display: inline-block;
+}
+.ByRelatedInfo{
+	margin-left: 1px;
+	display: table;
+	font-size: 9px;
+}
+
+
 div.confirmationBox{
 	width: 273px;
 	height: 160px;
@@ -526,13 +603,12 @@ button.commentManageOptions:focus{
 /* Showing all comments part */
 div.allComments{
 	position: relative;
-	overflow: auto;
+	overflow: hidden;
 	margin-bottom: 15px;
 	background-color: #fbfbfd;
 	padding: 12px 0px;
 	padding-left:30px;  
 	display: none;
-	max-height: 800px;
 }
 .no-comment{
 	font-size: 11px;
@@ -568,11 +644,24 @@ div.commentOwnerName span.commentcreateTime{
 	display: table;
 	margin-left: 3px;
 	margin-top: -5px;
-	font-size: 10px;
+	font-size: 8px;
 }
 div.allCommentsContent p{
 	padding-right: 4px; 
+	margin-bottom: 0px;
+	padding-top: 5px;
+	overflow: hidden;
 	font-size: 12px;
+}
+#commentImage{
+	width: 100%;
+	border:1px solid lightgray;
+	border-radius: 5px;
+}
+#commentImage img{
+	max-width: 100%;
+	max-height: 250px;
+	border-radius: 5px;
 }
 div#dividerForComments{
 	margin-top:0;
@@ -613,11 +702,174 @@ span.commentOptionsIcons{
 div.commetOptions button:hover span.commentOptionsIcons{
 	color: #3fbbc0;
 }
+button.commentManageOptions{
+	background: inherit;
+    border: none;
+    font-weight: normal !important;
+    font-size: 10px;
+
+}
+button.commentManageOptions:focus{
+	outline: 0px;
+
+}
 /* End :options part for comments part*/
-s
+
+/* Beggining of the form of replies */
+div.reply{
+	display: none;
+	width: 93%; 
+	margin-left: 5px;
+	margin-bottom: 5px;
+	margin-bottom: 12px;
+	margin-top: 12px;
+	padding: 0 12px;
+	
+}
+.replyField{
+	border-radius: 10px !important;
+	font-size: 11px;
+	overflow: hidden;
+	resize: none;	
+	padding: 5px 30px;
+	z-index: 0 !important;
+}
+.replyField:focus{
+	box-shadow: 0px 0px 1px 0px #3fbbc0;
+}
+.addReplyBtn{
+	border:1px solid #3fbbc0;
+	background-color: #3fbbc0;
+	border-radius: 40px;
+	color: white;
+	height: 30px;
+	margin-left: 6px;
+	font-size:12px; 
+	transition: 0.5s;
+}
+.addReplyBtn:hover{
+	color: white;
+}
+
+.replyPhotoButton{
+	position: absolute !important;
+	color: #3fbbc0;
+	top: 6px;
+	font-size: 16px;
+	left: 6px;
+	cursor: pointer;
+}
+.replyPhotoField{
+	display: none;
+}
+/* End of the form of replies */
+
+/* Beggining of the showing all replies */
+div.allReplies{
+	overflow:hidden;
+	border-left: 1px solid #f2f2f2;
+	padding-left: 30px;
+	display: none;
+	margin-bottom: 12px;
+}
+div.reply-parent{
+	display: none;
+}
+div.allRepliesOwnerImage{
+	display: inline-block;
+	float: left;
+	width: 100%;
+	overflow: hidden;
+}
+div.allRepliesOwnerImage img{
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	border-radius: 50%;
+}
+div.replyOwnerName{
+	display: inline-block;
+}
+div.replyOwnerName a{
+	margin-left: 3px;
+	color: black;
+	font-weight: bold;
+	font-size: 12px;
+}
+div.replyOwnerName span.replyCreateTime{
+	color: #828282;
+	display: table;
+	margin-left: 3px;
+	margin-top: -5px;
+	font-size: 10px;
+}
+div.allRepliessContent p{
+	padding-right: 4px; 
+	font-size: 12px;
+	margin-left: 27px;
+	overflow:hidden;
+	margin-bottom: 4px;
+}
+.replyImage{
+	width: 80%;
+	margin:0 auto;
+	margin-bottom: 12px;
+	border:1px solid lightgray;
+	border-radius: 5px;
+}
+.replyImage img{
+	max-width: 100%;
+	max-height: 160px !important;
+	border-radius:5px;
+}
+#no-image-in-reply{
+	padding: 6px 6px;
+    border-radius: 50%;
+    border: 1px solid #3fbbc0;
+    color: #3fbbc0;
+    font-size: 12px;
+    height: 25px;
+    width: 25px;
+}
+div.reply-divider{
+	margin-top: 0px;
+}
+
+.replies-count{
+	font-size: 11px;
+}
+/* End of the showing all replies */
+
+
+
+div::-webkit-scrollbar {
+    width: 4px !important;
+}
+textarea::-webkit-scrollbar {
+    width: 4px !important;
+}
+ 
+*::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3) !important;
+}
+ 
+*::-webkit-scrollbar-thumb {
+  background-color:gray !important;
+  outline: 1px solid slategrey !important;
+} 
+
+
+
 
 /* ///////////////////////////////////////////////////////////////// IPHAD PRO /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 1200px) and (min-width: 1024px){
+	div.relatedInfoList{
+	    top: 21%;
+	    left: 16%;
+	}
+	div.confirmationBox{
+		left: 18%;
+	}
 	div#followDoctorParent{
 		right: 80px;
 	}
@@ -694,9 +946,19 @@ s
 	.upVotedCheck{
 		font-size: 10px;
 	}
+
 }
+
+
 /* ///////////////////////////////////////////////////////////////// IPHAD /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 1023px) and (min-width: 768px){
+	div.relatedInfoList{
+	    top: 33%;
+	    left: 12%;
+	}
+	div.confirmationBox{
+		left: 15%;
+	}
 	div#followDoctorParent{
 		right: 41px;width: 30%;
 	}
@@ -766,10 +1028,198 @@ s
 	.upVotedCheck{
 		font-size: 10px;
 	}
+/* Comment part */
+	div#commentPart{
+		padding:12px 3px;
+	}
+	div.allComments{
+		padding-left:5px;  
+	}
+	div#commentPartImage{
+		display: inline-block;
+		float: left;
+		overflow: hidden;
+		width: 8%;
+	}
+	div#comment{
+		width: 92%; 
+	}
+	div#commentPartImage img{
+		width: 27px;
+		height: 27px;
+	}
+	.commentField{
+		width: 100% !important;
+		margin-left: 4px;
+		font-size: 11px;
+	}
+	.addCommentBtn{
+		height: 23px;
+		margin-left: 6px;
+		font-size:11px; 
+		margin-top: 3px;
+		padding-top: 2px;
+	}
+	#no-image-in-comment{
+		padding: 5px 6px;
+	    font-size: 15px;
+	    height: 27px;
+	    width: 27px;
+	}
+	.commentPhotoButton{
+		top: 5px;
+	    font-size: 17px;
+	    left: 11px;
+	}
+	div.commentImageDiv img{
+		max-width: 100px;
+		max-height: 100px;
+	}
+	.removeEditCommentPhotoText{
+		font-size: 9px !important;
+	}
+
+	div.commentImageVideoErrorMsg, div.replyImageVideoErrorMsg{
+		font-size: 10px;
+	}
+	div.commentSuccessMsgs, div.replySuccessMsgs{
+		font-size: 10px;
+	}
+	button.commentManageOptions{		
+	    font-size: 9px !important;
+	}
+
+	/* Showing all comments part */
+	.no-comment{
+		font-size: 10px;
+	}
+	.comments-count{
+		margin-left: 5px !important;
+		font-size: 9px;
+	}
+
+	div.commentOwnerName a{
+		font-size: 11px;
+	}
+	div.commentOwnerName span.commentcreateTime{
+		font-size: 7px;
+	}
+	div.allCommentsContent p{
+		font-size: 11px;
+	}
+	#commentImage img{
+		max-height: 170px;
+		max-width: 100%;
+	}
+	/*End of showing all comments part*/
+
+	/* Beggining :options part for comments part*/
+	div.commetOptions button{
+		font-size: 10px;
+	}
+	span.commentOptionsIcons{
+		font-size: 11px;
+	}
+	/* End :options part for comments part*/
+
+	/* Beggining of the form of replies */
+	div.reply{
+		width: 100%;
+		margin-left: 0px;
+		padding: 0 6px;
+		
+	}
+	.replyField{
+		font-size: 10px;
+	}
+	.addReplyBtn{
+		height: 26px;
+		font-size:10px;
+	}
+	.replyPhotoButton{
+		font-size: 15px;
+		left: 8px;
+	}
+/* End of the form of replies */
+
+/* Beggining of the showing all replies */
+	div.allReplies{
+		padding-left: 12px;
+	}
+	div.replyOwnerName a{
+		font-size: 11px;
+	}
+	div.replyOwnerName span.replyCreateTime{
+		font-size: 9px;
+	}
+	div.allRepliessContent p{
+		font-size: 10px;
+	}
+	.replyImage img{
+		max-height: 150px !important;
+	}
+	.replies-count{
+		font-size: 10px;
+	}
+	/* End of the showing all replies */
 
 }
 /* ///////////////////////////////////////////////////////////////// Samll sizes rotate /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 767px){
+	div.relatedInfoList{
+	    width: 252px;
+	    background: white;
+	    box-shadow: 0px 0px 10px 3px #eaeaea;
+	    border-radius: 10px;
+	    position: fixed;
+	    z-index: 1;
+	    top: 33%;
+	    left: 10%;
+	    left: 14%;
+	}
+	.relatedInfoHeader{
+    width: 100%;
+   	max-height: 40px;
+    box-shadow: 0 1px 3px rgba(59,64,69,0.2);
+    overflow: hidden;
+    text-align: center;
+	}
+	div.relatedInfoHeader button.close{
+	    font-size: 40px;
+	}
+	div.relatedInfoHeader h6{
+	    font-size: 13px;
+	}
+	div.relatedInfoList h4{
+	    font-size: 13px;
+	}
+	.voterFollowerImage{
+		width: 13%;
+	}
+	.voterFollowerImage img{
+		width: 30px;
+		height: 30px;
+	}
+	.no-image-in-relatedInfo{
+		padding: 7px 8px;
+	    font-size: 14px;
+	    height: 30px;
+	    width: 30px;
+	}
+
+	.fullNameRelatedInfo{
+		margin-left: 6px;
+		font-size: 10px;
+
+	}
+	.ByRelatedInfo{
+		margin-left: 6px;
+		font-size: 8px;
+	}
+
+	div.confirmationBox{
+	    left: 31%;
+	}
 	div#followDoctorParent{
 		display: none;
 	}
@@ -855,11 +1305,165 @@ s
 	.upVotedCheck{
 		font-size: 9px;
 	}
+	/* Comment part */
+	div#commentPart{
+		padding: 14px 3px;
+	}
+
+	div#commentPartImage{
+		display: inline-block;
+		float: left;
+		overflow: hidden;
+		width: 10%;
+	}
+	div#commentPartImage img{
+		width: 27px;
+		height: 27px;
+	}
+	div#comment{
+		width: 90%; 
+	}
+	.commentField{
+		width: 100% !important;
+		font-size: 10px;
+	}
+	.addCommentBtn{
+		height: 25px;
+	    margin-top: 3px;
+	    margin-left: 1px;
+	    font-size: 11px;
+	}
+	#no-image-in-comment{
+		padding: 6px 7px;
+	    font-size: 14px;
+	    height: 28px;
+	    width: 28px;
+	}
+	.commentPhotoButton{
+		top: 5px;
+		font-size: 16px;
+		left: 7px;
+	}
+	div.commentImageDiv{
+	    padding: 12px 6px;
+	}
+	div.commentImageDiv img{
+		max-width: 95px;
+		max-height: 95px;
+	}
+	.removeEditCommentPhotoText{
+		font-size: 9px !important;
+	}
+	div.commentImageVideoErrorMsg, div.replyImageVideoErrorMsg{ 
+		font-size: 9px;
+	}
+	div.commentSuccessMsgs, div.replySuccessMsgs{
+		font-size: 9px;
+	}
+	button.commentManageOptions{
+	    font-size: 8px !important;
+
+	}
+	/* Showing all comments part */
+	div.allComments{
+		padding-left:5px;  
+	}
+	.no-comment{
+		font-size: 10px;
+	}
+	.comments-count{
+		margin-left: 6px !important;
+		font-size: 10px;
+	}
+	div.allcommentsOwnerImage img{
+		width: 28px;
+		height: 28px;
+	}
+	div.commentOwnerName a{
+		font-size: 11px;
+	}
+	div.commentOwnerName span.commentcreateTime{
+		font-size: 8px;
+	}
+	div.allCommentsContent p{
+		font-size: 11px;
+	}
+	#commentImage img{
+		max-width: 100%;
+		max-height: 200px;
+		border-radius: 5px;
+	}
+
+	/*End of showing all comments part*/
+
+	/* Beggining :options part for comments part*/
+	div.commetOptions button{
+		font-size: 9px;
+	}
+	span.commentOptionsIcons{
+		font-size: 10px;
+	}
+	/* End :options part for comments part*/
+
+		/* Beggining of the form of replies */
+	div.reply{
+		/*display: none;*/
+		width: 100%; 
+		margin-left: 0px;
+		padding: 0 0px;
+		
+	}
+	.replyField{
+		width: 100% !important;
+		border-radius: 10px !important;
+		font-size: 10px;
+	}
+	.addReplyBtn{
+		height: 25px;
+	    margin-left: 3px;
+	    font-size: 10px;
+	    margin-top: 3px;
+	    transition: 0.5s
+	}
+	/* End of the form of replies */
+
+	/* Beggining of the showing all replies */
+	div.allReplies{
+		padding-left: 9px;
+	}
+	div.replyOwnerName a{
+		font-size: 11px;
+	}
+	div.replyOwnerName span.replyCreateTime{
+		font-size: 9px;
+	}
+	div.allRepliessContent p{
+		font-size: 11px;
+		margin-left: 3px;
+	}
+	.replyImage img{
+		max-height: 120px !important;
+	}
+	/* End of the showing all replies */
+
 
 
 }
 /* ///////////////////////////////////////////////////////////////// Samll sizes /////////////////////////////////////////////////////////////////// */
-@media screen and (max-width: 468px){}
+@media screen and (max-width: 468px){
+	div.confirmationBox{
+		width: 222px;
+		height: 117px;
+	    top: 41%;
+	    left: 20%;
+	    font-size: 12px;
+	    padding: 12px 7px;
+	}
+	div.confirmationBox a{
+		margin: 24px 23px;
+   		 font-size: 11px;
+	}
+}
 /* ///////////////////////////////////////////////////////////////// Very Samll sizes /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 320px){
 	#relatedInfo a{
@@ -870,5 +1474,8 @@ s
 	}
 	#followButton{
 	    font-size: 9px;
+	}
+	div.confirmationBox{
+	    left: 17%;
 	}
 }

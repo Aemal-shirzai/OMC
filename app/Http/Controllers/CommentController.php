@@ -72,7 +72,7 @@ class CommentController extends Controller
 
 
         if($comment){
-            return back()->with(["commentSuccess"=>"Your Comment has been Added."]);
+            return back()->with(["commentSuccess"=>"Your Comment has been Added.","post_id"=>$request->post_id]);
         }else{
             return back()->with(["error"=>"Comment Not"]);
         }
