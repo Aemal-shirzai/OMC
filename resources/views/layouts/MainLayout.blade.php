@@ -248,7 +248,7 @@
 <script type="text/javascript" src="{{asset('js/postsAndQuestionsListScripts.js')}}"></script>
 @elseif(Route::currentRouteName() == 'posts.show' || Route::currentRouteName() == 'questions.show')
 <!-- Link to local  js for singl posts and questions page -->
-<script type="text/javascript" src="{{asset('js/postsAndQuestionsSingleScripts222.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/postsAndQuestionsSingleScripts1.js')}}"></script>
 @endif
 
 

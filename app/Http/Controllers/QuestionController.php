@@ -100,7 +100,10 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        //
+        $mostVotedDoctors = Doctor::orderBy("followers","desc")->get();
+        // This number is for blade to show how many doctors
+        $numberOfDoctors = 1;
+        return view("questions.show",compact('question','mostVotedDoctors','numberOfDoctors'));
     }
 
     /**

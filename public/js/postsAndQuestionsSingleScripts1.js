@@ -243,6 +243,37 @@ function followPost(postId){
 }
 // End of the : Function responsible for following the posts by normal users
 
+
+// deleting question confirmation box 
+function openPostConfirmation(){
+ $("#postConfirmationBox").fadeIn();
+}
+function postClosePermissionBox(){
+ $("#postConfirmationBox").fadeOut();
+}
+// deleging question confirmation box
+
+
+// Beggining of the function which delete question in profile
+function deletePosts(postId){
+	$("#postDeleteText").text("Loading ...");
+	$("#postDeleteText").css("color","red");
+	$("#postConfirmationBox").fadeOut();
+	$.ajax({
+		method: "DELETE",
+		url: deletePosts,
+		data:{post_id:postId,_token:token}
+	}).done(function(){
+		$("#mainContent").slideUp('fast');
+		$("#postDeleteMessage").show();
+	});
+}
+// End of the function which delete question in profile
+
+
+
+
+
 // Beggining of : the function which open the comment photo field
 function openCommentPhotoField(){
 	// var field = document.getElementById("commentPhotoField-"+value);
@@ -449,7 +480,7 @@ $(document).ready(function(){
 function showAllComments(){
 	$("#allComments").toggle();
 		$("html,body").animate({
-		scrollTop: $("#addCommentBtn").offset().top-200},"slow");
+		scrollTop: $("#commentPart").offset().top-200},"slow");
 }		
 // End of: the function which shows all comments
 
@@ -823,4 +854,139 @@ function deleteReplies(replyId,commentId){
 	});
 }
 // End of the function which delete replies-count1
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Beggining of : The function which add and update vote to qustions
+function Qvote(qustionId,type){
+	if(type == "upVote"){
+		$("#postOptionsVoteUpText").text("Loading..");
+	}else{
+		$("#postOptionsDownVoteText").text("Loading..");
+	}
+	event.preventDefault();
+	$.ajax({
+		//sending data using post method
+		method: "post",
+		// The url is passed from the profile blade
+		url : questionVote,
+		// the token is also passed from profile blade
+		data : {voteType:type,question_id:qustionId, _token: token},
+
+	})
+		.done(function(){ // if the request is done seccessfully thn:
+
+			if(type == "upVote"){ // if the up voted is clicked
+				if($("#upVotedCheck").hasClass("fa-check")){ // if the up voted button has the class fa-check
+					$("#upVotedCheck").removeClass("fas fa-check upVotedCheck"); // then remove that class from it, it means we click up vote for two reason to get our vote back or to vote someting and this is the first case
+			 		$("#postOptionsVoteUpIcon").css("color","#666"); // change icon color
+				 	$("#postOptionsVoteUpText").css("color","#666");// changed text color
+				 	$("#postOptionsVoteUpText").text("Up-vote"); // change button text
+				 	$("#postOptionsVoteUpCount").text(parseInt($("#postOptionsVoteUpCount").text())-1); // and substruct one from the up votes because we are not adding new vote we are just taking our vote back
+				 	$("#upVoters").text(parseInt($("#upVoters").text())-1); // and substruct one from the up votes because we are not adding new vote we are just taking our vote back
+				 	
+				}else{ // if the voted button has no class fa-check it means we vote here not taking our vote back
+					if($("#downVotedCheck").hasClass("fa-check")){ // here if the down the current user has down voted the post
+						$("#downVotedCheck").removeClass("fas fa-check upVotedCheck"); // then remove the class from down voted votes
+						$("#postOptionsDownVoteText").css("color","#666"); // changed down voted votes color to simple
+						$("#postOptionsDownVoteText").text("Down-vote"); //change its text aswell
+				 		$("#postOptionsDownVoteUpIcon").css("color","#666"); // change its icon color
+				 		$("#postOptionsVoteDownCount").text(parseInt($("#postOptionsVoteDownCount").text())-1); // and stubsturct one from the downvotes because adding the up vote because one user cant up vote and down vote a post at same time
+				 		$("#downVoters").text(parseInt($("#downVoters").text())-1); // and stubsturct one from the downvotes because adding the up vote because one user cant up vote and down vote a post at same time
+					}
+					$("#upVotedCheck").addClass("fas fa-check upVotedCheck"); // if there is not class fa-check then add up vote that class
+			 		$("#postOptionsVoteUpIcon").css("color","#3fbbc0"); //change icon color to green
+				 	$("#postOptionsVoteUpText").css("color","#3fbbc0"); // change text color
+				 	$("#postOptionsVoteUpText").text("Up-voted");	// change button text
+				 	$("#postOptionsVoteUpCount").text(parseInt($("#postOptionsVoteUpCount").text())+1); // and add one to the total of up voted votes
+				 	$("#upVoters").text(parseInt($("#upVoters").text())+1); // and add one to the total of up voted votes
+				}
+			}
+			if(type == "voteDown"){ // if the user is clicking the down vote button
+				if($("#downVotedCheck").hasClass("fa-check")){ // now if the down voted is already clicked it means it that the user has already down voted the post
+					$("#downVotedCheck").removeClass("fas fa-check upVotedCheck"); // then remove it . because clicking one button for the second time should take the vote back
+					$("#postOptionsDownVoteText").css("color","#666"); // change text color to simple
+					$("#postOptionsDownVoteText").text("Down-vote");	//change button text
+			 		$("#postOptionsDownVoteUpIcon").css("color","#666"); // change the icon color
+			 		$("#postOptionsVoteDownCount").text(parseInt($("#postOptionsVoteDownCount").text())-1); // and substrruct one from downvotes because we are taking our vote back
+			 		$("#downVoters").text(parseInt($("#downVoters").text())-1); // and substrruct one from downvotes because we are taking our vote back
+				}else{ // if the user is clickin the down vote for first time
+					if($("#upVotedCheck").hasClass("fa-check")){ // now if the user has already up voted the post then
+						$("#upVotedCheck").removeClass("fas fa-check upVotedCheck"); // remove the upvoted from the user
+				 		$("#postOptionsVoteUpIcon").css("color","#666"); // romve icon color
+					 	$("#postOptionsVoteUpText").css("color","#666"); // change text color
+					 	$("#postOptionsVoteUpText").text("Up-vote"); //chagne button text
+					 	$("#postOptionsVoteUpCount").text(parseInt($("#postOptionsVoteUpCount").text())-1);// and sustruct one fro the up votes because one user can not vote up and down at the same time
+					 	$("#upVoters").text(parseInt($("#upVoters").text())-1);// and sustruct one fro the up votes because one user can not vote up and down at the same time
+					}
+					$("#downVotedCheck").addClass("fas fa-check upVotedCheck"); // now add the class to down vote button because we are downvoting
+					$("#postOptionsDownVoteText").css("color","#3fbbc0"); //change the text color
+					$("#postOptionsDownVoteText").text("Down-voted"); //change the button text
+					$("#postOptionsDownVoteUpIcon").css("color","#3fbbc0"); //change the icon color
+					$("#postOptionsVoteDownCount").text(parseInt($("#postOptionsVoteDownCount").text())+1); // and add one to the total of the down voted votes
+					$("#downVoters").text(parseInt($("#downVoters").text())+1); // and add one to the total of the down voted votes
+				}
+			}
+		});  // done function end
+}
+//End of : The function which add and update vote to questions
+
+
+// Beggining of the : Function responsible for following the posts by normal users
+function followQuestion(questionId){
+	$("#followOptionText").text("Loading...");
+	event.preventDefault();
+	$.ajax({
+		// the method the data should be sent with
+		method : "POST",
+
+		// the route to which the data should go
+		url: questionFavorites,
+
+		// The data which should be send 
+		data: {question_id:questionId,_token:token}
+
+	}).done(function(){
+		if($("#favoriteButton").hasClass("followed")){
+			$("#favoriteButton").removeClass("followed");
+			$("#favoritesPostCount").text(parseInt($("#favoritesPostCount").text())-1);
+			$("#follwers").text(parseInt($("#follwers").text())-1);
+			$("#followOptionText").text("Follow");
+		}else{
+			$("#favoriteButton").addClass("followed");
+			$("#favoritesPostCount").text(parseInt($("#favoritesPostCount").text())+1);
+			$("#follwers").text(parseInt($("#follwers").text())+1);
+			$("#followOptionText").text("Un-follow");
+		}
+	});
+}
+// End of the : Function responsible for following the posts by normal users
+
+// deleting question confirmation box 
+function openQuestionConfirmation(){
+ $("#questionConfirmationBox").fadeIn();
+}
+function questionClosePermissionBox(){
+ $("#questionConfirmationBox").fadeOut();
+}
+// deleging question confirmation box
+
+
+// Beggining of the function which delete question in profile
+function deleteQuestions(questiontId){
+	$("#questionDeleteText").text("Loading ...");
+	$("#questionDeleteText").css("color","red");
+	$("#questionConfirmationBox").fadeOut();
+	$.ajax({
+		method: "DELETE",
+		url: deleteQuestion,
+		data:{question_id:questiontId,_token:token}
+	}).done(function(){
+		$("#mainContent").slideUp('fast');
+		$("#questionDeleteMessage").show();
+	});
+}
+// End of the function which delete question in profile
+
 

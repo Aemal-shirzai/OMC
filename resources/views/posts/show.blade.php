@@ -268,6 +268,7 @@
 	<!-- End of the part to show news and options for guests -->
 
 	<!-- Beggining of showing content part -->
+	<div class="alert alert-success alert-sm text-center mt-5 col-5 col-xs-12" id="postDeleteMessage" style="display: none;">You have seccessfully deleted the Post.</div>
 	@if($post)
 		<div id="mainContent">
 			<div id="heading">
@@ -295,7 +296,7 @@
 						</span>
 						<span title="Delete Post">
 							<li>
-								<a href="javascript:void(0)" id="postDeleteOption-{{$post->id}}" class="PostEditDelete" onclick="openPostConfirmation('{{$post->id}}')"><span class="fas fa-trash"></span> <Span id="postDeleteText-{{$post->id}}">Delete</Span></a>
+								<a href="javascript:void(0)" id="postDeleteOption-{{$post->id}}" class="PostEditDelete" onclick="openPostConfirmation()"><span class="fas fa-trash"></span> <Span id="postDeleteText">Delete</Span></a>
 							</li>
 						</span>
 						@endif
@@ -424,11 +425,11 @@
 					</a>
 				</button>
 				@endcan
-				<div class="confirmationBox" id="postConfirmationBox-{{$post->id}}">
+				<div class="confirmationBox" id="postConfirmationBox">
 					<div id="text">Are You Sure To Delete?</div>
 					<div id="text"><small>Remember: There is no comeback</small></div>
 					<a href="javascript:void(0)" onclick="deletePosts('{{$post->id}}')" class="btn btn-danger btn-sm">Remove</a>
-					<a href="javascript:void(0)" onclick="postClosePermissionBox('{{$post->id}}')" class="btn btn-light btn-sm">Cancel</a>
+					<a href="javascript:void(0)" onclick="postClosePermissionBox()" class="btn btn-light btn-sm">Cancel</a>
 				</div>
 				@endauth
 				<!-- End of the posts options that should be visible only for auth users -->
@@ -810,13 +811,13 @@
 
 												@endauth
 												@guest
-												<button class="btn OptionsForGuest" title="The answer was usefull">
+												<button class="btn OptionsForGuest" title="The answer was usefull. you need to login first">
 													<a href="javascript:void(0)">
 														<span class="fal fa-arrow-alt-up commentOptionsIcons"></span> 
 														<span class="commentVotes">. {{$reply->votedBy()->where("type",1)->count()}}</span>
 													</a>
 												</button>
-												<button class="btn btn OptionsForGuest" title="The answer was not usefull">
+												<button class="btn btn OptionsForGuest" title="The answer was not usefull. you need to login first">
 													<a href="javascript:void(0)">
 														<span class="fal fa-arrow-alt-down commentOptionsIcons"></span>  
 														<span class="commentVotes">. {{$reply->votedBy()->where("type",0)->count()}}</span>
