@@ -114,7 +114,7 @@
 	<div id="sidebar-large" style=""> <!-- navbar for large screen div start  -->
 		<div class="container">
 		<div id="logodiv" style="" class="float-left">
-		<a href="#"><img src="{{asset('images/logo3.png')}}" class="img-fluid"></a>
+		<a href="{{route('main')}}"><img src="{{asset('images/logo3.png')}}" class="img-fluid"></a>
 		</div>
 		<!-- @auth
 			@can("Doctor_related",Auth::user())
@@ -248,7 +248,7 @@
 <script type="text/javascript" src="{{asset('js/postsAndQuestionsListScripts.js')}}"></script>
 @elseif(Route::currentRouteName() == 'posts.show' || Route::currentRouteName() == 'questions.show')
 <!-- Link to local  js for singl posts and questions page -->
-<script type="text/javascript" src="{{asset('js/postsAndQuestionsSingleScripts1.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/postsAndQuestionsSingleScripts.js')}}"></script>
 @endif
 
 

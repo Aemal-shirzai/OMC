@@ -46,6 +46,8 @@ Route::get("/{type}/posts","PostController@sortBy")->name("postsSortBy");
 
 // Routes for comments
 Route::resource("/comments","CommentController");
+// route to add comments for questions
+Route::POST("/comment/storequestion","CommentController@storeQuestion")->name("storeQuestion");
 // This route is responsible for adding and updateing votes to comments using ajax request
 Route::POST("/comments/vote","CommentController@vote")->name("commentVote");
 // Deleting comment using ajax

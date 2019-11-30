@@ -810,7 +810,7 @@
 
 						</div>
 					</div>
-					<div class="dropdown-divider"></div>
+					<div class="dropdown-divider" style="margin: 0px;"></div>
 				@endforeach				
 			@endif
 		</div>

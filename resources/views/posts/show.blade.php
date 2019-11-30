@@ -358,9 +358,9 @@
 					</div>
 				@endif
 				<div id="contentText">
-					@if(strlen($post->content) > 800)
+					@if(strlen($post->content) > 1500)
 						<p id="halfContent">
-							{{ Str::limit($post->content,800)}} 
+							{{ Str::limit($post->content,1500)}} 
 							<a href="javascript:void(0)" class="readMoreLess" onclick="showComplete({!!$post->id!!},'post')">Read More...</a>
 						</p>
 						<p id="completeContent" style="display: none;">
@@ -576,8 +576,8 @@
 							<div class="allCommentsContent" id="allCommentsContent-{{$comment->id}}">
 								
 								@if($comment->content)
-									@if(strlen($comment->content) > 300)
-										<p id="halfComment-{{$comment->id}}">{{Str::limit($comment->content,300)}} <a href="javascript:void(0)" class="readMoreLess" onclick="showComplete({!! $comment->id !!},'comment')">Read more...</a></p>	
+									@if(strlen($comment->content) > 500)
+										<p id="halfComment-{{$comment->id}}">{{Str::limit($comment->content,500)}} <a href="javascript:void(0)" class="readMoreLess" onclick="showComplete({!! $comment->id !!},'comment')">Read more...</a></p>	
 										<p id="completeComment-{{$comment->id}}" style="display: none;">{{$comment->content}} <a href="javascript:void(0)" class="readMoreLess" onclick="showLess({!! $comment->id !!},'comment')">Read less...</a></p>
 									@else
 										<p>{{ $comment->content }}</p>
@@ -751,8 +751,8 @@
 											<!-- Beggining of : all replies content part -->
 											<div class="allRepliessContent" id="allRepliessContent-{{$reply->id}}">
 												@if($reply->content)
-													@if(strlen($reply->content) > 300)
-														<p id="halfReply-{{$reply->id}}">{{Str::limit($reply->content,300)}} <a href="javascript:void(0)" class="readMoreLess" onclick="showComplete({!! $reply->id !!},'reply')">Read more...</a></p>	
+													@if(strlen($reply->content) > 400)
+														<p id="halfReply-{{$reply->id}}">{{Str::limit($reply->content,400)}} <a href="javascript:void(0)" class="readMoreLess" onclick="showComplete({!! $reply->id !!},'reply')">Read more...</a></p>	
 														<p id="completeReply-{{$reply->id}}" style="display: none;">{{$reply->content}} <a href="javascript:void(0)" class="readMoreLess" onclick="showLess({!! $reply->id !!},'reply')">Read less...</a></p>
 													@else
 														<p>{{ $reply->content }}</p>

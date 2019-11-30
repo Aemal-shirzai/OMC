@@ -123,6 +123,18 @@ function followDoctor(doctorId,type){
  		$("#halfReply-"+value).hide();
 	 	$("#completeReply-"+value).show();
  	}
+
+ 	// For questions
+ 	if(type == "question"){
+ 		$("#QhalfContent").hide();
+	 	$("#QcompleteContent").show();
+ 	}else if(type == "Qcomments"){
+ 		$("#QhalfComment-"+value).hide();
+	 	$("#QcompleteComment-"+value).show();
+ 	}else if(type == "QReplies"){
+ 		$("#QhalfReply-"+value).hide();
+	 	$("#QcompleteReply-"+value).show();
+ 	}
  }
 
  function showLess(value,type){
@@ -135,6 +147,18 @@ function followDoctor(doctorId,type){
  	}else if(type == "reply"){
  		$("#halfReply-"+value).show();
 	 	$("#completeReply-"+value).hide();
+ 	}
+
+  	// For questions
+ 	if(type == "question"){
+ 		$("#QhalfContent").show();
+	 	$("#QcompleteContent").hide();
+ 	}else if(type == "Qcomments"){
+ 		$("#QhalfComment-"+value).show();
+	 	$("#QcompleteComment-"+value).hide();
+ 	}else if(type == "QReplies"){
+ 		$("#QhalfReply-"+value).show();
+	 	$("#QcompleteReply-"+value).hide();
  	}
  }
  // End of the function which readmore and readless the post content and comment content
@@ -261,7 +285,7 @@ function deletePosts(postId){
 	$("#postConfirmationBox").fadeOut();
 	$.ajax({
 		method: "DELETE",
-		url: deletePosts,
+		url: deletePost,
 		data:{post_id:postId,_token:token}
 	}).done(function(){
 		$("#mainContent").slideUp('fast');

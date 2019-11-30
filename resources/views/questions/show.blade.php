@@ -350,12 +350,12 @@
 					</div>
 				@endif
 				<div id="contentText">
-					@if(strlen($question->content) > 800)
-						<p id="halfContent">
-							{{ Str::limit($question->content,800)}} 
+					@if(strlen($question->content) > 1500)
+						<p id="QhalfContent">
+							{{ Str::limit($question->content,1500)}} 
 							<a href="javascript:void(0)" class="readMoreLess" onclick="showComplete({!!$question->id!!},'question')">Read More...</a>
 						</p>
-						<p id="completeContent" style="display: none;">
+						<p id="QcompleteContent" style="display: none;">
 							{{ $question->content}}
 							<a href="javascript:void(0)" class="readMoreLess" onclick="showLess({!!$question->id!!},'question')">Read Less...</a>
 						</p>
@@ -378,7 +378,7 @@
 						<span class="fal fa-arrow-alt-up optionsIcons" id="postOptionsVoteUpIcon" {{ Auth::user()->questionsVotes()->where(["type"=>1,"to_type"=>"App\Question","to_id"=>$question->id])->first() ? "style=color:#3fbbc0;" : "" }}></span> 
 
 						<span class="ContentOptionsText" id="postOptionsVoteUpText" {{ Auth::user()->questionsVotes()->where(["type"=>1,"to_type"=>"App\Question","to_id"=>$question->id])->first() ? "style=color:#3fbbc0;" : "" }}>
-						{{ Auth::user()->postsVotes()->where(["type"=>1,"to_type"=>"App\Question","to_id"=>$question->id])->first() ? "Up-voted" : "Up-vote" }}</span>
+						{{ Auth::user()->questionsVotes()->where(["type"=>1,"to_type"=>"App\Question","to_id"=>$question->id])->first() ? "Up-voted" : "Up-vote" }}</span>
 
 						. <span class="votes" id="postOptionsVoteUpCount">{{$question->votedBy()->where("type",1)->count()}}</span>
 					</a>
@@ -392,7 +392,7 @@
 
 						<span class="fal fa-arrow-alt-down optionsIcons" id="postOptionsDownVoteUpIcon" {{ Auth::user()->questionsVotes()->where(["type"=>0,"to_type"=>"App\Question","to_id"=>$question->id])->first() ? "style=color:#3fbbc0;" : "" }}></span> 
 
-						<span class="ContentOptionsText" id="postOptionsDownVoteText" {{ Auth::user()->questionsVotes()->where(["type"=>0,"to_type"=>"App\Question","to_id"=>$question->id])->first() ? "style=color:#3fbbc0;" : "" }}>{{ Auth::user()->postsVotes()->where(["type"=>0,"to_type"=>"App\Question","to_id"=>$question->id])->first() ? "Down-voted" : "Down-vote" }}</span>  
+						<span class="ContentOptionsText" id="postOptionsDownVoteText" {{ Auth::user()->questionsVotes()->where(["type"=>0,"to_type"=>"App\Question","to_id"=>$question->id])->first() ? "style=color:#3fbbc0;" : "" }}>{{ Auth::user()->questionsVotes()->where(["type"=>0,"to_type"=>"App\Question","to_id"=>$question->id])->first() ? "Down-voted" : "Down-vote" }}</span>  
 
 						. <span class="votes" id="postOptionsVoteDownCount">{{$question->votedBy()->where("type",0)->count()}}</span>
 					</a>
@@ -520,14 +520,14 @@
 
 					<!-- Beggining of div: The form for adding comments -->
 					<div id="comment">
-						{!! Form::open(["method"=>"question","action"=>"CommentController@store","files"=>"true"]) !!}		
+						{!! Form::open(["method"=>"POST","action"=>"CommentController@storeQuestion","files"=>"true"]) !!}		
 							<div class="input-group">
 								{!! Form::file("photo",["class"=>"commentPhotoField","id"=>"commentPhotoField","onchange"=>"showAndValidateFile($question->id)"]) !!}
 								<!-- <textarea  name="content" class="form-control commentField" placeholder="Add Comment to post..." id="commentField" rows="1" maxlength="65500" 
 								onkeyup="do_resize_and_enable_button(this,{!! $question->id !!})">@if(old("post_id") == $question->id) {{old("content")}} @endif</textarea> -->
 								{!! Form::textarea("content",null,["class"=>"form-control commentField","placeholder"=>"Add Comment to question...","id"=>"commentField","onkeyup"=>"do_resize_and_enable_button(this)","maxlength"=>"65500","rows"=>"1"]) !!}
 								<!-- <input type="hidden" name="post_id" value= @if(old("post_id") == $question->id) {{old("post_id")}} @else {{$question->id}} @endif > -->
-								{!! Form::hidden("post_id",$question->id) !!}
+								{!! Form::hidden("question_id",$question->id) !!}
 								{!! Form::submit("Add Comment",["class"=>"btn  btn-sm addCommentBtn","id"=>"addCommentBtn","disabled"=>"true","onclick"=>"validateCommentForm()"]) !!}
 								<i class="fal fa-camera commentPhotoButton" id="commentPhotoButton-$question->id" onclick="openCommentPhotoField()"></i>
 							</div>
@@ -568,9 +568,9 @@
 							<div class="allCommentsContent" id="allCommentsContent-{{$comment->id}}">
 								
 								@if($comment->content)
-									@if(strlen($comment->content) > 300)
-										<p id="halfComment-{{$comment->id}}">{{Str::limit($comment->content,300)}} <a href="javascript:void(0)" class="readMoreLess" onclick="showComplete({!! $comment->id !!},'comment')">Read more...</a></p>	
-										<p id="completeComment-{{$comment->id}}" style="display: none;">{{$comment->content}} <a href="javascript:void(0)" class="readMoreLess" onclick="showLess({!! $comment->id !!},'comment')">Read less...</a></p>
+									@if(strlen($comment->content) > 500)
+										<p id="QhalfComment-{{$comment->id}}">{{Str::limit($comment->content,500)}} <a href="javascript:void(0)" class="readMoreLess" onclick="showComplete({!! $comment->id !!},'Qcomments')">Read more...</a></p>	
+										<p id="QcompleteComment-{{$comment->id}}" style="display: none;">{{$comment->content}} <a href="javascript:void(0)" class="readMoreLess" onclick="showLess({!! $comment->id !!},'Qcomments')">Read less...</a></p>
 									@else
 										<p>{{ $comment->content }}</p>
 									@endif
@@ -743,9 +743,9 @@
 											<!-- Beggining of : all replies content part -->
 											<div class="allRepliessContent" id="allRepliessContent-{{$reply->id}}">
 												@if($reply->content)
-													@if(strlen($reply->content) > 300)
-														<p id="halfReply-{{$reply->id}}">{{Str::limit($reply->content,300)}} <a href="javascript:void(0)" class="readMoreLess" onclick="showComplete({!! $reply->id !!},'reply')">Read more...</a></p>	
-														<p id="completeReply-{{$reply->id}}" style="display: none;">{{$reply->content}} <a href="javascript:void(0)" class="readMoreLess" onclick="showLess({!! $reply->id !!},'reply')">Read less...</a></p>
+													@if(strlen($reply->content) > 400)
+														<p id="QhalfReply-{{$reply->id}}">{{Str::limit($reply->content,400)}} <a href="javascript:void(0)" class="readMoreLess" onclick="showComplete({!! $reply->id !!},'Qreplies')">Read more...</a></p>	
+														<p id="QcompleteReply-{{$reply->id}}" style="display: none;">{{$reply->content}} <a href="javascript:void(0)" class="readMoreLess" onclick="showLess({!! $reply->id !!},'QReplies')">Read less...</a></p>
 													@else
 														<p>{{ $reply->content }}</p>
 													@endif
@@ -855,7 +855,7 @@
 @error("photo")
 	<script type="text/javascript">
 		var scroll = "on2";
-		var toScrollToPostQuestion_id = {!! json_encode(old("post_id")) !!};
+		var toScrollToPostQuestion_id = {!! json_encode(old("question_id")) !!};
 	</script>
 @enderror
 @if(session('error'))
