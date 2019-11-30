@@ -881,3 +881,38 @@ function deletePosts(postId){
 	});
 }
 // End of the function which delete posts in profile
+
+
+
+// Beggining of : the function which open the share options menu
+function openShareQOptions(value){
+	$("#QshareOptions-"+value).toggle();
+	event.preventDefault();
+}
+// End of : the function which open the share options menu
+
+// deleting question confirmation box 
+function openQuestionConfirmation(value){
+ $("#questionConfirmationBox-"+value).fadeIn();
+}
+function questionClosePermissionBox(value){
+ $("#questionConfirmationBox-"+value).fadeOut();
+}
+// deleging question confirmation box
+
+
+// Beggining of the function which delete question in profile
+function deleteQuestions(questiontId){
+	$("#questionDeleteText-"+questiontId).text("Loading ...");
+	$("#questionDeleteText-"+questiontId).css("color","red");
+	$("#questionConfirmationBox-"+questiontId).fadeOut();
+	$.ajax({
+		method: "DELETE",
+		url: deleteQuestion,
+		data:{question_id:questiontId,_token:token}
+	}).done(function(){
+		$("#allQuestions-"+questiontId).slideUp('fast');
+		$("#allQuestionTextAbove").text(parseInt($("#allQuestionTextAbove").text())-1);
+	});
+}
+// End of the function which delete question in profile

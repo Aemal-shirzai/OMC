@@ -815,6 +815,198 @@ span#countFollowingSmall{
 	display: none;
 }
 /* End Following part for normal user */
+span.nCreateTime{
+		color: #828282;
+	display: table;
+	font-size: 10px;
+	margin-top: -4px;
+}
+
+/*   The seciton for listing all questions for a normal user NOTE: some styles are taken from the above styles       */
+div#allQuestionsParent{
+	overflow: none;
+	padding: 12px 140px;
+}
+div.allQuestions{
+	padding: 12px 30px;
+	box-shadow:0 4px 6px rgba(59,64,69,0.2);
+	margin-bottom: 5px;
+}
+div#questionTitle{
+	padding-bottom: 12px;
+	border-bottom: 1px solid  #e5e5ec;
+	padding: 4px 4px;
+	padding-bottom: 15px;
+}
+div#questionTitle h3{
+	font-weight: bold;
+	font-size: 17px;
+	cursor: pointer !important;
+	color: #3fbbc0;
+}
+div#questionTitle a{
+	background-color: #fbfbfd;
+	color: #949494;
+	font-size: 8px;
+	transition: 0.5s;
+}
+div#QmanageOptions a{
+	cursor: initial; 
+}
+div#questionTitle a:focus{
+	box-shadow: none;
+}
+.count{
+	font-weight: bold;
+}
+#QshareBtn{
+	margin-top: -28px;
+}
+.QshareOptions{
+	position: absolute;
+	z-index: 1 !important;
+	box-shadow: rgba(27, 31, 35, 0.15) 0px 1px 15px;
+	padding: 2px 12px;
+	display: none;
+	width: 100px;
+	margin-left: -50px;
+	margin-top: 17px;
+	text-align: left;
+	background-color: white;
+	border-color: rgba(27, 31, 35, 0.15);
+	border-radius: 4px;
+
+}
+.QshareOptions::after{
+	position: absolute;
+	content: "";
+	width: 18px;
+	height: 18px;
+	transform: rotate(45deg);
+	top: -9px;
+	left: 42%;
+	background-color: white;
+	border-top: 1px solid  #c3bfbf;
+	border-left: 1px solid  #c3bfbf;
+	border-right: 0px solid  white;
+	border-bottom: 0px solid  white;
+}
+
+div.QshareOptions  li{
+	list-style-type: none;
+}
+div.QshareOptions  li a{
+	color: #828282;
+	list-style-type: none;
+}
+div.QshareOptions a.social-button span{
+	text-decoration: none;
+	font-size: 11px;
+	margin-left: 3px;
+}
+div.QshareOptions a#share-facebook::after{
+	content: "Facebook";
+	margin-left: 3px;
+}
+.PostEditDelete{
+	font-size: 11px !important;
+}
+div.QshareOptions a#share-twitter::after{
+	content: "Twitter";
+	margin-left: 3px;
+}
+div.QshareOptions a#share-linkedIn::after{
+	content: "Linkedin";
+	margin-left: 3px;
+}
+div.QshareOptions a#share-whatsapp::after{
+	content: "Whatsapp";
+	margin-left: 3px;
+}
+div.QshareOptions a#share-telegram::after{
+	content: "Telegram";
+	margin-left: 3px;
+}
+div.QshareOptions a.share{
+	font-size: 11px;
+}
+
+div.QshareOptions div.dropdown-divider{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+div.QshareOptions p{
+	font-weight: bold;
+	color: #666;
+	margin-bottom: 5px;
+	margin-top: 4px;
+	font-size: 10px;
+}
+
+.QownerInfo{
+	
+	padding-top: 5px;
+	padding-left: 5px;
+}
+.QownerInfo img{
+	width: 50px; 
+	height: 50px;
+	display: inline-block;
+	border-radius: 50%;
+}
+#Qno-owner-image{
+	padding: 12px 14px;
+    border-radius: 50%;
+	border: 1px solid #3fbbc0;
+ 	color: #3fbbc0;
+    font-size: 20px;
+    height: 45px;
+    width: 45px;
+}
+div.QownerName{
+	display: inline-block;
+	padding-left: 12px;
+}
+.QfullName{
+	color: #3fbbc0;
+}
+span.QcreateTime{
+	color: #828282;
+	display: table;
+	font-size: 8px;
+	margin-top: -3px;
+}
+a.QlinkToProfile:hover{
+	text-decoration: none;
+}
+a.QlinkToProfile:hover span.QfullName{
+	text-decoration: underline;
+}
+
+/* content part */
+.Qcontent{
+	overflow: hidden;
+}
+div.Qtags{
+	margin-bottom: 0px;
+	padding-left: 12px;
+}
+div.Qtags span{
+	background-color: #fbfbfd;
+	border-radius: 4px;
+	padding: 0 5px;
+}
+div.Qtags span a{
+	font-size: 10px;
+}
+.QcontentText{
+	text-align: justify;
+	font-size: 14px;
+	padding-left: 12px;
+	cursor: pointer !important;
+}
+
 
 /* iphod pro /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 1200px) and (min-width: 1024px){
@@ -1124,6 +1316,33 @@ span.no-image-in-following{
 }
 /* End Following part for normal user */	 
 
+	/*   The seciton for listing all questions for a normal user NOTE: some styles are taken from the above styles       */
+	div#allQuestionsParent{
+		padding: 12px 60px;
+	}
+	div.allQuestions{
+		box-shadow:0 2px 3px rgba(59,64,69,0.2);
+	}
+	div#questionTitle h3{
+		font-size: 16px;
+	}
+	div#questionTitle a{
+		font-size: 7px;
+	}
+	
+	div.QownerName{
+		padding-left: 11px;
+	}
+	/* content part */
+	div.Qtags span a{
+		font-size: 10px;
+	}
+	.QcontentText{
+		font-size: 13px;
+	}
+
+
+
 
 }
 /* 640  - 769 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
@@ -1406,111 +1625,146 @@ span.no-image-in-following{
 	}
 /*End of showing all comments part*/
 
-/*Begginging of: options for comments*/
-span.commentVotes{
-	font-weight: lighter;
-	font-size: 9px;
-}
-span.commentOptionsIcons{
-	font-size: 9px;
-}
-/* End of :options for comments; */
+	/*Begginging of: options for comments*/
+	span.commentVotes{
+		font-weight: lighter;
+		font-size: 9px;
+	}
+	span.commentOptionsIcons{
+		font-size: 9px;
+	}
+	/* End of :options for comments; */
 
-/* Beggining of the form of replies */
-div.reply{
-	width: 97%;
-	margin-left: 3px;
-	padding: 0 0;
-}
-.replyField{
-	font-size: 11px;
-	width: 100% !important;
+	/* Beggining of the form of replies */
+	div.reply{
+		width: 97%;
+		margin-left: 3px;
+		padding: 0 0;
+	}
+	.replyField{
+		font-size: 11px;
+		width: 100% !important;
 
-}
-.addReplyBtn{
-	height: 25px;
-	margin-top: 3px;
-	padding: 0 13px;
-	margin-left: 0px;
-	font-size:11px; 
-}
-.replyPhotoButton{
-	font-size: 14px;
-	left: 8px;
-}
-/* End of the form of replies */
+	}
+	.addReplyBtn{
+		height: 25px;
+		margin-top: 3px;
+		padding: 0 13px;
+		margin-left: 0px;
+		font-size:11px; 
+	}
+	.replyPhotoButton{
+		font-size: 14px;
+		left: 8px;
+	}
+	/* End of the form of replies */
 
-/* Beggining of the showing all replies */
-div.replyOwnerName a{
-	font-size: 10px;
-}
-div.replyOwnerName span.replyCreateTime{
-	font-size: 7px;
-}
-div.allRepliessContent p{
-	font-size: 11px;
-	margin-left: 0px;
-}
-.replyImage img{
-	max-height: 120px !important;
-}
-#no-image-in-reply{
-	padding: 4px 4px;
-    font-size: 10px;
-    height: 20px;
-    width: 20px;
-}
+	/* Beggining of the showing all replies */
+	div.replyOwnerName a{
+		font-size: 10px;
+	}
+	div.replyOwnerName span.replyCreateTime{
+		font-size: 7px;
+	}
+	div.allRepliessContent p{
+		font-size: 11px;
+		margin-left: 0px;
+	}
+	.replyImage img{
+		max-height: 120px !important;
+	}
+	#no-image-in-reply{
+		padding: 4px 4px;
+	    font-size: 10px;
+	    height: 20px;
+	    width: 20px;
+	}
 
-/* End of the showing all replies */
+	/* End of the showing all replies */
 
-*::-webkit-scrollbar {
-	width: 1px;
-}
+	*::-webkit-scrollbar {
+		width: 1px;
+	}
 
 
-/* Beggining Following part for normal user */
-div#followingParent{
-	width: 100%;
-	padding: 6px 2px;
-}
-div.followingOwnerImage{
-	width: 15%;
-}
-div.followingOwnerImage img{
-	height: 40px;
-    width: 40px;
-}
-span.no-image-in-following{
-	padding: 9px 12px;
-    font-size: 17px;
-    height: 37px;
-    width: 37px;
-}
-div.followingInfo{
-	width: 83%;
-	margin-top: 12px !important;
-}
-div.followingInfo span{
-	margin-left: 5px
-}
-.name{
-	font-size: 10px;
-}
-.followingButtonAll{
-	font-size: 8px;
-	margin-top:-27px; 
-}
-.followedBy{
-	font-size: 7px;
-}
-span#countFollowingSmall{
-	display:inline-block;
-	font-size: 10px;
-	color: #828282;
-	font-weight: bold;
-}
-/* End Following part for normal user */ 
+	/* Beggining Following part for normal user */
+	div#followingParent{
+		width: 100%;
+		padding: 6px 2px;
+	}
+	div.followingOwnerImage{
+		width: 15%;
+	}
+	div.followingOwnerImage img{
+		height: 40px;
+	    width: 40px;
+	}
+	span.no-image-in-following{
+		padding: 9px 12px;
+	    font-size: 17px;
+	    height: 37px;
+	    width: 37px;
+	}
+	div.followingInfo{
+		width: 83%;
+		margin-top: 12px !important;
+	}
+	div.followingInfo span{
+		margin-left: 5px
+	}
+	.name{
+		font-size: 10px;
+	}
+	.followingButtonAll{
+		font-size: 8px;
+		margin-top:-27px; 
+	}
+	.followedBy{
+		font-size: 7px;
+	}
+	span#countFollowingSmall{
+		display:inline-block;
+		font-size: 10px;
+		color: #828282;
+		font-weight: bold;
+	}
+	/* End Following part for normal user */ 
 
+	/*   The seciton for listing all questions for a normal user NOTE: some styles are taken from the above styles       */
+	div#allQuestionsParent{
+		overflow: none;
+		padding: 12px 0px;
+	}
+	div.allQuestions{
+		padding: 12px 1px;
+		box-shadow:none;
+		border-bottom: 2px solid lightgray;
+	}
+	div#questionTitle a{
+		font-size: 7px;
+	}
+	.QshareOptions{
+		margin-left: -80px;
+
+	}
+	.QshareOptions::after{
+		left: 73%;
+	}
+	
+	span.QcreateTime{
+		font-size: 7px;
+	}
+
+	/* content part */
+	div.Qtags span a{
+		font-size: 9px;
+	}
+	.QcontentText{
+		text-align: justify;
+		font-size: 12px;
+		padding-left: 12px;
+		cursor: pointer !important;
+	}
 
 } 
 

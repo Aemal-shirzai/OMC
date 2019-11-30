@@ -119,7 +119,7 @@
 					<button class="tabLinks" onclick="openContent(event,'questions')">
 						<span class="fad fa-question-square btn-icon-large"></span> 
 						<span class="fal fa-question-square btn-icon"></span> 
-						<span class="btnText">Questions</span>
+						<span class="btnText" >Questions <span id="allQuestionTextAbove">{{$questions->count()}}</span></span>
 					</button>
 					<button class="tabLinks" onclick="openContent(event,'following')">
 						<span class="fad fa-users btn-icon-large"></span> 
@@ -776,7 +776,105 @@
 		This is favorite Part
 	</div>
 	<div id="questions" class="tab-content">
-		This is questions parts
+		<div id="allQuestionsParent">
+			@if(count($questions) > 0 )
+			@foreach($questions as $question)
+			<div class="allQuestions" id="allQuestions-{{$question->id}}">
+				<!--  info title -->
+				<div id="questionTitle">
+					<h3 onclick="window.location.assign('{{route('questions.show',$question->id)}}')">{{$question->title}}</h3>
+					<div id="QmanageOptions">
+						<a href="javascript:void(0)" class="btn btn-sm">Up Voters <span class="count" id="upVoters">{{$question->votedBy()->where("type",1)->count()}}</span></a>
+						<a href="javascript:void(0)" class="btn btn-sm">Down Voters <span class="count" id="downVoters">{{$question->votedBy()->where("type",0)->count()}}</span></a>
+						<a href="javascript:void(0)" class="btn btn-sm">Followers <span class="count" id="follwers">{{$question->favoritedBy()->count()}}</span></a>
+						<a href="javascript:void(0)" class="btn btn-sm">Comments <span class="count" id="">{{$question->comments()->count()}}</a>	
+						</span>
+					</div>
+					<!-- Beggining of: Manage and share options -->
+					<div class="btn float-right" id="QshareBtn" title="All share options">
+						<a href="#" onclick="openShareQOptions({!! $question->id !!})">
+							<span class="far fa-ellipsis-v optionsIcons"></span> 
+						</a>
+						<div class="QshareOptions" id="QshareOptions-{{$question->id}}">
+							@auth
+							@if(Auth::user()->id === $question->owner->account->id)
+							<p class="text-center">Manage</p>
+							<span title="Edit Post">
+								<li>
+									<a href="#" class="PostEditDelete"><span class="fas fa-edit"></span> Edit</a>
+								</li>
+							</span>
+							<span title="Delete Post">
+								<li>
+									<a href="javascript:void(0)" id="postDeleteOption-{{$question->id}}" class="PostEditDelete" onclick="openQuestionConfirmation('{{$question->id}}')"><span class="fas fa-trash"></span> <Span id="questionDeleteText-{{$question->id}}">Delete</Span></a>
+								</li>
+							</span>
+							@endif
+							@endauth
+							<!-- <div class="dropdown-divider"></div> -->
+							<p class="text-center">Share</p>
+							{!! Share::page(route('questions.show',$question->id),null,['class'=>'share','id'=>"share-facebook"],"<span>","</span>")->facebook() !!}
+							<div class="dropdown-divider"></div>
+							{!! Share::page(route('questions.show',$question->id),null,['class'=>'share','id'=>"share-twitter"],"<span>","</span>")->twitter() !!}
+							<div class="dropdown-divider"></div>
+							{!! Share::page(route('questions.show',$question->id),null,['class'=>'share','id'=>"share-linkedIn"],"<span>","</span>")->linkedin() !!}
+							<div class="dropdown-divider"></div>
+							{!! Share::page(route('questions.show',$question->id),null,['class'=>'share','id'=>"share-whatsapp"],"<span>","</span>")->whatsapp() !!}
+							<div class="dropdown-divider"></div>
+							{!! Share::page(route('questions.show',$question->id),null,['class'=>'share','id'=>"share-telegram"],"<span>","</span>")->telegram() !!}
+						</div>
+					</div>
+					<!-- End of: Manage and share options -->
+				</div>
+				<!--End  info and title -->
+
+				<!-- owner information about post or questions -->
+				<div  class="QownerInfo">
+					<a class="QlinkToProfile" href="{{route('profile',$question->owner->account->username)}}">
+						@if(count($question->owner->account->photos) > 0)
+							<img src="/storage/images/normalUsers/{{$question->owner->account->photos()->where('status',1)->first()->path}}">
+						@else
+							<span class="fal fa-user" id="Qno-owner-image"></span>
+						@endif
+						<div class="QownerName">
+							<span class="QfullName">{{$question->owner->fullName}} ({{$question->owner->account->username}})</span> 
+							@if($question->created_at)
+								<span class="QcreateTime">Posted:{{$question->created_at->diffForHumans()}}</span>
+							@endif
+						</div>
+					</a>
+				</div>
+				<div class="confirmationBox" id="questionConfirmationBox-{{$question->id}}">
+					<div id="text">Are You Sure To Delete?</div>
+					<div id="text"><small>Remember: There is no comeback</small></div>
+					<a href="javascript:void(0)" onclick="deleteQuestions('{{$question->id}}')" class="btn btn-danger btn-sm">Remove</a>
+					<a href="javascript:void(0)" onclick="questionClosePermissionBox('{{$question->id}}')" class="btn btn-light btn-sm">Cancel</a>
+				</div>
+				<!-- content -->
+				<div class="Qcontent">
+					<!-- Tags part -->
+					<div class="Qtags">
+						@if($question->tags()->count() > 0)
+							@foreach($question->tags as $tag)
+								<span><a href="#">{{$tag->category}}</a></span>
+							@endforeach
+						@endif
+					</div>
+					<div  class="QcontentText" onclick="window.location.assign('{{route('questions.show',$question->id)}}')">
+						{{ Str::limit($question->content,500)}} 
+						<a href="{{route('questions.show',$question->id)}}" class="readMoreLess">Read Full...</a>
+					</div>
+				</div>
+				<!-- end of Q content -->
+
+			</div>
+			<!-- end of all questions -->
+			@endforeach
+			@else
+				<h4 class="text-center">No Questions Asked Yet </h4>
+			@endif
+		</div>
+		<!-- end of all questions parent -->
 	</div>
 
 
@@ -884,6 +982,8 @@
 
 		// This route is delete the post by post owner
 		var deletePost = '{{route("deletePost")}}';
+				// This route is delete the post by post owner
+		var deleteQuestion = '{{route("deleteQuestion")}}';
 	</script>
 
 @endsection
