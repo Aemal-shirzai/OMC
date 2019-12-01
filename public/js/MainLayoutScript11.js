@@ -59,6 +59,7 @@ function openNav() {
 	document.getElementById("side").className += " sidebar-small-shadow";
 	document.getElementById("header-div").style.marginLeft = "230px";
 	document.getElementById("sidebar-large").style.marginLeft = "230px";
+	$("#dropdownContentNotifications").hide();
 }
 // End of: function which open the small sidebar
 
@@ -224,6 +225,7 @@ $("document").ready(function(){
 		}else{
 			// This else hide the dropdown content menue when screen is resized
 			$("#dropdownContent").hide();
+			$("#dropdownContentNotifications").hide();
 			$(".AddPostAskQuestionSmall").attr("style","margin-top: 0px !important");
 		}
 	});
@@ -263,11 +265,13 @@ if(status === "on"){
 // Beggining of : the function which hide the small slidebar and user menu list when the screen is clicked
 $("#mainParent,#footer").click(function(){
 	$("#dropdownContent").hide();
+	$("#dropdownContentNotifications").hide();
 	closeNav();
 });
 // End of : the function which hide the small slidebar and user menu list when the screen is clicked
 
 $("#userProfileParent").click(function(){
+	$("#dropdownContentNotifications").hide();
 	$("#dropdownContent").toggle();
 });
 
@@ -314,3 +318,19 @@ $("#userProfileParent").click(function(){
 });
 // jquery ready function end
 
+
+$("#userNotificationsParent").click(function(){
+	$("#dropdownContentNotifications").toggle();
+	$("#dropdownContent").hide();
+});
+
+function markAsRead(value){
+	if($("#notification-"+value).hasClass("notRead")){
+		$.ajax({
+			method: "POST",
+			url: readMark,
+			data:{notification_id:value, _token:token}
+		});
+	}
+
+}

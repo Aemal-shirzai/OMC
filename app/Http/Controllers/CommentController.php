@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CommentRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\commentToPosts;
 class CommentController extends Controller
 {
     public function __construct(){
@@ -53,6 +54,7 @@ class CommentController extends Controller
 
         // to find the post to which the comment is added by hellping the post_id which is comming from a hidden input in the comment section
         $post = Post::findOrFail($request->post_id);
+
         //add column account_id to array request
         $request->merge(["account_id"=>$account_id]);
         // create the comment for the post
@@ -70,6 +72,9 @@ class CommentController extends Controller
             $comment->photos()->create(["path"=>$nameToBeStored,"status"=>"1"]);
         }
 
+        if(Auth::user()->username != $post->owner->account->username){
+            $post->owner->account->notify(new commentToPosts($comment,$post));
+        }
 
         if($comment){
             return back()->with(["commentSuccess"=>"Your Comment has been Added.","post_id"=>$request->post_id]);

@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle.css')}}">
 	
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
@@ -116,14 +116,6 @@
 		<div id="logodiv" style="" class="float-left">
 		<a href="{{route('main')}}"><img src="{{asset('images/logo3.png')}}" class="img-fluid"></a>
 		</div>
-		<!-- @auth
-			@can("Doctor_related",Auth::user())
-				<a href="#" class ="AddPostAskQuestion btn btn-sm">Add Post</a>
-			@endcan
-			@can("normalUser_related",Auth::user())
-				<a href="#" class ="AddPostAskQuestion btn btn-sm">Ask Question</a>
-			@endcan
-		@endauth -->
 		<a href="javascript:void(0)" class="btn btn-light btn-sm openbtn" onclick="openNav()"><i class="far fa-bars"></i></a>
 		@auth
 		<div class="float-right" id="userProfileParent">
@@ -147,6 +139,57 @@
 				<a href="#" onclick="document.getElementById('logoutForm').submit();event.preventDefault();" class="fal fa-sign-out-alt"> Sign out</a>
 			</div>
 		</div>	
+		<!-- Beggining of: Notifications part -->
+		<div class="float-right" id="userNotificationsParent">
+			<a href="javascript:void(0)" id="userNotificationIcon" @if(Route::currentRouteName() == 'profile') class='active'  @endif>
+				<sup><span class="badge badge-danger" id="notificationBadge">{{Auth::user()->unreadnotifications()->count()}}</span></sup>
+				<i class="fal fa-bell"></i>			
+				<span class="far fa-caret-down"></span>
+				&nbsp;
+			</a>
+			<div id="dropdownContentNotifications">
+				@if(Auth::user(Auth::user()->notifications()->count() > 0))
+					@foreach(Auth::user()->notifications as $notification)
+					<div id="notification-{{$notification->id}}" class="{{$notification->read_at == '' ? 'notRead' : ''}}" style="position: relative;">
+						@if($notification->type == "App\Notifications\commentToPosts")
+							<!-- owner information about post or questions -->
+							<a href="{{route('posts.show',$notification->data['post'])}}" id="notificationLink" onclick="markAsRead('{!! $notification->id !!}')">
+								<div  class="QownerInfo">
+									
+										@if($notification->data['byPhoto'])
+											@if($notification->data['byAccount'] == 'App\NormalUser')
+												<img src="/storage/images/normalUsers/{{$notification->data['byPhoto']}}">
+											@else
+												<img src="/storage/images/doctors/{{$notification->data['byPhoto']}}">
+											@endif
+										@else
+											<span class="fad fa-user-circle" id="Qno-owner-image"></span>
+										@endif
+										<div class="QownerName">
+											<span class="QfullName">{{$notification->data["by"]}}</span> 
+										</div>
+									
+								</div> 
+								 <div class="messageN">commented on your post</div>
+							 	@if($notification->created_at)
+									<span class="QcreateTime">{{$notification->created_at->diffForHumans()}}</span>
+								@endif
+								@if($notification->read_at == '')
+									<span class="badge badge-danger" id="newOrNot">New</span>
+								@endif
+							</a>
+						@endif
+						<div class="dropdown-divider" style="margin:1px;"></div>
+					</div>
+					@endforeach
+				@else
+					No Notifications! 
+				@endif
+
+			</div>
+			<!-- End of drop down for notifications -->
+		</div>	
+		<!-- End of: Notifications part -->
 		@endauth
 		<a href="javascript:void(0)" class="contactUs">Contact Us</a>
 		<a href="#">Tags</a>
@@ -232,7 +275,7 @@
 <script src="{{ asset('js/share.js') }}"></script>
 
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/MainLayoutScript222.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/MainLayoutScript11.js')}}"></script>
 
 
 
@@ -251,7 +294,11 @@
 <script type="text/javascript" src="{{asset('js/postsAndQuestionsSingleScripts.js')}}"></script>
 @endif
 
+<script type="text/javascript">
+	var token = '{{ Session::token() }}';
+	var readMark = '{{route("readMark")}}';
 
+</script>
 
 @yield("scripts")
 

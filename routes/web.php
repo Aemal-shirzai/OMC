@@ -77,3 +77,6 @@ Route::DELETE("/reply/delete","CommentReplyController@delete")->name("deleteRepl
 Route::post("/follow/doctors","NormalUserController@DoctorFollow")->name("DoctorFollow");
 // Route for removing followers by doctors
 Route::post("/remove/follower/","NormalUserController@removeFollower")->name("removeFollower");
+
+// this route is responsible to read the notifications as read using ajax
+Route::POST("/markasread","notificationController@readMark")->name("readMark");
