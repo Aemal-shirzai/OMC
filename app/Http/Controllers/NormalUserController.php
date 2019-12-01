@@ -6,6 +6,8 @@ use App\NormalUser;
 use App\Doctor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\followDoctor;
+
 
 class NormalUserController extends Controller
 {
@@ -108,14 +110,26 @@ class NormalUserController extends Controller
         if($user->owner->following()->where("doctors.id",$request->doctor_id)->first()){
             // then remove the doctor from the following list
             $user->owner->following()->detach($doctor);
+            // all notifications record for follwing
+            $forFollowings =  $doctor->account->notifications()->where("notifications.type",'=','App\Notifications\followDoctor')->get();
+            foreach($forFollowings as $forFollowing){
+                if($forFollowing->data['byUsername'] == $user->username){
+                    // delete all those notifications related to this unfollowing
+                    $forFollowing->delete();
+                }
+            }
         }else{ // if the doctor is not already followed by the normal user
             $user->owner->following()->save($doctor);
+             $doctor->account->notify(new followDoctor($user));
         }
 
         $followers = $doctor->followed()->count();
         $doctor->update(["followers"=>$followers]);
+
     }
 // End of the function responsible for managing normal user following doctors 
+
+//NOTE THE REMOVE FOLLOWER IS CALLED BY DOCTOR 
 
 // Beggining of the function responsible for removing followers by doctors
     public function removeFollower(Request $request){

@@ -7,24 +7,22 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class commentForQuestion extends Notification
+class followDoctor extends Notification
 {
     use Queueable;
-    protected $comment;
-    protected $question;
-    protected $byPhoto;
 
+    protected $follower;
+    protected $byPhoto;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($comment,$question)
+    public function __construct($follower)
     {
-        $this->comment = $comment; 
-        $this->question = $question; 
-        if($comment->comment_owner->photos()->where("status",1)->first()){
-            $this->byPhoto = $this->comment->comment_owner->photos()->where('status',1)->first()->path;
+        $this->follower = $follower;
+       if($follower->photos()->where("status",1)->first()){
+            $this->byPhoto = $this->follower->photos()->where('status',1)->first()->path;
         }else{
             $this->byPhoto = "";
         }
@@ -41,17 +39,16 @@ class commentForQuestion extends Notification
         return ['database'];
     }
 
-
     public function toDatabase($notifiable){
         return [
-            "by" => $this->comment->comment_owner->owner->fullName,
-            "byAccount" => $this->comment->comment_owner->owner_type,
+            'by' => $this->follower->owner->fullName,
+            'byAccount' => $this->follower->owner_type,
             "byPhoto"   => $this->byPhoto,
-            'question' => $this->question->id,
-            'message' => "Answered your question",
+            'byUsername' => $this->follower->username,
+            'message' => "Started following you", 
+            'type' => "follow",
         ];
     }
-
 
 
     /**
