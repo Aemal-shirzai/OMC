@@ -330,6 +330,8 @@ function markAsRead(value){
 			method: "POST",
 			url: readMark,
 			data:{notification_id:value, _token:token}
+		}).done(function(){
+			$("#notification-"+value).removeClass("notRead");
 		});
 	}
 

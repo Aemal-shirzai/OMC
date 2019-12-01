@@ -152,8 +152,10 @@
 					@foreach(Auth::user()->notifications as $notification)
 					<div id="notification-{{$notification->id}}" class="{{$notification->read_at == '' ? 'notRead' : ''}}" style="position: relative;">
 						@if($notification->type == "App\Notifications\commentToPosts")
-							<!-- owner information about post or questions -->
 							<a href="{{route('posts.show',$notification->data['post'])}}" id="notificationLink" onclick="markAsRead('{!! $notification->id !!}')">
+						@elseif($notification->type == "App\Notifications\commentForQuestion")
+							<a href="{{route('questions.show',$notification->data['question'])}}" id="notificationLink" onclick="markAsRead('{!! $notification->id !!}')">
+						@endif
 								<div  class="QownerInfo">
 									
 										@if($notification->data['byPhoto'])
@@ -170,7 +172,8 @@
 										</div>
 									
 								</div> 
-								 <div class="messageN">commented on your post</div>
+
+								 <div class="messageN">{{$notification->data['message']}}</div>
 							 	@if($notification->created_at)
 									<span class="QcreateTime">{{$notification->created_at->diffForHumans()}}</span>
 								@endif
@@ -178,7 +181,6 @@
 									<span class="badge badge-danger" id="newOrNot">New</span>
 								@endif
 							</a>
-						@endif
 						<div class="dropdown-divider" style="margin:1px;"></div>
 					</div>
 					@endforeach

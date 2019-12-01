@@ -7,21 +7,22 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class commentToPosts extends Notification
+class commentForQuestion extends Notification
 {
     use Queueable;
     protected $comment;
-    protected $post;
+    protected $question;
     protected $byPhoto;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($comment,$post)
+    public function __construct($comment,$question)
     {
         $this->comment = $comment; 
-        $this->post = $post; 
+        $this->question = $question; 
         if($comment->comment_owner->photos()->where("status",1)->first()){
             $this->byPhoto = $this->comment->comment_owner->photos()->where('status',1)->first()->path;
         }else{
@@ -36,9 +37,22 @@ class commentToPosts extends Notification
      * @return array
      */
     public function via($notifiable)
-    {   
-        return ["database"];
+    {
+        return ['database'];
     }
+
+
+    public function toDatabase(){
+        return [
+            "by" => $this->comment->comment_owner->owner->fullName,
+            "byAccount" => $this->comment->comment_owner->owner_type,
+            "byPhoto"   => $this->byPhoto,
+            'question' => $this->question->id,
+            'message' => "Answered your question",
+        ];
+    }
+
+
 
     /**
      * Get the mail representation of the notification.
@@ -53,18 +67,6 @@ class commentToPosts extends Notification
     //                 ->action('Notification Action', url('/'))
     //                 ->line('Thank you for using our application!');
     // }
-
-
-    public function toDatabase($notifiable){
-        return [
-            "by" => $this->comment->comment_owner->owner->fullName,
-            "byAccount" => $this->comment->comment_owner->owner_type,
-            "byPhoto"   => $this->byPhoto,
-            'post' => $this->post->id,
-            'message' => "commented on your post",
-        ];
-    }
-
 
     /**
      * Get the array representation of the notification.

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CommentRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\commentToPosts;
+use App\Notifications\commentForQuestion;
 class CommentController extends Controller
 {
     public function __construct(){
@@ -111,7 +112,9 @@ class CommentController extends Controller
             $comment->photos()->create(["path"=>$nameToBeStored,"status"=>"1"]);
         }
 
-
+        if(Auth::user()->username != $question->owner->account->username){
+            $question->owner->account->notify(new commentForQuestion($comment,$question));
+        }
         if($comment){
             return back()->with(["commentSuccess"=>"Your Comment has been Added.","question_id"=>$request->question_id]);
         }else{
