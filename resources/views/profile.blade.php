@@ -773,7 +773,224 @@
 	</div>
 @else
 	<div id="favorites" class="tab-content">
-		This is favorite Part
+		<div id="favoritesTabs">
+			<button class="favoriteTabLinks active" onclick="openFavoritesContent(event,'favoritePosts')"><span id="favoriteTabsText">Posts <span id="favPcount">{{count($favPosts)}}</span></span></button>
+			<button class="favoriteTabLinks" onclick="openFavoritesContent(event,'favoriteQuestions')"><span id="favoriteTabsText">Questions <span id="favQcount">{{count($favQuestions)}}</span></span></button>
+		</div>
+		<div>
+			<div id="favoritePosts" class="favoriteTabsContent">
+				@if(count($favPosts) > 0 )
+				@foreach($favPosts as $favPost)
+				<div class="allQuestions" id="allPosts-{{$favPost->id}}">
+					<!--  info title -->
+					<div id="questionTitle">
+						<h3 onclick="window.location.assign('{{route('posts.show',$favPost->id)}}')">{{$favPost->title}}</h3>
+						<div id="QmanageOptions">
+							<a href="javascript:void(0)" class="btn btn-sm">Up Voters <span class="count" id="upVoters">{{$favPost->votedBy()->where("type",1)->count()}}</span></a>
+							<a href="javascript:void(0)" class="btn btn-sm">Down Voters <span class="count" id="downVoters">{{$favPost->votedBy()->where("type",0)->count()}}</span></a>
+							<a href="javascript:void(0)" class="btn btn-sm">Followers <span class="count" id="follwers">{{$favPost->favoritedBy()->count()}}</span></a>
+							<a href="javascript:void(0)" class="btn btn-sm">Comments <span class="count" id="">{{$favPost->comments()->count()}}</a>	
+							</span>
+						</div>
+						<!-- Beggining of: Manage and share options -->
+						<div class="btn float-right" id="QshareBtn" title="All share options">
+							<a href="#" onclick="openShareQOptions({!! $favPost->id !!})">
+								<span class="far fa-ellipsis-v optionsIcons"></span> 
+							</a>
+							<div class="QshareOptions" id="QshareOptions-{{$favPost->id}}">
+								@auth
+								@if(Auth::user()->id === $favPost->owner->account->id)
+								<p class="text-center">Manage</p>
+								<span title="Edit Post">
+									<li>
+										<a href="#" class="PostEditDelete"><span class="fas fa-edit"></span> Edit</a>
+									</li>
+								</span>
+								<span title="Delete Post">
+									<li>
+										<a href="javascript:void(0)" id="postDeleteOption-{{$favPost->id}}" class="PostEditDelete" onclick="openQuestionConfirmation('{{$favPost->id}}')"><span class="fas fa-trash"></span> <Span id="postDeleteTextQ-{{$favPost->id}}">Delete</Span></a>
+									</li>
+								</span>
+								@endif
+								@if(Auth::user()->username == $user->username)
+								<p class="text-center">Manage</p>
+								<span title="Un follow Post">
+									<li>
+										<a href="javascript:void(0)" id="unfollowBtnP-{{$favPost->id}}" class="PostEditDelete" onclick="followQPost('{{$favPost->id}}')"><span class="fas fa-times" id="favoriteIconP-{{$favPost->id}}"></span> <Span id="unfollowTextP-{{$favPost->id}}">UnFollow</Span></a>
+									</li>
+								</span>
+								@endif
+								@endauth
+								<!-- <div class="dropdown-divider"></div> -->
+								<p class="text-center">Share</p>
+								{!! Share::page(route('posts.show',$favPost->id),null,['class'=>'share','id'=>"share-facebook"],"<span>","</span>")->facebook() !!}
+								<div class="dropdown-divider"></div>
+								{!! Share::page(route('posts.show',$favPost->id),null,['class'=>'share','id'=>"share-twitter"],"<span>","</span>")->twitter() !!}
+								<div class="dropdown-divider"></div>
+								{!! Share::page(route('posts.show',$favPost->id),null,['class'=>'share','id'=>"share-linkedIn"],"<span>","</span>")->linkedin() !!}
+								<div class="dropdown-divider"></div>
+								{!! Share::page(route('posts.show',$favPost->id),null,['class'=>'share','id'=>"share-whatsapp"],"<span>","</span>")->whatsapp() !!}
+								<div class="dropdown-divider"></div>
+								{!! Share::page(route('posts.show',$favPost->id),null,['class'=>'share','id'=>"share-telegram"],"<span>","</span>")->telegram() !!}
+							</div>
+						</div>
+						<!-- End of: Manage and share options -->
+					</div>
+					<!--End  info and title -->
+
+					<!-- owner information about post or questions -->
+					<div  class="QownerInfo">
+						<a class="QlinkToProfile" href="{{route('profile',$favPost->owner->account->username)}}">
+							@if(count($favPost->owner->account->photos) > 0)
+								<img src="/storage/images/doctors/{{$favPost->owner->account->photos()->where('status',1)->first()->path}}">
+							@else
+								<span class="fal fa-user" id="Qno-owner-image"></span>
+							@endif
+							<div class="QownerName">
+								<span class="QfullName">{{$favPost->owner->fullName}} ({{$favPost->owner->account->username}})</span> 
+								@if($favPost->created_at)
+									<span class="QcreateTime">Posted:{{$favPost->created_at->diffForHumans()}}</span>
+								@endif
+							</div>
+						</a>
+					</div>
+					<div class="confirmationBox" id="questionConfirmationBox-{{$favPost->id}}">
+						<div id="text">Are You Sure To Delete?</div>
+						<div id="text"><small>Remember: There is no comeback</small></div>
+						<a href="javascript:void(0)" onclick="deleteQPosts('{{$favPost->id}}')" class="btn btn-danger btn-sm">Remove</a>
+						<a href="javascript:void(0)" onclick="questionClosePermissionBox('{{$favPost->id}}')" class="btn btn-light btn-sm">Cancel</a>
+					</div>
+					<!-- content -->
+					<div class="Qcontent">
+						<!-- Tags part -->
+						<div class="Qtags">
+							@if($favPost->tags()->count() > 0)
+								@foreach($favPost->tags as $tag)
+									<span><a href="#">{{$tag->category}}</a></span>
+								@endforeach
+							@endif
+						</div>
+						<div  class="QcontentText" onclick="window.location.assign('{{route('posts.show',$favPost->id)}}')">
+							{{ Str::limit($favPost->content,500)}} 
+							<a href="{{route('posts.show',$favPost->id)}}" class="readMoreLess">Read Full...</a>
+						</div>
+					</div>
+					<!-- end of Q content -->
+
+				</div>
+				<!-- end of all questions -->
+				@endforeach
+				@else
+					<h4 class="text-center">No Favorite Posts Yet </h4>
+				@endif
+			</div>
+			<div id="favoriteQuestions" class="favoriteTabsContent">
+				@if(count($favQuestions) > 0 )
+				@foreach($favQuestions as $favQuestion)
+				<div class="allQuestions" id="allQuestions-{{$favQuestion->id}}">
+					<!--  info title -->
+					<div id="questionTitle">
+						<h3 onclick="window.location.assign('{{route('questions.show',$favQuestion->id)}}')">{{$favQuestion->title}}</h3>
+						<div id="QmanageOptions">
+							<a href="javascript:void(0)" class="btn btn-sm">Up Voters <span class="count" id="upVoters">{{$favQuestion->votedBy()->where("type",1)->count()}}</span></a>
+							<a href="javascript:void(0)" class="btn btn-sm">Down Voters <span class="count" id="downVoters">{{$favQuestion->votedBy()->where("type",0)->count()}}</span></a>
+							<a href="javascript:void(0)" class="btn btn-sm">Followers <span class="count" id="follwers">{{$favQuestion->favoritedBy()->count()}}</span></a>
+							<a href="javascript:void(0)" class="btn btn-sm">Comments <span class="count" id="">{{$favQuestion->comments()->count()}}</a>	
+							</span>
+						</div>
+						<!-- Beggining of: Manage and share options -->
+						<div class="btn float-right" id="QshareBtn" title="All share options">
+							<a href="#" onclick="openShareQOptions({!! $favQuestion->id !!})">
+								<span class="far fa-ellipsis-v optionsIcons"></span> 
+							</a>
+							<div class="QshareOptions" id="QshareOptions-{{$favQuestion->id}}">
+								@auth
+								@if(Auth::user()->id === $favQuestion->owner->account->id)
+								<p class="text-center">Manage</p>
+								<span title="Edit Post">
+									<li>
+										<a href="#" class="PostEditDelete"><span class="fas fa-edit"></span> Edit</a>
+									</li>
+								</span>
+								<span title="Delete Post">
+									<li>
+										<a href="javascript:void(0)" id="postDeleteOption-{{$favQuestion->id}}" class="PostEditDelete" onclick="openQuestionConfirmation('{{$favQuestion->id}}')"><span class="fas fa-trash"></span> <Span id="questionDeleteText-{{$favQuestion->id}}">Delete</Span></a>
+									</li>
+								</span>
+								@endif
+								@if(Auth::user()->username == $user->username)
+								<p class="text-center">Manage</p>
+								<span title="Un follow Post">
+									<li>
+										<a href="javascript:void(0)" id="unfollowBtn-{{$favQuestion->id}}" class="PostEditDelete" onclick="followQuestion('{{$favQuestion->id}}')"><span class="fas fa-times" id="favoriteIcon-{{$favQuestion->id}}"></span> <Span id="unfollowText-{{$favQuestion->id}}">UnFollow</Span></a>
+									</li>
+								</span>
+								@endif
+								@endauth
+								<!-- <div class="dropdown-divider"></div> -->
+								<p class="text-center">Share</p>
+								{!! Share::page(route('questions.show',$favQuestion->id),null,['class'=>'share','id'=>"share-facebook"],"<span>","</span>")->facebook() !!}
+								<div class="dropdown-divider"></div>
+								{!! Share::page(route('questions.show',$favQuestion->id),null,['class'=>'share','id'=>"share-twitter"],"<span>","</span>")->twitter() !!}
+								<div class="dropdown-divider"></div>
+								{!! Share::page(route('questions.show',$favQuestion->id),null,['class'=>'share','id'=>"share-linkedIn"],"<span>","</span>")->linkedin() !!}
+								<div class="dropdown-divider"></div>
+								{!! Share::page(route('questions.show',$favQuestion->id),null,['class'=>'share','id'=>"share-whatsapp"],"<span>","</span>")->whatsapp() !!}
+								<div class="dropdown-divider"></div>
+								{!! Share::page(route('questions.show',$favQuestion->id),null,['class'=>'share','id'=>"share-telegram"],"<span>","</span>")->telegram() !!}
+							</div>
+						</div>
+						<!-- End of: Manage and share options -->
+					</div>
+					<!--End  info and title -->
+
+					<!-- owner information about post or questions -->
+					<div  class="QownerInfo">
+						<a class="QlinkToProfile" href="{{route('profile',$favQuestion->owner->account->username)}}">
+							@if(count($favQuestion->owner->account->photos) > 0)
+								<img src="/storage/images/normalUsers/{{$favQuestion->owner->account->photos()->where('status',1)->first()->path}}">
+							@else
+								<span class="fal fa-user" id="Qno-owner-image"></span>
+							@endif
+							<div class="QownerName">
+								<span class="QfullName">{{$favQuestion->owner->fullName}} ({{$favQuestion->owner->account->username}})</span> 
+								@if($favQuestion->created_at)
+									<span class="QcreateTime">Posted:{{$favQuestion->created_at->diffForHumans()}}</span>
+								@endif
+							</div>
+						</a>
+					</div>
+					<div class="confirmationBox" id="questionConfirmationBox-{{$favQuestion->id}}">
+						<div id="text">Are You Sure To Delete?</div>
+						<div id="text"><small>Remember: There is no comeback</small></div>
+						<a href="javascript:void(0)" onclick="deleteQuestions('{{$favQuestion->id}}','fav')" class="btn btn-danger btn-sm">Remove</a>
+						<a href="javascript:void(0)" onclick="questionClosePermissionBox('{{$favQuestion->id}}')" class="btn btn-light btn-sm">Cancel</a>
+					</div>
+					<!-- content -->
+					<div class="Qcontent">
+						<!-- Tags part -->
+						<div class="Qtags">
+							@if($favQuestion->tags()->count() > 0)
+								@foreach($favQuestion->tags as $tag)
+									<span><a href="#">{{$tag->category}}</a></span>
+								@endforeach
+							@endif
+						</div>
+						<div  class="QcontentText" onclick="window.location.assign('{{route('questions.show',$favQuestion->id)}}')">
+							{{ Str::limit($favQuestion->content,500)}} 
+							<a href="{{route('questions.show',$favQuestion->id)}}" class="readMoreLess">Read Full...</a>
+						</div>
+					</div>
+					<!-- end of Q content -->
+
+				</div>
+				<!-- end of all questions -->
+				@endforeach
+				@else
+					<h4 class="text-center">No Favorite Question Yet </h4>
+				@endif
+			</div>
+		</div>
 	</div>
 	<div id="questions" class="tab-content">
 		<div id="allQuestionsParent">
@@ -847,7 +1064,7 @@
 				<div class="confirmationBox" id="questionConfirmationBox-{{$question->id}}">
 					<div id="text">Are You Sure To Delete?</div>
 					<div id="text"><small>Remember: There is no comeback</small></div>
-					<a href="javascript:void(0)" onclick="deleteQuestions('{{$question->id}}')" class="btn btn-danger btn-sm">Remove</a>
+					<a href="javascript:void(0)" onclick="deleteQuestions('{{$question->id}}','asked')" class="btn btn-danger btn-sm">Remove</a>
 					<a href="javascript:void(0)" onclick="questionClosePermissionBox('{{$question->id}}')" class="btn btn-light btn-sm">Cancel</a>
 				</div>
 				<!-- content -->
@@ -964,6 +1181,9 @@
 		var postVote = '{{route("postVote")}}';
 		var commentVote = '{{route("commentVote")}}';
 		var replyVote = '{{route("replyVote")}}';
+
+		// This route is to add qiestion to favorite
+		var questionFavorites = '{{route("questionFavorites")}}';
 
 		// This route is to add post to favorite
 		var postFavorites = '{{route("postFavorites")}}';

@@ -29,8 +29,10 @@ class ProfileController extends Controller
         $user = Account::where("username",$username)->first();
         if($user){
             if($user->owner_type == "App\NormalUser"){
-                $questions = $user->owner->questions()->latest()->get();
-                return view('profile',compact("user","questions"));
+                $questions = $user->owner->questions()->orderBy("created_at","desc")->get();
+                $favQuestions =  $user->owner->favoriteQuestions("created_at")->orderBy("favorites.created_at","desc")->get();
+                $favPosts =  $user->owner->favoritePosts()->orderBy("favorites.created_at","desc")->get();
+                return view('profile',compact("user","questions","favQuestions","favPosts"));
             }else{
                $posts = $user->owner->posts()->orderBy('created_at',"desc")->get();
                return view('profile',compact("user","posts"));

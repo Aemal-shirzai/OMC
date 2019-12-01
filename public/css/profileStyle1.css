@@ -1007,7 +1007,35 @@ div.Qtags span a{
 	cursor: pointer !important;
 }
 
-
+/* favorite tab inside NOTE:ONLY AFEW STYELS ARE APPLIED SEPERATLY OTHER STYLES ARE SAME AS THE QUESTION PART   */
+#favoritesTabs{
+	/*background-color: green;*/
+	width: 30%;
+	margin:0 auto;
+	border-top: 1px solid lightgray;
+	text-align: center;
+}
+.favoriteTabLinks{
+	background-color: inherit;
+	border:none;
+	padding: 20px 12px;
+	color: #828282;
+	font-weight: bold;
+	letter-spacing: 1px;
+	transition: color 0.5s;
+	font-size: 11px;
+	text-transform: uppercase;
+}
+.favoriteTabLinks:focus{
+	outline: none;
+}
+.favoriteTabsContent:not(:first-child){
+	display: none;
+}
+.favoriteTabsContent{
+	overflow: none;
+	padding: 12px 140px;
+}
 /* iphod pro /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 1200px) and (min-width: 1024px){
 	#tags{
@@ -1318,6 +1346,9 @@ span.no-image-in-following{
 
 	/*   The seciton for listing all questions for a normal user NOTE: some styles are taken from the above styles       */
 	div#allQuestionsParent{
+		padding: 12px 60px;
+	}
+	.favoriteTabsContent{
 		padding: 12px 60px;
 	}
 	div.allQuestions{
@@ -1732,7 +1763,9 @@ span.no-image-in-following{
 
 	/*   The seciton for listing all questions for a normal user NOTE: some styles are taken from the above styles       */
 	div#allQuestionsParent{
-		overflow: none;
+		padding: 12px 0px;
+	}
+	.favoriteTabsContent{
 		padding: 12px 0px;
 	}
 	div.allQuestions{
@@ -1764,6 +1797,11 @@ span.no-image-in-following{
 		font-size: 12px;
 		padding-left: 12px;
 		cursor: pointer !important;
+	}
+	/* favorite tab inside NOTE:ONLY AFEW STYELS ARE APPLIED SEPERATLY OTHER STYLES ARE SAME AS THE QUESTION PART   */
+	#favoritesTabs{
+		/*background-color: green;*/
+		width: 100%;
 	}
 
 } 

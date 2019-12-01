@@ -902,7 +902,7 @@ function questionClosePermissionBox(value){
 
 
 // Beggining of the function which delete question in profile
-function deleteQuestions(questiontId){
+function deleteQuestions(questiontId,type){
 	$("#questionDeleteText-"+questiontId).text("Loading ...");
 	$("#questionDeleteText-"+questiontId).css("color","red");
 	$("#questionConfirmationBox-"+questiontId).fadeOut();
@@ -912,7 +912,106 @@ function deleteQuestions(questiontId){
 		data:{question_id:questiontId,_token:token}
 	}).done(function(){
 		$("#allQuestions-"+questiontId).slideUp('fast');
-		$("#allQuestionTextAbove").text(parseInt($("#allQuestionTextAbove").text())-1);
+		if(type == 'fav'){
+			$("#favQcount").text(parseInt($("#favQcount").text())-1);
+		}else{
+			$("#allQuestionTextAbove").text(parseInt($("#allQuestionTextAbove").text())-1);
+		}
 	});
 }
 // End of the function which delete question in profile
+
+
+// Beggining of: the function which shows the profile favorites content based on the clicked button
+function openFavoritesContent(evt,value){
+	var tabcontent = document.getElementsByClassName("favoriteTabsContent");
+  	for (i = 0; i < tabcontent.length; i++) {
+    	tabcontent[i].style.display = "none";
+  	}
+
+  	var tablinks = document.getElementsByClassName("favoriteTabLinks");
+  	for (i = 0; i < tablinks.length; i++) {
+    	tablinks[i].className = tablinks[i].className.replace(" active", "");
+  	}
+
+  	 document.getElementById(value).style.display = "block";
+ 	 evt.currentTarget.className += " active";
+}
+// End of: the function which shows the profile favorites content based on the clicked button
+
+// Beggining of the : Function responsible for following the posts by normal users
+function followQuestion(questionId){
+	$("#unfollowText-"+questionId).text("Loading...");
+	event.preventDefault();
+	$.ajax({
+		// the method the data should be sent with
+		method : "POST",
+
+		// the route to which the data should go
+		url: questionFavorites,
+
+		// The data which should be send 
+		data: {question_id:questionId,_token:token}
+
+	}).done(function(){
+		if($("#favoriteIcon-"+questionId).hasClass("fa-times")){
+			$("#favoriteIcon-"+questionId).removeClass("fa-times");
+			$("#favoriteIcon-"+questionId).addClass("fa-plus");
+			$("#favQcount").text(parseInt($("#favQcount").text())-1);
+			$("#unfollowText-"+questionId).text("Follow");
+		}else{
+			$("#favoriteIcon-"+questionId).removeClass("fa-plus");
+			$("#favoriteIcon-"+questionId).addClass("fa-times");
+			$("#favQcount").text(parseInt($("#favQcount").text())+1);
+			$("#unfollowText-"+questionId).text("UnFollow");
+		}
+	});
+}
+// End of the : Function responsible for following the posts by normal users
+
+
+// Beggining of the : Function responsible for following the posts by normal users
+function followQPost(postId){
+	$("#unfollowTextP-"+postId).text("Loading...");
+	event.preventDefault();
+	$.ajax({
+		// the method the data should be sent with
+		method : "POST",
+
+		// the route to which the data should go
+		url: postFavorites,
+
+		// The data which should be send 
+		data: {post_id:postId,_token:token}
+
+	}).done(function(){
+		if($("#favoriteIconP-"+postId).hasClass("fa-times")){
+			$("#favoriteIconP-"+postId).removeClass("fa-times");
+			$("#favoriteIconP-"+postId).addClass("fa-plus");
+			$("#favPcount").text(parseInt($("#favPcount").text())-1);
+			$("#unfollowTextP-"+postId).text("Follow");
+		}else{
+			$("#favoriteIconP-"+postId).removeClass("fa-plus");
+			$("#favoriteIconP-"+postId).addClass("fa-times");
+			$("#favPcount").text(parseInt($("#favPcount").text())+1);
+			$("#unfollowTextP-"+postId).text("UnFollow");
+		}
+	});
+}
+// End of the : Function responsible for following the posts by normal users
+
+// Beggining of the function which delete posts in profile
+function deleteQPosts(postId){
+	$("#postDeleteTextQ-"+postId).text("Loading ...");
+	$("#postDeleteTextQ-"+postId).css("color","red");
+	$("#postConfirmationBox-"+postId).fadeOut();
+	$.ajax({
+		method: "DELETE",
+		url: deletePost,
+		data:{post_id:postId,_token:token}
+	}).done(function(){
+		$("#favPcount").text(parseInt($("#favPcount").text())-1);
+		$("#allPosts-"+postId).slideUp('fast');
+	});
+}
+// End of the function which delete posts in profile
