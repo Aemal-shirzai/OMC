@@ -73,7 +73,7 @@ class CommentController extends Controller
             $comment->photos()->create(["path"=>$nameToBeStored,"status"=>"1"]);
         }
 
-        if(Auth::user()->username != $post->owner->account->username){
+        if(Auth::user()->isNot($post->owner->account)){
             $post->owner->account->notify(new commentToPosts($comment,$post));
         }
 
@@ -112,7 +112,7 @@ class CommentController extends Controller
             $comment->photos()->create(["path"=>$nameToBeStored,"status"=>"1"]);
         }
 
-        if(Auth::user()->username != $question->owner->account->username){
+        if(Auth::user()->isNot($question->owner->account)){
             $question->owner->account->notify(new commentForQuestion($comment,$question));
         }
         if($comment){

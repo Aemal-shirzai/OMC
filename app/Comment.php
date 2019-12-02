@@ -21,7 +21,7 @@ class Comment extends Model
 
     // Relationship with posts and normal users
     public function comment_owner_type(){
-    	return $this->morphTo("","owner_type","owner_id");
+    	return $this->morphTo("","to_type","to_id");
     }
 
    // Relationship with accounts

@@ -248,14 +248,14 @@ div#dropdownContentNotifications a{
 .QownerInfo{
 	position: relative;
 }
-.QownerInfo img{
-	position: absolute;
-	z-index: 1;
-	width: 37px; 
-	height: 37px;
-	left: 4px;
-	display: inline-block;
-	border-radius: 50%;
+.notification-img{
+	position: absolute !important;
+	z-index: 1 !important;
+	width: 37px !important; 
+	height: 37px !important;
+	left: 4px !important;
+	display: inline-block !important;
+	border-radius: 50% !important;
 }
 #no-owner-image-notification{
 	color: #3fbbc0;

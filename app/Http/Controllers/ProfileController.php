@@ -7,6 +7,7 @@ use App\Comment;
 use Illuminate\Http\Request;
 use App\Doctor;
 use Illuminate\Support\Facades\Auth;
+use App\commentReply;
 
 class ProfileController extends Controller
 {
@@ -28,7 +29,6 @@ class ProfileController extends Controller
     public function index($username)
     {
 
-    
         $user = Account::where("username",$username)->first();
         if($user){
             if($user->owner_type == "App\NormalUser"){

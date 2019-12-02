@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CommentReplyRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\replyToComment;
 use App\Comment;
 class CommentReplyController extends Controller
 {
@@ -71,12 +72,35 @@ class CommentReplyController extends Controller
 
 
         if($reply){
+            
+            if(Auth::user()->isNot($comment->comment_owner)){
+                $comment->comment_owner->notify(new replyToComment($reply,$comment,"replied to your comment"));
+                if(Auth::user()->isNot($comment->comment_owner_type->owner->account)){
+                    if($comment->to_type == "App\Post"){
+                         $comment->comment_owner_type->owner->account->notify(new replyToComment($reply,$comment,"replied to a comment in your post"));
+                     }else{
+                        $comment->comment_owner_type->owner->account->notify(new replyToComment($reply,$comment,"replied to a comment in your question"));
+                     }
+                   
+                }
+            }else{
+                if(Auth::user()->isNot($comment->comment_owner_type->owner->account)){
+                    if($comment->to_type == "App\Post"){
+                         $comment->comment_owner_type->owner->account->notify(new replyToComment($reply,$comment,"replied to a comment in your post"));
+                     }else{
+                        $comment->comment_owner_type->owner->account->notify(new replyToComment($reply,$comment,"replied to a comment in your question"));
+                     }
+                }
+            }
+
+
             if(url()->previous() == route('questions.index')){
                  return back()->with(["replySuccess"=>"Your reply has been Added.","comment_id"=>$request->comment_id,"ToScrollTo_id"=>$request->question_id_for_replies]);
             }else{
                 return back()->with(["replySuccess"=>"Your reply has been Added.","comment_id"=>$request->comment_id,"ToScrollTo_id"=>$request->post_id_for_replies]);
                
-            }
+            }   
+
         }else{
             return back()->with(["replyError"=>"Reply Not added"]);
         }
@@ -143,6 +167,8 @@ class CommentReplyController extends Controller
             }
             $user->replies()->where("comment_replies.id",$request->reply_id)->first()->delete();
         }
+
+        
     }
 // End of : function which is responsible for deleteing replies using ajax request
 

@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle.css')}}">
 	
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
@@ -157,14 +157,20 @@
 							<a href="{{route('questions.show',$notification->data['question'])}}" id="notificationLink" onclick="markAsRead('{!! $notification->id !!}')">
 						@elseif($notification->data['type'] == "follow")
 							<a href="{{route('profile',$notification->data['byUsername'])}}" id="notificationLink" onclick="markAsRead('{!! $notification->id !!}')">
+						@elseif($notification->data['type'] == "reply")
+							@if($notification->data["toType"] == 'App\Post')
+								<a href="{{route('posts.show',$notification->data['toId'])}}" id="notificationLink" onclick="markAsRead('{!! $notification->id !!}')">
+							@else
+								<a href="{{route('questions.show',$notification->data['toId'])}}" id="notificationLink" onclick="markAsRead('{!! $notification->id !!}')">
+							@endif
 						@endif
 								<div  class="QownerInfo">
 									
 										@if($notification->data['byPhoto'])
 											@if($notification->data['byAccount'] == 'App\NormalUser')
-												<img src="/storage/images/normalUsers/{{$notification->data['byPhoto']}}">
+												<img src="/storage/images/normalUsers/{{$notification->data['byPhoto']}}" class="notification-img">
 											@else
-												<img src="/storage/images/doctors/{{$notification->data['byPhoto']}}">
+												<img src="/storage/images/doctors/{{$notification->data['byPhoto']}}" class="notification-img">
 											@endif
 										@else
 											<span class="fad fa-user-circle" id="no-owner-image-notification"></span>
