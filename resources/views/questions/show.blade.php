@@ -268,10 +268,16 @@
 	<!-- End of the part to show news and options for guests -->
 
 	<!-- Beggining of showing content part -->
-	<div class="alert alert-success alert-sm text-center mt-5 col-5 col-xs-12" id="questionDeleteMessage" style="display: none;">You have seccessfully deleted the Question.</div>
+	<div class="alert alert-success alert-sm text-center mt-5 col-sm-5 col-lg-5 col-md-5 messages" id="questionDeleteMessage" style="display: none;">You have seccessfully deleted the Question.</div>
 	@if($question)
 		<div id="mainContent">
 			<div id="heading">
+			@if(session("questionEditSuccess"))
+				<div class="alert alert-success messages text-center">
+					<button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
+					{{ session("questionEditSuccess") }} 
+				</div>
+			@endif
 				<h2>{{$question->title}}</h2>
 				<div id="relatedInfo">
 					<a href="javascript:void(0)" onclick="openUpVotersList()" class="btn btn-sm">View Up Voters <span class="count" id="upVoters">{{$question->votedBy()->where("type",1)->count()}}</span></a>
@@ -291,7 +297,7 @@
 						<p class="text-center">Manage</p>
 						<span title="Edit Post">
 							<li>
-								<a href="#" class="PostEditDelete"><span class="fas fa-edit"></span> Edit</a>
+								<a href="{{route('questions.edit',$question->id)}}" class="PostEditDelete"><span class="fas fa-edit"></span> Edit</a>
 							</li>
 						</span>
 						<span title="Delete Post">

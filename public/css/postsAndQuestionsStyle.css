@@ -277,6 +277,33 @@ span#changePhoto:hover ,span#removePhoto:hover {
 /* end of second part form */
 
 
+/*for edidig page*/
+div.tags{
+	margin-bottom: 2px;
+}
+div.tags div{
+	background-color: #fbfbfd;
+	border-radius: 4px;
+	padding: 0 5px;
+	margin-top:5px;
+	display: inline-block;
+}
+.close{
+	color:blue; 
+	font-size: 17px;
+	/*margin-top:-4px; */
+}
+div.tags div a{
+	font-size: 12px;
+	margin-right: 5px;
+}
+div.tags div a:hover{
+	text-decoration: none;
+}
+div.tags div:hover .close{
+	color: red !important;
+}
+
 div::-webkit-scrollbar {
     width: 4px !important;
 }

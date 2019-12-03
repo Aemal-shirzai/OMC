@@ -124,7 +124,12 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        if($this->authorize("doctor_related",Auth::user())){
+             if(Auth::user()->is($post->owner->account)){
+                $d_categories = DiseaseCategory::orderBy("category","asc")->get(); 
+                return view("posts.edit",compact("post",'d_categories'));
+            }
+        }
     }
 
     /**
@@ -134,9 +139,55 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
-        //
+        if($this->authorize("doctor_related",Auth::user())){
+            // return $request->all();
+            $postAdd = $post->update($request->all());
+
+           if($request->tags){
+                $post->tags()->sync([]);
+                foreach($request->tags as $tagId){
+                    $tag = DiseaseCategory::findOrFail($tagId);
+                     $post->tags()->save($tag);
+                 }
+            }else{ // it has two possibilities one if the post does not have tags already and second one is that the user disselected all tags
+                if($post->tags()->count() > 0){
+                    $post->tags()->sync([]);
+                }
+             // end of adding tags part
+            }
+
+            // to check if the user has removed the photo or not
+            if($request->has("fileRemoved")){
+                $post->photos()->delete();
+            }
+
+            if($request->hasFile("photo")){
+                // delete old photos
+                if($post->photos()->count() > 0){
+                    foreach($post->photos as $photo){
+                        Storage::delete("public/images/posts/".$photo->path);
+                        $photo->delete();
+                    }
+                }
+                // add photos
+                $photo = $request->file("photo");
+                $fullName = $photo->getClientOriginalName();
+                $onlyExtentsion = $photo->getClientOriginalExtension();
+                $onlyName = pathinfo($fullName,PATHINFO_FILENAME);
+                $nameToBeStored = $onlyName . time() . "." .$onlyExtentsion;
+
+                $photo->storeAs("public/images/posts/",$nameToBeStored);
+                $post->photos()->create(["path"=>$nameToBeStored,"status"=>1]);
+            } // End of adding photo
+
+            if($postAdd){
+                return redirect()->action("PostController@show",$post->id)->with(["postEditSuccess"=>"Your Post has been edited"]);
+            }else{
+                return back()->with("error","Something Went Wrong pleas try again!");
+            }
+        } // the authorization if end
     }
 
     /**

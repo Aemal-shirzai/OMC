@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle1.css')}}">
 	
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
@@ -19,15 +19,15 @@
 	
 	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle1.css')}}">
 	
-	@elseif(Route::currentRouteName() == 'posts.create' || Route::currentRouteName() == 'questions.create')
+	@elseif(Route::currentRouteName() == 'posts.create' || Route::currentRouteName() == 'questions.create' || Route::currentRouteName() == 'posts.edit' || Route::currentRouteName() == 'questions.edit')
 	<!-- Link to local  style for posts add page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsStyle1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsStyle.css')}}">
 	@elseif(Route::currentRouteName() == 'posts.index' || Route::currentRouteName() == 'questionsSortBy' || Route::currentRouteName() == 'postsSortBy' || Route::currentRouteName() == 'questions.index')
 	<!-- Link to local styles for posts list page -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsListStyle1.css')}}">
 	@elseif(Route::currentRouteName() == 'posts.show' || Route::currentRouteName() == 'questions.show')
 	<!-- Link to local styles for posts list page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsSingleStyle.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsSingleStyle1.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -285,7 +285,7 @@
 <script src="{{ asset('js/share.js') }}"></script>
 
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/MainLayoutScript11.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/MainLayoutScript.js')}}"></script>
 
 
 
@@ -293,9 +293,9 @@
 <!-- link to local js file for profile page -->
 <script type="text/javascript" src="{{asset('js/profileScript.js')}}"></script>
 
-@elseif(Route::currentRouteName() == 'posts.create' || Route::currentRouteName() == 'questions.create')
+@elseif(Route::currentRouteName() == 'posts.create' || Route::currentRouteName() == 'questions.create' || Route::currentRouteName() == 'posts.edit' || Route::currentRouteName() == 'questions.edit')
 <!-- Link to local  js for posts page -->
-<script type="text/javascript" src="{{asset('js/postsAndQuestionsScripts.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/postsAndQuestionsScripts1111.js')}}"></script>
 @elseif(Route::currentRouteName() == 'posts.index' || Route::currentRouteName() == 'postsSortBy' || Route::currentRouteName() == 'questionsSortBy' || Route::currentRouteName() == 'questions.index')
 <!-- Link to local  js for posts page -->
 <script type="text/javascript" src="{{asset('js/postsAndQuestionsListScripts.js')}}"></script>

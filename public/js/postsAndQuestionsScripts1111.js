@@ -79,6 +79,8 @@ function removePhoto(){
 	$("#PhotoField").val("");
 	$("#PhotoParentDiv").hide();
 	$("#imageIcon").css('color',"#9ba1a7");
+	// for edit page
+	document.getElementById("fileRemovedStatus").disabled = false;
 }
 // Beggining of : the function responsible for removing photo 
 
@@ -220,6 +222,35 @@ function validatePostForm(){
 // BO the : function responsible for validating the tags based on checbox changing 
 function showAndValidateTagsCount(event){
 	var count = $(":checkbox:checked").length;
+	$("#tagsCount").text(count);
+	if(count > 5){
+		$("#addTagLink").addClass("errorButton");
+		$("#tagsNote").css("color","red");
+		$("#tagsErrorMessage").text("Only 5 tags are allowed");	
+	}else{
+		$("#addTagLink").removeClass("errorButton");
+		$("#tagsNote").css("color","#9ba1a7");
+		$("#tagsErrorMessage").text("");	
+	}
+}
+//EO the : function responsible for validating the tags based on checbox changing 
+
+
+
+// ///////////////////////////////// for edit page
+function removeTags(tagId){
+	document.getElementById("tag-"+tagId).checked = false;
+	document.getElementById("oldTag-"+tagId).style.display = "none";
+	$("#tagsCount").text(parseInt($("#tagsCount").text())-1);
+	event.preventDefault();
+}
+
+
+
+// BO the : function responsible for validating the tags based on checbox changing 
+function showAndValidateTagsCountEdit(value){
+	var count = $(":checkbox:checked").length;
+	$("#oldTag-"+value).hide();
 	$("#tagsCount").text(count);
 	if(count > 5){
 		$("#addTagLink").addClass("errorButton");

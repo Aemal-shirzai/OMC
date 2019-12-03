@@ -325,7 +325,7 @@ $("#userNotificationsParent").click(function(){
 });
 
 function markAsRead(value){
-	if($("#notification-"+value).hasClass("notRead")){
+	// if($("#notification-"+value).hasClass("notRead")){
 		$.ajax({
 			method: "POST",
 			url: readMark,
@@ -333,6 +333,6 @@ function markAsRead(value){
 		}).done(function(){
 			$("#notification-"+value).removeClass("notRead");
 		});
-	}
+	// }
 
 }

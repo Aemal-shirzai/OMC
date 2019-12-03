@@ -114,7 +114,10 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        //
+        if($this->authorize("normalUser_related",Auth::user())){
+            $d_categories = DiseaseCategory::orderBy("category","asc")->get();
+            return view("questions.edit",compact("question","d_categories"));   
+        }
     }
 
     /**
@@ -124,9 +127,55 @@ class QuestionController extends Controller
      * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(QuestionRequest $request, Question $question)
     {
-        //
+        if($this->authorize("normalUser_related",Auth::user())){
+            // return $request->all();
+            $questionAdd = $question->update($request->all());
+
+           if($request->tags){
+                $question->tags()->sync([]);
+                foreach($request->tags as $tagId){
+                    $tag = DiseaseCategory::findOrFail($tagId);
+                     $question->tags()->save($tag);
+                 }
+            }else{ // it has two possibilities one if the question does not have tags already and second one is that the user disselected all tags
+                if($question->tags()->count() > 0){
+                    $question->tags()->sync([]);
+                }
+             // end of adding tags part
+            }
+
+            // to check if the user has removed the photo or not
+            if($request->has("fileRemoved")){
+                $question->photos()->delete();
+            }
+
+            if($request->hasFile("photo")){
+                // delete old photos
+                if($question->photos()->count() > 0){
+                    foreach($question->photos as $photo){
+                        Storage::delete("public/images/questions/".$photo->path);
+                        $photo->delete();
+                    }
+                }
+                // add photos
+                $photo = $request->file("photo");
+                $fullName = $photo->getClientOriginalName();
+                $onlyExtentsion = $photo->getClientOriginalExtension();
+                $onlyName = pathinfo($fullName,PATHINFO_FILENAME);
+                $nameToBeStored = $onlyName . time() . "." .$onlyExtentsion;
+
+                $photo->storeAs("public/images/questions/",$nameToBeStored);
+                $question->photos()->create(["path"=>$nameToBeStored,"status"=>1]);
+            } // End of adding photo
+
+            if($questionAdd){
+                return redirect()->action("QuestionController@show",$question->id)->with(["questionEditSuccess"=>"Your Question has been edited"]);
+            }else{
+                return back()->with("error","Something Went Wrong pleas try again!");
+            }
+        } // the authorization if end
     }
 
     /**

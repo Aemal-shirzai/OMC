@@ -140,9 +140,13 @@ a#userProfileIcon{
 	text-transform: lowercase !important;
 
 }
-a#userProfileIcon i, a#userNotificationIcon i{
+a#userProfileIcon i{
 	font-size: 20px;
 
+}
+a#userNotificationIcon i{
+	font-size: 18px;
+	margin-top: 1px;
 }
 a#userProfileIcon, a#userNotificationIcon{
 	padding-top: 23px;
@@ -240,7 +244,7 @@ div#dropdownContentNotifications a{
 	display: block !important;
 }
 #notificationBadge{
-		font-size: 12px;
+		font-size: 11px;
 }
 .notRead{
 	background-color: #f3f3eb;

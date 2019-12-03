@@ -300,7 +300,7 @@
 							<p class="text-center">Manage</p>
 							<span title="Edit Post">
 								<li>
-									<a href="#" class="PostEditDelete"><span class="fas fa-edit"></span> Edit</a>
+									<a href="{{route('posts.edit',$post->id)}}" class="PostEditDelete"><span class="fas fa-edit"></span> Edit</a>
 								</li>
 							</span>
 							<span title="Delete Post">
