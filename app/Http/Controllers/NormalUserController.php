@@ -13,7 +13,7 @@ class NormalUserController extends Controller
 {
 
     public function __construct(){
-        $this->middleware("auth");
+        $this->middleware("auth")->except(["index","sortBy"]);
     }
     /**
      * Display a listing of the resource.
@@ -22,7 +22,22 @@ class NormalUserController extends Controller
      */
     public function index()
     {
-        //
+        $nusers = NormalUser::paginate(30);
+         return view("normalusers.index",compact("nusers"));
+
+    }
+        /**
+     * order by method
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sortBy($type){
+        if($type == "mostQuestions"){
+            $nusers = NormalUser::leftJoin("questions","normal_users.id","=","questions.normal_user_id")->groupBy("normal_users.id")->orderBy('questions_count','desc')->selectRaw("normal_users.*,count(questions.id) as questions_count")->paginate(30);
+        }else if($type == "new"){
+            $nusers = NormalUser::orderBy("created_at","desc")->paginate(20);   
+        }
+        return view("normalUsers.index",compact("nusers","type"));
     }
 
     /**

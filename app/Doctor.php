@@ -42,7 +42,7 @@ class Doctor extends Model
 
     // Relationship with country
     public function country(){
-        return $this->belongsTo(Country::class);
+        return $this->belongsTo(Country::class,"country_id");
     } 
 
     // Relationship with province

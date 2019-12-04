@@ -72,11 +72,22 @@ Route::POST("/replies/vote","CommentReplyController@vote")->name("replyVote");
 // Deleting replies using ajax
 Route::DELETE("/reply/delete","CommentReplyController@delete")->name("deleteReply");
 
+// this route is responsible to read the notifications as read using ajax
+Route::POST("/markasread","notificationController@readMark")->name("readMark");
 
+
+// routes for doctors
+Route::resource("/doctors","DoctorController");
+// sort posts route
+Route::get("/{type}/doctors","DoctorController@sortBy")->name("doctorsSortBy");
+
+
+// Routes for normal users
+Route::resource("/nusers","NormalUserController");
+// sort posts route
+Route::get("/{type}/nusers","NormalUserController@sortBy")->name("nusersSortBy");
 // Route for managing normal user following the doctor
 Route::post("/follow/doctors","NormalUserController@DoctorFollow")->name("DoctorFollow");
 // Route for removing followers by doctors
 Route::post("/remove/follower/","NormalUserController@removeFollower")->name("removeFollower");
 
-// this route is responsible to read the notifications as read using ajax
-Route::POST("/markasread","notificationController@readMark")->name("readMark");

@@ -17,7 +17,7 @@
 	@elseif(Route::currentRouteName() == 'profile')
 	<!-- Link to local profile style for profile page -->
 	
-	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle.css')}}">
 	
 	@elseif(Route::currentRouteName() == 'posts.create' || Route::currentRouteName() == 'questions.create' || Route::currentRouteName() == 'posts.edit' || Route::currentRouteName() == 'questions.edit' || Route::currentRouteName() == 'comments.edit' || Route::currentRouteName() == 'replies.edit')
 	<!-- Link to local  style for posts add page -->
@@ -25,9 +25,14 @@
 	@elseif(Route::currentRouteName() == 'posts.index' || Route::currentRouteName() == 'questionsSortBy' || Route::currentRouteName() == 'postsSortBy' || Route::currentRouteName() == 'questions.index')
 	<!-- Link to local styles for posts list page -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsListStyle1.css')}}">
+
 	@elseif(Route::currentRouteName() == 'posts.show' || Route::currentRouteName() == 'questions.show')
 	<!-- Link to local styles for posts list page -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsSingleStyle1.css')}}">
+
+	@elseif(Route::currentRouteName() == 'doctors.index' || Route::currentRouteName() == 'nusers.index' || Route::currentRouteName() == 'doctorsSortBy' || Route::currentRouteName() == 'nusersSortBy')
+	<!-- Link to local styles for doctors and normal users list page -->
+	<link rel="stylesheet" type="text/css" href="{{asset('css/usersStyle.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -55,7 +60,7 @@
 		<a href="{{route('main')}}" @if(Route::currentRouteName() == 'main')class="active" @endif><span class="fal fa-home"></span> Home</a>
 		<a href="{{route('posts.index')}}" @if(Route::currentRouteName() == 'posts.index' || Route::currentRouteName() == 'postsSortBy')class="active" @endif><span class="fal fa-th"></span> Posts</a>
 		<a href="{{route('questions.index')}}" @if(Route::currentRouteName() == 'questions.index' || Route::currentRouteName() == 'questionsSortBy')class="active" @endif><span class="fal fa-th"></span> Questions</a>
-		<a href="#"><span class="fal fa-user-md"></span> Doctors</a>
+		<a href="{{route('doctors.index')}}" @if(Route::currentRouteName() == 'doctors.index')class="active" @endif><span class="fal fa-user-md"></span> Doctors</a>
 		<a href="#"><span class="fal fa-tags"></span> Tags</a>
 		<a href="javascript:void(0)" class="contactUs"><span class="fal fa-envelope"></span> Contact Us</a>
 		@guest
@@ -203,7 +208,7 @@
 		@endauth
 		<a href="javascript:void(0)" class="contactUs">Contact Us</a>
 		<a href="#">Tags</a>
-		<a href="#">Doctors</a>
+		<a href="{{route('doctors.index')}}" @if(Route::currentRouteName() == 'doctors.index')class="active" @endif></span> Doctors</a>
 		<a href="{{route('questions.index')}}" @if(Route::currentRouteName() == 'questions.index' || Route::currentRouteName() == 'questionsSortBy')class="active" @endif> Questions</a>
 		<a href="{{route('posts.index')}}" @if(Route::currentRouteName() == 'posts.index' || Route::currentRouteName() == 'postsSortBy')class="active" @endif>Posts</a>
 		<a href="{{route('main')}}" @if(Route::currentRouteName() == 'main')class="active" @endif>Home</a>
@@ -255,9 +260,9 @@
 			</div>
 			<div class="col-lg-3 col-sm-3" id="omc-network">
 				<h5>omc network</h5>
-				<a href="#">Doctors <span class="badge badge-secondary">2000</span></a>
-				<a href="#">Users <span class="badge badge-secondary">2000</span></a>
-				<a href="#">Tags <span class="badge badge-secondary">2000</span></a>
+				<a href="#">Doctors <span class="badge badge-secondary">{{App\Doctor::all()->count()}}</span></a>
+				<a href="{{route('nusers.index')}}">Users <span class="badge badge-secondary">{{App\NormalUser::all()->count()}}</span></a>
+				<a href="#">Tags <span class="badge badge-secondary">{{App\DiseaseCategory::all()->count()}}</span></a>
 			</div>
 			<div class="col-lg-3 col-sm-3" id="social-links">
 				<h5>Follow us</h5>
@@ -302,6 +307,10 @@
 @elseif(Route::currentRouteName() == 'posts.show' || Route::currentRouteName() == 'questions.show')
 <!-- Link to local  js for singl posts and questions page -->
 <script type="text/javascript" src="{{asset('js/postsAndQuestionsSingleScripts333.js')}}"></script>
+
+@elseif(Route::currentRouteName() == 'doctors.index' || Route::currentRouteName() == 'nusers.index' || Route::currentRouteName() == 'doctorsSortBy' || Route::currentRouteName() == 'nusersSortBy')
+<!-- Link to local js for doctors and normal users list page -->
+<script type="text/javascript" src="{{asset('js/usersScript1.js')}}"></script>
 @endif
 
 <script type="text/javascript">
