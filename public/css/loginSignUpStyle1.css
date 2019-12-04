@@ -1,3 +1,7 @@
+.messages{
+	color: #e64040;
+	font-size: 13px;
+}
 div#loginForm-container{
 	background-color: white;
 	margin: 10px auto;

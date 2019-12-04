@@ -10,7 +10,13 @@
 
 @section("form-title","Sign in to OMC")
 @section("form")
-@include('../layouts.messages')
+     @if(count($errors) > 0)
+        @foreach($errors->all() as $error)
+            <div class="alert  text-center messages mb-3">
+                {{ $error }}
+            </div>
+        @endforeach
+    @endif
     {!! Form::open(["method"=>"POST","action"=>"Auth\LoginController@login"]) !!}
         <div class="form-element-parent">
             {!! Form::text("email_username",null,["id"=>"email_username","class"=>"form-control form_element input-in-login","placeholder"=>"Username or email","onkeyup"=>"enableButton()","autofocus"]) !!}

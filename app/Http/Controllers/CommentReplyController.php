@@ -123,9 +123,10 @@ class CommentReplyController extends Controller
      * @param  \App\CommentReply  $commentReply
      * @return \Illuminate\Http\Response
      */
-    public function edit(CommentReply $commentReply)
+    public function edit(CommentReply $reply)
     {
-        //
+        $commentOwner = $reply->comment->comment_owner_type;
+        return view("replies.edit",compact("reply",'commentOwner'));
     }
 
     /**
@@ -135,9 +136,57 @@ class CommentReplyController extends Controller
      * @param  \App\CommentReply  $commentReply
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CommentReply $commentReply)
+    public function update(CommentReplyRequest $request, CommentReply $reply)
     {
-        //
+        if($request->replyContent == "" && !$request->hasFile("replyPhoto")){
+             // to check if the user has removed the photo or not
+            if($request->has("fileRemoved")){
+                return back()->withInput()->with("error1","The reply content can not be null");
+            }
+            
+        }
+
+        if(Auth::user()->is($reply->owner)){
+            $replyAdd = $reply->update($request->all());
+
+            // to check if the user has removed the photo or not
+            if($request->has("fileRemoved")){
+                $reply->photos()->delete();
+            }
+
+            if($request->hasFile("replyPhoto")){
+                // delete old photos
+                if($reply->photos()->count() > 0){
+                    foreach($reply->photos as $photo){
+                        Storage::delete("public/images/comment_replies/".$photo->path);
+                        $photo->delete();
+                    }
+                }
+                // add photos
+                $photo = $request->file("replyPhoto");
+                $fullName = $photo->getClientOriginalName();
+                $onlyExtentsion = $photo->getClientOriginalExtension();
+                $onlyName = pathinfo($fullName,PATHINFO_FILENAME);
+                $nameToBeStored = $onlyName . time() . "." .$onlyExtentsion;
+
+                $photo->storeAs("public/images/comment_replies/",$nameToBeStored);
+                $reply->photos()->create(["path"=>$nameToBeStored,"status"=>1]);
+            } // End of adding photo
+
+            if($replyAdd){
+                if($reply->comment->to_type == "App\Post"){
+                    return redirect()->action("PostController@show",$reply->comment->to_id)->with(["replySuccess"=>"Your reply has been edited.","comment_id"=>$reply->comment->id]);
+                }else{
+                    return redirect()->action("QuestionController@show",$reply->comment->to_id)->with(["replySuccess"=>"Your reply has been edited.","comment_id"=>$reply->comment->id]);
+                }
+            }else{
+                     return back()->with(["replyError"=>"Reply Not added"]);
+            }
+        } //checking authorization condition end
+        else{
+            abort(403);
+        }
+
     }
 
     /**

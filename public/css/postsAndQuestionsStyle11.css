@@ -258,10 +258,10 @@ span#changePhoto:hover ,span#removePhoto:hover {
 }
 .messages{
 	box-shadow: 0px 0px 20px 0px #d7f3e3; 
-	overflow: hidden;
-	position: absolute;
-	left: 273px;
-	width: 45%;
+	/*overflow: hidden;*/
+	/*position: absolute;*/
+	/*left: 273px;*/
+	/*width: 45%;*/
 	height: 35px;
     padding-top: 6px;
     font-size: 11px;
@@ -270,10 +270,10 @@ span#changePhoto:hover ,span#removePhoto:hover {
 .messsages a{
 	color: #3fbbc0;
 }
-#questionSuccess{
+/*#questionSuccess{
 	top: 20px;
 	left: 309px;
-}
+}*/
 /* end of second part form */
 
 
@@ -336,13 +336,13 @@ textarea::-webkit-scrollbar {
 		font-size: 11px;
 	}
 	.messages{
-		width: 52%;
+		/*width: 52%;*/
 	}
-	#questionSuccess{
+	/*#questionSuccess{
 		top: 20px;
 		z-index: 1;
 		left: 90px;
-	}
+	}*/
 }
 
 /* ///////////////////////////////////////////////////////////////// IPHAD /////////////////////////////////////////////////////////////////// */
@@ -426,15 +426,15 @@ textarea::-webkit-scrollbar {
 		margin: 0 auto;
 	}
 	.messages{
-		left: 185px;
-		width: 69%%;
+		/*left: 185px;*/
+		/*width: 69%%;*/
 	}
-	#questionSuccess{
+	/*#questionSuccess{
 		top: 20px;
 		z-index: 1;
 		left: 23px;
 		width: 70%;
-	}
+	}*/
 /* end of second part form */
 }
 
@@ -547,19 +547,19 @@ textarea::-webkit-scrollbar {
 		font-size: 10px;
 		font-weight: bold;
 	}
-	.messages{
+	/*.messages{
 		left: 167px;
 		width: 68%;
 		height: 40px;
 	    font-size: 10px;
 	    font-weight:bold;
-	}
-	#questionSuccess{
+	}*/
+	/*#questionSuccess{
 		top: 1px;
 	    z-index: 1;
 	    left: 13px;
 	    width: 93%;
-	}
+	}*/
 /* end of second part form */
 
 }
@@ -578,14 +578,14 @@ textarea::-webkit-scrollbar {
 	div#invalidFile{
 		left: 42px;
 		width: 86%;
-	}
+	/*}
 	.messages{
 		left: 15px;
 		width: 92%;
 		z-index: 1;
 		font-size: 8px;
 		font-weight: bold
-	}
+	}*/
 }
 /* ///////////////////////////////////////////////////////////////// Very Samll sizes /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 320px){
@@ -649,16 +649,16 @@ textarea::-webkit-scrollbar {
 	div#invalidFile{
 		width: 84%;
 	}
-	.messages{
+	/*.messages{
 		width: 91%;
-	}
-	#questionSuccess{
+	}*/
+	/*#questionSuccess{
 		top: 1px;
 		z-index: 1;
 		left: 11px;
 		width: 93%;
 		font-size: 7px;
-	}
+	}*/
 /* end of second part form */
 }
 

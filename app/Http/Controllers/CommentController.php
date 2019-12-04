@@ -141,7 +141,8 @@ class CommentController extends Controller
      */
     public function edit(Comment $comment)
     {
-        //
+        $commentOwner = $comment->comment_owner_type;
+        return view("comments.edit",compact("comment",'commentOwner'));
     }
 
     /**
@@ -151,10 +152,58 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(CommentRequest $request, Comment $comment)
     {
-        //
-    }
+        if($request->content == "" && !$request->hasFile("photo")){
+             // to check if the user has removed the photo or not
+            if($request->has("fileRemoved")){
+                return back()->withInput()->with("error1","The comment content can not be null");
+            }
+            
+        }
+
+        if(Auth::user()->is($comment->comment_owner)){
+            $commentAdd = $comment->update($request->all());
+
+            // to check if the user has removed the photo or not
+            if($request->has("fileRemoved")){
+                $comment->photos()->delete();
+            }
+
+            if($request->hasFile("photo")){
+                // delete old photos
+                if($comment->photos()->count() > 0){
+                    foreach($comment->photos as $photo){
+                        Storage::delete("public/images/comments/".$photo->path);
+                        $photo->delete();
+                    }
+                }
+                // add photos
+                $photo = $request->file("photo");
+                $fullName = $photo->getClientOriginalName();
+                $onlyExtentsion = $photo->getClientOriginalExtension();
+                $onlyName = pathinfo($fullName,PATHINFO_FILENAME);
+                $nameToBeStored = $onlyName . time() . "." .$onlyExtentsion;
+
+                $photo->storeAs("public/images/comments/",$nameToBeStored);
+                $comment->photos()->create(["path"=>$nameToBeStored,"status"=>1]);
+            } // End of adding photo
+
+            if($commentAdd){
+                if($comment->to_type == "App\Post"){
+                    return redirect()->action("PostController@show",$comment->to_id)->with(["commentSuccess"=>"Your comment has been edited"]);
+                }else{
+                    return redirect()->action("QuestionController@show",$comment->to_id)->with(["commentSuccess"=>"Your comment has been edited"]);
+                }
+            }else{
+                return back()->with("error","Something Went Wrong pleas try again!");
+            }
+        } //checking authorization condition end
+        else{
+            abort(403);
+        }
+
+    } //manin update fun end
 
     /**
      * Remove the specified resource from storage.

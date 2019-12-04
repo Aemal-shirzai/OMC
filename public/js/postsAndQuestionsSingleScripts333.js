@@ -397,6 +397,7 @@ if(txt.trim().length > 0 ){
 	//  This if is to disable border red if the text area is border red due to any error
 	if(textbox.style.border == "1px solid red"){
 		textbox.style.border = "none";
+		$("#msg").text("");
 		textbox.placeholder = "Add Comment to post...";
 	}
 	document.getElementById("addCommentBtn").disabled = false;
@@ -464,14 +465,14 @@ $(document).ready(function(){
  	$("#successMsg").show();
  	$("#allComments").show();
 	$("html,body").animate({
-	scrollTop: $("#successMsg").offset().top-350},"fast");
+	scrollTop: $("#successMsg").offset().top-200},"fast");
  }
  // Adding comment serverside error post 
  if(scroll === "on2"){
  	$("#fileError").show();
  	$("#allComments").show()
 	$("html,body").animate({
-	scrollTop: $("#fileError").offset().top-350},"fast");
+	scrollTop: $("#fileError").offset().top-200},"fast");
  }
 
 // Beggingin of: reply success messages scrols 

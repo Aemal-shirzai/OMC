@@ -5,12 +5,7 @@
 @section("content")
 
 <div class="" id="addPostParent">
-	@if(session("postAddSuccess"))
-			<div class="alert alert-success messages" id="questionSuccess">
-				<button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
-				{{ session("postAddSuccess") }} you can view it by <a href="{{route('profile',Auth::user()->username)}}">visiting your profile</a> or by <a href="{{route('questions.index')}}">visiting qustions page</a>
-			</div>
-		@endif
+	
 	<h3 id="mainTitle">Ask your Question</h3>
 	<!-- Beggingon of : PART ONE  TIPS -->
 	<div id="tips" class="card">
@@ -54,6 +49,13 @@
 
 	<!-- Second part Form -->
 	<div id="formParent">
+		@if(session("postAddSuccess"))
+			<div class="alert alert-success messages" id="questionSuccess">
+				<button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
+				{{ session("postAddSuccess") }} you can view it by <a href="{{route('profile',Auth::user()->username)}}">visiting your profile</a> or by <a href="{{route('questions.index')}}">visiting qustions page</a>
+			</div>
+		@endif
+		@include('../layouts.messages')
 		{!! Form::open(["method"=>"POST","action"=>"QuestionController@store","files"=>"true","id"=>"postAddingForm"]) !!}
 			<div class="form-elements">
 				{!! Form::label("title","Title",["class"=>"labels"]) !!}
@@ -68,7 +70,7 @@
 			<div class="form-elements">
 				{!! Form::label("content","Content",["class"=>"labels"]) !!}
 				<small class="smallNotes">Add the description of the title and any optional extra preference links</small>
-				{!! Form::textarea("content",null,["class"=>"form-control postFormInputs". ($errors->has('title') ? ' formErrorForFields' : ''),"id"=>"content","placeholder"=>"The shorter the better","maxLength"=>"65500","onkeyup"=>"validateContentAndEnableButton()"]) !!}
+				{!! Form::textarea("content",null,["class"=>"form-control postFormInputs". ($errors->has('content') ? ' formErrorForFields' : ''),"id"=>"content","placeholder"=>"The shorter the better","maxLength"=>"65500","onkeyup"=>"validateContentAndEnableButton()"]) !!}
 				<span class="ErrorMessage" id="errorForContent">
 					@error('content')
 						{{ $message }}

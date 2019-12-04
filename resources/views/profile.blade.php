@@ -504,7 +504,7 @@
 
 											<!-- Beggining of: Comment managing options delete and update -->
 											@if(Auth::user()->id === $comment->comment_owner->id)
-											<button class=" commentManageOptions fal fa-edit float-right"> Edit</button>
+											<a href="{{route('comments.edit',$comment->id)}}"><button class=" commentManageOptions fal fa-edit float-right"> Edit</button></a>
 											<button class="commentManageOptions fal fa-trash float-right" id="commentDeleteButton-{{$comment->id}}" onclick="deleteCommentPermission('{{$comment->id}}')"> Delete</button>
 											@endif
 											<!-- End of Comment managing options delete and update -->
@@ -670,7 +670,7 @@
 															</button>
 															<!-- Beggining of: Comment managing options delete and update -->
 																@if(Auth::user()->id === $reply->owner->id)
-																<button class=" commentManageOptions fal fa-edit float-right"> Edit</button>
+																<a href="{{route('replies.edit',$reply->id)}}"><button class=" commentManageOptions fal fa-edit float-right"> Edit</button></a>
 																<button class="commentManageOptions fal fa-trash float-right" id="deleteReplyButton-{{$reply->id}}" onclick="deleteReplyPermission('{{$reply->id}}')"> Delete</button>
 																@endif
 															<!-- End of Comment managing options delete and update -->

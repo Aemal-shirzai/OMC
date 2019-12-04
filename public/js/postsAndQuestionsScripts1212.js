@@ -263,3 +263,170 @@ function showAndValidateTagsCountEdit(value){
 	}
 }
 //EO the : function responsible for validating the tags based on checbox changing 
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////// editing comments and replies part ///////////////////////////////////////////////////////
+
+ // Begginng of : the function which validate the comments and replies form
+function validateCommentReplyForm(){
+	var field = document.getElementById("crField");
+	var photoField = document.getElementById("crPhotoField");
+
+	if(field.value.trim().length >= 65500){
+		// 65500
+		field.focus();
+		$("#errorForContent").show();
+		$("#errorForContent").text("Too Long Text");
+		field.style.border = "1px solid red";
+		field.placeholder = "Too long text";
+		event.preventDefault();
+	}else{
+		$("#errorForContent").hide();
+		field.style.border = "none";
+		field.placeholder = "Add Comment..."
+	}
+
+	// This if means if both the photo filed and comment field is empty then throw an error
+	if(field.value.trim().length < 1 && photoField.files.length < 1){
+		// for editing
+		if($("#fileRemovedStatus").is(":disabled")){
+			// it means if someone just want to clear the text while editing and stick with old photo then do not show them error while submititng
+		}else{
+			field.focus();
+			field.style.border = "1px solid red";
+			field.placeholder = "can not add empty comment";
+			$("#errorForContent").show();
+			$("#errorForContent").text("can not add empty comment");
+			event.preventDefault();
+		}
+	}else{
+		field.placeholder = "Add Comment...";
+		$("#errorForContent").hide();
+		$("#errorForContent").text("");
+		field.style.border = "none";
+	}	
+}
+// End of : the function which validate the comments and replies form
+
+
+
+// Beggining of the function which resize the comment text area when the text increase, AND the function whihc enable the commnet button
+function validate_enable_button(textbox) 
+{
+	// enable button
+	if(textbox.value.trim().length > 0 ){
+		//  This if is to disable border red if the text area is border red due to any error
+		if(textbox.style.border == "1px solid red"){
+			textbox.style.border = "none";
+			$("#errorForContent").text("");
+			textbox.placeholder = "Add Comment ...";
+		}
+		document.getElementById("submitButton").disabled = false;
+		}else{
+			if(document.getElementById("crPhotoField").files.length < 1 ){
+				document.getElementById("submitButton").disabled = true;
+			}
+
+			// for editing
+			if($("#fileRemovedStatus").is(":disabled")){
+				document.getElementById("submitButton").disabled = false;
+			}
+		}
+
+
+ }
+
+
+
+ // Beggining of : the function which open the comment photo field
+function opencrPhotoField(){
+	var field = document.getElementById("crPhotoField");
+	field.disabled = false;
+	field.value = "";
+	$("#PhotoParentDiv").hide();
+	$("#imageIcon").css('color',"#9ba1a7");
+	if(document.getElementById("crField").value.trim().length < 1){
+		document.getElementById("submitButton").disabled = true;
+	}
+	field.click();
+}
+ // End of : the function which open the comment photo field
+
+
+ // Beggining of th function whihc is responsible to show the image on the screen after beign seleccted
+function showcrPic(input,id){
+	if(input.files && input.files[0]){
+		var reader = new FileReader();
+
+		reader.onload = function(e){
+			$("#img-placeholder").attr("src",e.target.result);	
+		}
+
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+// End of th function whihc is responsible to show the image on the screen after beign seleccted
+
+// Beggining of the functio which validate the comment image
+function showAndcrValidateFile(){
+	var field = document.getElementById("crPhotoField");
+	var button = document.getElementById("submitButton");
+	var crField = document.getElementById("crField");
+	var fileType = field.value.split(".").pop().toLowerCase();
+	if(fileType == "jpg" || fileType == "bmp" || fileType == "jpeg" || fileType == "png" || fileType == "gif" || fileType == "svg"){
+		if(field.files[0].size/1024/1024 < 10){
+			$("#PhotoParentDiv").show();
+			button.disabled =false; // It enable the  button because the image is correct
+			$("#errorForContent").hide();
+			showcrPic(field);
+		}else{
+			$("#errorForContent").show();
+			field.value= "";
+			$("#PhotoParentDiv").hide();
+			$("#errorForContent").text("File too large. max 10MB...");
+			/* Here the photo is wrong it means the path will be cleared and length will be 0 
+			  so now this if checks if the commetn field is also empty the disable the commetn button */
+			if(crField.value.trim().length < 1){
+				button.disabled = true;
+			}
+			event.preventDefault();
+		}
+	}else{
+		/* Here the photo is wrong it means the path will be cleared and length will be 0 
+		  so now this if checks if the commetn field is also empty the disable the commetn button */
+		if(crField.value.trim().length < 1 && field.files.length < 1){
+				button.disabled = true;
+		}
+		$("#errorForContent").show();
+		field.value= "";
+		$("#PhotoParentDiv").hide();
+		$("#errorForContent").text("Invalid file. Only photos are allowed...");
+		event.preventDefault();
+	}
+}
+// End of of the functio which validate the comment image
+
+
+// Beggining of the function which Remove the comment image when click remove image
+function removecrPhoto(){
+	var field = document.getElementById("crPhotoField");
+	var crField = document.getElementById("crField");
+	var button = document.getElementById("submitButton");
+	/* By clicking the remove photo field the photo length becomes 0 because the path is cleared  
+	   so now this if checks if the commetn field is also empty the disable the commetn button */
+	if(crField.value.trim().length < 1){
+		button.disabled = true;
+	}
+	field.value= "";
+	$("#PhotoParentDiv").hide();
+
+	// for editig page
+	document.getElementById("fileRemovedStatus").disabled = false;
+}
+// Endof of the function which Remove the comment image when click remove image

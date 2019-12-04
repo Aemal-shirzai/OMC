@@ -5,12 +5,6 @@
 @section("content")
 
 <div class="" id="addPostParent">
-	@if(session("error"))
-		<div class="alert alert-warning messages">
-			<button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
-			{{ session("error") }} or if it still shows up then let us help you by <a href="#">contacting us</a>
-		</div>
-	@endif
 	<h3 id="mainTitle">Edit your Question</h3>
 	<!-- Beggingon of : PART ONE  TIPS -->
 	<div id="tips" class="card">
@@ -54,6 +48,13 @@
 
 	<!-- Second part Form -->
 	<div id="formParent">
+		@if(session("error"))
+			<div class="alert alert-warning messages">
+				<button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
+				{{ session("error") }} or if it still shows up then let us help you by <a href="#">contacting us</a>
+			</div>
+		@endif
+		@include('../layouts.messages')
 		{!! Form::model($question,["method"=>"PUT","action"=>["QuestionController@update",$question->id],"files"=>"true","id"=>"postAddingForm"]) !!}
 			<div class="form-elements">
 				{!! Form::label("title","Title",["class"=>"labels"]) !!}
@@ -68,7 +69,7 @@
 			<div class="form-elements">
 				{!! Form::label("content","Content",["class"=>"labels"]) !!}
 				<small class="smallNotes">Add the description of the title and any optional extra preference links</small>
-				{!! Form::textarea("content",null,["class"=>"form-control postFormInputs". ($errors->has('title') ? ' formErrorForFields' : ''),"id"=>"content","placeholder"=>"The shorter the better","maxLength"=>"65500","onkeyup"=>"validateContentAndEnableButton()"]) !!}
+				{!! Form::textarea("content",null,["class"=>"form-control postFormInputs". ($errors->has('content') ? ' formErrorForFields' : ''),"id"=>"content","placeholder"=>"The shorter the better","maxLength"=>"65500","onkeyup"=>"validateContentAndEnableButton()"]) !!}
 				<span class="ErrorMessage" id="errorForContent">
 					@error('content')
 						{{ $message }}
@@ -99,7 +100,9 @@
 						{{ $message }}
 					@enderror
 				</span>
-				{!! Form::hidden("fileRemoved","true",["disabled"=>"true","id"=>"fileRemovedStatus"]) !!}
+				@if($question->photos()->where("status",1)->first())
+					{!! Form::hidden("fileRemoved","true",["disabled"=>"true","id"=>"fileRemovedStatus"]) !!}
+				@endif
 			</div>
 			<div class="dropdown-divider" id="dividerAfterPhoto"></div>
 			<div class="form-elements">
