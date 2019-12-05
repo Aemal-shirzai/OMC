@@ -1047,7 +1047,6 @@ div.Qtags span a{
 	margin: 12px auto;
 	border-bottom: 1px solid #fbfbfd;
 	padding-bottom: 12px;
-	/*overflow: hidden;*/
 }
 #addAchButton{
 	cursor: pointer;
@@ -1094,7 +1093,7 @@ div.Qtags span a{
 	color: #9ba1ad;
 	font-size: 10px;
 }
-#ach-textarea{
+#ach_content{
 	resize: none;
 	overflow: hidden;
 }
@@ -1110,8 +1109,10 @@ div.Qtags span a{
 	padding-top: 3px;
 }
 #ach-photo-icon{
+	text-decoration: none;
+	color: #3fbbc0;
 	font-size: 24px;
-	display: block;
+	cursor: pointer;
 }
 #ach-buttons-div{
 	background-color: #3fbbc0;
@@ -1141,7 +1142,6 @@ div.Qtags span a{
 	top: 7px;
 }
 #submitButtonIcon{
-	color: #aee2e4;
 	right:18px;
 	top: 8px;
 }
@@ -1180,6 +1180,16 @@ div.ach-ImageDiv a:hover{
 }
 div.ach-ImageDiv button:focus{
 	outline: none;
+}
+.ach-errors{
+	color: red;
+	font-size: 10px;
+	margin-top: 2px;
+	margin-left: 1px;
+	font-weight: bold;
+}
+.errorField{
+	border:1px solid red;
 }
 /* iphod pro /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 1200px) and (min-width: 1024px){
@@ -1262,29 +1272,29 @@ div.ach-ImageDiv button:focus{
 	}
 /* End of the showing all replies */
 
-/* Beggining Following part for normal user */
-div#followingParent{
-	width: 63%;
-}
-div.followingOwnerImage img{
-	height: 45px;
-    width: 45px;
-}
-span.no-image-in-following{
-	padding: 12px 13px;
-    font-size: 18px;
-    height: 42px;
-    width: 42px;
-}
-.followingButtonAll{
-	font-size: 10px;
-	margin-top:-31px; 
-}
-.followedBy{
-	font-size: 9px;	
-}
-/* End Following part for normal user */
-	
+	/* Beggining Following part for normal user */
+	div#followingParent{
+		width: 63%;
+	}
+	div.followingOwnerImage img{
+		height: 45px;
+	    width: 45px;
+	}
+	span.no-image-in-following{
+		padding: 12px 13px;
+	    font-size: 18px;
+	    height: 42px;
+	    width: 42px;
+	}
+	.followingButtonAll{
+		font-size: 10px;
+		margin-top:-31px; 
+	}
+	.followedBy{
+		font-size: 9px;	
+	}
+	/* End Following part for normal user */
+		
 
 
 }
@@ -1521,6 +1531,10 @@ span.no-image-in-following{
 	#achFormDiv{
 		width: 90%;
 	}
+	#addAchButtonDiv{
+		width: 90%;
+	}
+
 	#achFormDiv h5{
 		font-size: 14px
 	}
@@ -1532,7 +1546,7 @@ span.no-image-in-following{
 		top: 7px;
 	}
 	div.ach-ImageDiv{
-		    width: 90%;
+		width: 90%;
 	    display: none;
 	    overflow: hidden;
 	    max-height: 180px;
@@ -1568,8 +1582,6 @@ span.no-image-in-following{
 	div.ach-ImageDiv button:focus{
 		outline: none;
 	}
-
-
 
 }
 /* 640  - 769 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
@@ -2005,6 +2017,10 @@ span.no-image-in-following{
 		/*background-color: green;*/
 		padding:10px 0px;
 	}
+	#addAchButtonDiv{
+		width: 100%;
+	}
+
 	#achFormDiv{
 		width: 100%;
 		padding:16px 4px;

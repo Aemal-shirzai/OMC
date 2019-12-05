@@ -1034,3 +1034,208 @@ function showAchDiv(){
 	$("#achFormDiv").fadeToggle("fast");
 }
 // end of the function to close the ach form
+
+
+// Beggining of the function which opens the photofiled input for ach
+function openAchPhotoField(){
+	var field = document.getElementById("achPhotoField");
+	field.disabled = false;
+	$("#achPhotoField").val("");
+	$("#ach-imageDiv").hide();
+	$("#achPhotoError").text("");
+	field.click();
+}
+// End of the function which opens the photofiled input for ach
+
+
+// BO the : function responsible for validating the title field and enabling the add post button
+function validateTitleAndEnableButton(){
+	var title = document.getElementById("title");
+	var content = document.getElementById("content");
+	var button = document.getElementById("submitButton");
+	if(title.value.trim().length > 0 && content.value.trim().length > 0){
+		if(content.value.trim().length < 65500){
+			button.disabled = false;
+		}
+	}else{
+
+		button.disabled = true;
+	}
+
+	if(title.value.trim().length > 190){
+		title.style.border = "1px solid red";
+		$("#errorForTitle").text("Too long text for title, max 190 chars");
+		button.disabled = true;
+
+	}else{
+		title.style.border = "1px solid #ced4da";
+		$("#errorForTitle").text("");
+	}
+}
+// EO the : function responsible for validating the title field and enabling the add post button
+
+// BO the : function responsible for validating the content field and enabling the add ach button
+function validateAchContentEnableButton(){
+	// alert("doone");
+	var title = document.getElementById("ach_title");
+	var content = document.getElementById("ach_content");
+	var location = document.getElementById("ach_location");
+	// var photofield = document.getElementById("achPhotoField");
+	// var button = document.getElementById("ach_submit");
+
+	if(title.value.trim().length > 100){
+		title.style.border = "1px solid red";
+		$("#achTitleError").text("Too long title not allowed ...");
+	}else if(title.value.trim().length < 1){
+		title.style.border = "1px solid red";
+		$("#achTitleError").text("The title can not be empty ...");
+		event.preventDefault();
+	}else{
+		title.style.border = "1px solid #ced4da";
+		$("#achTitleError").text("");
+	}
+	
+	if(content.value.trim().length > 500){
+		content.style.border = "1px solid red";
+		$("#achContentError").text("Too long description not allowed ...");
+	}else if(content.value.trim().length < 1){
+		content.style.border = "1px solid red";
+		$("#achContentError").text("The description can not be empty ...");
+		event.preventDefault();
+	}else{
+		content.style.border = "1px solid #ced4da";
+		$("#achContentError").text("");
+	}
+	
+
+	if(location.value.trim().length > 100){
+		location.style.border = "1px solid red";
+		$("#achLocationError").text("Too long location info not allowed ...");
+	}else if(location.value.trim().length < 1){
+		location.style.border = "1px solid red";
+		$("#achLocationError").text("The Location can not be empty ...");
+		event.preventDefault();
+	}else{
+		location.style.border = "1px solid #ced4da";
+		$("#achLocationError").text("");
+	}
+	
+}
+// EO the : function responsible for validating the content field and enabling the add ach button
+
+
+// BO the : function responsible for validating the form after submit
+function validateAchForm(){
+	// alert("doone");
+	var title = document.getElementById("ach_title");
+	var content = document.getElementById("ach_content");
+	var location = document.getElementById("ach_location");
+	var photofield = document.getElementById("achPhotoField");
+	// var button = document.getElementById("ach_submit");
+
+
+	if(photofield.files.length < 1){
+		$("#achPhotoError").text("You need to select a photo ...");
+		event.preventDefault();
+	}else{
+		$("#achPhotoError").text("");
+	}
+
+	if(location.value.trim().length > 100){
+		location.focus();
+		location.style.border = "1px solid red";
+		$("#achLocationError").text("Too long location info not allowed ...");
+		event.preventDefault();
+	}else if(location.value.trim().length < 1){
+		location.focus();
+		location.style.border = "1px solid red";
+		$("#achLocationError").text("The Location can not be empty ...");
+		event.preventDefault();
+	}else{
+		location.style.border = "1px solid #ced4da";
+		$("#achLocationError").text("");
+	}
+	
+	if(content.value.trim().length > 500){
+		content.style.border = "1px solid red";
+		content.focus();
+		$("#achContentError").text("Too long description not allowed ...");
+		event.preventDefault();
+	}else if(content.value.trim().length < 1){
+		content.focus();
+		content.style.border = "1px solid red";
+		$("#achContentError").text("The description can not be empty ...");
+		event.preventDefault();
+	}else{
+		content.style.border = "1px solid #ced4da";
+		$("#achContentError").text("");
+	}
+	
+
+	if(title.value.trim().length > 100){
+		title.focus();
+		title.style.border = "1px solid red";
+		$("#achTitleError").text("Too long title not allowed ...");
+		event.preventDefault();
+	}else if(title.value.trim().length < 1){
+		title.focus();
+		title.style.border = "1px solid red";
+		$("#achTitleError").text("The title can not be empty ...");
+		event.preventDefault();
+	}else{
+		title.style.border = "1px solid #ced4da";
+		$("#achTitleError").text("");
+	}
+
+}
+// EO the : function responsible for validating the form after submit
+
+
+ // Beggining of th function whihc is responsible to show the image on the screen after beign seleccted
+function showAchPic(input){
+	if(input.files && input.files[0]){
+		var reader = new FileReader();
+
+		reader.onload = function(e){
+			$("#achPhotoPlaceHolder").attr("src",e.target.result);	
+		}
+
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+// End of th function whihc is responsible to show the image on the screen after beign seleccted
+
+// Beggining of the functio which validate the comment image
+function showAndValidateAchFile(){
+	var field = document.getElementById("achPhotoField");
+	var fileType = field.value.split(".").pop().toLowerCase();
+
+	if(fileType == "jpg" || fileType == "bmp" || fileType == "jpeg" || fileType == "png" || fileType == "gif" || fileType == "svg"){
+		if(field.files[0].size/1024/1024 < 10){
+			$("#ach-imageDiv").show();
+			$("#achPhotoError").text("");
+			showAchPic(field);
+		}else{
+			field.value= "";
+			$("#ach-imageDiv").hide();
+			$("#achPhotoError").text("File too large. max 10MB...");
+			event.preventDefault();
+		}
+	}else{
+		field.value= "";
+		$("#ach-imageDiv").hide();
+		$("#achPhotoError").text("Invalid file. Only photos are allowed...");
+		event.preventDefault();
+	}
+}
+// End of of the functio which validate the comment image
+
+// Beggining of the function which Remove the comment image when click remove image
+function removeAchImage(){
+	var field = document.getElementById("achPhotoField");
+	$("#achPhotoField").val("");
+	field.disabled = true;
+	$("#ach-imageDiv").hide();
+	event.preventDefault();
+}
+// Endof of the function which Remove the comment image when click remove image

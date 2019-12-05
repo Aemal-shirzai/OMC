@@ -724,7 +724,7 @@
 			@endforeach
 		@endif
 	</div>
-	<div id="achievements" class="tab-content" >
+	<div id="achievements" class="tab-content"  style="">
 		<div id="achParent">
 			<div id="addAchButtonDiv">
 				<span id="addAchButton" class="btn btn-sm" onclick="showAchDiv()"><span class="far fa-plus"></span> Add Achievements</span>
@@ -735,17 +735,31 @@
 				<h5 class="text-center">Add Achievements</h5>
 				{!! Form::open() !!}
 					<div class="ach-form-elements">
-						{!! Form::label("title","Title *",["class"=>"ach-formlabels"]) !!}
+						{!! Form::label("ach_title","Title *",["class"=>"ach-formlabels"]) !!}
 						<small class="ach-form-elements-descriptions">Be specific while adding the title for achievements</small>
-						{!! Form::text("title",null,["class"=>"form-control ach-form-fields","maxlength"=>"60","placeholder"=>"e.g. Annual Congress on Diabetes and Endocrinology Certificate"]) !!}
+						{!! Form::text("ach_title",null,["class"=>"form-control ach-form-fields","maxlength"=>"100","onkeyup"=>"validateAchContentEnableButton()","id"=>"ach_title","placeholder"=>"e.g. Annual Congress on Diabetes and Endocrinology Certificate"]) !!}
+						<div class="ach-errors" id="achTitleError">
+							
+						</div>
 					</div>
 					<div class="ach-form-elements">
-						{!! Form::label("content","Discription *",["class"=>"ach-formlabels"]) !!}
+						{!! Form::label("ach_content","Discription *",["class"=>"ach-formlabels"]) !!}
 						<small class="ach-form-elements-descriptions">Write down short notes of 500 chars about the achievment</small>
-						{!! Form::textarea("content",null,["class"=>"form-control ach-form-fields","id"=>"ach-textarea","maxlength"=>"500","rows"=>"4","placeholder"=>"e.g. Diabetes & Endocrinology Conference was held on the theme of To Collection of Innovative treatments involved in Endocrinology and Diabetes."]) !!}
+						{!! Form::textarea("ach_content",null,["class"=>"form-control ach-form-fields","onkeyup"=>"validateAchContentEnableButton()", "id"=>"ach-textarea","maxlength"=>"500","rows"=>"4" ,"id"=>"ach_content" ,"placeholder"=>"e.g. Diabetes & Endocrinology Conference was held on the theme of To Collection of Innovative treatments involved in Endocrinology and Diabetes."]) !!}
+						<div class="ach-errors" id="achContentError">
+							
+						</div>
 					</div>
 					<div class="ach-form-elements">
-						{!! Form::label("achievement_date","Date *",["class"=>"ach-formlabels"]) !!}
+						{!! Form::label("location","location *",["class"=>"ach-formlabels"]) !!}
+						<small class="ach-form-elements-descriptions">Where you got this achievment</small>
+						{!! Form::text("ach_location",null,["class"=>"form-control ach-form-fields" ,"id"=>"ach_location","onkeyup"=>"validateAchContentEnableButton()", "maxlength"=>"100","placeholder"=>"e.g. Kabul, Afghanistan "]) !!}
+						<div class="ach-errors" id="achLocationError">
+							
+						</div>
+					</div>
+					<div class="ach-form-elements">
+						{!! Form::label("ach_date","Date *",["class"=>"ach-formlabels"]) !!}
 						<small class="ach-form-elements-descriptions">Specify the date in which you got this achiement</small>
 						<div class="row" id="ach-date-row">
 							{!! Form::selectRange("year",1950,\Carbon\carbon::now()->format("Y"),null,["class"=>"form-control ach-date-fields"]) !!}
@@ -754,14 +768,12 @@
 						</div>
 					</div>
 					<div class="ach-form-elements">
-						{!! Form::label("location","location *",["class"=>"ach-formlabels"]) !!}
-						<small class="ach-form-elements-descriptions">Where you got this achievment</small>
-						{!! Form::text("location",null,["class"=>"form-control ach-form-fields","maxlength"=>"40","placeholder"=>"e.g. Kabul, Afghanistan "]) !!}
-					</div>
-					<div class="ach-form-elements">
 						{!! Form::label("ach_photo","photo *",["class"=>"ach-formlabels"]) !!}
 						<small class="ach-form-elements-descriptions">Add a photo to prove the validity of achivements</small>
-						{!! Form::file("ach_photo",["class"=>"form-control ach-form-fields","disabled"=>"true","style"=>"display:none;"]) !!}
+						<div class="ach-errors" id="achPhotoError">
+							
+						</div>
+						{!! Form::file("ach_photo",["class"=>"form-control ach-form-fields","onchange"=>"showAndValidateAchFile()" ,"id"=>"achPhotoField","disabled"=>"true","style"=>"display:none;"]) !!}
 						<div class="ach-ImageDiv" id="ach-imageDiv">
 	    					<button class="close ach-removeImage" onclick="removeAchImage()" >
 	    						&times; 
@@ -774,7 +786,7 @@
 								<img src="" id="achPhotoPlaceHolder" >
 							</div>
 						</div>
-						<span class="far fa-image" id="ach-photo-icon" onclick="openAchPhotoField()"></span>
+						<a href="javascript:void(0)" id="ach-photo-icon"><span class="far fa-image" id="" onclick="openAchPhotoField()"></span></a>
 					</div>
 					<div class="dropdown-divider"></div>
 					<div class="ach-form-elements" id="ach-buttons-div">
@@ -783,7 +795,7 @@
 							{!! Form::reset("Cancel",["class"=>"btn btn-sm ach-buttons","id"=>"resetAchForm","title"=>"close and reset the form","onclick"=>"closeAch()"]) !!}
 						</div>
 						<div class="float-right cancelSubmitButtonDiv">
-							{!! Form::submit("Add achievement",["class"=>"btn btn-sm ach-buttons","disabled"=>"true","title"=>"Add achiemvents. First need to fill all the form fields"]) !!}
+							{!! Form::submit("Add achievement",["class"=>"btn btn-sm ach-buttons","onclick"=>"validateAchForm()","id"=>"ach_submit","title"=>"Add achiemvents. First need to fill all the form fields"]) !!}
 							<span class="far fa-arrow-right ach-icons" id="submitButtonIcon"></span>
 						</div>
 					</div>
