@@ -726,6 +726,8 @@
 	</div>
 	<div id="achievements" class="tab-content">
 		<div id="achParent">
+			@auth
+			@can("view",$user)
 			<div id="addAchButtonDiv">
 				<span id="addAchButton" class="btn btn-sm" onclick="showAchDiv()"><span class="far fa-plus"></span> Add Achievements</span>
 			</div>
@@ -824,6 +826,8 @@
 					</div>
 				{!! Form::close() !!}
 			</div>
+			@endcan
+			@endauth
 			<!-- form div end -->
 			<div style="width: 60%; margin: 0 auto;">
 				<h5>No Achievements to display</h5>
