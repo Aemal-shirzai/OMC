@@ -80,7 +80,8 @@ Route::POST("/markasread","notificationController@readMark")->name("readMark");
 Route::resource("/doctors","DoctorController");
 // sort posts route
 Route::get("/{type}/doctors","DoctorController@sortBy")->name("doctorsSortBy");
-
+//  to aadd acheivements to doctor
+Route::Post("/ach/create","DoctorController@achAdd")->name("achAdd");
 
 // Routes for normal users
 Route::resource("/nusers","NormalUserController");

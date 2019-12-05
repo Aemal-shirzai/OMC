@@ -95,7 +95,7 @@
 						<span class="fal fa-th btn-icon"></span> 
 						<span class="btnText">Posts</span>
 					</button>
-					<button class="tabLinks" onclick="openContent(event,'achievements')">
+					<button class="tabLinks" id="achMainButton" onclick="openContent(event,'achievements')">
 						<span class="fad fa-graduation-cap btn-icon-large"></span>
 						<span class="fal fa-graduation-cap btn-icon"></span>
 						<span class="btnText">Achievements</span>
@@ -137,7 +137,7 @@
 
 <div class="container">
 @if($user->owner_type == 'App\Doctor')
-	<div id="posts" class="tab-content" style="">
+	<div id="posts" class="tab-content" >
 		@if(count($posts) > 0)
 			@foreach($posts as $post)
 
@@ -724,54 +724,77 @@
 			@endforeach
 		@endif
 	</div>
-	<div id="achievements" class="tab-content"  style="">
+	<div id="achievements" class="tab-content">
 		<div id="achParent">
 			<div id="addAchButtonDiv">
 				<span id="addAchButton" class="btn btn-sm" onclick="showAchDiv()"><span class="far fa-plus"></span> Add Achievements</span>
 			</div>
 			<!-- ach form -->
 			<div id="achFormDiv">
+				@if(session("ach_success"))
+					<div class="alert alert-success alert-sm ach-messages">
+						<button class="close ach-close" data-dismiss="alert" area-hidden="true"><span class="fal fa-times"></span></button>
+						{{session("ach_success")}}
+					</div>
+				@endif
+				@if($errors->has('ach_title') || $errors->has('ach_content') || $errors->has('ach_location') || $errors->has('ach_year') || $errors->has('ach_month')|| $errors->has('ach_day')|| $errors->has('ach_photo'))
+					<div class="alert alert-danger alert-sm ach-messages">
+						<button class="close ach-close" data-dismiss="alert" area-hidden="true"><span class="fal fa-times"></span></button>
+						OOps you commited a mistake. check bellow and try again!
+					</div>
+				@endif
 				<span class="far fa-times float-right mr-2" id="ach-close-icon" title="close the form" onclick="closeAch()"></span>
 				<h5 class="text-center">Add Achievements</h5>
-				{!! Form::open() !!}
+				{!! Form::open(["method"=>"POST","action"=>"DoctorController@achAdd","files"=>"true"]) !!}
 					<div class="ach-form-elements">
 						{!! Form::label("ach_title","Title *",["class"=>"ach-formlabels"]) !!}
 						<small class="ach-form-elements-descriptions">Be specific while adding the title for achievements</small>
-						{!! Form::text("ach_title",null,["class"=>"form-control ach-form-fields","maxlength"=>"100","onkeyup"=>"validateAchContentEnableButton()","id"=>"ach_title","placeholder"=>"e.g. Annual Congress on Diabetes and Endocrinology Certificate"]) !!}
+						{!! Form::text("ach_title",null,["class"=>"form-control ach-form-fields ".($errors->has('ach_title') ? ' ach-errors-messages' : ''),"maxlength"=>"100","onkeyup"=>"validateAchContentEnableButton1()","id"=>"ach_title","placeholder"=>"e.g. Annual Congress on Diabetes and Endocrinology Certificate"]) !!}
 						<div class="ach-errors" id="achTitleError">
-							
+							@error("ach_title")
+								{{ $message }}
+							@enderror
 						</div>
 					</div>
 					<div class="ach-form-elements">
 						{!! Form::label("ach_content","Discription *",["class"=>"ach-formlabels"]) !!}
 						<small class="ach-form-elements-descriptions">Write down short notes of 500 chars about the achievment</small>
-						{!! Form::textarea("ach_content",null,["class"=>"form-control ach-form-fields","onkeyup"=>"validateAchContentEnableButton()", "id"=>"ach-textarea","maxlength"=>"500","rows"=>"4" ,"id"=>"ach_content" ,"placeholder"=>"e.g. Diabetes & Endocrinology Conference was held on the theme of To Collection of Innovative treatments involved in Endocrinology and Diabetes."]) !!}
+						{!! Form::textarea("ach_content",null,["class"=>"form-control ach-form-fields ".($errors->has('ach_content') ? ' ach-errors-messages' : ''),"onkeyup"=>"validateAchContentEnableButton2()", "id"=>"ach-textarea","maxlength"=>"500","rows"=>"4" ,"id"=>"ach_content" ,"placeholder"=>"e.g. Diabetes & Endocrinology Conference was held on the theme of To Collection of Innovative treatments involved in Endocrinology and Diabetes."]) !!}
 						<div class="ach-errors" id="achContentError">
-							
+							@error("ach_content")
+								{{ $message }}
+							@enderror
 						</div>
 					</div>
 					<div class="ach-form-elements">
 						{!! Form::label("location","location *",["class"=>"ach-formlabels"]) !!}
 						<small class="ach-form-elements-descriptions">Where you got this achievment</small>
-						{!! Form::text("ach_location",null,["class"=>"form-control ach-form-fields" ,"id"=>"ach_location","onkeyup"=>"validateAchContentEnableButton()", "maxlength"=>"100","placeholder"=>"e.g. Kabul, Afghanistan "]) !!}
+						{!! Form::text("ach_location",null,["class"=>"form-control ach-form-fields mapControls ".($errors->has('ach_location') ? ' ach-errors-messages' : '') ,"id"=>"ach_location","onkeyup"=>"validateAchContentEnableButton3()", "maxlength"=>"100","placeholder"=>"e.g. Kabul, Afghanistan "]) !!}
 						<div class="ach-errors" id="achLocationError">
-							
+							@error("ach_location")
+								{{ $message }}
+							@enderror
 						</div>
 					</div>
 					<div class="ach-form-elements">
 						{!! Form::label("ach_date","Date *",["class"=>"ach-formlabels"]) !!}
 						<small class="ach-form-elements-descriptions">Specify the date in which you got this achiement</small>
 						<div class="row" id="ach-date-row">
-							{!! Form::selectRange("year",1950,\Carbon\carbon::now()->format("Y"),null,["class"=>"form-control ach-date-fields"]) !!}
-							{!! Form::selectMonth("month",null,["class"=>"form-control ach-date-fields"]) !!}
-							{!! Form::selectRange("day",1,31,null,["class"=>"form-control ach-date-fields"]) !!}
+							{!! Form::selectRange("ach_year",1950,\Carbon\carbon::now()->format("Y"),null,["class"=>"form-control ach-date-fields"]) !!}
+							{!! Form::selectMonth("ach_month",null,["class"=>"form-control ach-date-fields"]) !!}
+							{!! Form::selectRange("ach_day",1,31,null,["class"=>"form-control ach-date-fields"]) !!}
+							@error("ach_year") {{ $message }} @enderror
+							@error("ach_month") {{ $message }} @enderror
+							@error("ach_day") {{ $message }} @enderror
 						</div>
 					</div>
 					<div class="ach-form-elements">
 						{!! Form::label("ach_photo","photo *",["class"=>"ach-formlabels"]) !!}
 						<small class="ach-form-elements-descriptions">Add a photo to prove the validity of achivements</small>
 						<div class="ach-errors" id="achPhotoError">
-							
+							@error("ach_photo")
+								{{ $message }}
+							@enderror
 						</div>
 						{!! Form::file("ach_photo",["class"=>"form-control ach-form-fields","onchange"=>"showAndValidateAchFile()" ,"id"=>"achPhotoField","disabled"=>"true","style"=>"display:none;"]) !!}
 						<div class="ach-ImageDiv" id="ach-imageDiv">
@@ -786,7 +809,7 @@
 								<img src="" id="achPhotoPlaceHolder" >
 							</div>
 						</div>
-						<a href="javascript:void(0)" id="ach-photo-icon"><span class="far fa-image" id="" onclick="openAchPhotoField()"></span></a>
+						<a href="javascript:void(0)" id="ach-photo-icon" onclick="openAchPhotoField()"><span class="far fa-image" id="" ></span></a>
 					</div>
 					<div class="dropdown-divider"></div>
 					<div class="ach-form-elements" id="ach-buttons-div">
@@ -1223,6 +1246,16 @@
 @endsection
 
 @section("scripts")
+
+
+	@if(session('ach_success') || $errors->has('ach_title') || $errors->has('ach_content') || $errors->has('ach_location') || $errors->has('ach_year') || $errors->has('ach_month')|| $errors->has('ach_day')|| $errors->has('ach_photo'))
+		<script type="text/javascript">
+			openContent1("achMainButton",'achievements');
+			$("#achFormDiv").show();
+		</script>
+	@endif
+
+
 	@if(session('post_id'))
 		<script type="text/javascript">
 			var scroll = "on";
@@ -1284,6 +1317,19 @@
 		var deletePost = '{{route("deletePost")}}';
 				// This route is delete the post by post owner
 		var deleteQuestion = '{{route("deleteQuestion")}}';
+
+
 	</script>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUbaJ_k1aVM64WPjSVKod96VM-YoF7fsE&amp;libraries=places"></script>
+<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=place&key=AIzaSyCUbaJ_k1aVM64WPjSVKod96VM-YoF7fsE"></script> -->
+         
+<script>
+  google.maps.event.addDomListener(window, 'load', initialize);
+    function initialize() {
+      var input = document.getElementById('ach_location');
+      var autocomplete = new google.maps.places.Autocomplete(input);
+  }
+</script>
 
 @endsection

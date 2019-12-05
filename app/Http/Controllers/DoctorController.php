@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Doctor;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\DoctorAchievementsRequest;
+use Carbon\Carbon;
 class DoctorController extends Controller
 {
+    public function __construct(){
+        $this->middleware("auth")->only(["achAdd","achUpdate","achDelete"]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -33,13 +39,6 @@ class DoctorController extends Controller
         }
         return view("doctors.index",compact("doctors","type"));
     }
-
-    // $users = DB::table('users')
-    //         ->join('contacts', 'users.id', '=', 'contacts.user_id')
-    //         ->join('orders', 'users.id', '=', 'orders.user_id')
-    //         ->select('users.*', 'contacts.phone', 'orders.price')
-    //         ->get();
-
 
     /**
      * Show the form for creating a new resource.
@@ -106,4 +105,65 @@ class DoctorController extends Controller
     {
         //
     }
+
+
+
+    //  To add achievemnts to docotrs
+    public function achAdd(DoctorAchievementsRequest $request)
+    {
+        // achievements
+        if($this->authorize("Doctor_related",Auth::user()))
+        {
+             // grab the current doctor 
+            $user = Auth::user();
+            // store the year, month, and day fields in single variable
+            $ach_date =  Carbon::createFromDate($request->ach_year,$request->ach_month,$request->ach_day)->format("Y-m-d"); 
+             // add the newly created variable of date to request array
+            $request->merge(["ach_date"=>$ach_date]);
+
+             // // insert the selected user data
+            $achievement = $user->owner->achievements()->create($request->all());
+            
+
+            // if photo is selected then add it to a folder and to db aswell
+            if($request->hasFile("ach_photo")){
+                $photo = $request->file("ach_photo");
+                $fullName  = $photo->getClientOriginalName();
+                $onlyName = pathinfo($fullName,PATHINFO_FILENAME);
+                $extension = $photo->getClientOriginalExtension();
+                $nameToBeStored = $onlyName.time(). "." .$extension;
+                $folder = "public/images/achievements/";  
+                // $photo->move($folder,$nameToBeStored);
+
+                $photo->storeAs($folder,$nameToBeStored);
+                $achievement->photos()->create(["path"=>$nameToBeStored,"status"=>"1"]);
+            }
+
+            if($achievement){
+                return redirect()->route("profile",Auth::user()->username)->with("ach_success","Achievement Added");
+            }else{
+                return back()->withInput()->with("ach_error","OOps something went wrong try again");;
+            }
+
+        }
+        // authorization statement end
+    } 
+    // mian functioin end
+
+    
+
+
+
+    public function achUpdate(){
+        
+    }public function achDelete(){
+        
+    }
+
+
+
+
+
+
 }
+//  main functino end

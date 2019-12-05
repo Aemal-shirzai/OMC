@@ -15,9 +15,10 @@ class CreateDoctorAchievementsTable extends Migration
     {
         Schema::create('doctor_achievements', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string("title");
-            $table->text("content");
-            $table->timestamp("Achievement_date");
+            $table->string("ach_title");
+            $table->text("ach_content");
+            $table->text("ach_location");
+            $table->datetime("ach_date");
 
             // for doctors
             $table->bigInteger("doctor_id")->unsigned();

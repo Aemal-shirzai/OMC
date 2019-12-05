@@ -12,6 +12,7 @@ use App\Photo;
 use App\Post;
 use App\Comment;
 use App\NormalUser;
+use App\DoctorAchievement;
 class Doctor extends Model
 {
     /**
@@ -66,4 +67,9 @@ class Doctor extends Model
         return $this->belongsToMany(NormalUser::class,"follows","doctor_id","normal_user_id")->withTimeStamps();
     }
 
+
+    // relationship with achievements
+    public function achievements(){
+        return $this->hasMany(DoctorAchievement::class);
+    }
 }

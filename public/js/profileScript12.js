@@ -1026,6 +1026,7 @@ function deleteQPosts(postId){
 function closeAch(){
 	document.getElementById("resetAchForm").click();
 	$("#achFormDiv").fadeOut("fast");
+	$("#ach-imageDiv").hide();
 }
 // end of the function to close the ach form
 
@@ -1075,11 +1076,9 @@ function validateTitleAndEnableButton(){
 // EO the : function responsible for validating the title field and enabling the add post button
 
 // BO the : function responsible for validating the content field and enabling the add ach button
-function validateAchContentEnableButton(){
+function validateAchContentEnableButton1(){
 	// alert("doone");
 	var title = document.getElementById("ach_title");
-	var content = document.getElementById("ach_content");
-	var location = document.getElementById("ach_location");
 	// var photofield = document.getElementById("achPhotoField");
 	// var button = document.getElementById("ach_submit");
 
@@ -1094,7 +1093,9 @@ function validateAchContentEnableButton(){
 		title.style.border = "1px solid #ced4da";
 		$("#achTitleError").text("");
 	}
-	
+}
+function validateAchContentEnableButton2(){
+	var content = document.getElementById("ach_content");
 	if(content.value.trim().length > 500){
 		content.style.border = "1px solid red";
 		$("#achContentError").text("Too long description not allowed ...");
@@ -1106,8 +1107,9 @@ function validateAchContentEnableButton(){
 		content.style.border = "1px solid #ced4da";
 		$("#achContentError").text("");
 	}
-	
-
+}
+function validateAchContentEnableButton3(){
+	var location = document.getElementById("ach_location");
 	if(location.value.trim().length > 100){
 		location.style.border = "1px solid red";
 		$("#achLocationError").text("Too long location info not allowed ...");
@@ -1239,3 +1241,21 @@ function removeAchImage(){
 	event.preventDefault();
 }
 // Endof of the function which Remove the comment image when click remove image
+
+
+// beggining of the function show the tab to wich the response is comming from db
+function openContent1(tab,value){
+	var tabcontent = document.getElementsByClassName("tab-content");
+  	for (i = 0; i < tabcontent.length; i++) {
+    	tabcontent[i].style.display = "none";
+  	}
+
+  	var tablinks = document.getElementsByClassName("tabLinks");
+  	for (i = 0; i < tablinks.length; i++) {
+    	tablinks[i].className = tablinks[i].className.replace(" active", "");
+  	}
+
+  	 document.getElementById(value).style.display = "block";
+ 	 $("#"+tab).addClass("active");
+}
+// End of the function show the tab to wich the response is comming from db
