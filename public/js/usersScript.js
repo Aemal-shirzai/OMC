@@ -29,3 +29,6 @@ function followDoctor(doctorId){
 	});
 }
 // End of the : Function responsible for following the doctors by normal users
+
+
+

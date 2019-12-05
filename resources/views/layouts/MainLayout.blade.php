@@ -32,7 +32,7 @@
 
 	@elseif(Route::currentRouteName() == 'doctors.index' || Route::currentRouteName() == 'nusers.index' || Route::currentRouteName() == 'doctorsSortBy' || Route::currentRouteName() == 'nusersSortBy')
 	<!-- Link to local styles for doctors and normal users list page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/usersStyle.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/usersStyle1.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -146,7 +146,7 @@
 		</div>	
 		<!-- Beggining of: Notifications part -->
 		<div class="float-right" id="userNotificationsParent">
-			<a href="javascript:void(0)" id="userNotificationIcon" @if(Route::currentRouteName() == 'profile') class='active'  @endif>
+			<a href="javascript:void(0)" id="userNotificationIcon">
 				<sup><span class="badge badge-danger" id="notificationBadge">{{Auth::user()->unreadnotifications()->count()}}</span></sup>
 				<i class="fal fa-bell"></i>			
 				<span class="far fa-caret-down"></span>
@@ -296,7 +296,7 @@
 
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
-<script type="text/javascript" src="{{asset('js/profileScript.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/profileScript11.js')}}"></script>
 
 @elseif(Route::currentRouteName() == 'posts.create' || Route::currentRouteName() == 'questions.create' || Route::currentRouteName() == 'posts.edit' || Route::currentRouteName() == 'questions.edit' ||  Route::currentRouteName() == 'comments.edit' || Route::currentRouteName() == 'replies.edit')
 <!-- Link to local  js for posts page -->

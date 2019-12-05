@@ -1015,3 +1015,22 @@ function deleteQPosts(postId){
 	});
 }
 // End of the function which delete posts in profile
+
+
+
+// ///////////////////////////////////////// /////////////////////////////////////////// ACHIEVEMENTS PART
+
+
+
+// Beggining of the function to close the ach form
+function closeAch(){
+	document.getElementById("resetAchForm").click();
+	$("#achFormDiv").fadeOut("fast");
+}
+// end of the function to close the ach form
+
+// Beggining of the function to close the ach form
+function showAchDiv(){
+	$("#achFormDiv").fadeToggle("fast");
+}
+// end of the function to close the ach form

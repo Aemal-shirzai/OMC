@@ -78,13 +78,13 @@
 }
 .userPhoto img{
 	width: 65px;
-	height: 60px;
+	height: 65px;
 }
 .noUserImage{
-	width: 70px;
-	height: 60px;
+	width: 65px;
+	height: 65px;
 	border:1px solid #bbc0c4;
-	padding: 8px 15px;
+	padding: 8px 13px;
 	font-size: 40px;
 	color: #bbc0c4;
 }

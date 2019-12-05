@@ -137,7 +137,7 @@
 
 <div class="container">
 @if($user->owner_type == 'App\Doctor')
-	<div id="posts" class="tab-content" >
+	<div id="posts" class="tab-content" style="">
 		@if(count($posts) > 0)
 			@foreach($posts as $post)
 
@@ -725,7 +725,75 @@
 		@endif
 	</div>
 	<div id="achievements" class="tab-content" >
-		This is achivements parts
+		<div id="achParent">
+			<div id="addAchButtonDiv">
+				<span id="addAchButton" class="btn btn-sm" onclick="showAchDiv()"><span class="far fa-plus"></span> Add Achievements</span>
+			</div>
+			<!-- ach form -->
+			<div id="achFormDiv">
+				<span class="far fa-times float-right mr-2" id="ach-close-icon" title="close the form" onclick="closeAch()"></span>
+				<h5 class="text-center">Add Achievements</h5>
+				{!! Form::open() !!}
+					<div class="ach-form-elements">
+						{!! Form::label("title","Title *",["class"=>"ach-formlabels"]) !!}
+						<small class="ach-form-elements-descriptions">Be specific while adding the title for achievements</small>
+						{!! Form::text("title",null,["class"=>"form-control ach-form-fields","maxlength"=>"60","placeholder"=>"e.g. Annual Congress on Diabetes and Endocrinology Certificate"]) !!}
+					</div>
+					<div class="ach-form-elements">
+						{!! Form::label("content","Discription *",["class"=>"ach-formlabels"]) !!}
+						<small class="ach-form-elements-descriptions">Write down short notes of 500 chars about the achievment</small>
+						{!! Form::textarea("content",null,["class"=>"form-control ach-form-fields","id"=>"ach-textarea","maxlength"=>"500","rows"=>"4","placeholder"=>"e.g. Diabetes & Endocrinology Conference was held on the theme of To Collection of Innovative treatments involved in Endocrinology and Diabetes."]) !!}
+					</div>
+					<div class="ach-form-elements">
+						{!! Form::label("achievement_date","Date *",["class"=>"ach-formlabels"]) !!}
+						<small class="ach-form-elements-descriptions">Specify the date in which you got this achiement</small>
+						<div class="row" id="ach-date-row">
+							{!! Form::selectRange("year",1950,\Carbon\carbon::now()->format("Y"),null,["class"=>"form-control ach-date-fields"]) !!}
+							{!! Form::selectMonth("month",null,["class"=>"form-control ach-date-fields"]) !!}
+							{!! Form::selectRange("day",1,31,null,["class"=>"form-control ach-date-fields"]) !!}
+						</div>
+					</div>
+					<div class="ach-form-elements">
+						{!! Form::label("location","location *",["class"=>"ach-formlabels"]) !!}
+						<small class="ach-form-elements-descriptions">Where you got this achievment</small>
+						{!! Form::text("location",null,["class"=>"form-control ach-form-fields","maxlength"=>"40","placeholder"=>"e.g. Kabul, Afghanistan "]) !!}
+					</div>
+					<div class="ach-form-elements">
+						{!! Form::label("ach_photo","photo *",["class"=>"ach-formlabels"]) !!}
+						<small class="ach-form-elements-descriptions">Add a photo to prove the validity of achivements</small>
+						{!! Form::file("ach_photo",["class"=>"form-control ach-form-fields","disabled"=>"true","style"=>"display:none;"]) !!}
+						<div class="ach-ImageDiv" id="ach-imageDiv">
+	    					<button class="close ach-removeImage" onclick="removeAchImage()" >
+	    						&times; 
+	    						<span class="ach-removeImageText"> Remove photo</span>
+	    					</button>
+	    					<a href="javascript:void(0)" class="fal fa-edit ml-2" id="ach-editIcon" onclick="openAchPhotoField()">
+	    						<span class="ach-removeImageText">Change photo</span>
+	    					</a>
+	    					<div class="text-center" style="overflow: hidden;">
+								<img src="" id="achPhotoPlaceHolder" >
+							</div>
+						</div>
+						<span class="far fa-image" id="ach-photo-icon" onclick="openAchPhotoField()"></span>
+					</div>
+					<div class="dropdown-divider"></div>
+					<div class="ach-form-elements" id="ach-buttons-div">
+						<div  class="cancelSubmitButtonDiv">
+							<span class="far fa-arrow-left ach-icons" id="cancelButtonIcon"></span>
+							{!! Form::reset("Cancel",["class"=>"btn btn-sm ach-buttons","id"=>"resetAchForm","title"=>"close and reset the form","onclick"=>"closeAch()"]) !!}
+						</div>
+						<div class="float-right cancelSubmitButtonDiv">
+							{!! Form::submit("Add achievement",["class"=>"btn btn-sm ach-buttons","disabled"=>"true","title"=>"Add achiemvents. First need to fill all the form fields"]) !!}
+							<span class="far fa-arrow-right ach-icons" id="submitButtonIcon"></span>
+						</div>
+					</div>
+				{!! Form::close() !!}
+			</div>
+			<!-- form div end -->
+			<div style="width: 60%; margin: 0 auto;">
+				<h5>No Achievements to display</h5>
+			</div>
+		</div>
 	</div>
 
 	<div id="followers" class="tab-content">

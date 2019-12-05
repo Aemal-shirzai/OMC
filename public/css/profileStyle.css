@@ -1036,6 +1036,151 @@ div.Qtags span a{
 	overflow: none;
 	padding: 12px 140px;
 }
+
+/* Doctor achiivments part begging  //////////////////////////////////// */
+#achParent{
+	/*background-color: green;*/
+	padding:10px 10px;
+}
+#addAchButtonDiv{
+	width: 60%;
+	margin: 12px auto;
+	border-bottom: 1px solid #fbfbfd;
+	padding-bottom: 12px;
+	/*overflow: hidden;*/
+}
+#addAchButton{
+	cursor: pointer;
+	border:1px solid #3fbbc0;
+	background-color: #3fbbc0;
+	color: white;
+	font-size: 11px;
+}
+#achFormDiv{
+	background-color: white;
+	width: 60%;
+	padding:16px 12px;
+	margin:0 auto;
+	box-shadow: 0 4px 8px rgba(59,64,69,0.2);
+	display: none;
+}
+#ach-close-icon{
+	font-size: 22px;
+	cursor: pointer;
+}
+#ach-close-icon:hover{
+	color: red;
+}
+#achFormDiv h5{
+	font-weight: bold;
+	color: #495056;
+}
+
+.ach-formlabels{
+	display: block;
+	font-weight: bold;
+	margin-top: 3px;
+	margin-bottom: 0px;
+}
+.ach-form-elements-descriptions{
+	font-weight: bold;
+	font-size: 10px;
+}
+.ach-form-fields{
+	font-size: 11px;
+	font-weight: bold;
+}
+.ach-form-fields::placeholder{
+	color: #9ba1ad;
+	font-size: 10px;
+}
+#ach-textarea{
+	resize: none;
+	overflow: hidden;
+}
+#ach-date-row{
+	margin-right: 0px !important;
+	margin-left: 0px !important;
+}
+.ach-date-fields{
+	width: 16% !important;
+	height: 30px;
+	margin-right: 2px;
+	font-size: 13px;
+	padding-top: 3px;
+}
+#ach-photo-icon{
+	font-size: 24px;
+	display: block;
+}
+#ach-buttons-div{
+	background-color: #3fbbc0;
+	padding: 8px 2px;
+}
+.ach-buttons{
+	color: white;
+	padding: 0px;
+	padding-right: 30px;
+	padding-left: 30px;	
+}
+.ach-buttons:hover{
+	color: white;
+}
+.cancelSubmitButtonDiv{
+	display: inline-block;
+	position: relative;
+}
+.ach-icons{
+	color: white;
+	position: absolute;
+	cursor: pointer;
+	font-size: 11px;
+}
+#cancelButtonIcon{
+	left: 18px;
+	top: 7px;
+}
+#submitButtonIcon{
+	color: #aee2e4;
+	right:18px;
+	top: 8px;
+}
+div.ach-ImageDiv{
+	width: 90%;
+    display: none;
+    overflow: hidden;
+    max-height: 180px;
+    border-radius: 6px;
+    border: 1px solid lightgray;
+    overflow: hidden;
+    padding: 6px 4px;
+    margin: 0 auto;
+}
+div.ach-ImageDiv img{
+	max-width: 220px;
+	max-height: 150px;
+	border-radius: 12px;
+}
+button.ach-removeImage{
+	color: red;
+	font-size: 18px !important; 
+}
+#ach-editIcon{
+	font-size: 12px;
+}
+.ach-removeImageText{
+	font-size: 10px !important;
+}
+div.ach-ImageDiv a{
+	float: left;
+}
+div.ach-ImageDiv a:hover{
+	color: black;
+	text-decoration: none;
+}
+div.ach-ImageDiv button:focus{
+	outline: none;
+}
 /* iphod pro /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 1200px) and (min-width: 1024px){
 	#tags{
@@ -1315,34 +1460,34 @@ span.no-image-in-following{
 	}
 /* End of the form of replies */
 
-/* Beggining Following part for normal user */
-div#followingParent{
-	width: 80%;
-}
-div.followingOwnerImage{
-	width: 13%;
-}
-div.followingOwnerImage img{
-	height: 45px;
-    width: 45px;
-}
-span.no-image-in-following{
-	padding: 11px 13px;
-    height: 42px;
-    width: 42px;
-}
-.followingButtonAll{
-	font-size: 10px;
-	margin-top:-27px; 
-}
-.followedBy{
-	color: #828282;
-	display: table;
-	font-size: 9px;
-	margin-top: -3px;
-	
-}
-/* End Following part for normal user */	 
+	/* Beggining Following part for normal user */
+	div#followingParent{
+		width: 80%;
+	}
+	div.followingOwnerImage{
+		width: 13%;
+	}
+	div.followingOwnerImage img{
+		height: 45px;
+	    width: 45px;
+	}
+	span.no-image-in-following{
+		padding: 11px 13px;
+	    height: 42px;
+	    width: 42px;
+	}
+	.followingButtonAll{
+		font-size: 10px;
+		margin-top:-27px; 
+	}
+	.followedBy{
+		color: #828282;
+		display: table;
+		font-size: 9px;
+		margin-top: -3px;
+		
+	}
+	/* End Following part for normal user */	 
 
 	/*   The seciton for listing all questions for a normal user NOTE: some styles are taken from the above styles       */
 	div#allQuestionsParent{
@@ -1372,6 +1517,57 @@ span.no-image-in-following{
 		font-size: 13px;
 	}
 
+	/* Doctor achiivments part begging  //////////////////////////////////// */
+	#achFormDiv{
+		width: 90%;
+	}
+	#achFormDiv h5{
+		font-size: 14px
+	}
+	.ach-buttons{
+		font-size: 13px;
+	}
+	#submitButtonIcon{
+		right:18px;
+		top: 7px;
+	}
+	div.ach-ImageDiv{
+		    width: 90%;
+	    display: none;
+	    overflow: hidden;
+	    max-height: 180px;
+	    border-radius: 6px;
+	    border: 1px solid lightgray;
+	    overflow: hidden;
+	    padding: 6px 4px;
+	    /* margin-bottom: 12px; */
+	    margin: 0 auto;
+	}
+	div.ach-ImageDiv img{
+		max-width: 220px;
+		max-height: 150px;
+		border-radius: 12px;
+	}
+	button.ach-removeImage{
+		color: red;
+		font-size: 18px !important; 
+	}
+	#ach-editIcon{
+		font-size: 12px;
+	}
+	.ach-removeImageText{
+		font-size: 10px !important;
+	}
+	div.ach-ImageDiv a{
+		float: left;
+	}
+	div.ach-ImageDiv a:hover{
+		color: black;
+		text-decoration: none;
+	}
+	div.ach-ImageDiv button:focus{
+		outline: none;
+	}
 
 
 
@@ -1804,6 +2000,72 @@ span.no-image-in-following{
 		width: 100%;
 	}
 
+	/* Doctor achiivments part begging  //////////////////////////////////// */
+	#achParent{
+		/*background-color: green;*/
+		padding:10px 0px;
+	}
+	#achFormDiv{
+		width: 100%;
+		padding:16px 4px;
+		box-shadow: 0 2px 4px rgba(59,64,69,0.2);
+	}
+	#achFormDiv h5{
+		font-size: 13px;
+	}
+	.ach-formlabels{
+		font-size: 11px;
+	}
+	.ach-form-elements-descriptions{
+		font-size: 8px;
+	}
+	.ach-form-fields{
+		font-size: 9px;
+	}
+	.ach-form-fields::placeholder{
+		font-size: 8px;
+	}
+	.ach-date-fields{
+		width: 32% !important;
+		height: 28px;
+		font-size: 10px;
+		padding-top: 5px;
+	}
+	#ach-photo-icon{
+		font-size: 22px;
+		display: block;
+	}
+	#ach-buttons-div{
+		padding: 6px 2px;
+	}
+	.ach-buttons{
+		font-size: 11px;
+	}
+	#cancelButtonIcon{
+		top: 6px;
+	}
+	#submitButtonIcon{
+		top: 7px;
+	}
+	div.ach-ImageDiv{
+		width: 100%;
+	}
+	div.ach-ImageDiv img{
+		max-width: 150px;
+		max-height: 120px;
+	}
+	button.ach-removeImage{
+		color: red;
+		margin-top: -9px;
+		font-size: 26px !important; 
+	}
+	#ach-editIcon{
+		font-size: 12px;
+	}
+	.ach-removeImageText{
+		display: none;
+	}
+
 } 
 
 /* for small screen sizes ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
@@ -1919,9 +2181,28 @@ span.no-image-in-following{
 
 /* Beggining of showing all repplies */
 
-div.allRepliessContent p{
-	font-size: 10px;
-	margin-left: 0px;
-}
+	div.allRepliessContent p{
+		font-size: 10px;
+		margin-left: 0px;
+	}
 /* End of showing all repplies */
+
+/*Achievements part*/
+	.ach-buttons{
+		padding-right: 15px;
+		padding-left: 15px;	
+		font-size: 10px;
+	}
+	.ach-icons{
+		font-size: 10px;
+	}
+	#cancelButtonIcon{
+		left: 5px;
+		top: 7px;
+	}
+	#submitButtonIcon{
+		right:5px;
+		top: 8px;
+	}
+
 }
