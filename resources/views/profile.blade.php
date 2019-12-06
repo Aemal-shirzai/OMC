@@ -137,7 +137,7 @@
 
 <div class="container">
 @if($user->owner_type == 'App\Doctor')
-	<div id="posts" class="tab-content" >
+	<div id="posts" class="tab-content">
 		@if(count($posts) > 0)
 			@foreach($posts as $post)
 
@@ -829,8 +829,53 @@
 			@endcan
 			@endauth
 			<!-- form div end -->
-			<div style="width: 60%; margin: 0 auto;">
-				<h5>No Achievements to display</h5>
+			<div id="achiemvents-content">
+				@if($achievements)
+				@if(count($achievements) > 0)
+					@foreach($achievements as $achievement)
+						<div class="achievement-titleAndInfo">
+							<h5 class="">{{$achievement->ach_title}}</h5>
+							<small class="timeAndLocation"><span class="far fa-map-marker-alt"></span> {{$achievement->ach_location}}</small>
+							<small class="timeAndLocation">
+								<span class="far fa-clock"></span>
+								@php
+									$date = explode("-",$achievement->ach_date);
+									$year = $date[0];
+									$month = $date[1];
+									$day = explode(" ",$date[2])[0];
+
+								@endphp		
+								{{ \Carbon\Carbon::createFromDate($year,$month,$day)->format("d-M-Y") }}				
+							</small>
+							
+							<div class="ach-fulllContent">
+								<p>{{$achievement->ach_content}}</p>
+							</div>
+							<div class="ach-image-options">
+								<a href="#" onclick="loadImage('{{$achievement->id}}')" target="__blank" onmouseleave ="closeAchTips('{{$achievement->id}}','view')" onmouseover="showAchTips('{{$achievement->id}}','view')">
+									<span class="far fa-file-certificate"></span>
+								</a>
+								<span class="ach-options-info" id="relatedViewText-{{$achievement->id}}">View related file</span>
+
+								<a href="/Storage/images/achievements/{{$achievement->photos()->where('status',1)->first()->path}}" download=""  onmouseleave="closeAchTips('{{$achievement->id}}','download')" onmouseover="showAchTips('{{$achievement->id}}','download')">
+									<span class="far fa-download"></span>
+								</a>
+								<span class="ach-options-info" id="relatedDownloadText-{{$achievement->id}}">Download related file</span>
+							</div>
+						</div>
+						<div class="ach-pic-div" id="ach-img-div-{{$achievement->id}}">
+							<span class="close far fa-times closeAchImg" onclick="hideDiv('{{$achievement->id}}')"></span>
+							<img class="imgLoad" id="imgLoad-{{$achievement->id}}" src="{{asset('images/load1.gif')}}">
+							<a href="/Storage/images/achievements/{{$achievement->photos()->where('status',1)->first()->path}}" class="ach-img-links" target="__blank">
+								<img src="" class="ach-img" id="img-{{$achievement->id}}" alt="not showen" >
+							</a>
+						</div>
+					@endforeach
+					
+				@else
+					<h5>No Achievements to display</h5>
+				@endif
+				@endif
 			</div>
 		</div>
 	</div>
@@ -1319,8 +1364,12 @@
 
 		// This route is delete the post by post owner
 		var deletePost = '{{route("deletePost")}}';
-				// This route is delete the post by post owner
+
+		// This route is delete the post by post owner
 		var deleteQuestion = '{{route("deleteQuestion")}}';
+
+		// This route is delete the post by post owner
+		var loadAchImage = '{{route("loadAchImage")}}';
 
 
 	</script>

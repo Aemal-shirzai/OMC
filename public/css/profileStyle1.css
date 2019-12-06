@@ -434,7 +434,6 @@ div.commentImageDiv{
     max-height: 180px;
     border-radius: 10px;
     border:1px solid lightgray;
-    overflow: hidden;
     padding: 12px 20px;
     margin-bottom: 12px;
 }
@@ -1061,6 +1060,7 @@ div.Qtags span a{
 	padding:16px 12px;
 	margin:0 auto;
 	box-shadow: 0 4px 8px rgba(59,64,69,0.2);
+	margin-bottom: 15px;
 	display: none;
 }
 #ach-close-icon{
@@ -1205,11 +1205,113 @@ div.ach-ImageDiv button:focus{
 	font-size: 11px
 }
 
+#achiemvents-content{
+	background-color: white;
+	width: 60%;
+	padding:16px 20px;
+	margin:0 auto;
+	
+}
+.achievement-titleAndInfo{
+	padding:16px 20px;
+	margin:0 auto;
+	box-shadow: 0 4px 8px rgba(59,64,69,0.2);
 
+}
+.achievement-titleAndInfo h5{
+	font-weight: bold;
+}
+.timeAndLocation{
+	display: block;
+}
+.ach-fulllContent{
+	text-align:justify ;
+}
+.ach-fulllContent p{
+	line-height: 19px;
+	font-size: 14px;
+	margin-top: 12px;
+}
+.ach-fulllContent p::first-letter{
+	font-size: 20px;
+	font-weight: bold;
+	text-transform: uppercase;
+	text-shadow: 0 0 1px lightgray;
+}
+.ach-image-options{
+	position: relative;
+}
+
+.ach-image-options a{
+	text-decoration: none;
+	color: #3fbbc0;
+}
+.ach-options-info{
+	position: absolute;
+    background-color: #3fbbc0;
+    padding: 1px 5px;
+    color: white;
+    font-size: 9px;
+    top: -15px;
+    border-radius: 16px;
+}
+.ach-options-info{
+	position: absolute;
+    background-color: #3fbbc0;
+    padding: 1px 5px;
+    color: white;
+    font-size: 9px;
+    top: -15px;
+    border-radius: 16px;
+    display: none;
+}
+.ach-options-info:nth-of-type(1){
+	left: 1px;
+}
+.ach-options-info:nth-of-type(2){
+	left: 20px;
+}
+.ach-pic-div{
+ 	position: absolute;
+ 	/*background-color: white;*/
+ 	box-shadow: 0 2px 4px 5000px rgba(59,64,69,0.2);
+ 	width: 100%;
+ 	max-height: 100%;
+ 	z-index: 5;
+ 	left: 0px;
+ 	background-color: transparent;
+ 	top: 37%;
+ 	display: none;
+}
+.ach-img{
+    max-width: 35%;
+    max-height: 400px;
+    left: 34%;
+    box-shadow: 15px 17px 27px 19px grey;
+    position: fixed;
+    top: 25%; 
+    border-radius: 15px;
+    display: none; 
+}
+.imgLoad{
+    left: 50%;
+    top: 50%;
+    position: fixed;  
+}
+
+.closeAchImg{
+	font-size: 40px;
+	color: red;top: -65px; 
+	position: fixed;
+	right: 100px;
+	top: 25%;
+	cursor: pointer;
+}
 /* iphod pro /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 1200px) and (min-width: 1024px){
 	#tags{
-		display: none;
+		right: 32px !important;
+		width: 127px !important;
 	}
 /* post Tags part*/
 	div.tags span{
@@ -1309,7 +1411,11 @@ div.ach-ImageDiv button:focus{
 		font-size: 9px;	
 	}
 	/* End Following part for normal user */
-		
+	
+	/*achievments part*/
+	#achiemvents-content{
+		width: 80%;
+	}
 
 
 }
@@ -1596,6 +1702,14 @@ div.ach-ImageDiv button:focus{
 	}
 	div.ach-ImageDiv button:focus{
 		outline: none;
+	}
+	#achiemvents-content{
+		width: 90%;
+		padding:16px 0px;
+	}
+	.achievement-titleAndInfo{
+		box-shadow: 0 2px 3px rgba(59,64,69,0.2);
+
 	}
 
 }
@@ -2101,6 +2215,49 @@ div.ach-ImageDiv button:focus{
 		height: 47px;
 	    font-size: 10px;
 	}
+
+	#achiemvents-content{
+		width: 100%;
+		padding:16px 0px;
+		
+	}
+	.achievement-titleAndInfo{
+		padding:16px 0px;
+		margin:0 auto;
+		box-shadow:none;
+		border-bottom: 1px solid #f1ecec;
+
+	}
+	.achievement-titleAndInfo h5{
+		font-weight: bold;
+		font-size: 15px;
+	}
+	.timeAndLocation{
+		display: block;
+		font-size: 11px;
+	}
+	.ach-fulllContent p{
+		font-size: 13px;
+	}
+	.ach-fulllContent p::first-letter{
+		font-size: 17px;
+	}
+	.ach-img{
+	   max-width: 70%;
+	    left: 10%;
+	    box-shadow: 15px 17px 27px 19px grey;
+	    top: 31%;
+	}
+	.closeAchImg{
+		font-size: 40px;
+		color: red;top: -65px; 
+		position: fixed;
+		right: 22px;
+		top: 19%;
+		cursor: pointer;
+	}
+
+
 } 
 
 /* for small screen sizes ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/

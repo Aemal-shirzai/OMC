@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\DoctorAchievementsRequest;
 use Carbon\Carbon;
+use App\DoctorAchievement;
 class DoctorController extends Controller
 {
     public function __construct(){
@@ -150,6 +151,11 @@ class DoctorController extends Controller
     } 
     // mian functioin end
 
+    public function loadAchImage(Request $request){
+        $ach = DoctorAchievement::find($request->id);
+        $photo = $ach->photos()->where("status",1)->first()->path;
+        return response()->json(["photo"=>$photo]);   
+    }
     
 
 

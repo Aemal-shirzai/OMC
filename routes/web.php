@@ -82,6 +82,8 @@ Route::resource("/doctors","DoctorController");
 Route::get("/{type}/doctors","DoctorController@sortBy")->name("doctorsSortBy");
 //  to aadd acheivements to doctor
 Route::Post("/ach/create","DoctorController@achAdd")->name("achAdd");
+//  to aadd acheivements to doctor
+Route::Post("/ach/image","DoctorController@loadAchImage")->name("loadAchImage");
 
 // Routes for normal users
 Route::resource("/nusers","NormalUserController");

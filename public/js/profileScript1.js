@@ -1259,3 +1259,44 @@ function openContent1(tab,value){
  	 $("#"+tab).addClass("active");
 }
 // End of the function show the tab to wich the response is comming from db
+
+
+function showAchTips(value,type){
+	if(type == "view"){
+		$("#relatedViewText-"+value).fadeIn();
+	}else{
+		$("#relatedDownloadText-"+value).fadeIn();
+	}
+}
+
+function closeAchTips(value,type){
+	if(type == "view"){
+		$("#relatedViewText-"+value).fadeOut();
+	}else{
+		$("#relatedDownloadText-"+value).fadeOut();
+	}
+}
+
+function loadImage(value){
+	$("#ach-img-div-"+value).fadeIn();
+	$("body").css("pointer-events","none");
+	$(".closeAchImg").css("pointer-events","bounding-box");
+	$(".ach-img-links").css("pointer-events","bounding-box");
+
+	event.preventDefault();
+	$.ajax({
+		method: "POST",
+		url: loadAchImage,
+		data:{id:value, _token:token}
+	}).done(function(response){
+		$("#imgLoad-"+value).hide();
+		$("#img-"+value).attr("src", '/Storage/images/achievements/'+response['photo']);
+		$("#img-"+value).show();
+	});
+}
+
+
+function hideDiv(value){
+	$("#ach-img-div-"+value).fadeOut();
+	$("body").css("pointer-events","initial");
+}
