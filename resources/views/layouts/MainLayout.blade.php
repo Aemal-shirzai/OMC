@@ -312,7 +312,7 @@
 
 @elseif(Route::currentRouteName() == 'doctors.index' || Route::currentRouteName() == 'nusers.index' || Route::currentRouteName() == 'doctorsSortBy' || Route::currentRouteName() == 'nusersSortBy')
 <!-- Link to local js for doctors and normal users list page -->
-<script type="text/javascript" src="{{asset('js/usersScript1.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/usersScript.js')}}"></script>
 @endif
 
 <script type="text/javascript">
