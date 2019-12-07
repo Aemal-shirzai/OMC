@@ -1280,8 +1280,8 @@ function closeAchTips(value,type){
 function loadImage(value){
 	$("#ach-img-div-"+value).fadeIn();
 	$("body").css("pointer-events","none");
-	$(".closeAchImg").css("pointer-events","bounding-box");
-	$(".ach-img-links").css("pointer-events","bounding-box");
+	$(".closeAchImg").css("pointer-events","initial");
+	$(".ach-img-links").css("pointer-events","initial");
 
 	event.preventDefault();
 	$.ajax({
