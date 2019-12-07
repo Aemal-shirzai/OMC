@@ -2,7 +2,9 @@ div.confirmationBox{
 	width: 273px;
 	height: 160px;
 	background: white;
-	box-shadow:  0px 0px 10px 3px #b1a0a0;
+	/*box-shadow:  0px 0px 10px 3px #b1a0a0;*/
+
+	box-shadow: 0 2px 4px 800px rgba(59,64,69,0.2);
 	border-radius: 10px;
 	position: fixed;
 	z-index: 1;
@@ -14,6 +16,7 @@ div.confirmationBox{
 }
 div.confirmationBox a{
 	margin: 37px 25px;
+	pointer-events: initial !important;
 }
 a#topButtonP:focus{
 	box-shadow: none;
@@ -1271,6 +1274,21 @@ div.ach-ImageDiv button:focus{
 .ach-options-info:nth-of-type(2){
 	left: 20px;
 }
+.ach-options-info:nth-of-type(3){
+	left: 30px;
+}
+.ach-options-info:nth-of-type(4){
+	left: 50px;
+	background-color: #f25e64;
+	color: white;
+}
+.ach-image-options a{
+	margin-left: 1px;
+}
+.ach-image-options a:nth-of-type(4):hover{
+	color: #f25e64;
+}
+
 .ach-pic-div{
  	position: absolute;
  	/*background-color: white;*/
@@ -1724,7 +1742,7 @@ div.ach-ImageDiv button:focus{
 	    font-size: 10px;
 	}
 	div.confirmationBox a{
-		    margin: 23px 19px;
+		    margin: 23px 12px;
     		font-size: 10px;
 	}
 

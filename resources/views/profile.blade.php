@@ -833,7 +833,13 @@
 				@if($achievements)
 				@if(count($achievements) > 0)
 					@foreach($achievements as $achievement)
-						<div class="achievement-titleAndInfo">
+						<div class="confirmationBox" id="achConfirmationBox-{{$achievement->id}}">
+							<div id="text">Are You Sure To Delete?</div>
+							<div id="text"><small>Remember: There is no comeback</small></div>
+							<a href="javascript:void(0)" onclick="deleteAch('{{$achievement->id}}')" class="btn btn-danger btn-sm">Remove</a>
+							<a href="javascript:void(0)" onclick="achClosePermissionBox('{{$achievement->id}}')" class="btn btn-light btn-sm">Cancel</a>
+						</div>
+						<div class="achievement-titleAndInfo" id="ach-MainContent-{{$achievement->id}}">
 							<h5 class="">{{$achievement->ach_title}}</h5>
 							<small class="timeAndLocation"><span class="far fa-map-marker-alt"></span> {{$achievement->ach_location}}</small>
 							<small class="timeAndLocation">
@@ -861,6 +867,20 @@
 									<span class="far fa-download"></span>
 								</a>
 								<span class="ach-options-info" id="relatedDownloadText-{{$achievement->id}}">Download related file</span>
+
+								@can("view", $user)
+									<a href=""  onmouseleave="closeAchTips('{{$achievement->id}}','edit')" onmouseover="showAchTips('{{$achievement->id}}','edit')">
+										<span class="far fa-edit"></span>
+									</a>
+									<span class="ach-options-info" id="relatedEditText-{{$achievement->id}}">Edit the post</span>
+
+									<a href="#" id="ach-DeleteLink-{{$achievement->id}}"  onmouseleave="closeAchTips('{{$achievement->id}}','delete')" onmouseover="showAchTips('{{$achievement->id}}','delete')" onclick="openAchPermission('{{$achievement->id}}')">
+										<span class="far fa-trash"></span>
+									</a>
+									<img src="{{asset('images/load1.gif')}}" id="ach-DeleteLoading-{{$achievement->id}}" style="display: none;width: 20px;">
+									<span class="ach-options-info" id="relatedDeleteText-{{$achievement->id}}">Delete Post </span>
+								@endcan
+
 							</div>
 						</div>
 						<div class="ach-pic-div" id="ach-img-div-{{$achievement->id}}">
@@ -1368,8 +1388,11 @@
 		// This route is delete the post by post owner
 		var deleteQuestion = '{{route("deleteQuestion")}}';
 
-		// This route is delete the post by post owner
+		// This route is load the image for achivemtns
 		var loadAchImage = '{{route("loadAchImage")}}';
+
+		// This route is delete the achivments by dcotor
+		var achDelete = '{{route("achDelete")}}';
 
 
 	</script>

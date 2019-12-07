@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Doctor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\DoctorAchievementsRequest;
 use Carbon\Carbon;
 use App\DoctorAchievement;
@@ -151,20 +152,41 @@ class DoctorController extends Controller
     } 
     // mian functioin end
 
+    // this function load the the achivement image using ajax
     public function loadAchImage(Request $request){
         $ach = DoctorAchievement::find($request->id);
         $photo = $ach->photos()->where("status",1)->first()->path;
         return response()->json(["photo"=>$photo]);   
     }
+    // end of:this function load the the achivement image using ajax
     
 
 
 
     public function achUpdate(){
         
-    }public function achDelete(){
-        
     }
+
+    // function which deletes the achiemvent using ajax request
+    public function achDelete(Request $request){
+        if($this->authorize("Doctor_related",Auth::user())){
+            $ach = DoctorAchievement::find($request->id);
+
+            if(Auth::user()->is($ach->doctor->account)){
+                if($ach->photos()->count() > 0){
+                    foreach($ach->photos as $photo){
+                        Storage::delete("public/images/achievements/".$photo->path);
+                        $photo->delete();
+                    }
+                }
+                $ach->delete();
+            }
+        
+        }
+        // end of authorization statement
+    }
+    // End of:function which deletes the achiemvent using ajax request
+
 
 
 

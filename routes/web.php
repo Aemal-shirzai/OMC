@@ -84,6 +84,8 @@ Route::get("/{type}/doctors","DoctorController@sortBy")->name("doctorsSortBy");
 Route::Post("/ach/create","DoctorController@achAdd")->name("achAdd");
 //  to aadd acheivements to doctor
 Route::Post("/ach/image","DoctorController@loadAchImage")->name("loadAchImage");
+//  to deete acheivements to doctor
+Route::DELETE("/ach/delete","DoctorController@achDelete")->name("achDelete");
 
 // Routes for normal users
 Route::resource("/nusers","NormalUserController");

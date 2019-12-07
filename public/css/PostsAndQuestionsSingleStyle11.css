@@ -83,7 +83,7 @@ div.confirmationBox{
 	width: 273px;
 	height: 160px;
 	background: white;
-	box-shadow:  0px 0px 10px 3px #b1a0a0;
+	box-shadow: 0 2px 4px 800px rgba(59,64,69,0.2);
 	border-radius: 10px;
 	position: fixed;
 	z-index: 1;
@@ -95,6 +95,7 @@ div.confirmationBox{
 }
 div.confirmationBox a{
 	margin: 37px 25px;
+	pointer-events: initial !important;
 }
 a#topButtonP:focus{
 	box-shadow: none;

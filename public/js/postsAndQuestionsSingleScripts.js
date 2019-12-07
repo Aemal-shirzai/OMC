@@ -270,9 +270,12 @@ function followPost(postId){
 
 // deleting question confirmation box 
 function openPostConfirmation(){
+ $("body").css("pointer-events","none");
+ $("#shareOptions").hide();
  $("#postConfirmationBox").fadeIn();
 }
 function postClosePermissionBox(){
+ $("body").css("pointer-events","initial");
  $("#postConfirmationBox").fadeOut();
 }
 // deleging question confirmation box
@@ -280,9 +283,9 @@ function postClosePermissionBox(){
 
 // Beggining of the function which delete question in profile
 function deletePosts(postId){
+	postClosePermissionBox();
 	$("#postDeleteText").text("Loading ...");
 	$("#postDeleteText").css("color","red");
-	$("#postConfirmationBox").fadeOut();
 	$.ajax({
 		method: "DELETE",
 		url: deletePost,
@@ -583,20 +586,22 @@ function voteComments(commentId,type){
 
 // Beggging of the function which make sure user delete the comment
 function deleteCommentPermission(commentId){
+	$("body").css("pointer-events","none");
 	$("#commentConfirmationBox-"+commentId).fadeIn();
 }
 
 // End of the function which make sure user delete the comment
 function closePermissionBox(commentId){
 	$("#commentConfirmationBox-"+commentId).fadeOut();
+	$("body").css("pointer-events","initial");
 }
 // Beggining of the function which delete comment
 
 function deleteComments(commentId,postOrQuestionId){
+	closePermissionBox(commentId);
 	event.preventDefault();
 	$("#commentDeleteButton-"+commentId).text(" Deleting...");
 	$("#commentDeleteButton-"+commentId).css("color","red");
-	$("#commentConfirmationBox-"+commentId).fadeOut('fast');
 	$.ajax({
 		method: "DELETE",
 		url:deleteComment,
@@ -851,16 +856,19 @@ function voteReplies(replyId,type)
 
 // Beggging of the function which make sure user delete the reply
 function deleteReplyPermission(replyId){
+ $("body").css("pointer-events","none");
  $("#replyConfirmationBox-"+replyId).fadeIn();	
 }
 // End of the function which make sure user delete the reply
 
 function closeDeleteReplyPermission(replyId){
  $("#replyConfirmationBox-"+replyId).fadeOut();
+ $("body").css("pointer-events","initial");
 }
 
 // Beggining of the function which delete replies
 function deleteReplies(replyId,commentId){
+	closeDeleteReplyPermission(replyId);
 	event.preventDefault();
 	$("#deleteReplyButton-"+replyId).text(" Deleting...");
 	$("#deleteReplyButton-"+replyId).css("color","red");
@@ -990,19 +998,22 @@ function followQuestion(questionId){
 
 // deleting question confirmation box 
 function openQuestionConfirmation(){
+ $("body").css("pointer-events","none");
+ $("#shareOptions").hide();
  $("#questionConfirmationBox").fadeIn();
 }
 function questionClosePermissionBox(){
  $("#questionConfirmationBox").fadeOut();
+ $("body").css("pointer-events","initial");
 }
 // deleging question confirmation box
 
 
 // Beggining of the function which delete question in profile
 function deleteQuestions(questiontId){
+	questionClosePermissionBox();
 	$("#questionDeleteText").text("Loading ...");
 	$("#questionDeleteText").css("color","red");
-	$("#questionConfirmationBox").fadeOut();
 	$.ajax({
 		method: "DELETE",
 		url: deleteQuestion,

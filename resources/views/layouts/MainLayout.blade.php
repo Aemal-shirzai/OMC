@@ -24,11 +24,11 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsStyle11.css')}}">
 	@elseif(Route::currentRouteName() == 'posts.index' || Route::currentRouteName() == 'questionsSortBy' || Route::currentRouteName() == 'postsSortBy' || Route::currentRouteName() == 'questions.index')
 	<!-- Link to local styles for posts list page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsListStyle1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsListStyle.css')}}">
 
 	@elseif(Route::currentRouteName() == 'posts.show' || Route::currentRouteName() == 'questions.show')
 	<!-- Link to local styles for posts list page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsSingleStyle1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsSingleStyle11.css')}}">
 
 	@elseif(Route::currentRouteName() == 'doctors.index' || Route::currentRouteName() == 'nusers.index' || Route::currentRouteName() == 'doctorsSortBy' || Route::currentRouteName() == 'nusersSortBy')
 	<!-- Link to local styles for doctors and normal users list page -->
@@ -298,17 +298,17 @@
 
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
-<script type="text/javascript" src="{{asset('js/profileScript.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/profileScript11.js')}}"></script>
 
 @elseif(Route::currentRouteName() == 'posts.create' || Route::currentRouteName() == 'questions.create' || Route::currentRouteName() == 'posts.edit' || Route::currentRouteName() == 'questions.edit' ||  Route::currentRouteName() == 'comments.edit' || Route::currentRouteName() == 'replies.edit')
 <!-- Link to local  js for posts page -->
-<script type="text/javascript" src="{{asset('js/postsAndQuestionsScripts1212.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/postsAndQuestionsScripts.js')}}"></script>
 @elseif(Route::currentRouteName() == 'posts.index' || Route::currentRouteName() == 'postsSortBy' || Route::currentRouteName() == 'questionsSortBy' || Route::currentRouteName() == 'questions.index')
 <!-- Link to local  js for posts page -->
-<script type="text/javascript" src="{{asset('js/postsAndQuestionsListScripts.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/postsAndQuestionsListScripts1122.js')}}"></script>
 @elseif(Route::currentRouteName() == 'posts.show' || Route::currentRouteName() == 'questions.show')
 <!-- Link to local  js for singl posts and questions page -->
-<script type="text/javascript" src="{{asset('js/postsAndQuestionsSingleScripts333.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/postsAndQuestionsSingleScripts.js')}}"></script>
 
 @elseif(Route::currentRouteName() == 'doctors.index' || Route::currentRouteName() == 'nusers.index' || Route::currentRouteName() == 'doctorsSortBy' || Route::currentRouteName() == 'nusersSortBy')
 <!-- Link to local js for doctors and normal users list page -->

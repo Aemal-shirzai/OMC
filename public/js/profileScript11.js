@@ -758,16 +758,19 @@ function followDoctor(doctorId,type){
 
 // Beggging of the function which make sure user delete the comment
 function deleteCommentPermission(commentId){
+	$("body").css("pointer-events","none");
 	$("#commentConfirmationBox-"+commentId).fadeIn();
 }
 
 // End of the function which make sure user delete the comment
 function closePermissionBox(commentId){
 	$("#commentConfirmationBox-"+commentId).fadeOut();
+	$("body").css("pointer-events","initial");
 }
 // Beggining of the function which delete comment
 
 function deleteComments(commentId,postId){
+	closePermissionBox(commentId);
 	event.preventDefault();
 	$("#commentDeleteButton-"+commentId).text(" Deleting...");
 	$("#commentDeleteButton-"+commentId).css("color","red");
@@ -796,15 +799,18 @@ function deleteComments(commentId,postId){
 // Beggging of the function which make sure user delete the reply
 function deleteReplyPermission(replyId){
  $("#replyConfirmationBox-"+replyId).fadeIn();	
+  $("body").css("pointer-events","none");
 }
 // End of the function which make sure user delete the reply
 
 function closeDeleteReplyPermission(replyId){
  $("#replyConfirmationBox-"+replyId).fadeOut();
+  $("body").css("pointer-events","initial");
 }
 
 // Beggining of the function which delete replies
 function deleteReplies(replyId,commentId){
+	closeDeleteReplyPermission(replyId);
 	event.preventDefault();
 	$("#deleteReplyButton-"+replyId).text(" Deleting...");
 	$("#deleteReplyButton-"+replyId).css("color","red");
@@ -828,17 +834,19 @@ function deleteReplies(replyId,commentId){
 
 // removing followers confirmation box 
 function deleteFollowerConfirmation(followerId){
+ $("body").css("pointer-events","none");
  $("#followerConfirmationBox-"+followerId).fadeIn();
 }
 function followerClosePermissionBox(followerId){
  $("#followerConfirmationBox-"+followerId).fadeOut();
+ $("body").css("pointer-events","initial");
 }
 // removing followers confirmation box
 
 
 // Beggining of the function responsible for removing followers by doctors
 function removeFollowers(userId){
-	$("#followerConfirmationBox-"+userId).fadeOut("fast");
+	followerClosePermissionBox(userId);
 	$("#followerButton-"+userId).text("Removing...");
 	$("#followerButton-"+userId).css("color","red");
 	event.preventDefault();
@@ -859,16 +867,20 @@ function removeFollowers(userId){
 
 // deleting post confirmation box 
 function openPostConfirmation(postId){
+ $("body").css("pointer-events","none");
+ $(".shareOptions").hide();
  $("#postConfirmationBox-"+postId).fadeIn();
 }
 function postClosePermissionBox(postId){
  $("#postConfirmationBox-"+postId).fadeOut();
+  $("body").css("pointer-events","initial");
 }
 // deleging posts confirmation box
 
 
 // Beggining of the function which delete posts in profile
 function deletePosts(postId){
+	postClosePermissionBox(postId);
 	$("#postDeleteText-"+postId).text("Loading ...");
 	$("#postDeleteOption-"+postId).css("color","red");
 	$("#postConfirmationBox-"+postId).fadeOut();
@@ -1260,23 +1272,34 @@ function openContent1(tab,value){
 }
 // End of the function show the tab to wich the response is comming from db
 
-
+// Beggging of the functions which shows and close the tips for ach options
 function showAchTips(value,type){
 	if(type == "view"){
 		$("#relatedViewText-"+value).fadeIn();
-	}else{
+	}else if(type == "download"){
 		$("#relatedDownloadText-"+value).fadeIn();
+	}else if(type == "edit"){
+		$("#relatedEditText-"+value).fadeIn();
+	}else{
+		$("#relatedDeleteText-"+value).fadeIn();
 	}
 }
 
 function closeAchTips(value,type){
 	if(type == "view"){
 		$("#relatedViewText-"+value).fadeOut();
-	}else{
+	}else if(type == "download"){
 		$("#relatedDownloadText-"+value).fadeOut();
+	}else if(type == "edit"){
+		$("#relatedEditText-"+value).fadeOut();
+	}else{
+		$("#relatedDeleteText-"+value).fadeOut();
 	}
 }
+// End of the functions which shows and close the tips for ach options
 
+
+// Beggining of the function which load image from db to achiemvents
 function loadImage(value){
 	$("#ach-img-div-"+value).fadeIn();
 	$("body").css("pointer-events","none");
@@ -1294,9 +1317,40 @@ function loadImage(value){
 		$("#img-"+value).show();
 	});
 }
+// end of the function which load image from db to achiemvents
 
-
+// Beggining of the function which close the image after its shown
 function hideDiv(value){
 	$("#ach-img-div-"+value).fadeOut();
 	$("body").css("pointer-events","initial");
+}
+// end of the function which close the image after its shown
+
+
+function openAchPermission(value){
+	$("#achConfirmationBox-"+value).fadeIn();
+	$("body").css("pointer-events","none");
+	event.preventDefault();
+}
+function achClosePermissionBox(value){
+	$("#achConfirmationBox-"+value).fadeOut();
+	$("body").css("pointer-events","initial");
+}
+
+
+
+
+function deleteAch(value,evt){
+	achClosePermissionBox(value);	
+	$("#ach-DeleteLink-"+value).hide();
+	$("#ach-DeleteLoading-"+value).show();
+	event.preventDefault();
+	$.ajax({
+		method: "DELETE",
+		url:achDelete,
+		data:{id:value, _token:token}
+	}).done(function(response){
+		$("#ach-MainContent-"+value).slideUp();
+	});
+	// achDelete
 }
