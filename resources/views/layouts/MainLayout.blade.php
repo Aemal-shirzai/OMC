@@ -32,7 +32,10 @@
 
 	@elseif(Route::currentRouteName() == 'doctors.index' || Route::currentRouteName() == 'nusers.index' || Route::currentRouteName() == 'doctorsSortBy' || Route::currentRouteName() == 'nusersSortBy')
 	<!-- Link to local styles for doctors and normal users list page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/usersStyle1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/usersStyle1.css')}}">	
+	@elseif(Route::currentRouteName() == 'achEdit')
+	<!-- Link to local styles for doctors and normal users list page -->
+	<link rel="stylesheet" type="text/css" href="{{asset('css/achEditStyle11.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -298,7 +301,7 @@
 
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
-<script type="text/javascript" src="{{asset('js/profileScript11.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/profileScript1.js')}}"></script>
 
 @elseif(Route::currentRouteName() == 'posts.create' || Route::currentRouteName() == 'questions.create' || Route::currentRouteName() == 'posts.edit' || Route::currentRouteName() == 'questions.edit' ||  Route::currentRouteName() == 'comments.edit' || Route::currentRouteName() == 'replies.edit')
 <!-- Link to local  js for posts page -->
@@ -313,6 +316,10 @@
 @elseif(Route::currentRouteName() == 'doctors.index' || Route::currentRouteName() == 'nusers.index' || Route::currentRouteName() == 'doctorsSortBy' || Route::currentRouteName() == 'nusersSortBy')
 <!-- Link to local js for doctors and normal users list page -->
 <script type="text/javascript" src="{{asset('js/usersScript.js')}}"></script>
+
+@elseif(Route::currentRouteName() == 'achEdit')
+<!-- Link to local js for doctors and normal users list page -->
+<script type="text/javascript" src="{{asset('js/achEditScripts12.js')}}"></script>
 @endif
 
 <script type="text/javascript">

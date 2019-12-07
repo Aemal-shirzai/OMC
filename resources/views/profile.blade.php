@@ -781,6 +781,11 @@
 					<div class="ach-form-elements">
 						{!! Form::label("ach_date","Date *",["class"=>"ach-formlabels"]) !!}
 						<small class="ach-form-elements-descriptions">Specify the date in which you got this achiement</small>
+						<div class="ach-errors" id="achLocationError">
+							@error("ach_year") {{ $message }} @enderror
+							@error("ach_month") {{ $message }} @enderror
+							@error("ach_day") {{ $message }} @enderror
+						</div>
 						<div class="row" id="ach-date-row">
 							{!! Form::selectRange("ach_year",1950,\Carbon\carbon::now()->format("Y"),null,["class"=>"form-control ach-date-fields"]) !!}
 							{!! Form::selectMonth("ach_month",null,["class"=>"form-control ach-date-fields"]) !!}
@@ -832,13 +837,20 @@
 			<div id="achiemvents-content">
 				@if($achievements)
 				@if(count($achievements) > 0)
+					@if(session("achUpdate_success"))
+						<div class="alert alert-success alert-sm ach-messages">
+							<button class="close ach-close" data-dismiss="alert" area-hidden="true"><span class="fal fa-times"></span></button>
+							{{session("achUpdate_success")}}
+						</div>
+					@endif
 					@foreach($achievements as $achievement)
 						<div class="confirmationBox" id="achConfirmationBox-{{$achievement->id}}">
 							<div id="text">Are You Sure To Delete?</div>
 							<div id="text"><small>Remember: There is no comeback</small></div>
-							<a href="javascript:void(0)" onclick="deleteAch('{{$achievement->id}}')" class="btn btn-danger btn-sm">Remove</a>
+							<a href="javascript:void(0)" onclick="deleteAch('{{$achievement->id}}')" class="btn btn-danger btn-sm">Delete</a>
 							<a href="javascript:void(0)" onclick="achClosePermissionBox('{{$achievement->id}}')" class="btn btn-light btn-sm">Cancel</a>
 						</div>
+
 						<div class="achievement-titleAndInfo" id="ach-MainContent-{{$achievement->id}}">
 							<h5 class="">{{$achievement->ach_title}}</h5>
 							<small class="timeAndLocation"><span class="far fa-map-marker-alt"></span> {{$achievement->ach_location}}</small>
@@ -869,7 +881,7 @@
 								<span class="ach-options-info" id="relatedDownloadText-{{$achievement->id}}">Download related file</span>
 
 								@can("view", $user)
-									<a href=""  onmouseleave="closeAchTips('{{$achievement->id}}','edit')" onmouseover="showAchTips('{{$achievement->id}}','edit')">
+									<a href="{{route('achEdit',$achievement->id)}}"  onmouseleave="closeAchTips('{{$achievement->id}}','edit')" onmouseover="showAchTips('{{$achievement->id}}','edit')">
 										<span class="far fa-edit"></span>
 									</a>
 									<span class="ach-options-info" id="relatedEditText-{{$achievement->id}}">Edit the post</span>
@@ -1321,6 +1333,13 @@
 		<script type="text/javascript">
 			openContent1("achMainButton",'achievements');
 			$("#achFormDiv").show();
+		</script>
+	@endif
+
+<!-- when someone click the back button in thee achiemvents edit page -->
+	@if(app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName() == "achEdit" || session('achUpdate_success'))
+		<script type="text/javascript">
+			openContent1("achMainButton",'achievements');
 		</script>
 	@endif
 

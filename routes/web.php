@@ -86,6 +86,10 @@ Route::Post("/ach/create","DoctorController@achAdd")->name("achAdd");
 Route::Post("/ach/image","DoctorController@loadAchImage")->name("loadAchImage");
 //  to deete acheivements to doctor
 Route::DELETE("/ach/delete","DoctorController@achDelete")->name("achDelete");
+//  to return edit page acheivements to doctor
+Route::get("/ach/{ach}/edit","DoctorController@achEdit")->name("achEdit");
+//  to updte acheivements to doctor
+Route::MATCH(['PUT','PATCH'],"/ach/{ach}/update","DoctorController@achUpdate")->name("achUpdate");
 
 // Routes for normal users
 Route::resource("/nusers","NormalUserController");

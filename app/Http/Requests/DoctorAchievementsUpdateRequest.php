@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DoctorAchievementsRequest extends FormRequest
+class DoctorAchievementsUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,12 +27,13 @@ class DoctorAchievementsRequest extends FormRequest
             'ach_title' => "bail|required|max:100",
             'ach_content' => "bail|required|max:500",
             'ach_location' => "bail|required|max:100",
-            'ach_photo' => "bail|required|image|max:10240",
+            'ach_photo' => "bail|image|max:10240",
             'ach_year' => "bail|required|regex:/^[0-9]+$/i",
             'ach_month' => "bail|required|regex:/^[0-9]+$/i",
             'ach_day' => "bail|required|regex:/^[0-9]+$/i",
         ];
     }
+
 
     public function messages(){
         return [
@@ -42,7 +43,6 @@ class DoctorAchievementsRequest extends FormRequest
             'ach_title.max' => "Long description  not  allowed ...",
             'ach_location.required' => "Too long location info not allowed ...",
             'ach_location.max' => "Long location  not  allowed ...",
-            'ach_photo.required' => "The photo is required",
             'ach_photo.image' => "Invalid file. Only photos are allowed...",
             'ach_photo.max' => "File too large. max 10MB...",
             'ach_year.required' => "The year can not be empty ...",
@@ -53,6 +53,4 @@ class DoctorAchievementsRequest extends FormRequest
             'ach_day.regex' => "Invalid data from day ...",
         ];
     }
-
-
 }

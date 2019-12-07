@@ -1,0 +1,551 @@
+div.confirmationBox{
+	width: 273px;
+	height: 160px;
+	background: white;
+	/*box-shadow:  0px 0px 10px 3px #b1a0a0;*/
+
+	box-shadow: 0 2px 4px 800px rgba(59,64,69,0.2);
+	border-radius: 10px;
+	position: fixed;
+	z-index: 1;
+	top:42%;
+	left: 39%;
+	padding: 20px 20px;
+	overflow: hidden;
+	display: none;
+}
+div.confirmationBox a{
+	margin: 37px 25px;
+	pointer-events: initial !important;
+}
+a#topButtonP:focus{
+	box-shadow: none;
+}
+
+/* Doctor achiivments part begging  //////////////////////////////////// */
+#achParent{
+	/*background-color: green;*/
+	padding:10px 40px;
+}
+#addAchButtonDiv{
+	width: 60%;
+	margin: 12px auto;
+	border-bottom: 1px solid #fbfbfd;
+	padding-bottom: 12px;
+}
+.addAchButton{
+	cursor: pointer;
+	border:1px solid #3fbbc0;
+	background-color: #3fbbc0;
+	color: white;
+	font-size: 11px;
+	transition:  0.5s;
+}
+.addAchButton:nth-of-type(1):hover{
+	color: white;
+}
+.addAchButton:nth-of-type(2):hover{
+	background-color: #e3342f;
+	border:1px solid #e3342f;
+	color: white;
+}
+#achFormDiv{
+	background-color: white;
+	width: 60%;
+	padding:16px 12px;
+	margin:0 auto;
+	box-shadow: 0 4px 8px rgba(59,64,69,0.2);
+	margin-bottom: 15px;
+	/*display: none;*/
+}
+
+#achFormDiv h5{
+	font-weight: bold;
+	color: #495056;
+}
+
+.ach-formlabels{
+	display: block;
+	font-weight: bold;
+	margin-top: 3px;
+	margin-bottom: 0px;
+}
+.ach-form-elements-descriptions{
+	font-weight: bold;
+	font-size: 10px;
+}
+.ach-form-fields{
+	font-size: 11px;
+	font-weight: bold;
+}
+.ach-form-fields::placeholder{
+	color: #9ba1ad;
+	font-size: 10px;
+}
+#ach_content{
+	resize: none;
+	overflow: hidden;
+}
+#ach-date-row{
+	margin-right: 0px !important;
+	margin-left: 0px !important;
+}
+.ach-date-fields{
+	width: 16% !important;
+	height: 30px;
+	margin-right: 2px;
+	font-size: 13px;
+	padding-top: 3px;
+}
+#ach-photo-icon{
+	text-decoration: none;
+	color: #3fbbc0;
+	font-size: 24px;
+	cursor: pointer;
+}
+#ach-buttons-div{
+	background-color: #3fbbc0;
+	padding: 8px 2px;
+}
+.ach-buttons{
+	color: white;
+	padding: 0px;
+	padding-right: 30px;
+	padding-left: 30px;	
+}
+.ach-buttons:hover{
+	color: white;
+}
+.cancelSubmitButtonDiv{
+	display: inline-block;
+	position: relative;
+}
+.ach-icons{
+	color: white;
+	position: absolute;
+	cursor: pointer;
+	font-size: 11px;
+}
+#cancelButtonIcon{
+	left: 18px;
+	top: 7px;
+}
+#submitButtonIcon{
+	right:18px;
+	top: 8px;
+}
+div.ach-ImageDiv{
+	width: 85%;
+    /*display: none;*/
+    overflow: hidden;
+    max-height: 180px;
+    border-radius: 6px;
+    border: 1px solid lightgray;
+    overflow: hidden;
+    padding: 6px 4px;
+    margin: 0 auto;
+}
+div.ach-ImageDiv img{
+	max-width: 220px;
+	max-height: 150px;
+	border-radius: 12px;
+}
+button.ach-removeImage{
+	color: red;
+	font-size: 18px !important; 
+}
+#ach-editIcon{
+	font-size: 12px;
+}
+.ach-removeImageText{
+	font-size: 10px !important;
+}
+div.ach-ImageDiv a{
+	float: left;
+}
+div.ach-ImageDiv a:hover{
+	color: black;
+	text-decoration: none;
+}
+div.ach-ImageDiv button:focus{
+	outline: none;
+}
+.ach-errors{
+	color: red;
+	font-size: 10px;
+	margin-top: 2px;
+	margin-left: 1px;
+	font-weight: bold;
+}
+.ach-errors-messages{
+	border:1px solid red;
+}
+.ach-messages{
+	height: 31px;
+    font-size: 11px;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 7px
+}
+.ach-close{
+	margin-top: -3px;
+}
+.ach-close span{
+	font-size: 11px
+}
+
+#achiemvents-content{
+	background-color: white;
+	width: 60%;
+	padding:16px 20px;
+	margin:0 auto;
+	
+}
+.achievement-titleAndInfo{
+	padding:16px 20px;
+	margin:0 auto;
+	box-shadow: 0 4px 8px rgba(59,64,69,0.2);
+
+}
+.achievement-titleAndInfo h5{
+	font-weight: bold;
+}
+.timeAndLocation{
+	display: block;
+}
+.ach-fulllContent{
+	text-align:justify ;
+}
+.ach-fulllContent p{
+	line-height: 19px;
+	font-size: 14px;
+	margin-top: 12px;
+}
+.ach-fulllContent p::first-letter{
+	font-size: 20px;
+	font-weight: bold;
+	text-transform: uppercase;
+	text-shadow: 0 0 1px lightgray;
+}
+.ach-image-options{
+	position: relative;
+}
+
+.ach-image-options a{
+	text-decoration: none;
+	color: #3fbbc0;
+}
+.ach-options-info{
+	position: absolute;
+    background-color: #3fbbc0;
+    padding: 1px 5px;
+    color: white;
+    font-size: 9px;
+    top: -15px;
+    border-radius: 16px;
+}
+.ach-options-info{
+	position: absolute;
+    background-color: #3fbbc0;
+    padding: 1px 5px;
+    color: white;
+    font-size: 9px;
+    top: -15px;
+    border-radius: 16px;
+    display: none;
+}
+.ach-options-info:nth-of-type(1){
+	left: 1px;
+}
+.ach-options-info:nth-of-type(2){
+	left: 20px;
+}
+.ach-options-info:nth-of-type(3){
+	left: 30px;
+}
+.ach-options-info:nth-of-type(4){
+	left: 50px;
+	background-color: #f25e64;
+	color: white;
+}
+.ach-image-options a{
+	margin-left: 1px;
+}
+.ach-image-options a:nth-of-type(4):hover{
+	color: #f25e64;
+}
+
+.ach-pic-div{
+ 	position: absolute;
+ 	/*background-color: white;*/
+ 	box-shadow: 0 2px 4px 5000px rgba(59,64,69,0.2);
+ 	width: 100%;
+ 	max-height: 100%;
+ 	z-index: 5;
+ 	left: 0px;
+ 	background-color: transparent;
+ 	top: 37%;
+ 	display: none;
+}
+.ach-img{
+    max-width: 35%;
+    max-height: 400px;
+    left: 34%;
+    box-shadow: 15px 17px 27px 19px grey;
+    position: fixed;
+    top: 25%; 
+    border-radius: 15px;
+    display: none; 
+}
+.imgLoad{
+    left: 50%;
+    top: 50%;
+    position: fixed;  
+}
+
+.closeAchImg{
+	font-size: 40px;
+	color: red;top: -65px; 
+	position: fixed;
+	right: 100px;
+	top: 25%;
+	cursor: pointer;
+}
+/* iphod pro /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 1200px) and (min-width: 1024px){
+	/*achievments part*/
+	#achiemvents-content{
+		width: 80%;
+	}
+
+
+}
+
+/* below ipon pro //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+@media screen and (max-width: 1023px) and (min-width: 768px){
+	/* Doctor achiivments part begging  //////////////////////////////////// */
+	#achFormDiv{
+		width: 90%;
+	}
+	#addAchButtonDiv{
+		width: 90%;
+	}
+
+	#achFormDiv h5{
+		font-size: 14px
+	}
+	.ach-buttons{
+		font-size: 13px;
+	}
+	#submitButtonIcon{
+		right:18px;
+		top: 7px;
+	}
+	div.ach-ImageDiv{
+		width: 90%;
+	    display: none;
+	    overflow: hidden;
+	    max-height: 180px;
+	    border-radius: 6px;
+	    border: 1px solid lightgray;
+	    overflow: hidden;
+	    padding: 6px 4px;
+	    /* margin-bottom: 12px; */
+	    margin: 0 auto;
+	}
+	div.ach-ImageDiv img{
+		max-width: 220px;
+		max-height: 150px;
+		border-radius: 12px;
+	}
+	button.ach-removeImage{
+		color: red;
+		font-size: 18px !important; 
+	}
+	#ach-editIcon{
+		font-size: 12px;
+	}
+	.ach-removeImageText{
+		font-size: 10px !important;
+	}
+	div.ach-ImageDiv a{
+		float: left;
+	}
+	div.ach-ImageDiv a:hover{
+		color: black;
+		text-decoration: none;
+	}
+	div.ach-ImageDiv button:focus{
+		outline: none;
+	}
+	#achiemvents-content{
+		width: 90%;
+		padding:16px 0px;
+	}
+	.achievement-titleAndInfo{
+		box-shadow: 0 2px 3px rgba(59,64,69,0.2);
+
+	}
+
+}
+/* 640  - 769 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+@media screen and (max-width: 767px){
+	div.confirmationBox{
+		width: 217px;
+	    height: 116px;
+	    top: 42%;
+	    left: 21%;
+	    padding: 20px 20px;
+	    font-size: 10px;
+	}
+	div.confirmationBox a{
+	    margin: 23px 12px;
+		font-size: 10px;
+	}
+
+	/* Doctor achiivments part begging  //////////////////////////////////// */
+	#achParent{
+		/*background-color: green;*/
+		padding:10px 2px;
+	}
+	#addAchButtonDiv{
+		width: 100%;
+	}
+
+	#achFormDiv{
+		width: 100%;
+		padding:16px 4px;
+		box-shadow: 0 2px 4px rgba(59,64,69,0.2);
+	}
+	#achFormDiv h5{
+		font-size: 13px;
+	}
+	.ach-formlabels{
+		font-size: 11px;
+	}
+	.ach-form-elements-descriptions{
+		font-size: 8px;
+	}
+	.ach-form-fields{
+		font-size: 9px;
+	}
+	.ach-form-fields::placeholder{
+		font-size: 8px;
+	}
+	.ach-date-fields{
+		width: 32% !important;
+		height: 28px;
+		font-size: 10px;
+		padding-top: 5px;
+	}
+	#ach-photo-icon{
+		font-size: 22px;
+		display: block;
+	}
+	#ach-buttons-div{
+		padding: 6px 2px;
+	}
+	.ach-buttons{
+		font-size: 11px;
+	}
+	#cancelButtonIcon{
+		top: 6px;
+	}
+	#submitButtonIcon{
+		top: 7px;
+	}
+	div.ach-ImageDiv{
+		width: 100%;
+	}
+	div.ach-ImageDiv img{
+		max-width: 150px;
+		max-height: 120px;
+	}
+	button.ach-removeImage{
+		color: red;
+		margin-top: -9px;
+		font-size: 26px !important; 
+	}
+	#ach-editIcon{
+		font-size: 12px;
+	}
+	.ach-removeImageText{
+		display: none;
+	}
+
+	.ach-messages{
+		height: 47px;
+	    font-size: 10px;
+	}
+
+	#achiemvents-content{
+		width: 100%;
+		padding:16px 0px;
+		
+	}
+	.achievement-titleAndInfo{
+		padding:16px 0px;
+		margin:0 auto;
+		box-shadow:none;
+		border-bottom: 1px solid #f1ecec;
+
+	}
+	.achievement-titleAndInfo h5{
+		font-weight: bold;
+		font-size: 15px;
+	}
+	.timeAndLocation{
+		display: block;
+		font-size: 11px;
+	}
+	.ach-fulllContent p{
+		font-size: 13px;
+	}
+	.ach-fulllContent p::first-letter{
+		font-size: 17px;
+	}
+	.ach-img{
+	   max-width: 70%;
+	    left: 10%;
+	    box-shadow: 15px 17px 27px 19px grey;
+	    top: 31%;
+	}
+	.closeAchImg{
+		font-size: 40px;
+		color: red;top: -65px; 
+		position: fixed;
+		right: 22px;
+		top: 19%;
+		cursor: pointer;
+	}
+
+
+} 
+
+/* for small screen sizes ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+@media screen and (max-width:640px){
+	
+}
+
+/* 320 px iphone 5se ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+@media screen and (max-width: 320px){
+	
+/*Achievements part*/
+	.ach-buttons{
+		padding-right: 15px;
+		padding-left: 15px;	
+		font-size: 10px;
+	}
+	.ach-icons{
+		font-size: 10px;
+	}
+	#cancelButtonIcon{
+		left: 5px;
+		top: 7px;
+	}
+	#submitButtonIcon{
+		right:5px;
+		top: 8px;
+	}
+
+}
