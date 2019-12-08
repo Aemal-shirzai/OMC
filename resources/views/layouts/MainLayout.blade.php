@@ -3,7 +3,7 @@
 <head>
 	<title>@yield("title")</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<!-- <meta name="csrf-token" content="{{ csrf_token() }}"> -->
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<!-- Link to bootstap app.css -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
@@ -36,6 +36,9 @@
 	@elseif(Route::currentRouteName() == 'achEdit')
 	<!-- Link to local styles for doctors and normal users list page -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/achEditStyle11.css')}}">
+	@elseif(Route::currentRouteName() == 'profile.edit')
+	<!-- Link to local styles for doctors and normal users list page -->
+	<link rel="stylesheet" type="text/css" href="{{asset('css/editUsers1.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -320,6 +323,10 @@
 @elseif(Route::currentRouteName() == 'achEdit')
 <!-- Link to local js for doctors and normal users list page -->
 <script type="text/javascript" src="{{asset('js/achEditScripts12.js')}}"></script>
+
+@elseif(Route::currentRouteName() == 'profile.edit')
+<!-- Link to local js for editing users -->
+<script type="text/javascript" src="{{asset('js/editUsers.js')}}"></script>
 @endif
 
 <script type="text/javascript">

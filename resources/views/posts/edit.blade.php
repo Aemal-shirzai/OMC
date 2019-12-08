@@ -160,7 +160,9 @@
 					@if($post->tags()->count() > 0)
 						@foreach($post->tags as $tag)
 							<div style="overflow: hidden;" onclick="removeTags('{{$tag->id}}')" id="oldTag-{{$tag->id}}">
-								<button class="close">&times;</button>
+								<button class="close">
+									&times;
+								</button>
 								<a href="javascript:void()">
 									{{$tag->category}}
 								</a>

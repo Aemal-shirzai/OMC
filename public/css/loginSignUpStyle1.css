@@ -343,7 +343,7 @@ div#main-img{
 		margin-top: 200px;
 	}
 	.more_form_element{
-		width: 12% !important;
+		width: 100% !important;
 	}
 	.moreInfoFormErrors{
 		font-size: 11px;

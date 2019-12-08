@@ -28,7 +28,7 @@
 				<h2>{{ $user->username }}</h2>
 				@auth
 					@if(Auth::user()->username == $user->username)
-						<a href="#" class="btn btn-md editFollowBtn"><i class="fad fa-edit"></i> Edit Profile</a>
+						<a href="{{route('profile.edit',$user->username)}}" class="btn btn-md editFollowBtn"><i class="fad fa-edit"></i> Edit Profile</a>
 					@else
 					<!-- This if means that show the button when the current user is not a doctor and the the user to which the profile belongs to is a doctor it means only normal users can see this on the profile of only doctros  -->
 						@if($user->owner_type == "App\Doctor" && Auth::user()->owner_type != "App\Doctor")

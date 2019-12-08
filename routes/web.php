@@ -29,6 +29,9 @@ Route::get("/register/{user}/moreinfo","Auth\RegisterController@moreInfoIndex")-
 Route::post("/register/moreinfo/store","Auth\RegisterController@moreInfoStore")->name("moreinfo.store");
 
 Route::get('/profile/{user}', 'ProfileController@index')->name('profile');
+Route::get('/profile/{profile}/edit', 'ProfileController@edit')->name('profile.edit');
+// called using ajax function
+Route::DELETE('/profile/photo/remove', 'ProfileController@removePhoto')->name('profile.removePhoto');
 
 // Routes for contuct us
 Route::resource('/contactUs','ContactUsController');
