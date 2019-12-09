@@ -169,3 +169,55 @@ function removeprofilePhoto(accountId){
 
 	});
 }
+
+// Begginng of the functions which display and hide how to add tag info
+function showTagInfo(){
+	$("#tagInfo").toggle();
+}
+// End of the functions which display and hide how to add tag info
+
+// Begginng of the functions which display and hide how to add tags
+function showTags(){
+	$("#tags").toggle();
+}
+// End of the functions which display and hide how to add tags
+
+
+// ///////////////////////////////// for edit page
+function removeTags(tagId){
+	var count = $(":checkbox:checked").length;
+	document.getElementById("tag-"+tagId).checked = false;
+	document.getElementById("oldTag-"+tagId).style.display = "none";
+	$("#tagsCount").text(parseInt($("#tagsCount").text())-1);
+	if(count < 7){
+		$("#addTagLink").removeClass("errorButton");
+		$("#tagsNote").css("color","#9ba1a7");
+		$("#tagsErrorMessage").text("");	
+	}else{
+		
+	}
+	event.preventDefault();
+}
+
+
+
+
+// BO the : function responsible for validating the tags based on checbox changing 
+function showAndValidateTagsCountEdit(value){
+	var count = $(":checkbox:checked").length;
+	$("#oldTag-"+value).hide();
+	$("#tagsCount").text(count);
+	if(count > 5){
+		$("#addTagLink").addClass("errorButton");
+		$("#tagsNote").css("color","red");
+		$("#tagsErrorMessage").text("Only 5 fields are allowed");	
+	}else{
+		$("#addTagLink").removeClass("errorButton");
+		$("#tagsNote").css("color","#9ba1a7");
+		$("#tagsErrorMessage").text("");	
+	}
+}
+//EO the : function responsible for validating the tags based on checbox changing 
+
+
+

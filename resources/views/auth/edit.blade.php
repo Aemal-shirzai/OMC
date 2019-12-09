@@ -40,7 +40,7 @@
 			<div class="confirmationBox" id="changeConfirmationBox">
 				<div id="text" class="changeOptions">Change Profile Photo</div>
 				<div class="dropdown-divider"></div>
-				<div id="textUpload" class="changeOptions"><a href="javascript:void(0)" onclick="openphotoField()">Upload Photo</a></div>
+				<div id="textUpload" class="changeOptions"><a href="javascript:void(0)" onclick="openphotoField()">Change Photo</a></div>
 				<div class="dropdown-divider"></div>
 				@if($account->photos()->where("status","1")->first())
 				<div id="textRemove" class="changeOptions"><a href="javascript:void(0)" onclick="removeprofilePhoto('{{$account->id}}')">Remove Current Photo</a></div>
@@ -84,7 +84,72 @@
 					{!! Form::label("Bio","Bio",["class"=>"form-labels"]) !!}
 					{!! Form::textarea("Bio",null,["class"=>"form-control form-fields", "id"=>"biography", "rows"=>"4", "maxlength"=>"200", "style"=>"resize:none","placeholder"=>"max of 200 chars"]) !!}
 				</div>
+				@can("doctor_related",$account)
+				<div class="form-elements input-group">
+					{!! Form::label("specialization","Your specialization",["class"=>"form-labels"]) !!}
+					<a href="javascrip:void(0)" onclick="showTags()" id="addTagLink">
+						<span id="tagsCount" class="badge badge-pill badge-light">{{$user->fields()->count()}}</span> &nbsp;
+						Select Your specialized field
+					</a>
+					<span class="ErrorMessage  mb-2" id="tagsErrorMessage">
+						@error('tags')
+							{{ $message }}
+						@enderror
+					</span>
+					<!-- old Tags part  -->
+					<div class="tags">
+						@if($user->fields()->count() > 0)
+							@foreach($user->fields as $field)
+								<div style="overflow: hidden;" onclick="removeTags('{{$field->id}}')" id="oldTag-{{$field->id}}">
+									<button class="close">
+										&times;
+									</button>
+									<a href="javascript:void()">
+										{{$field->category}}
+									</a>
+								</div>
+							@endforeach
+						@endif
+					</div>
+					<!-- old tags part end -->
 
+					<div class="clearfix"></div>
+					<span class="far fa-question" id="tagInfoIcon" onclick="showTagInfo()"></span>
+					<div id="tagInfo">
+						<h6>How to add Specialized Field?</h6>
+						<span>Choosing your field help poeple find you easily, and it describes your spicialized field</span>
+						<ul>
+							<li>Click on the (Select Your specialized field) button bellow</li>
+							<li>You will be opend a list of fileds you can select maximum 5 fields</li>
+						</ul>
+						<h6>If your desired field is not in list:</h6>
+						<span>Then just <a href="#">ask US to add one for you</a></span>
+					</div>
+					<div id="tags">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Tag Name</th>
+									<th>Select</th>
+								</tr>
+							</thead>
+							<tbody>
+								<span id="tagsNote">Choose with maximum of 5 fields</span>
+								<a href="javascript:void(0)" onclick="showTags()" class="btn btn-sm" id="tagsDoneBtn">Done</a>
+								@if(count($categories) > 0)
+								@foreach($categories as $d_category)
+								<tr>
+									<td><label> {{$d_category->category}} </label></td>
+									<td>{!! Form::checkbox("fields[]",$d_category->id,null,["class"=>"tagsCheckboxes ml-4","id"=>"tag-$d_category->id","onchange"=>"showAndValidateTagsCountEdit('$d_category->id')"]) !!}</td>
+								</tr>
+								@endforeach
+								@endif
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- doctor tags or category part end -->
+				@endcan 
 				<div class="form-elements input-group">
 					<span class="form-labels"></span>
 					{!! Form::submit("Update",["class" => "btn btn-sm mt-2","id"=>"submitButton"]) !!}

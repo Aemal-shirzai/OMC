@@ -10,6 +10,7 @@ use App\commentReply;
 use App\Country;
 use App\Province;
 use App\District;
+use App\Dcategory;
 
 
 use Illuminate\Http\Request;
@@ -64,6 +65,8 @@ class ProfileController extends Controller
 
         // account of user
         $account = Account::where("username",$username)->first();
+        // All doctors Categories
+        $categories = Dcategory::all();
 
         // if account is not found then return 404 page
         if(!$account){
@@ -117,7 +120,7 @@ class ProfileController extends Controller
         $user['phone1'] = $phone1;
         $user['phone2'] = $phone2;
 
-        return view("auth.edit",compact('account','user','countries','userContryProvinces','userProvinceDistricts','latestCountry','lastestProvince'));
+        return view("auth.edit",compact('account','user','countries','userContryProvinces','userProvinceDistricts','latestCountry','lastestProvince','categories'));
     }
 
 

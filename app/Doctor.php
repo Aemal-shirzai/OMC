@@ -72,4 +72,9 @@ class Doctor extends Model
     public function achievements(){
         return $this->hasMany(DoctorAchievement::class);
     }
+
+    // relationship with doctor_category table 
+    public function fields(){
+        return $this->belongsToMany(Dcategory::class,"dcategory_doctor","doctor_id","dcategory_id");
+    }
 }

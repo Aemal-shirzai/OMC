@@ -1,3 +1,16 @@
+.errorButton{
+	background-color: #e3342f !important;
+	border: 1px solid #e3342f !important;
+}
+.ErrorMessage{
+	color: red;
+    font-size: 12px;
+    font-weight: bold;
+    display: block;
+    width: 100%;
+    margin-left: 149px;
+    margin-top: -8px
+}
 div.confirmationBox{
 	width: 360px;
 	max-height: 182px;
@@ -53,7 +66,7 @@ a#topButtonP:focus{
 	width: 25%;
 	display: inline-block;
 	float: left;
-	min-height: 550px;
+	min-height: 620px;
 	padding: 1px 0px;
 }
 
@@ -76,7 +89,7 @@ a#topButtonP:focus{
 	padding: 16px 40px;
 	padding-right: 100px;
 	overflow: hidden;
-	min-height: 550px;
+	min-height: 620px;
 }
 
 .tabLinks{	
@@ -84,13 +97,13 @@ a#topButtonP:focus{
 	text-align:left;
 	background-color: inherit;
     border: none;
-    /*color: #262626;*/
     color: #666;
     font-weight: 600;
     font-size: 14px;
     transition: color 0.5s;
     padding: 10px 16px 20px 30px;
     border-bottom: 1px solid lightgray;
+
 }
 
 .tabLinks:hover{	
@@ -109,7 +122,7 @@ a#topButtonP:focus{
 	padding: 5px 12px;
 	font-weight: bold;	
 	font-size: 14px;
-	width: 200px;
+	width: 150px;
 }
 .form-fields{
     border: 1px solid #efefef;
@@ -117,7 +130,7 @@ a#topButtonP:focus{
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     color: #262626;
-    font-size: 15px;
+    font-size: 14px;
     height: 32px;
     padding: 0 10px;
 }
@@ -135,7 +148,7 @@ a#topButtonP:focus{
 
 #changePhoto{
 	margin-bottom: 7px;
-	padding: 0px 140px;
+	padding: 0px 90px;
 	overflow: hidden;
 }
 #userPhoto{
@@ -176,8 +189,141 @@ a#topButtonP:focus{
 	transition: 0.5s;
 }
 
+span#tagInfoIcon{
+	padding: 3px 3px;
+	color: white;
+	background-color: #3fbbc0;
+	cursor: pointer;
+	border-radius: 4px;
+	font-size: 10px;
+	position: absolute;
+	right: 3px;
+	top: 8px
+}
+#addTagLink{
+	display: block;
+	background-color: #3fbbc0;
+	border: 1px solid #3fbbc0;
+	color: white;
+	overflow: hidden;
+	margin-top: 2px;
+	height: 30px;
+	font-size: 12px;
+	padding: 4px 5px;
+	border-radius: 5px;
+	text-decoration: none;
+	transition: .5s;
+}
+div#tagInfo{
+	background-color: white;
+    position: absolute;
+    right: -7px;
+    top: -280px;
+    padding: 12px 12px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #6c6f71;
+    width: 226px;
+    box-shadow: 0 4px 8px rgba(59,64,69,0.2);
+    border-radius: 15px;
+    display: none;
+}
+div#tagInfo h6{
+	font-weight: bold;
+	color: #9ba1a7;
+	font-size: 12px;
+}
+div#tagInfo a{
+	color: #3fbbc0;
+}
+div#tagInfo:after{
+	content: "";
+	position: absolute;
+	width: 18px;
+	height: 18px;
+	right: 8px;
+	bottom: -7px;
+	transform: rotate(37deg);
+	background-color: white;
+	border-top: none;
+	border-left: none;
+	box-shadow:1 4px 8px rgba(59,64,69,0.2);
+}
+div#tags{
+	background-color: white;
+	position: absolute;
+	max-height: 235px;
+	overflow-y: auto;
+	overflow-x: visible;
+	left: 0px;
+	top: -240px;
+	padding: 12px 12px;
+	font-size: 12px;
+	font-weight: bold;
+	color: #6c6f71;
+	width: 251px;
+	box-shadow:0 4px 8px rgba(59,64,69,0.2);
+	border-radius: 10px;
+	display: none;
+}
+td{
+	padding:0 !important;
+	padding-top: 3px !important;
+}
+div#tags label{
+	color: #9ba1a7;
+}
+a#tagsDoneBtn{
+	background-color: #3fbbc0;
+    position: sticky;
+    z-index: 1;
+    top: 184px;
+    float: right;
+    right: -5px;
+    border-radius: 50%;
+    width: 35px;
+    overflow: hidden;
+    font-size: 8px;
+    box-shadow: 0 4px 8px rgba(59,64,69,0.2);
+    padding: 8px;
+    color: white;
+    font-weight: bold;
+}
+/*old fields*/
+div.tags{
+	margin-bottom: 2px;
+	margin-left: 147px;
+}
+div.tags div{
+	background-color: #fbfbfd;
+	border-radius: 4px;
+	padding: 0 5px;
+	margin-top:5px;
+	display: inline-block;
+}
+.close{
+	color:blue; 
+	font-size: 17px;
+	/*margin-top:-4px; */
+}
+div.tags div a{
+	font-size: 12px;
+	margin-right: 5px;
+}
+div.tags div a:hover{
+	text-decoration: none;
+}
+div.tags div:hover .close{
+	color: red !important;
+}
+
+
 /* iphod pro /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 1200px) and (min-width: 1024px){
+	.ErrorMessage{
+	    margin-left: 120px;
+	    margin-top: -24px
+	}
 	div.confirmationBox{
 		width: 360px;
 		max-height: 182px;
@@ -252,10 +398,26 @@ a#topButtonP:focus{
 	#changePhotoLink{
 		font-size: 14px;
 	}
+	div#tags{
+		left: 23px;
+		width: 234px;
+		font-size: 11px;
+	}
+
+
+	/*old filds*/
+	div.tags{
+	    margin-left: 112px;
+	    margin-top: -12px;
+	}
 }
 
 /* below ipon pro //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 @media screen and (max-width: 1023px) and (min-width: 768px){
+	.ErrorMessage{
+	    margin-left: 117px;
+	    margin-top: -24px
+	}
 	div.confirmationBox{
 		width: 360px;
 		max-height: 182px;
@@ -307,13 +469,13 @@ a#topButtonP:focus{
 	}
 	#editOptions{
 		width: 30%;
-		min-height: 800px;
+		min-height: 700px;
 	}
 	.editForm{
 		width: 70%;
 		padding: 16px 20px;
 		padding-right:40px;
-		min-height: 800px
+		min-height: 700px
 	}
 	.tabLinks{	
 		padding-left:20px;
@@ -335,10 +497,19 @@ a#topButtonP:focus{
 		font-size: 13px;
 	}
 
+	/*old filds*/
+	div.tags{
+	    margin-left: 112px;
+	    margin-top: -12px;
+	}
+
 }
 /* 640  - 769 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 @media screen and (max-width: 767px){
-
+	.ErrorMessage{
+	    margin-left: 0px;
+	    margin-top: 0px
+	}
 	div.confirmationBox{
 		width: 320px;
 		left: 9%;
@@ -427,6 +598,36 @@ a#topButtonP:focus{
 		transition: 0.5s;
 	}
 
+	div#tags{
+		width: 220px !important ;
+		left: 12px;
+		top: -236px;
+		font-size: 11px;
+	}
+
+	div#tagInfo{
+		background-color: white;
+	    position: absolute;
+	    right: 10px;
+	    top: -244px;
+	    padding: 12px 12px;
+	    font-size: 11px;
+	    font-weight: bold;
+	    color: #6c6f71;
+	    width: 226px;
+	    box-shadow: 0 4px 8px rgba(59,64,69,0.2);
+	    border-radius: 15px;
+	    /*display: none;*/
+	}
+	span#tagInfoIcon{
+		right: 19px;
+	}
+
+	/*old filds*/
+	div.tags{
+	    margin-left: 0px;
+	    margin-top: 0px;
+	}
 
 } 
 

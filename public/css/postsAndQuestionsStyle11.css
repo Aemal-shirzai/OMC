@@ -121,7 +121,7 @@ div#tagInfo{
 	background-color: white;
 	position: absolute;
 	right: 0px;
-	top: -260px;
+	top: -243px;
 	padding: 12px 12px;
 	font-size: 12px;
 	font-weight: bold;
@@ -159,13 +159,13 @@ div#tags{
 	max-height: 310px;
 	overflow-y: auto;
 	overflow-x: visible;
-	left: 250px;
+	left: 305px;
 	top: -240px;
 	padding: 12px 12px;
 	font-size: 12px;
 	font-weight: bold;
 	color: #6c6f71;
-	width: 336px;
+	width: 280px;
 	box-shadow:0 4px 8px rgba(59,64,69,0.2);
 	border-radius: 10px;
 	display: none;
@@ -330,10 +330,16 @@ textarea::-webkit-scrollbar {
 		margin-right: 9px;
 	}
 	div#tags{
-		width: 240px !important ;
-		left: 283px;
-		top: -231px;
-		font-size: 11px;
+		width: 213px !important;
+	    left: 284px;
+	    top: -247px;
+	    font-size: 11px;
+	}
+	a#tagsDoneBtn{
+	    right: 0px;
+	    width: 31px;
+	    padding: 8px 0px;
+	    font-size: 8px;
 	}
 	.messages{
 		/*width: 52%;*/
@@ -408,8 +414,8 @@ textarea::-webkit-scrollbar {
 	}
 
 	div#tags{
-		width: 240px !important ;
-		left: 283px;
+		width: 216px !important ;
+		left: 295px;
 		top: -235px;
 		font-size: 11px;
 	}
@@ -417,7 +423,9 @@ textarea::-webkit-scrollbar {
 	    position: sticky;
 	    z-index: 1;
 	    right: 0px;
-	    font-size: 9px;
+	    width: 31px;
+	    padding: 8px 0px;
+	    font-size: 8px;
 	}
 	#submitButton{
 		background-color: #56c161;
@@ -519,16 +527,18 @@ textarea::-webkit-scrollbar {
 	}
 
 	div#tags{
-		width: 240px !important ;
-		left: 258px;
-    	top: -245px;
-		font-size: 11px;
+		width: 200px !important;
+	    left: 278px;
+	    top: -266px;
+	    font-size: 11px;
 	}
 	a#tagsDoneBtn{
 	    position: sticky;
 	    z-index: 1;
 	    right: 0px;
-	    font-size: 9px;
+	    width: 31px;
+	    padding: 8px 0px;
+	    font-size: 8px;
 	}
 	#submitButton{
 		background-color: #56c161;
@@ -547,6 +557,12 @@ textarea::-webkit-scrollbar {
 		font-size: 10px;
 		font-weight: bold;
 	}
+	#submitButton{
+	background-color: #56c161;
+	color: white;
+	margin-top: 5px;
+	
+}
 	/*.messages{
 		left: 167px;
 		width: 68%;
@@ -567,12 +583,18 @@ textarea::-webkit-scrollbar {
 /* ///////////////////////////////////////////////////////////////// Samll sizes /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 468px){
 	div#tags{
-		width: 240px !important ;
-		left: 0px;
-		top: -223px;
-		font-size: 11px;
+		width: 200px !important;
+	    left: 0px;
+	    top: -244px;
+	    font-size: 11px;
 	}
-		div#tagInfo{
+	a#tagsDoneBtn{
+	    right: 0px;
+	    width: 31px;
+	    padding: 8px 0px;
+	    font-size: 8px;
+	}
+	div#tagInfo{
 		top: -225px;
 	}
 	div#invalidFile{
@@ -626,11 +648,7 @@ textarea::-webkit-scrollbar {
 	}
 
 	div#tags{
-		width: 240px !important ;
-		left: 0px;
-		height: 347px;
-		top: -223px;
-		font-size: 11px;
+		top: -221px;
 	}
 	
 	

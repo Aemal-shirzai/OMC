@@ -239,9 +239,16 @@ function showAndValidateTagsCount(event){
 
 // ///////////////////////////////// for edit page
 function removeTags(tagId){
+	var count = $(":checkbox:checked").length;
 	document.getElementById("tag-"+tagId).checked = false;
 	document.getElementById("oldTag-"+tagId).style.display = "none";
 	$("#tagsCount").text(parseInt($("#tagsCount").text())-1);
+	// i took it 7 here i dont know why it was not working when i take it 6
+	if(count < 7){
+		$("#addTagLink").removeClass("errorButton");
+		$("#tagsNote").css("color","#9ba1a7");
+		$("#tagsErrorMessage").text("");	
+	}
 	event.preventDefault();
 }
 
