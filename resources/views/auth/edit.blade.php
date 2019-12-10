@@ -18,6 +18,8 @@
 		<div id="editProfileForm" class="tab-content editForm">
 			<div id="changePhoto">
 				<div id="userPhoto">
+					<!-- this image is for ajax after its beign uploaded to show this one  -->
+					<img class="newImage image" src=""  onclick="changePhotoConfirmation()" title="Change Profile Photo" style="display: none;">
 					@if($account->photos()->where("status","1")->first())
 						@if($account->owner_type == "App\Doctor")
 							<img class="image" src="/storage/images/doctors/{{$account->photos()->where('status',1)->first()->path}}" onclick="changePhotoConfirmation()" title="Change Profile Photo">
@@ -34,6 +36,11 @@
 				<div id="userNameAndChangeBtn">
 					<span id="username">{{$account->username}}</span>
 					<a href="javascript:void(0)" id="changePhotoLink" onclick="changePhotoConfirmation()" title="Change Profile Photo">Change Profile Photo</a>
+						<span class="errors  mb-2" id="photoErrorMessage">
+						@error('photo')
+							{{ $message }}
+						@enderror
+					</span>
 				</div>
 			</div>
 
@@ -42,18 +49,24 @@
 				<div class="dropdown-divider"></div>
 				<div id="textUpload" class="changeOptions"><a href="javascript:void(0)" onclick="openphotoField()">Change Photo</a></div>
 				<div class="dropdown-divider"></div>
+				<!-- This is for ajax request to show it after that photo is beign uploaded-->
+				<div id="textRemove" class="changeOptions removeTextAndDivider removeForAjax" style="display: none"><a href="javascript:void(0)" onclick="removeprofilePhoto('{{$account->id}}')">Remove Current Photo</a></div>
+				<div id="removeDivider" class="dropdown-divider removeTextAndDivider removeForAjax" style="display: none;"></div>
+				<!-- End of  -->
 				@if($account->photos()->where("status","1")->first())
-				<div id="textRemove" class="changeOptions"><a href="javascript:void(0)" onclick="removeprofilePhoto('{{$account->id}}')">Remove Current Photo</a></div>
-				<div class="dropdown-divider"></div>
+				<div id="textRemove" class="changeOptions removeTextAndDivider"><a href="javascript:void(0)" onclick="removeprofilePhoto('{{$account->id}}')">Remove Current Photo</a></div>
+				<div  class="dropdown-divider removeTextAndDivider"></div>
 				@endif
 				<div id="textCancel" class="changeOptions"><a href="javascript:void(0)" onclick="changePhotoConfirmationClose()" >Cancel</a></div>
 			</div>
-
-			{!! Form::model($user,["method"=>"POST","files"=>"true"]) !!}
+			{!! Form::open(["method"=>"POST","files"=>"true","id"=>"uploadPhotoForm"]) !!}
 				<div class="form-elements input-group">
 					{!! Form::label("photo","Photo",["class"=>"form-labels","style"=>"display:none"]) !!}
-					{!! Form::file("photo",["class"=>"form-control form-fields","disabled"=>"true","style"=>"display : none"]) !!}
+					{!! Form::file("photo",["class"=>"form-control form-fields","id"=>"profilePhotoField","disabled"=>"true","style"=>"display : none"]) !!}
+					{!! Form::hidden("userId",$account->id) !!}
 				</div>
+			{!! Form::close() !!}
+			{!! Form::model($user,["method"=>"POST","files"=>"true"]) !!}
 				<div class="form-elements input-group">
 					{!! Form::label("fullName","Full Name",["class"=>"form-labels"]) !!}
 					{!! Form::text("fullName",null,["class"=>"form-control form-fields"]) !!}
@@ -194,7 +207,8 @@
 
 <script type="text/javascript">
 	var token = '{{ Session::token() }}';
-	var removePhoto = '{{route("profile.removePhoto")}}'
+	var removePhoto = '{{route("profile.removePhoto")}}';
+	var uploadPhoto = '{{route("profile.uploadPhoto")}}'
 </script>
 
 

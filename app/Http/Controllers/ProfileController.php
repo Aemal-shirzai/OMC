@@ -12,6 +12,7 @@ use App\Province;
 use App\District;
 use App\Dcategory;
 
+use Validator;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -127,7 +128,7 @@ class ProfileController extends Controller
     public function removePhoto(Request $req){
 
         $account = Account::find($req->account_id);
-
+    
         if($account->photos()->where("status",1)->first()){
            $photo =   $account->photos()->where("status",1)->first();
            if($account->owner_type == "App\Doctor"){
@@ -144,7 +145,67 @@ class ProfileController extends Controller
         }
 
 
-    }
+    } // remove photo function end
+
+   public function uploadPhoto(Request $request){
+
+        $Validator = Validator::make($request->all(),[
+            "photo" => "bail|required|image|max:10240",
+        ],[
+            'photo.required' => "Can not submit empty photo",
+            'photo.image'=>"Only photos are allowed...",
+            'photo.max' => "File too large. max 10MB...",
+
+        ]);
+        
+        if($Validator->fails()){
+            return response()->json(["error"=>$Validator->errors()->all()]);
+        }        
+
+        if($request->hasFile("photo")){
+             // get account
+            $account = Account::find($request->userId);
+
+            // get photo
+            $photo = $request->file("photo");
+            $fullName  = $photo->getClientOriginalName();
+            $onlyName = pathinfo($fullName,PATHINFO_FILENAME);
+            $extension = $photo->getClientOriginalExtension();
+            $nameToBeStored = $onlyName.time(). "." .$extension;
+
+
+            if($account->owner_type == "App\Doctor"){
+                $folder = "public/images/doctors/";
+            }else{
+                $folder = "public/images/normalUsers/";
+            }   
+    
+            $photo->storeAs($folder,$nameToBeStored);
+
+            // if the user already has a photo
+            if($account->photos()->where("status",1)->first()){
+                // get that old photo
+                $oldPhoto = $account->photos()->where("status",1)->first();
+                // if user is doctor then go to doctor folder else get it from normalusers folder
+                if($account->owner_type == "App\Doctor"){
+                    Storage::delete("/public/images/doctors/".$oldPhoto->path);
+                }else{
+                    Storage::delete("/public/images/normalUsers/".$oldPhoto->path);
+                }
+
+                // after deleting from folders update its path to new path in database witout deleting it
+                $newPhoto = $oldPhoto->update(["path"=>$nameToBeStored]);
+
+            }else{ // if the user does not have any photo before
+                $newPhoto = $account->photos()->create(["path"=>$nameToBeStored,"status"=>"1"]);                
+            }
+            // send this owner type to with json so we can diffrentiate the owner to show their photo according to thire type from thier folders
+            $ownerType = $account->owner_type;
+            return response()->json(["photoPath"=>$nameToBeStored,"owner_type"=>$ownerType]);
+
+        } // end of if thier is a photo in the request 
+   
+   } // uploading photo function end
 
 
 }

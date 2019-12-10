@@ -326,7 +326,7 @@
 
 @elseif(Route::currentRouteName() == 'profile.edit')
 <!-- Link to local js for editing users -->
-<script type="text/javascript" src="{{asset('js/editUsers1.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/editUsers122.js')}}"></script>
 @endif
 
 <script type="text/javascript">

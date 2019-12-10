@@ -113,29 +113,15 @@ function changePhotoConfirmationClose(){
 }
 // Beggining of the function which delete comment
 
-// function deleteComments(commentId,postId){
-// 	closePermissionBox(commentId);
-// 	event.preventDefault();
-// 	$("#commentDeleteButton-"+commentId).text(" Deleting...");
-// 	$("#commentDeleteButton-"+commentId).css("color","red");
-// 	$.ajax({
-// 		method: "DELETE",
-// 		url:deleteComment,
-// 		data:{comment_id:commentId,_token:token}
-// 	}).done(function(){
-// 		$("#allCommentsContent-"+commentId).slideUp('fast');
-// 		$("#allcommentsOwnerImage-"+commentId).slideUp('fast');
-// 		$("#commentOptions-"+commentId).hide();
-// 		$("#allReplies-"+commentId).slideUp("fast");
-// 		$("#reply-"+commentId).slideUp("fast");
 
-// 		$("#commentsCount-"+postId).text(parseInt($("#commentsCount-"+postId).text())-1);
-// 		$("#commentcounts1-"+postId).text(parseInt($("#commentcounts1-"+postId).text())-1);
-// 		$("#commentDeleteButton-"+commentId).text(" Delete");
-// 		$("#commentDeleteButton-"+commentId).css("color","#666");
-// 	});
-// }
-// End of the function which make sure user change user photo
+// beggining of: the function which open the fileupload input 
+	function openphotoField(){
+		var fileUpload = document.getElementById('profilePhotoField'); 
+		fileUpload.disabled = false;
+		fileUpload.value ="";
+		fileUpload.click();
+	}
+// End of: the function which open the fileupload input 
 
 
 
@@ -143,10 +129,80 @@ function changePhotoConfirmationClose(){
 
 
 
-function openphotoField(){
-	alert("done");
-}
+$(document).ready(function(e){
 
+	// The function which upload the photo to server using ajax + validation
+	$("#profilePhotoField").change(function(){
+
+		changePhotoConfirmationClose();
+		var file = $(this);
+		var fileType = file.val().split(".").pop().toLowerCase(); 
+		if(file.val() == "" || fileType == "jpg" || fileType == "bmp" || fileType == "jpeg" || fileType == "png" || fileType == "gif" || fileType == "svg"){
+			if(this.files[0].size/1024/1024 < 10){
+				$("#photoErrorMessage").hide();
+				$("#photoErrorMessage").text("");
+				$(".image").css("opacity","0.3");
+				$("#loading").show();
+				$("#changePhotoLink").css({"pointer-events":"none", "opacity":'0.5'});
+				$("#uploadPhotoForm").submit();
+			}else{
+				$("#photoErrorMessage").show();
+				$("#photoErrorMessage").css("display","block");
+				$("#photoErrorMessage").text("File too large. max 10MB...");
+			}
+		}else{
+			$("#photoErrorMessage").show();
+			$("#photoErrorMessage").css("display","block");
+			$("#photoErrorMessage").text("Only photos are allowed...");
+		}
+
+		// alert($('#uploadPhotoForm').serialize());
+	});
+
+	$("#uploadPhotoForm").submit(function(e){
+		e.preventDefault();
+
+		 var formData = new FormData(this);
+
+		 $.ajax({
+		 	method: "POST",
+		 	url: uploadPhoto,
+		 	contentType: false,
+		 	cache:false,
+		 	processData: false,
+		 	data:formData
+		 }).done(function(response){
+		 	$("#loading").hide();
+		 	$(".image").css("opacity","1");
+		 	$("#changePhotoLink").css({"pointer-events":"initial", "opacity":'1'});
+		 	// to check if error array is empty then it means there is not error in the validation part
+		 	if($.isEmptyObject(response.error)){
+		 		$(".image").hide();
+				$("#notImage").hide();
+				$(".newImage").show();
+				// 
+				$(".removeTextAndDivider").hide();	
+				$(".removeForAjax").show();	
+				//  if type is doctor then load from doctor folder else load it from normal usrs folder
+				if(response["owner_type"] == 'App\\Doctor'){
+					$(".newImage").attr("src","/Storage/images/doctors/"+response["photoPath"]);
+				}else{
+					$(".newImage").attr("src","/Storage/images/normalUsers/"+response["photoPath"]);
+				}
+		 	}else{ // if the error array is not empty it means there is and error
+				$("#photoErrorMessage").show();
+				$("#photoErrorMessage").css("display","block");
+		 		$("#photoErrorMessage").text(response.error);
+			}
+		 });
+
+	});
+// End of the part or funtion whihc upoload and validate use edit profile pic
+
+
+
+});
+// End of jquery document
 
 function removeprofilePhoto(accountId){
 	// alert("done");
@@ -164,6 +220,11 @@ function removeprofilePhoto(accountId){
 	}).done(function(response){
 		$(".image").hide();
 		$("#loading").hide();
+		$("#photoErrorMessage").hide();
+		$("#photoErrorMessage").text("");
+		// to hide th remove text and aslo the divider line because there is no photo to remove 
+		$(".removeTextAndDivider").hide();	
+		// to hide the noimage icon and enable clicking change photo
 		$("#notImage").show();
 		$("#changePhotoLink").css({"pointer-events":"initial", "opacity":'1'});
 
