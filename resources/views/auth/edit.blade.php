@@ -16,6 +16,18 @@
 		</div>
 		<!-- form for edit -->
 		<div id="editProfileForm" class="tab-content editForm">
+			@if(session('updateSuccess'))
+				<div class="alert alert-success alert-sm serverMsgs">
+					<button class="close" data-dismiss="alert" area-hidden="true"><span class="fal fa-times"></span></button>
+					{{session("updateSuccess")}}
+				</div>
+			@endif
+			@if(session('updateError'))
+				<div class="alert alert-danger alert-sm serverMsgs">
+					<button class="close" data-dismiss="alert" area-hidden="true"><span class="fal fa-times"></span></button>
+					{{session("updateError")}}
+				</div>
+			@endif
 			<div id="changePhoto">
 				<div id="userPhoto">
 					<!-- this image is for ajax after its beign uploaded to show this one  -->
@@ -66,46 +78,79 @@
 					{!! Form::hidden("userId",$account->id) !!}
 				</div>
 			{!! Form::close() !!}
-			{!! Form::model($user,["method"=>"POST","files"=>"true"]) !!}
+			{!! Form::model($user,["method"=>"PUT","action"=>["ProfileController@update",$account->id],"files"=>"true"]) !!}
 				<div class="form-elements input-group">
 					{!! Form::label("fullName","Full Name",["class"=>"form-labels"]) !!}
-					{!! Form::text("fullName",null,["class"=>"form-control form-fields"]) !!}
+					{!! Form::text("fullName",null,["class"=>"form-control form-fields ".($errors->has('fullName') ? ' formErrors' : ''),"id"=>"fullName","maxlength"=>"60"]) !!}
+					<div class="inputErrors" id="fullNameError">
+						@error('fullName')
+							{{$message}}
+						@enderror
+					</div>
 				</div>
 				<div class="form-elements input-group">
 					{!! Form::label("country_id","Address",["class"=>"form-labels"]) !!}
-					{!! Form::select("country_id",$countries,null,["class"=>"form-control form-fields address","placeholder"=>"country", "id"=>"country", "onchange"=> "selectProvinceAndDistrict('province')"]) !!}
-					{!! Form::select("province_id",$userContryProvinces,null,["class"=>"form-control form-fields address","placeholder"=>"province" , "id"=>"province",
+					{!! Form::select("country_id",$countries,null,["class"=>"form-control form-fields address ".($errors->has('country_id') ? ' formErrors' : ''),"placeholder"=>"country", "id"=>"country", "onchange"=> "selectProvinceAndDistrict('province')"]) !!}
+					{!! Form::select("province_id",$userContryProvinces,null,["class"=>"form-control form-fields address ".($errors->has('province_id') ? ' formErrors' : ''),"placeholder"=>"province" , "id"=>"province",
 					"onchange"=>"selectProvinceAndDistrict('district')"]) !!}
-					{!! Form::select("district_id",$userProvinceDistricts,null,["class"=>"form-control form-fields address","placeholder"=>"district", "id"=>"district"]) !!}
+					{!! Form::select("district_id",$userProvinceDistricts,null,["class"=>"form-control form-fields address ".($errors->has('district_id') ? ' formErrors' : ''),"placeholder"=>"district", "id"=>"district"]) !!}
+					<div class="inputErrors" id="addressError">
+						@if(session("country_id"))
+							{{session("country_id")}}
+						@endif
+						@error('country_id'){{ $message }}@enderror
+						@error('province_id'){{ $message }}@enderror
+						@error('district_id'){{ $message }}@enderror
+					</div>
 				</div>
 				<div class="form-elements input-group">
 					{!! Form::label("street","Detailed Address",["class"=>"form-labels"]) !!}
-					{!! Form::text("street",null,["class"=>"form-control form-fields"]) !!}
+					{!! Form::text("street",null,["class"=>"form-control form-fields ".($errors->has('street') ? ' formErrors' : ''),"id"=>"street"]) !!}
+					<div class="inputErrors" id="streetError">
+						@error('street')
+							{{ $message }}
+						@enderror
+					</div>
 				</div>
 				<div class="form-elements input-group">
 					{!! Form::label("gender","Gender",["class"=>"form-labels"]) !!}
 					<label class="mt-1 mr-2 genderLabels">{!! Form::radio("gender","0",null) !!} Male</label>
         			<label class="mt-1 genderLabels">{!! Form::radio("gender","1",null) !!} Female</label>
+        			<div class="inputErrors" id="genderError">
+						@error('gender')
+							{{ $message }}
+						@enderror
+					</div>
 				</div>
 				<div class="form-elements input-group">
 					{!! Form::label("year","Date Of Birth",["class"=>"form-labels"]) !!}
-					{!! Form::selectRange("year",1950,\Carbon\carbon::now()->format("Y"),null,["class"=>"form-control form-fields".($errors->has('year') ? ' moreInfoFormErrorsInput' : ''),"id"=>"year"]) !!}
-					{!! Form::selectMonth("month",null,["class"=>"form-control form-fields","id"=>"month"]) !!}
-					{!! Form::selectRange("day",1,31,null,["class"=>"form-control form-fields","id"=>"day"]) !!}	
+					{!! Form::selectRange("year",1950,\Carbon\carbon::now()->format("Y"),null,["class"=>"form-control form-fields date ".($errors->has('year') ? ' formErrors' : ''),"id"=>"year"]) !!}
+					{!! Form::selectMonth("month",null,["class"=>"form-control form-fields date ".($errors->has('month') ? ' formErrors' : ''),"id"=>"month"]) !!}
+					{!! Form::selectRange("day",1,31,null,["class"=>"form-control form-fields date ".($errors->has('day') ? ' formErrors' : ''),"id"=>"day"]) !!}
+					<div class="inputErrors" id="dobError">
+						@error('year'){{ $message }}@enderror
+						@error('month'){{ $message }}@enderror
+						@error('day'){{ $message }}@enderror
+					</div>	
 				</div>
 				<div class="form-elements input-group">
 					{!! Form::label("Bio","Bio",["class"=>"form-labels"]) !!}
-					{!! Form::textarea("Bio",null,["class"=>"form-control form-fields", "id"=>"biography", "rows"=>"4", "maxlength"=>"200", "style"=>"resize:none","placeholder"=>"max of 200 chars"]) !!}
+					{!! Form::textarea("Bio",null,["class"=>"form-control form-fields ".($errors->has('Bio') ? ' formErrors' : ''), "id"=>"biography", "rows"=>"4", "maxlength"=>"200", "style"=>"resize:none","placeholder"=>"max of 200 chars"]) !!}
+					<div class="inputErrors" id="bioError">
+						@error('Bio')
+							{{ $message }}
+						@enderror
+					</div>
 				</div>
 				@can("doctor_related",$account)
 				<div class="form-elements input-group">
 					{!! Form::label("specialization","Your specialization",["class"=>"form-labels"]) !!}
-					<a href="javascrip:void(0)" onclick="showTags()" id="addTagLink">
+					<a href="javascrip:void(0)" onclick="showTags()" id="addTagLink"  class="{{ ($errors->has('fields') ? 'errorButton' :  '') }}">
 						<span id="tagsCount" class="badge badge-pill badge-light">{{$user->fields()->count()}}</span> &nbsp;
 						Select Your specialized field
 					</a>
 					<span class="ErrorMessage  mb-2" id="tagsErrorMessage">
-						@error('tags')
+						@error('fields')
 							{{ $message }}
 						@enderror
 					</span>
@@ -165,7 +210,7 @@
 				@endcan 
 				<div class="form-elements input-group">
 					<span class="form-labels"></span>
-					{!! Form::submit("Update",["class" => "btn btn-sm mt-2","id"=>"submitButton"]) !!}
+					{!! Form::submit("Update",["class" => "btn btn-sm mt-2","id"=>"submitButton","onclick"=>"validateProfileEditForm()"]) !!}
 				</div>
 			{!! Form::close() !!}
 		</div>

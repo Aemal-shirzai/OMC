@@ -18,6 +18,29 @@
     width: 100%;
     display: none;
 }
+.inputErrors{
+	color: red;
+    font-size: 11px;
+    font-weight: bold;
+    width: 100%;
+    margin-left: 28%;
+    margin-top: -2px;
+    /*display: none;*/
+}
+.formErrors{
+	border:1px solid red !important;
+}
+.serverMsgs{
+	height: 39px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: bold;
+    font-size: 12px;
+    width: 100%;
+    padding-top: 8px;
+    margin-bottom: 12px;
+    margin-left: 31px
+}
 div.confirmationBox{
 	width: 360px;
 	max-height: 182px;
@@ -122,27 +145,32 @@ a#topButtonP:focus{
 }
 
 .form-elements{
-	margin-bottom: 12px;
+	margin-bottom: 4px;
 }
 .form-labels{
 	text-align: right;
 	padding: 5px 12px;
 	font-weight: bold;	
-	font-size: 14px;
+	font-size: 13px;
 	width: 150px;
 }
 .form-fields{
     border: 1px solid #efefef;
-    border-radius: 3px;
+    border-radius: 6px !important;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     color: #262626;
-    font-size: 14px;
+    font-size: 13px;
     height: 32px;
+    z-index: 0 !important;
     padding: 0 10px;
 }
 .address{
 	font-size: 12px !important;
+	margin-left: 1px !important;
+}
+.date{
+	margin-left: 1px !important;
 }
 .genderLabels{
 	font-size: 14px;
@@ -331,6 +359,11 @@ div.tags div:hover .close{
 	    margin-left: 120px;
 	    margin-top: -24px
 	}
+	.inputErrors {
+	    font-size: 10px;
+	    margin-left: 24%;
+	    margin-top: -3px;
+	}
 	div.confirmationBox{
 		width: 360px;
 		max-height: 182px;
@@ -425,6 +458,11 @@ div.tags div:hover .close{
 	    margin-left: 117px;
 	    margin-top: -24px
 	}
+	.inputErrors {
+	    font-size: 10px;
+	    margin-left: 24%;
+	    margin-top: -3px;
+	}
 	div.confirmationBox{
 		width: 360px;
 		max-height: 182px;
@@ -516,6 +554,22 @@ div.tags div:hover .close{
 	.ErrorMessage{
 	    margin-left: 0px;
 	    margin-top: 0px
+	}
+	.inputErrors {
+	    font-size: 9px;
+	    margin-left:3px;
+	    margin-top: 2px;
+	}
+	.serverMsgs{
+	    height: 39px;
+	    text-align: center;
+	    font-size: 10px;
+	    font-weight: bold;
+	    font-size: 11px;
+	    width: 100%;
+	    padding-top: 9px;
+	    margin-bottom: 0px;
+	    margin-left: 0px;
 	}
 	div.confirmationBox{
 		width: 320px;

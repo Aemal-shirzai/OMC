@@ -13,8 +13,10 @@ use App\District;
 use App\Dcategory;
 
 use Validator;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\usersUpdateRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -123,8 +125,60 @@ class ProfileController extends Controller
 
         return view("auth.edit",compact('account','user','countries','userContryProvinces','userProvinceDistricts','latestCountry','lastestProvince','categories'));
     }
+    // Edit function end
+
+    // update function 
+    public function update(usersUpdateRequest $request,$account){
+        // To validate the country and province part. it means if someone clear the value of country but province will remain so thats what i avoid here
+        if($request->country_id == null){
+            if($request->province_id != ""){
+                return back()->withInput()->with("country_id","You need to select a country first");
+            }
+            // in this part if someone remove the country and those two other fields will be disabled so they will not be sent and if they are not send thier old values will remain in database and only the country will be updated to null. so here we make sure if the country is null then set those two other fileds to null as well
+            $request['province_id'] = null;
+            $request['district_id'] = null;
+        }
+        if($request->province_id == null){
+            if($request->district_id != ""){
+                return back()->withInput()->with("country_id","You need to select a province first");
+            }
+            // same as above case but only for provinces and districts
+            $request['district_id'] = null;
+        }
+        // find the account
+        $account = Account::find($account);
+
+        // to allow only authorized users it means the loggin user is updaed his/her profile not  someones else
+        if($account->is(Auth::user())){
+            // store the year, month, and day fields in single variable
+            $DateOfBirth =  Carbon::createFromDate($request->year,$request->month,$request->day)->format("Y-m-d"); 
+             // add the newly created variable of date to request array
+            $request->merge(["DateOfBirth"=>$DateOfBirth]);
+            // update the dataase
+            $update = $account->owner->update($request->all());
+
+            if($account->owner_type == "App\Doctor"){
+                //if it has tags fields 
+                if($request->has("fields")){
+                    // if the doctor already has fields then remove it and add all new one doesnt matter whether use select new one or not 
+                    $account->owner->fields()->sync([]);
+                    foreach($request->fields as $field){
+                        $field = Dcategory::find($field);
+                        $account->owner->fields()->save($field);
+                    }
+                }else{ // if the user uncheck all of them  then they will not be send or if already doesnt have then it will also not been send then remove it anyway
+                     $account->owner->fields()->sync([]);
+                }
+            } 
+            if($update){return back()->with("updateSuccess","Profile Updated seccessfully");}else{ return back()->withInput()->with("updateError","Something went wrong tr again");}
+        }else{ // if not authorized then redirct to unauthorized page
+            abort(403);
+        }
+    }
 
 
+
+// function which removes the use photo using ajax
     public function removePhoto(Request $req){
 
         $account = Account::find($req->account_id);
@@ -145,8 +199,10 @@ class ProfileController extends Controller
         }
 
 
-    } // remove photo function end
+    } 
+// remove photo function end
 
+// the function which upload user photo using ajax
    public function uploadPhoto(Request $request){
 
         $Validator = Validator::make($request->all(),[

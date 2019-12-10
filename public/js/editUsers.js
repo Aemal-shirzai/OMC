@@ -280,5 +280,101 @@ function showAndValidateTagsCountEdit(value){
 }
 //EO the : function responsible for validating the tags based on checbox changing 
 
+// This function validate user profile edit field
+function validateProfileEditForm(){
+	var fullName = document.getElementById("fullName");
+	var country = document.getElementById("country");
+	var province = document.getElementById("province");
+	var district = document.getElementById("district");
+	var biography = document.getElementById("biography")
+
+	// Regular Expressions
+	var validateStreet = /^[^<>]*\s*$/ig;
+	var validPhone = /^([0-9+() ]+)-*([ 0-9-]+)$/ig;
+	
+	if($(":checkbox:checked").length > 5){
+		$("#addTagLink").addClass("errorButton");
+		$("#tags").show();
+		$("#tagsNote").css("color","red");
+		$("#tagsErrorMessage").text("Only 5 fields are allowed");
+		event.preventDefault();
+	}
+
+//Begining of bio field validation
+	if(biography.value.trim().length > 200){
+		biography.focus();
+		document.getElementById('bioError').innerHTML = "Too long, maximum 200 charachters...";
+		biography.style.border="1px solid red";
+		event.preventDefault();
+	}else{
+		document.getElementById('bioError').innerHTML = "";
+		biography.style.border="1px solid #efefef";
+	}
+//End of bio field validation
+
+//Begining of street field validation
+	//this means if its empty allow it because the bellow expression does not allow empty
+	if(street.value.trim() == ""){
+		 true;
+		streetError.innerHTML = "";
+		street.style.border="1px solid #efefef";
+	}else if(street.value.trim().length > 200){
+		street.focus();
+		streetError.innerHTML = "Too long address... ";
+		street.style.border="1px solid red";
+		event.preventDefault();
+	}else if(!street.value.trim().match(validateStreet)){
+		street.focus();
+		streetError.innerHTML = "Invalied address name...";
+		street.style.border="1px solid red";
+		event.preventDefault();
+	}else{
+		streetError.innerHTML = "";
+		street.style.border="1px solid #efefef";
+	}
+// End of street field validation
 
 
+	// validate the address field 
+	if(province.value.trim().length < 1){
+		if(district.value.trim().length > 0){
+			province.focus();
+			province.style.border = "1px solid red";
+			document.getElementById("addressError").innerHTML = "You have to select a province first";
+			event.preventDefault();
+		}
+	}else{
+		province.style.border = "1px solid #efefef";
+		document.getElementById("addressError").innerHTML = "";
+	}
+
+	if(country.value.trim().length < 1){
+		if(province.value.trim().length > 0){
+			country.focus();
+			country.style.border = "1px solid red";
+			document.getElementById("addressError").innerHTML = "You have to select a country first";
+			event.preventDefault();
+		}
+	}else{
+		country.style.border = "1px solid #efefef";
+		document.getElementById("addressError").innerHTML = "";
+	}
+
+	//validating fullName field 
+	if(fullName.value.trim().length < 1){
+		fullName.focus();
+		fullName.style.border = "1px solid red";
+		document.getElementById("fullNameError").innerHTML = "The fullName can not be empty";
+		event.preventDefault();
+	}else if(fullName.value.trim().length > 60){
+		fullName.focus();
+		fullName.style.border = "1px solid red";
+		document.getElementById("fullNameError").innerHTML = "Long input for fullName field";
+		event.preventDefault();
+	}else{
+		fullName.style.border = "1px solid #efefef";
+		document.getElementById("fullNameError").innerHTML = "";	
+	}
+
+
+}

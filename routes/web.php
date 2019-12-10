@@ -30,6 +30,7 @@ Route::post("/register/moreinfo/store","Auth\RegisterController@moreInfoStore")-
 
 Route::get('/profile/{user}', 'ProfileController@index')->name('profile');
 Route::get('/profile/{profile}/edit', 'ProfileController@edit')->name('profile.edit');
+Route::MATCH(["PUT","PATCH"],"profile/{profile}/update","ProfileController@update")->name("profile.update");
 // called using ajax function to upload photo
 Route::POST('/profile/photo/', 'ProfileController@uploadPhoto')->name('profile.uploadPhoto');
 // called using ajax function to remove photo

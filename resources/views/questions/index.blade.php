@@ -185,7 +185,7 @@
 					@endif
 				</div>
 				@if($question->content)
-					<a href="{{route('questions.show',$question->id)}}" style="color: black;"><p>{{ Str::limit($question->content,300) }} <span class="readMoreLess">View Full</span></a></p>
+					<a href="{{route('questions.show',$question->id)}}" style="color: black;"><p>{{ Str::limit($question->content,300) }} <span class="readMoreLess" style="display: block;">View Full</span></a></p>
 				@endif
 			</div>
 			<div class="clearfix"></div>

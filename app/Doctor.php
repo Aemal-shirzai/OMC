@@ -75,6 +75,6 @@ class Doctor extends Model
 
     // relationship with doctor_category table 
     public function fields(){
-        return $this->belongsToMany(Dcategory::class,"dcategory_doctor","doctor_id","dcategory_id");
+        return $this->belongsToMany(Dcategory::class,"dcategory_doctor","doctor_id","dcategory_id")->withTimeStamps();
     }
 }
