@@ -166,7 +166,21 @@ function deleteAccountBoxClose(){
 
 // function whiich submit the delete account form
 function deleteAccount(){
-	$("#deleteAccountForm").submit();
+	var passwordField = document.getElementById("accountDeletField");
+	var accountDeleteError = document.getElementById("accountDeleteError"); 
+	if(passwordField.value.trim().length < 1){
+		passwordField.style.border = "1px solid red";
+		accountDeleteError.innerHTML = "The password can not be empty man";
+		event.preventDefault();
+	}else if(passwordField.value.trim().length < 8){
+		passwordField.style.border = "1px solid red";
+		accountDeleteError.innerHTML = "The password needs to be atleast 8 chars";
+		event.preventDefault();
+	}else{
+		passwordField.style.border = "1px solid #efefef";
+		accountDeleteError.innerHTML = "";
+		$("#deleteAccountForm").submit();
+	}	
 }
 
 $(document).ready(function(e){
