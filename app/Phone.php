@@ -11,6 +11,7 @@ class Phone extends Model
      */
     protected $fillable = [
     	"phone",
+        "type",
     ];
 
     // relationship with normal usr and doctors

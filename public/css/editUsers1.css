@@ -1,3 +1,8 @@
+.note{
+	 margin-left: 27%;
+    font-size: 10px;
+    font-weight: bold;
+}
 .errorButton{
 	background-color: #e3342f !important;
 	border: 1px solid #e3342f !important;
@@ -114,6 +119,7 @@ a#topButtonP:focus{
 	border-left: 0px;
 	background-color: white;
 	width: 75%;
+	position: relative;
 	display: inline-block;
 	float: right;
 	padding: 16px 40px;
@@ -160,7 +166,7 @@ a#topButtonP:focus{
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     color: #262626;
-    font-size: 13px;
+    font-size: 14px;
     height: 32px;
     z-index: 0 !important;
     padding: 0 10px;
@@ -353,8 +359,47 @@ div.tags div:hover .close{
 }
 
 
+/* editing account settings */
+#editAccountForm .form-elements, #editPassword .form-elements{
+	margin-bottom: 14px;
+}
+#editAccountForm .form-fields, #editPassword .form-fields{
+	height: 41px; 
+}
+
+#deleteAccountButton{
+	background-color: #e3342f;
+	border-color: #e3342f;
+	color: white;
+	position: absolute;
+	top: 12px;
+	right:13px;
+	font-size: 11px;
+}
+
+#deleteAccountButton:focus{
+	box-shadow: 0 0 0 0.2rem white;
+
+}
+
+/*changing password*/
+.changePassword{
+	color: #999;
+    font-size: 14px;
+    font-weight: 600;
+    padding-left: 28%;
+    margin-bottom: 8px;
+}
+
+
+
+
+
 /* iphod pro /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 1200px) and (min-width: 1024px){
+	.note{
+	    margin-left: 22%;
+	}
 	.ErrorMessage{
 	    margin-left: 120px;
 	    margin-top: -24px
@@ -450,10 +495,19 @@ div.tags div:hover .close{
 	    margin-left: 112px;
 	    margin-top: -12px;
 	}
+
+	/* editing account settings */
+	.changePassword{
+	    padding-left: 24%;
+	}
+
 }
 
 /* below ipon pro //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 @media screen and (max-width: 1023px) and (min-width: 768px){
+	.note{
+	    margin-left: 24%;
+	}
 	.ErrorMessage{
 	    margin-left: 117px;
 	    margin-top: -24px
@@ -548,9 +602,21 @@ div.tags div:hover .close{
 	    margin-top: -12px;
 	}
 
+	#deleteAccountButton {
+	    font-size: 10px;
+	}
+
+	/* editing account settings */
+	.changePassword{
+	    padding-left: 24%;
+	}
+
 }
 /* 640  - 769 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 @media screen and (max-width: 767px){
+	.note{
+	    margin-left: 2%;
+	}
 	.ErrorMessage{
 	    margin-left: 0px;
 	    margin-top: 0px
@@ -612,12 +678,12 @@ div.tags div:hover .close{
 		padding-right: 0px;
 	}
 	.tabLinks{	
-		width: 49%;
-		text-align:center;
-	    font-size: 12px;
-	    padding: 8px 16px 10px 35px;
-	    border-bottom: 0px;
-	    border:none;
+		width: 32%;
+		text-align: center;
+		font-size: 9px;
+		padding: 8px 7px 5px 0px;
+		border-bottom: 0px;
+		border: none;
 	}
 	.form-elements{
 		margin-bottom: 12px;
@@ -689,6 +755,22 @@ div.tags div:hover .close{
 	    margin-left: 0px;
 	    margin-top: 0px;
 	}
+
+
+
+	/* editing account settings */
+	#deleteAccountButton {
+	    top: 22px;
+	    right: 13px;
+	    font-size: 8px;
+	}
+
+	.changePassword{
+	    padding-left: 6%;
+	    margin-top: 12px;
+	}
+
+
 
 } 
 

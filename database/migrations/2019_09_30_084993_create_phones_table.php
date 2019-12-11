@@ -16,6 +16,8 @@ class CreatePhonesTable extends Migration
         Schema::create('phones', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string("phone");
+            // we have two types of numbers personal and office (1 is for personal and 2 is for office)
+            $table->tinyInteger("type");
             // Account table foreign key
             $table->bigInteger("account_id")->unsigned();
             $table->timestamps();

@@ -17,6 +17,24 @@ function openContent(evt,value){
 }
 // End of: the function which shows the profile content based on the clicked button
 
+// Beggining of: the function which shows the edit page content based on the previous location. ex. after updating settins
+function openContent1(tab,value){
+	var tabcontent = document.getElementsByClassName("tab-content");
+  	for (i = 0; i < tabcontent.length; i++) {
+    	tabcontent[i].style.display = "none";
+  	}
+
+  	var tablinks = document.getElementsByClassName("tabLinks");
+  	for (i = 0; i < tablinks.length; i++) {
+    	tablinks[i].className = tablinks[i].className.replace(" active1", "");
+  	}
+
+  	 document.getElementById(value).style.display = "block";
+ 	 $("#"+tab).addClass("active1");
+
+}
+// End of: the function which shows the edit page content based on the previous location. ex. after updating settins
+
 // Beggining of : the function which select provice based on country and district based on province
 function selectProvinceAndDistrict(value){
 	// if the inpput which should be select is province . means when country is changed
@@ -377,4 +395,116 @@ function validateProfileEditForm(){
 	}
 
 
+}
+
+
+
+// this part is to validate the edit account settings form
+function validateAccountForm(){
+	var username = document.getElementById("formUsername");
+	var usernameError = document.getElementById("usernameError");
+	var email = document.getElementById("email");
+	var emailError = document.getElementById("emailError");
+	var oPhone = document.getElementById("oPhone");
+	var oPhoneError = document.getElementById("oPhoneError");
+	var pPhone = document.getElementById("pPhone");
+	var pPhoneError = document.getElementById("pPhoneError");
+
+	// regex
+	var validPhone = /^([0-9+() ]+)-*([ 0-9-]+)$/ig;
+	var usernamePattern = /^([a-zA-Z]+)([0-9]*)([-._]?)([a-zA-Z0-9]+)$/ig;
+
+// validate person phone part
+//Begining of psersonal phone field validation
+	//this means if its empty allow it because the bellow expression does not allow empty
+	if(pPhone.value.trim() == ""){
+		 true;
+		pPhoneError.innerHTML = "";
+		pPhone.style.border="1px solid #efefef";
+	}else if(pPhone.value.trim().length > 25){
+		pPhone.focus();
+		pPhoneError.innerHTML = "Long phone number";
+		pPhone.style.border="1px solid red";
+		event.preventDefault();
+	}else if(pPhone.value.trim().length < 3){
+		pPhone.focus();
+		pPhoneError.innerHTML = "Too short phone number ...";
+		pPhone.style.border="1px solid red";
+		event.preventDefault();
+	}else if(!pPhone.value.trim().match(validPhone)){
+		pPhone.focus();
+		pPhoneError.innerHTML = "Invalid phone number";
+		pPhone.style.border="1px solid red";
+		event.preventDefault();
+	}else{
+		pPhoneError.innerHTML = "";
+		pPhone.style.border="1px solid #efefef";
+	}
+// End of personal phone field validation
+
+//Begining of office phone field validation
+	//this means if its empty allow it because the bellow expression does not allow empty
+	if(oPhone.value.trim() == ""){
+		 true;
+		oPhoneError.innerHTML = "";
+		oPhone.style.border="1px solid #efefef";
+	}else if(oPhone.value.trim().length > 25){
+		oPhone.focus();
+		oPhoneError.innerHTML = "Long phone number";
+		oPhone.style.border="1px solid red";
+		event.preventDefault();
+	}else if(oPhone.value.trim().length < 3){
+		oPhone.focus();
+		oPhoneError.innerHTML = "Too short phone number ...";
+		oPhone.style.border="1px solid red";
+		event.preventDefault();
+	}else if(!oPhone.value.trim().match(validPhone)){
+		oPhone.focus();
+		oPhoneError.innerHTML = "Invalid phone number";
+		oPhone.style.border="1px solid red";
+		event.preventDefault();
+	}else{
+		oPhoneError.innerHTML = "";
+		oPhone.style.border="1px solid #efefef";
+	}
+// End of phone field validation
+
+
+// Begginng of email validation
+	if(email.value.trim().length < 1){
+		email.focus();
+		email.style.border = "1px solid red";
+		emailError.innerHTML = "The email can not be empty";
+		emailError.style.color = "red";
+		event.preventDefault();
+	}else{
+		email.style.border = "1px solid #efefef";
+		emailError.innerHTML = "";	
+	}
+// End fo email validation
+
+// validatng username field
+	if(username.value.trim().length < 3 ){
+		username.focus();
+		username.style.border = "1px solid red";
+		usernameError.innerHTML = "Short username, add atleast 3 charachters";
+		event.preventDefault();
+	}else if(username.value.trim().length > 20){
+		username.focus();
+		username.style.border = "1px solid red";
+		usernameError.innerHTML = "Long usernames are not supported, max 20 charachters";
+		event.preventDefault();
+	}else if(!username.match(usernamePattern)){
+		username.focus();
+		username.style.border = "1px solid red";
+		usernameError.innerHTML = "The username may only contain letters, numbers, maximum one dashe or underscore. should start with a letter only and should end with  letters or numbers";
+		event.preventDefault();
+	}else{
+		username.style.border = "1px solid #efefef";
+		usernameError.innerHTML = "";
+	}
+}  //end of main function
+
+function enableAccountBtn(){
+	document.getElementsByClassName("accountSubmitButton")[0].disabled = false;
 }

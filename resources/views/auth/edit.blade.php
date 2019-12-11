@@ -11,11 +11,12 @@
 	<div id="editParent">
 		<!-- options for edit -->
 		<div id="editOptions">
-			<button class="tabLinks active1" onclick="openContent(event,'editProfileForm')">Edit Profile</button>
-			<button class="tabLinks" onclick="openContent(event,'editAccountForm')">Edit Account</button>
+			<button class="tabLinks active1" onclick="openContent(event,'editProfileForm')">Profile Settings</button>
+			<button class="tabLinks" id="accountSettings" onclick="openContent(event,'editAccountForm')">Account Settings</button>
+			<button class="tabLinks" onclick="openContent(event,'editPassword')">Password Settings</button>
 		</div>
 		<!-- form for edit -->
-		<div id="editProfileForm" class="tab-content editForm">
+		<div id="editProfileForm" class="tab-content editForm" style="">
 			@if(session('updateSuccess'))
 				<div class="alert alert-success alert-sm serverMsgs">
 					<button class="close" data-dismiss="alert" area-hidden="true"><span class="fal fa-times"></span></button>
@@ -78,7 +79,7 @@
 					{!! Form::hidden("userId",$account->id) !!}
 				</div>
 			{!! Form::close() !!}
-			{!! Form::model($user,["method"=>"PUT","action"=>["ProfileController@update",$account->id],"files"=>"true"]) !!}
+			{!! Form::model($user,["method"=>"PUT","action"=>["ProfileController@updateProfile",$account->id],"files"=>"true"]) !!}
 				<div class="form-elements input-group">
 					{!! Form::label("fullName","Full Name",["class"=>"form-labels"]) !!}
 					{!! Form::text("fullName",null,["class"=>"form-control form-fields ".($errors->has('fullName') ? ' formErrors' : ''),"id"=>"fullName","maxlength"=>"60"]) !!}
@@ -214,12 +215,155 @@
 				</div>
 			{!! Form::close() !!}
 		</div>
-		<!-- for editing password or account information -->
-		<div class="tab-content editForm" id="editAccountForm" style="display: none;">
-			
-			This is for account edit 
 
+		<!-- //////////////////////////////////////////////////////////////////////////////  PART 2   /////////////////////////////////////////////// -->
+		<!-- for editing  or account information -->
+		<div class="tab-content editForm" id="editAccountForm" style="display: none;">
+			@if(session('accountUpdateSuccess'))
+				<div class="alert alert-success alert-sm serverMsgs">
+					<button class="close" data-dismiss="alert" area-hidden="true"><span class="fal fa-times"></span></button>
+					{{session("accountUpdateSuccess")}}
+				</div>
+			@endif
+			@if(session('accountUpdateError'))
+				<div class="alert alert-danger alert-sm serverMsgs">
+					<button class="close" data-dismiss="alert" area-hidden="true"><span class="fal fa-times"></span></button>
+					{{session("accountUpdateError")}}
+				</div>
+			@endif
+			<div id="changePhoto" class="mb-2">
+				<div id="userPhoto">
+					<!-- this image is for ajax after its beign uploaded to show this one  -->
+					<img class="newImage image" src=""  onclick="changePhotoConfirmation()" title="Change Profile Photo" style="display: none;">
+					@if($account->photos()->where("status","1")->first())
+						@if($account->owner_type == "App\Doctor")
+							<img class="image" src="/storage/images/doctors/{{$account->photos()->where('status',1)->first()->path}}" onclick="changePhotoConfirmation()" title="Change Profile Photo">
+						@else
+							<img class="image" src="/storage/images/normalUsers/{{$account->photos()->where('status',1)->first()->path}}" 	 onclick="changePhotoConfirmation()" title="Change Profile Photo">
+						@endif	
+					@else
+						<span id="notImage" class="fal fa-user-circle"   onclick="changePhotoConfirmation()" title="Change Profile Photo"></span>
+					@endif
+						<!-- this no image is just for ajax  to show it afte successs -->
+						<span id="notImage" class="fal fa-user-circle" style="display: none;"   onclick="changePhotoConfirmation()" title="Change Profile Photo"></span>
+						<img src="{{asset('images/load1.gif')}}" id="loading">
+				</div>
+				<div id="userNameAndChangeBtn" class="mt-2">
+					<span id="username">{{$account->username}}</span>
+				</div>
+			</div>
+			<!-- End of showing user photo -->
+			<!-- Beggining  of form for editing account -->
+			{!! Form::model($account,["method"=>"PUT","action"=>["ProfileController@updateAccount",$account->username]]) !!}
+				<div class="form-elements input-group">
+					{!! Form::label("username","Username",["class"=>"form-labels"]) !!}
+					{!! Form::text("username",null,["class"=>"form-control form-fields ".($errors->has('username') ? ' formErrors' : ''),"id"=>"formUsername","maxlength"=>"20", "onkeyup"=>"enableAccountBtn()"]) !!}
+					<div class="inputErrors" id="usernameError">
+						@error('username')
+							{{ $message }}
+						@enderror
+					</div>
+				</div>
+				<div class="form-elements input-group">
+					{!! Form::label("email","Email Address",["class"=>"form-labels"]) !!}
+					{!! Form::text("email",null,["class"=>"form-control form-fields ".($errors->has('email') ? ' formErrors' : ''),"id"=>"email","maxlength"=>"100" , "onkeyup"=>"enableAccountBtn()"]) !!}
+					<div class="inputErrors" id="emailError">
+						@error('email')
+							{{ $message }}
+						@enderror
+					</div>
+				</div>
+				<div class="form-elements input-group">
+					{!! Form::label("oPhone","Office Phone",["class"=>"form-labels"]) !!}
+					{!! Form::text("oPhone",null,["class"=>"form-control form-fields ".($errors->has('oPhone') ? ' formErrors' : ''),"id"=>"oPhone","maxlength"=>"25 ", "onkeyup"=>"enableAccountBtn()"]) !!}
+					<div class="inputErrors" id="oPhoneError">
+						@error('oPhone')
+							{{ $message }}
+						@enderror
+					</div>
+				</div>	
+				<div class="form-elements input-group">
+					{!! Form::label("pPhone","Personal Phone",["class"=>"form-labels"]) !!}
+					{!! Form::text("pPhone",null,["class"=>"form-control form-fields ".($errors->has('pPhone') ? ' formErrors' : ''),"id"=>"pPhone","maxlength"=>"25 ", "onkeyup"=>"enableAccountBtn()"]) !!}
+					<div class="inputErrors" id="pPhoneError">
+						@error('pPhone')
+							{{ $message }}
+						@enderror
+					</div>
+				</div>
+				<div class="form-elements input-group">
+					<span class="note">If you change your username and email address, then you have to enter your new username or email address for authentication</span>
+				</div>
+				<div class="form-elements input-group">
+					{!! Form::label("","",["class"=>"form-labels"]) !!}
+					{!! Form::submit("Update account settings",["class" => "btn btn-sm mt-2 accountSubmitButton ","disabled"=>"true" ,"id" =>"submitButton" , "onclick"=>"validateAccountForm()"]) !!}
+				</div>
+			{!! Form::close() !!}
+			<a href="#" class="btn  btn-sm" id="deleteAccountButton">Delete my account</a>
 		</div>
+
+		<!-- //////////////////////////////////////////////////////////////////////////////  PART 3   /////////////////////////////////////////////// -->
+		<!-- for editing  or account information -->
+		<div class="tab-content editForm" id="editPassword" style="display: none;">
+			<div id="changePhoto">
+				<div id="userPhoto">
+					<!-- this image is for ajax after its beign uploaded to show this one  -->
+					<img class="newImage image" src=""  onclick="changePhotoConfirmation()" title="Change Profile Photo" style="display: none;">
+					@if($account->photos()->where("status","1")->first())
+						@if($account->owner_type == "App\Doctor")
+							<img class="image" src="/storage/images/doctors/{{$account->photos()->where('status',1)->first()->path}}" onclick="changePhotoConfirmation()" title="Change Profile Photo">
+						@else
+							<img class="image" src="/storage/images/normalUsers/{{$account->photos()->where('status',1)->first()->path}}" 	 onclick="changePhotoConfirmation()" title="Change Profile Photo">
+						@endif	
+					@else
+						<span id="notImage" class="fal fa-user-circle"   onclick="changePhotoConfirmation()" title="Change Profile Photo"></span>
+					@endif
+						<!-- this no image is just for ajax  to show it afte successs -->
+						<span id="notImage" class="fal fa-user-circle" style="display: none;"   onclick="changePhotoConfirmation()" title="Change Profile Photo"></span>
+						<img src="{{asset('images/load1.gif')}}" id="loading">
+				</div>
+				<div id="userNameAndChangeBtn" class="mt-2">
+					<span id="username">{{$account->username}}</span>
+				</div>
+			</div>
+			<!-- End of showing user photo -->
+			<!-- beggiin of form for editing account -->
+			{!! Form::model($account,["method"=>"PUT","action"=>["ProfileController@updateAccount",$account->id]]) !!}
+				<div class="changePassword">Change Password</div>
+				<div class="form-elements input-group">
+					{!! Form::label("old_password","Old Password",["class"=>"form-labels"]) !!}
+					{!! Form::password("old_password",["class"=>"form-control form-fields ".($errors->has('old_password') ? ' formErrors' : ''),"id"=>"old_password"]) !!}
+					<div class="inputErrors" id="oldPasswordError">
+						@error('old_password')
+							{{ $message }}
+						@enderror
+					</div>
+				</div>
+				<div class="form-elements input-group">
+					{!! Form::label("new_password","New Password",["class"=>"form-labels"]) !!}
+					{!! Form::password("new_password",["class"=>"form-control form-fields ".($errors->has('new_password') ? ' formErrors' : ''),"id"=>"new_password"]) !!}
+					<div class="inputErrors" id="newPasswordError">
+						@error('new_password')
+							{{ $message }}
+						@enderror
+					</div>
+				</div>
+				<div class="form-elements input-group">
+					{!! Form::label("password_confirmation","Confirm New Password",["class"=>"form-labels"]) !!}
+					{!! Form::password("new_password_confirmation",["class"=>"form-control form-fields ".($errors->has('password_confirmation') ? ' formErrors' : '' ), "id"=>"password_confirmation"]) !!}
+					<div class="inputErrors" id="passwordConfirmationError">
+						@error('password_confirmation')
+							{{ $message }}
+						@enderror
+					</div>
+				</div>
+				<div class="form-elements input-group">
+					{!! Form::label("","",["class"=>"form-labels"]) !!}
+					{!! Form::submit("Change Password",["class" => "btn btn-sm mt-2","id"=>"submitButton"]) !!}
+				</div>
+			{!! Form::close() !!}
+		</div>
+		<!-- End for changing password- -->
 		<div class="clearfix"></div>
 	</div>
 @endif
@@ -228,6 +372,15 @@
 
 
 @section("scripts")
+
+
+@if(session('accountUpdateSuccess') || session('accountUpdateError') || $errors->has('username') || $errors->has('email') || $errors->has("oPhone") || $errors->has('pPhone'))
+		<script type="text/javascript">
+			openContent1("accountSettings",'editAccountForm');
+		</script>
+@endif
+
+
 
 <!-- To pass provinces and districts to js -->
 @if($latestCountry)

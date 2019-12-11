@@ -17,6 +17,7 @@ use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\usersUpdateRequest;
+use App\Http\Requests\usersAccountUpdateRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -118,17 +119,19 @@ class ProfileController extends Controller
         $province_id = $user->province_id;     
         $userProvinceDistricts = District::where('province_id',$province_id)->pluck("district","id");     
 
-        $phone1 = $account->phones()->first();
-        $phone2 = $account->phones()->take(1)->skip(1)->first();
-        $user['phone1'] = $phone1;
-        $user['phone2'] = $phone2;
+        // grab accoounts phone numbers
+        $oPhone = $account->phones()->where('type',1)->first();
+        $pPhone = $account->phones()->where('type',0)->first();
+        // if  use has a number then access its phone column but if the phone is empty then just send empty to view wit account array
+        ($oPhone ? $account['oPhone'] = $oPhone->phone : $account["oPhone"] = $oPhone);
+        ($pPhone ? $account['pPhone'] = $pPhone->phone : $account["pPhone"] = $pPhone);
 
         return view("auth.edit",compact('account','user','countries','userContryProvinces','userProvinceDistricts','latestCountry','lastestProvince','categories'));
     }
     // Edit function end
 
-    // update function 
-    public function update(usersUpdateRequest $request,$account){
+    // update function  for profile
+    public function updateProfile(usersUpdateRequest $request,$account){
         // To validate the country and province part. it means if someone clear the value of country but province will remain so thats what i avoid here
         if($request->country_id == null){
             if($request->province_id != ""){
@@ -175,6 +178,45 @@ class ProfileController extends Controller
             abort(403);
         }
     }
+    // End of update function for edit profiel
+
+// Beggining of the funcion for edit account settings
+    public function updateAccount(usersAccountUpdateRequest $request, $account){
+        
+        $account = Account::whereUsername($account)->first();
+        if($account->is(Auth::user())){
+
+            if(!empty($request->oPhone)){
+               $oPhone = $request->oPhone;
+               if($account->phones()->where('type',1)->first()){
+                    $account->phones()->where('type',1)->first()->update(['phone'=>$oPhone]);
+               }else{
+                     $account->phones()->create(['phone'=>$oPhone,"type"=>1]);
+               }
+            }else{
+                if($account->phones()->where('type',1)->first()){
+                    $account->phones()->where('type',1)->first()->delete();
+               }
+            }
+
+            if(!empty($request->pPhone)){
+               $pPhone = $request->pPhone;
+               if($account->phones()->where('type',0)->first()){
+                    $account->phones()->where('type',0)->first()->update(['phone'=>$pPhone]);
+               }else{
+                     $account->phones()->create(['phone'=>$pPhone,"type"=>0]);
+               }
+            }else{
+                if($account->phones()->where('type',0)->first()){
+                    $account->phones()->where('type',0)->first()->delete();
+               }
+            }
+           
+            $updateAccount = $account->update($request->all());
+           if($updateAccount){return redirect()->route('profile.edit',$account->username)->with("accountUpdateSuccess","Account Settings updaetd");}else{return back()->withInput()->with("accountUpdateError","OOps! someting went, wrong try agian");} 
+        }
+    }
+// End of of the funcion for edit account settings
 
 
 
