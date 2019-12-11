@@ -38,7 +38,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/achEditStyle11.css')}}">
 	@elseif(Route::currentRouteName() == 'profile.edit')
 	<!-- Link to local styles for doctors and normal users list page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/editUsers1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/editUsers.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->

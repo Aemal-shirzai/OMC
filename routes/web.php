@@ -30,8 +30,12 @@ Route::post("/register/moreinfo/store","Auth\RegisterController@moreInfoStore")-
 
 Route::get('/profile/{user}', 'ProfileController@index')->name('profile');
 Route::get('/profile/{profile}/edit', 'ProfileController@edit')->name('profile.edit');
+// update profile  (doctors and normal users)
 Route::MATCH(["PUT","PATCH"],"profile/{profile}/update","ProfileController@updateProfile")->name("profile.update");
+// update  account (account table witout passowrd)
 Route::MATCH(["PUT","PATCH"],"profile/{profile}/update/account","ProfileController@updateAccount")->name("profile.update.account");
+// Delete account
+Route::POST("/account/destroy","ProfileController@deleteAccount")->name("deleteAccount");
 // called using ajax function to upload photo
 Route::POST('/profile/photo/', 'ProfileController@uploadPhoto')->name('profile.uploadPhoto');
 // called using ajax function to remove photo

@@ -143,11 +143,85 @@ function changePhotoConfirmationClose(){
 
 
 
+// beggining of the function which open the delete account confirmation box
+function deleteAccountBoxOpen(){
+	$("body").css("pointer-events","none");
+	$("#deleteAccountBox").fadeIn();
+}
+// End of the function which open the delete account confirmation box
+
+// beggining of the function which close the delete account confirmation box
+function deleteAccountBoxClose(){
+	$("#deleteAccountBox").fadeOut();
+	$("body").css("pointer-events","initial");
+	$("#deleteProceedButton").text('Delete');
+	$("#deleteLoading").hide();
+	$("#accountDeletField").removeAttr("disabled");
+	$("#accountDeletField").removeClass("errorAccountDelete");
+	$("#accountDeleteError").text("");
+	$("#accountDeletField").val("");
+}
+// End of the function which close the delete account confirmation box
 
 
-
+// function whiich submit the delete account form
+function deleteAccount(){
+	$("#deleteAccountForm").submit();
+}
 
 $(document).ready(function(e){
+
+	// to delete the account using ajax
+
+	$("#deleteAccountForm").submit(function(e){
+		e.preventDefault();
+		var formData = new FormData(this);
+		$("#deleteProceedButton").text('Loading...');
+		$("#deleteLoading").show();
+
+		$("#accountDeletField").attr("disabled","true");
+		$("#accountDeleteError").text("");
+		$("#accountDeletField").removeClass("errorAccountDelete");
+
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+
+		$.ajax({
+			method: "POST",
+			url: accountDelete,
+			contentType: false,
+		 	cache:false,
+		 	processData: false,
+			data: formData,
+		}).done(function(response){
+			$("#deleteProceedButton").text('Delete');
+			$("#deleteLoading").hide();
+			$("#accountDeletField").removeAttr("disabled");
+			if($.isEmptyObject(response.error)){
+				$("#accountDeletField").removeClass("errorAccountDelete");
+				deleteAccountBoxClose();
+				$("#load").show();
+				$("body").css("pointer-events","none");
+				window.location = login;
+			}else{
+				$("#accountDeleteError").text(response.error);
+				$("#accountDeletField").val("");
+				$("#accountDeletField").addClass("errorAccountDelete");
+			}
+		}).fail(function(){
+			$("#deleteProceedButton").text('Delete');
+			$("#deleteLoading").hide();
+			$("#accountDeleteError").text("Oops! someting is wrong, try again later");
+			$("#accountDeletField").val("");
+			$("#accountDeletField").removeAttr("disabled");
+		});
+
+	});
+
+
 
 	// The function which upload the photo to server using ajax + validation
 	$("#profilePhotoField").change(function(){
@@ -494,7 +568,8 @@ function validateAccountForm(){
 		username.style.border = "1px solid red";
 		usernameError.innerHTML = "Long usernames are not supported, max 20 charachters";
 		event.preventDefault();
-	}else if(!username.match(usernamePattern)){
+	}else if(!username.value.trim().match(usernamePattern)){
+		event.preventDefault();
 		username.focus();
 		username.style.border = "1px solid red";
 		usernameError.innerHTML = "The username may only contain letters, numbers, maximum one dashe or underscore. should start with a letter only and should end with  letters or numbers";
@@ -508,3 +583,6 @@ function validateAccountForm(){
 function enableAccountBtn(){
 	document.getElementsByClassName("accountSubmitButton")[0].disabled = false;
 }
+
+
+

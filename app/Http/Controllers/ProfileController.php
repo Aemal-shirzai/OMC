@@ -15,11 +15,13 @@ use App\Dcategory;
 use Validator;
 use Carbon\Carbon;
 
+
 use Illuminate\Http\Request;
 use App\Http\Requests\usersUpdateRequest;
 use App\Http\Requests\usersAccountUpdateRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -37,23 +39,28 @@ class ProfileController extends Controller
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
-     */
+    */
     public function index($username)
     {
-
         $user = Account::where("username",$username)->first();
-        if($user){
-            if($user->owner_type == "App\NormalUser"){
+        if($user)
+        {
+            if($user->owner_type == "App\NormalUser")
+            {
                 $questions = $user->owner->questions()->orderBy("created_at","desc")->get();
                 $favQuestions =  $user->owner->favoriteQuestions("created_at")->orderBy("favorites.created_at","desc")->get();
                 $favPosts =  $user->owner->favoritePosts()->orderBy("favorites.created_at","desc")->get();
                 return view('profile',compact("user","questions","favQuestions","favPosts"));
-            }else{
+            }
+            else
+            {
                $posts = $user->owner->posts()->orderBy('created_at',"desc")->get();
                $achievements = $user->owner->achievements()->orderBy("created_at","desc")->get();
                return view('profile',compact("user","posts","achievements"));
             }
-        }else{
+        }
+        else
+        {
             return abort(404);
         }
     }
@@ -65,7 +72,8 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
     */
-    public function edit($username){
+    public function edit($username)
+    {
 
         // account of user
         $account = Account::where("username",$username)->first();
@@ -73,19 +81,22 @@ class ProfileController extends Controller
         $categories = Dcategory::all();
 
         // if account is not found then return 404 page
-        if(!$account){
+        if(!$account)
+        {
             abort(404);
         }
 
         // if the someone else is trying to edit someonw else profle then unuthorized page is returned
-        if($account->isNot(Auth::user())){
+        if($account->isNot(Auth::user()))
+        {
             abort(403);
         }
 
         // user
         $user = $account->owner;
         
-        if($user->DateOfBirth){
+        if($user->DateOfBirth)
+        {
             //  in here we to explode the date stored in the database to year month and day seperratly in order to show that in form in the edit page
             $date = explode("-",$user->DateOfBirth);
             $year = $date[0];
@@ -94,18 +105,26 @@ class ProfileController extends Controller
             // add the splited year to the array
             $user["year"] = $year;
             // in the form  the values are 1 2 3 and so on but the splite month is 01 02 03 04 up to 10 and so on so suppose it is 01 then if we pass 01 in the value in the edit form it will not select that becase it expects 1 not 01. so for that reason we check if the first digit is 0 then just add the second one else add both the 2 digigs
-            if($month[0] === "0"){
+            if($month[0] === "0")
+            {
                 $user["month"] = $month[1];
-            }else{
+            }
+            else
+            {
                 $user["month"] = $month;
             }
             // same like month
-            if($day[0] === "0"){
+            if($day[0] === "0")
+            {
                 $user["day"] = $day[1];
-            }else{
+            }
+            else
+            {
                 $user["day"] = $day;
             }
-        }else{
+        }
+        else
+        {
             $user["year"] = 1;
             $user["month"] = 1;
             $user["day"] = 1;
@@ -218,6 +237,45 @@ class ProfileController extends Controller
     }
 // End of of the funcion for edit account settings
 
+// function which delete aaccoun
+    public function deleteAccount(Request $request){
+        $Validator = Validator::make($request->all(),[
+            "password" => "bail|required"
+        ],[
+            "password.required" => "The password can not be empty",
+        ]);
+        if($Validator->fails()){
+            return response()->json(["error"=>$Validator->errors()->all()]);
+        }
+
+        $account = Account::find($request->account_id);
+        $password = $request->password;
+
+        if($account->is(Auth::user())){
+            $password_check = Hash::check($password,$account->password);
+            if($password_check){
+                
+                // delete photos beggining
+                if($account->photos()->count() > 0 ){
+                     foreach($account->photos as $photo){
+                        if($account->owner_type == "App\Doctor"){ Storage::delete('public/images/doctors/'.$photo->path); }
+                        else{ Storage::delete('public/images/normalUsers/'.$photo->path); }
+                     } 
+                }
+                // delete notifications
+                if($account->notifications()->count() > 0) { $account->notifications()->delete(); } 
+                $owner = $account->owner;
+                $owner->account()->delete();
+                $owner->delete();  
+
+            }
+            else{
+                return response()->json(["error"=>"Invalid password entered"]);
+            }
+        }
+
+    }
+// End of deleting account
 
 
 // function which removes the use photo using ajax

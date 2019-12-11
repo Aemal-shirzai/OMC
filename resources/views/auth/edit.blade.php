@@ -9,6 +9,21 @@
 
 @if($user && $account)
 	<div id="editParent">
+		<img src="{{asset('images/load.gif')}}" id="load">
+		<!-- Delete confirmation box -->
+			<div class="deleteAccountBox" id="deleteAccountBox" >
+				<div class="deleteAccountText">Type Your Password</div>
+				{!! Form::open(["method"=>"post","id"=>"deleteAccountForm"]) !!}
+					{!! Form::password("password",["class"=>"form-control form-fields","placeholder"=>"Type your password to proceed","autofocus"=>"true","id"=>"accountDeletField" ]) !!}
+					{!! Form::hidden("account_id",$account->id,["class"=>"form-control form-fields"]) !!}
+				{!! Form::close() !!}
+				<div id="accountDeleteError" class="mt-1"></div>
+				<div class="deleteAccountRememberText">Remember: Your account will be deleted permanantly</div>
+				<a href="javascript:void(0)" onclick="deleteAccount()" class="btn btn-danger btn-sm deleteAccountButtons" id="deleteProceedButton">Delete</a>
+				<img src="{{asset('images/load3.gif')}}" id="deleteLoading">
+				<a href="javascript:void(0)" onclick="deleteAccountBoxClose()" class="btn btn-light btn-sm deleteAccountButtons mb-1">Cancel</a>
+			</div>
+
 		<!-- options for edit -->
 		<div id="editOptions">
 			<button class="tabLinks active1" onclick="openContent(event,'editProfileForm')">Profile Settings</button>
@@ -44,7 +59,7 @@
 					@endif
 						<!-- this no image is just for ajax  to show it afte successs -->
 						<span id="notImage" class="fal fa-user-circle" style="display: none;"   onclick="changePhotoConfirmation()" title="Change Profile Photo"></span>
-						<img src="{{asset('images/load1.gif')}}" id="loading">
+						<img src="{{asset('images/load.gif')}}" id="loading">
 				</div>
 				<div id="userNameAndChangeBtn">
 					<span id="username">{{$account->username}}</span>
@@ -299,7 +314,7 @@
 					{!! Form::submit("Update account settings",["class" => "btn btn-sm mt-2 accountSubmitButton ","disabled"=>"true" ,"id" =>"submitButton" , "onclick"=>"validateAccountForm()"]) !!}
 				</div>
 			{!! Form::close() !!}
-			<a href="#" class="btn  btn-sm" id="deleteAccountButton">Delete my account</a>
+			<a href="javascript:void(0)" onclick="deleteAccountBoxOpen()" class="btn  btn-sm" id="deleteAccountButton">Delete my account</a>
 		</div>
 
 		<!-- //////////////////////////////////////////////////////////////////////////////  PART 3   /////////////////////////////////////////////// -->
@@ -406,7 +421,9 @@
 <script type="text/javascript">
 	var token = '{{ Session::token() }}';
 	var removePhoto = '{{route("profile.removePhoto")}}';
-	var uploadPhoto = '{{route("profile.uploadPhoto")}}'
+	var uploadPhoto = '{{route("profile.uploadPhoto")}}';
+	var accountDelete = '{{route("deleteAccount")}}';
+	var login = '{{route("login")}}';
 </script>
 
 
