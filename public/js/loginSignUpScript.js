@@ -105,6 +105,13 @@ function validateSignUpForm(){
 		document.getElementById("passwordError").innerHTML = "password must be greater than 8 chars";
 		document.getElementById("passwordError").style.color = "red";
 		event.preventDefault();
+	}else if(password.length > 60 ){
+		document.getElementById("password").focus();
+		document.getElementById("password").style.border = "1px solid red";
+		document.getElementById("password").style.color = "red";
+		document.getElementById("passwordError").innerHTML = "password must be less than 60 chars";
+		document.getElementById("passwordError").style.color = "red";
+		event.preventDefault();
 	}else{
 		document.getElementById("password").style.border = "1px solid #efefef";
 		document.getElementById("password").style.color = "black";

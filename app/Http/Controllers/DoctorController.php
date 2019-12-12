@@ -16,6 +16,13 @@ class DoctorController extends Controller
         $this->middleware("auth")->only(["achAdd","achUpdate","achDelete","achEdit"]);
     }
 
+
+    public function search(Request $req){
+        $doctors = Doctor::where("fullName",'like',"%$req->searchFor%")->paginate(30);
+        return view("doctors.doctorsSearch",compact("doctors"));
+    }
+
+
     /**
      * Display a listing of the resource.
      *

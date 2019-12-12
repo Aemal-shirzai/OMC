@@ -3,24 +3,19 @@
 @section("title","All Doctors")
 
 @section("content")
+
+@if(session('type'))
+	@php 
+		$type = session('type');
+	@endphp
+@endif
+@if(session('doctors'))
+	{{session("doctors")}}
+	@php 
+		$doctors = session('doctors');
+	@endphp
+@endif
 	<div id="allUsersParent">
-		<!-- Begginng of title and sortBy options -->
-		<div class="title">
-			<h3>
-				@if(empty($type))
-					All Doctors
-				@endif
-				@isset($type) 
-					@if($type == "top")
-						Popular doctors
-					@elseif($type == 'new')
-						Mew Doctors
-					@elseif($type == 'mostposts')
-						Doctors with most posts
-					@endif 
-				@endisset 
-			</h3>
-		</div>
 		<div id="searchFor">
 			{!! Form::open(["method"=>"GET","action"=>"DoctorController@search"]) !!}
 				<div style="position: relative;">

@@ -186,7 +186,6 @@ function deleteAccount(){
 $(document).ready(function(e){
 
 	// to delete the account using ajax
-
 	$("#deleteAccountForm").submit(function(e){
 		e.preventDefault();
 		var formData = new FormData(this);
@@ -304,6 +303,68 @@ $(document).ready(function(e){
 
 	});
 // End of the part or funtion whihc upoload and validate use edit profile pic
+
+
+
+// changePassword part
+	$("#changePasswordForm").submit(function(e){
+
+
+
+		e.preventDefault();
+		$("#oldPasswordError").text("");
+		$("#newPasswordError").text("");
+		$("#passwordConfirmationError").text("");
+
+		$("#changePasswordButton").attr("disabled","true");
+		$(".changePasswordLoad").show();
+
+		$("#changePassMessage").hide();
+
+		var formData = $(this).serialize();
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+
+		$.ajax({
+			method: "PUT",
+			url: passwordChange,
+			data:formData,
+			processData:false,
+		}).done(function(response){
+			$("#changePasswordButton").removeAttr("disabled");
+			$(".changePasswordLoad").hide();
+			if($.isEmptyObject(response.errors)){
+				if(!$.isEmptyObject(response.notMatched)){
+					$("#oldPasswordError").text(response.notMatched);
+				}else{
+					document.getElementById("changePasswordForm").reset();
+					$("#changePassMessage").show();
+					$("#changePassMessageContent").text(response.changeSuccess);
+					if(!$.isEmptyObject(response.notKeep)){
+						$("#changePassMessageContent").text(response.notKeep);
+						window.location = login;
+					}
+				}
+			}else{
+				$("#oldPasswordError").text(response.errors['old_password']);
+				$("#newPasswordError").text(response.errors['new_password']);
+				$("#passwordConfirmationError").text(response.errors['new_password_confirmation']);
+			}
+
+			if($.isEmptyObject(response.notMatched)){
+
+			}else{
+				$("#oldPasswordError").text(response.notMatched);
+			}
+
+
+		}).fail(function(response){
+			alert("not good");
+		});
+	});
 
 
 
@@ -487,6 +548,90 @@ function validateProfileEditForm(){
 
 
 
+// validate change password form
+
+function validatePasswordForm(){
+	var old_password = document.getElementById("old_password");
+	var oldPasswordError = document.getElementById("oldPasswordError");
+	var new_password = document.getElementById("new_password");
+	var newPasswordError = document.getElementById("newPasswordError");
+	var new_password_confirmation = document.getElementById("new_password_confirmation");
+	var passwordConfirmationError = document.getElementById("passwordConfirmationError");
+
+
+	if(old_password.value.trim().length < 1){
+		old_password.focus();
+		oldPasswordError.innerHTML = "Old password field can not be empty";
+		old_password.style.border="1px solid red";
+		event.preventDefault();
+	}else if(old_password.value.trim().length > 60){
+		old_password.focus();
+		oldPasswordError.innerHTML = "Too long password";
+		old_password.style.border="1px solid red";
+		event.preventDefault();
+	}else{
+		oldPasswordError.innerHTML = "";
+		old_password.style.border="1px solid #efefef";
+	}
+
+// new pass
+	if(new_password.value.trim().length < 1){
+		new_password.focus();
+		newPasswordError.innerHTML = "New password field can not be empty";
+		new_password.style.border="1px solid red";
+		event.preventDefault();
+	}else if(new_password.value.trim().length > 0 && new_password.value.trim().length < 8 ){
+		new_password.focus();
+		newPasswordError.innerHTML = "New password should be mininum 8 charachters";
+		new_password.style.border="1px solid red";
+		event.preventDefault();
+	}
+	else if(new_password.value.trim().length > 60){
+		new_password.focus();
+		newPasswordError.innerHTML = "Too long password";
+		new_password.style.border="1px solid red";
+		event.preventDefault();
+	}else if(old_password.value.trim() === new_password.value.trim()){
+		new_password.focus();
+		newPasswordError.innerHTML = "Your new password should not be same as old password";
+		new_password.style.border="1px solid red";
+		event.preventDefault();
+	}else if(new_password_confirmation.value.trim() !== new_password.value.trim()){
+		new_password.focus();
+		newPasswordError.innerHTML = "Password confirmation does not match";
+		new_password.style.border="1px solid red";
+		event.preventDefault();
+	}else{
+		newPasswordError.innerHTML = "";
+		new_password.style.border="1px solid #efefef";
+	}	
+
+// confirmation pass
+	if(new_password_confirmation.value.trim().length < 1){
+		new_password_confirmation.focus();
+		passwordConfirmationError.innerHTML = "password confirmation field can not be empty";
+		new_password_confirmation.style.border="1px solid red";
+		event.preventDefault();
+	}else{
+		passwordConfirmationError.innerHTML = "";
+		new_password_confirmation.style.border="1px solid #efefef";
+	}
+}
+// End of validating change password form
+
+// To enable change password button
+function enablePassChangeBtn(){
+	var old_password = document.getElementById("old_password");
+	var new_password = document.getElementById("new_password");
+	var new_password_confirmation = document.getElementById("new_password_confirmation");
+	if(new_password_confirmation.value.trim().length > 0 && new_password.value.trim().length > 0 && old_password.value.trim().length > 0){
+		document.getElementById("changePasswordButton").disabled = false;
+	}else{
+		document.getElementById("changePasswordButton").disabled = true;
+	}
+}
+
+
 // this part is to validate the edit account settings form
 function validateAccountForm(){
 	var username = document.getElementById("formUsername");
@@ -594,6 +739,7 @@ function validateAccountForm(){
 	}
 }  //end of main function
 
+// to enable account settings button
 function enableAccountBtn(){
 	document.getElementsByClassName("accountSubmitButton")[0].disabled = false;
 }

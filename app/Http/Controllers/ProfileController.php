@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 
+use AuthenticatesUsers;
 class ProfileController extends Controller
 {
     /**
@@ -42,6 +43,7 @@ class ProfileController extends Controller
     */
     public function index($username)
     {
+        
         $user = Account::where("username",$username)->first();
         if($user)
         {
@@ -200,9 +202,10 @@ class ProfileController extends Controller
     // End of update function for edit profiel
 
 // Beggining of the funcion for edit account settings
-    public function updateAccount(usersAccountUpdateRequest $request, $account){
+    public function updateAccount(usersAccountUpdateRequest $request, $accountUsername){
         
-        $account = Account::whereUsername($account)->first();
+        $account = Account::whereUsername($accountUsername)->first();
+        
         if($account->is(Auth::user())){
 
             if(!empty($request->oPhone)){
@@ -232,10 +235,51 @@ class ProfileController extends Controller
             }
            
             $updateAccount = $account->update($request->all());
+
            if($updateAccount){return redirect()->route('profile.edit',$account->username)->with("accountUpdateSuccess","Account Settings updaetd");}else{return back()->withInput()->with("accountUpdateError","OOps! someting went, wrong try agian");} 
         }
     }
 // End of of the funcion for edit account settings
+
+// function which change userusername
+    public function changePassword(Request $request){
+            $Validator = Validator::make($request->all(),[
+                "old_password" => "bail|required|max:60|string",
+                "new_password" => "bail|required|min:8|max:60|string|confirmed|different:old_password",
+                "new_password_confirmation" => "required",
+            ],[
+                "old_password.required" => "Old password field can not be empty",
+                "old_password.string" => "Invalid input for old password",
+                "new_password.required" => "New password field can not be empty",
+                "new_password.min" => "New password should be mininum 8 charachters",
+                "new_password.string" => "Invalid input for new password",
+                "new_password.different" => "Your new password should not be same as old password"
+            ]);
+
+            if($Validator->fails()){
+                return response()->json(["errors"=>$Validator->errors()]);
+            }
+
+            $user = Account::find($request->userId);
+            if(!Hash::check($request->old_password,$user->password)){
+                return response()->json(["notMatched"=>"Incorrect old password"]);
+            }
+
+            $new_password = Hash::make($request->new_password);
+            $update = $user->update(["password"=>$new_password]);
+            if($update){
+                if(!$request->keepLogin){
+                    session()->flash("mustLogin","Your password changed! login to contioue");
+                    Auth::logout();
+                    return response()->json(["notKeep"=>"The password changed. Loggin out..."]);
+
+                }
+                return response()->json(["changeSuccess"=>"The password changed seccessfully"]);
+            }
+
+
+    }
+// End of function which change the password
 
 // function which delete aaccoun
     public function deleteAccount(Request $request){

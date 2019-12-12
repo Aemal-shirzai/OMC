@@ -226,7 +226,7 @@
 				@endcan 
 				<div class="form-elements input-group">
 					<span class="form-labels"></span>
-					{!! Form::submit("Update",["class" => "btn btn-sm mt-2","id"=>"submitButton","onclick"=>"validateProfileEditForm()"]) !!}
+					{!! Form::submit("Update",["class" => "btn btn-sm mt-2 submitButton","onclick"=>"validateProfileEditForm()"]) !!}
 				</div>
 			{!! Form::close() !!}
 		</div>
@@ -248,16 +248,14 @@
 			@endif
 			<div id="changePhoto" class="mb-2">
 				<div id="userPhoto">
-					<!-- this image is for ajax after its beign uploaded to show this one  -->
-					<img class="newImage image" src=""  onclick="changePhotoConfirmation()" title="Change Profile Photo" style="display: none;">
 					@if($account->photos()->where("status","1")->first())
 						@if($account->owner_type == "App\Doctor")
-							<img class="image" src="/storage/images/doctors/{{$account->photos()->where('status',1)->first()->path}}" onclick="changePhotoConfirmation()" title="Change Profile Photo">
+							<img class="image" src="/storage/images/doctors/{{$account->photos()->where('status',1)->first()->path}}" style="cursor: initial;" title="Profile Photo">
 						@else
-							<img class="image" src="/storage/images/normalUsers/{{$account->photos()->where('status',1)->first()->path}}" 	 onclick="changePhotoConfirmation()" title="Change Profile Photo">
+							<img class="image" src="/storage/images/normalUsers/{{$account->photos()->where('status',1)->first()->path}}" title="Profile Photo" style="cursor: initial;">
 						@endif	
 					@else
-						<span id="notImage" class="fal fa-user-circle"   onclick="changePhotoConfirmation()" title="Change Profile Photo"></span>
+						<span id="notImage" class="fal fa-user-circle"  title="No Profile Photo" style="cursor: initial;"></span>
 					@endif
 						<!-- this no image is just for ajax  to show it afte successs -->
 						<span id="notImage" class="fal fa-user-circle" style="display: none;"   onclick="changePhotoConfirmation()" title="Change Profile Photo"></span>
@@ -311,7 +309,7 @@
 				</div>
 				<div class="form-elements input-group">
 					{!! Form::label("","",["class"=>"form-labels"]) !!}
-					{!! Form::submit("Update account settings",["class" => "btn btn-sm mt-2 accountSubmitButton ","disabled"=>"true" ,"id" =>"submitButton" , "onclick"=>"validateAccountForm()"]) !!}
+					{!! Form::submit("Update account settings",["class" => "btn btn-sm mt-2 accountSubmitButton submitButton ","disabled"=>"true", "onclick"=>"validateAccountForm()"]) !!}
 				</div>
 			{!! Form::close() !!}
 			<a href="javascript:void(0)" onclick="deleteAccountBoxOpen()" class="btn  btn-sm" id="deleteAccountButton">Delete my account</a>
@@ -320,22 +318,22 @@
 		<!-- //////////////////////////////////////////////////////////////////////////////  PART 3   /////////////////////////////////////////////// -->
 		<!-- for editing  or account information -->
 		<div class="tab-content editForm" id="editPassword" style="display: none;">
+			<div class="alert alert-danger alert-sm serverMsgs" id="changePassMessage" style="display: none;">
+					<button class="close" data-dismiss="alert" area-hidden="true"><span class="fal fa-times"></span></button>
+					<span id="changePassMessageContent"></span>
+			</div>
 			<div id="changePhoto">
 				<div id="userPhoto">
 					<!-- this image is for ajax after its beign uploaded to show this one  -->
-					<img class="newImage image" src=""  onclick="changePhotoConfirmation()" title="Change Profile Photo" style="display: none;">
 					@if($account->photos()->where("status","1")->first())
 						@if($account->owner_type == "App\Doctor")
-							<img class="image" src="/storage/images/doctors/{{$account->photos()->where('status',1)->first()->path}}" onclick="changePhotoConfirmation()" title="Change Profile Photo">
+							<img class="image" src="/storage/images/doctors/{{$account->photos()->where('status',1)->first()->path}}" title="profile photo" style="cursor: initial;">
 						@else
-							<img class="image" src="/storage/images/normalUsers/{{$account->photos()->where('status',1)->first()->path}}" 	 onclick="changePhotoConfirmation()" title="Change Profile Photo">
+							<img class="image" src="/storage/images/normalUsers/{{$account->photos()->where('status',1)->first()->path}}" title="profile photo" 	style="cursor: initial;" >
 						@endif	
 					@else
-						<span id="notImage" class="fal fa-user-circle"   onclick="changePhotoConfirmation()" title="Change Profile Photo"></span>
+						<span id="notImage" class="fal fa-user-circle"  title="No profile photo" style="cursor: initial;"></span>
 					@endif
-						<!-- this no image is just for ajax  to show it afte successs -->
-						<span id="notImage" class="fal fa-user-circle" style="display: none;"   onclick="changePhotoConfirmation()" title="Change Profile Photo"></span>
-						<img src="{{asset('images/load1.gif')}}" id="loading">
 				</div>
 				<div id="userNameAndChangeBtn" class="mt-2">
 					<span id="username">{{$account->username}}</span>
@@ -343,38 +341,50 @@
 			</div>
 			<!-- End of showing user photo -->
 			<!-- beggiin of form for editing account -->
-			{!! Form::model($account,["method"=>"PUT","action"=>["ProfileController@updateAccount",$account->id]]) !!}
+			{!! Form::open(["method"=>"PUT","action"=>"ProfileController@changePassword","id"=>'changePasswordForm']) !!}
 				<div class="changePassword">Change Password</div>
 				<div class="form-elements input-group">
 					{!! Form::label("old_password","Old Password",["class"=>"form-labels"]) !!}
-					{!! Form::password("old_password",["class"=>"form-control form-fields ".($errors->has('old_password') ? ' formErrors' : ''),"id"=>"old_password"]) !!}
+					{!! Form::password("old_password",["class"=>"form-control form-fields ".($errors->has('old_password') ? ' formErrors' : ''),"id"=>"old_password", "maxlength"=>"60","onkeyup"=>"enablePassChangeBtn()"]) !!}
 					<div class="inputErrors" id="oldPasswordError">
 						@error('old_password')
 							{{ $message }}
 						@enderror
 					</div>
+					<img src="{{asset('images/load.gif')}}" class="changePasswordLoad">
 				</div>
 				<div class="form-elements input-group">
 					{!! Form::label("new_password","New Password",["class"=>"form-labels"]) !!}
-					{!! Form::password("new_password",["class"=>"form-control form-fields ".($errors->has('new_password') ? ' formErrors' : ''),"id"=>"new_password"]) !!}
+					{!! Form::password("new_password",["class"=>"form-control form-fields ".($errors->has('new_password') ? ' formErrors' : ''),"id"=>"new_password", "maxlength"=>"60" ,"onkeyup"=>"enablePassChangeBtn()"]) !!}
 					<div class="inputErrors" id="newPasswordError">
 						@error('new_password')
 							{{ $message }}
 						@enderror
 					</div>
+					<img src="{{asset('images/load.gif')}}" class="changePasswordLoad">
 				</div>
 				<div class="form-elements input-group">
 					{!! Form::label("password_confirmation","Confirm New Password",["class"=>"form-labels"]) !!}
-					{!! Form::password("new_password_confirmation",["class"=>"form-control form-fields ".($errors->has('password_confirmation') ? ' formErrors' : '' ), "id"=>"password_confirmation"]) !!}
+					{!! Form::password("new_password_confirmation",["class"=>"form-control form-fields ".($errors->has('new_password_confirmation') ? ' formErrors' : '' ), "id"=>"new_password_confirmation" ,"maxlength"=>"60" ,"onkeyup"=>"enablePassChangeBtn()"]) !!}
 					<div class="inputErrors" id="passwordConfirmationError">
 						@error('password_confirmation')
 							{{ $message }}
 						@enderror
 					</div>
+					<img src="{{asset('images/load.gif')}}" class="changePasswordLoad">
+				</div>
+				<div class="form-elements input-group mb-0">
+					{!! Form::label("","",["class"=>"form-labels"]) !!}
+					<label>{!! Form::checkbox("keepLogin",1) !!} <small>Keep me login </small></label>
 				</div>
 				<div class="form-elements input-group">
+					<span class="note">You must provide your new password for authentication and your old password will not be valid anymore, if you change your password</span>
+					<span class="note"><a href="#" style="color: #3fbbc0;">Forgot Password?</a></span>
+				</div>
+				{!! Form::hidden("userId",$account->id) !!}
+				<div class="form-elements input-group">
 					{!! Form::label("","",["class"=>"form-labels"]) !!}
-					{!! Form::submit("Change Password",["class" => "btn btn-sm mt-2","id"=>"submitButton"]) !!}
+					{!! Form::submit("Change Password",["class" => "btn btn-sm mt-2 submitButton","id"=>"changePasswordButton","onclick"=>"validatePasswordForm()","disabled"=>"true"]) !!}
 				</div>
 			{!! Form::close() !!}
 		</div>
@@ -424,6 +434,7 @@
 	var uploadPhoto = '{{route("profile.uploadPhoto")}}';
 	var accountDelete = '{{route("deleteAccount")}}';
 	var login = '{{route("login")}}';
+	var passwordChange = '{{route("changepassword")}}';
 </script>
 
 

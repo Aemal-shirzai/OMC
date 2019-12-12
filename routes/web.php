@@ -36,6 +36,9 @@ Route::MATCH(["PUT","PATCH"],"profile/{profile}/update","ProfileController@updat
 Route::MATCH(["PUT","PATCH"],"profile/{profile}/update/account","ProfileController@updateAccount")->name("profile.update.account");
 // Delete account
 Route::POST("/account/destroy","ProfileController@deleteAccount")->name("deleteAccount");
+// Change your password
+Route::MATCH(['PUT','PATCH'],"/account/changepassword","ProfileController@changePassword")->name("changepassword");
+
 // called using ajax function to upload photo
 Route::POST('/profile/photo/', 'ProfileController@uploadPhoto')->name('profile.uploadPhoto');
 // called using ajax function to remove photo
@@ -87,6 +90,7 @@ Route::DELETE("/reply/delete","CommentReplyController@delete")->name("deleteRepl
 Route::POST("/markasread","notificationController@readMark")->name("readMark");
 
 
+route::get("/doctors/search","DoctorController@search")->name("search");
 // routes for doctors
 Route::resource("/doctors","DoctorController");
 // sort posts route

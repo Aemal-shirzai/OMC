@@ -44,7 +44,7 @@ class followDoctor extends Notification
             'by' => $this->follower->owner->fullName,
             'byAccount' => $this->follower->owner_type,
             "byPhoto"   => $this->byPhoto,
-            'byUsername' => $this->follower->username,
+            'byId' => $this->follower->id,
             'message' => "Started following you", 
             'type' => "follow",
         ];

@@ -3,6 +3,12 @@
 
 @section("logo")
 <div id="loginSignUp-logo">
+
+ @if(session("mustLogin"))
+<div class="alert alert-success alert-sm" id="logoutMessage">
+        {{session("mustLogin")}}
+</div>
+@endif
     <!-- <img src="{{asset('images/logo.png')}}" class="img-fluid"> -->
    &nbsp; a
 </div>

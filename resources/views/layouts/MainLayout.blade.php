@@ -17,7 +17,7 @@
 	@elseif(Route::currentRouteName() == 'profile')
 	<!-- Link to local profile style for profile page -->
 	
-	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle1.css')}}">
 	
 	@elseif(Route::currentRouteName() == 'posts.create' || Route::currentRouteName() == 'questions.create' || Route::currentRouteName() == 'posts.edit' || Route::currentRouteName() == 'questions.edit' || Route::currentRouteName() == 'comments.edit' || Route::currentRouteName() == 'replies.edit')
 	<!-- Link to local  style for posts add page -->
@@ -30,7 +30,7 @@
 	<!-- Link to local styles for posts list page -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsSingleStyle11.css')}}">
 
-	@elseif(Route::currentRouteName() == 'doctors.index' || Route::currentRouteName() == 'nusers.index' || Route::currentRouteName() == 'doctorsSortBy' || Route::currentRouteName() == 'nusersSortBy')
+	@elseif(Route::currentRouteName() == 'doctors.index' || Route::currentRouteName() == 'nusers.index' || Route::currentRouteName() == 'doctorsSortBy' || Route::currentRouteName() == 'nusersSortBy' || Route::currentRouteName() == 'search')
 	<!-- Link to local styles for doctors and normal users list page -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/usersStyle1.css')}}">	
 	@elseif(Route::currentRouteName() == 'achEdit')
@@ -169,7 +169,7 @@
 						@elseif($notification->type == "App\Notifications\commentForQuestion")
 							<a href="{{route('questions.show',$notification->data['question'])}}" id="notificationLink" onclick="markAsRead('{!! $notification->id !!}')">
 						@elseif($notification->data['type'] == "follow")
-							<a href="{{route('profile',$notification->data['byUsername'])}}" id="notificationLink" onclick="markAsRead('{!! $notification->id !!}')">
+							<a href="{{route('profile',\App\Account::find($notification->data['byId'])->username) }}" id="notificationLink" onclick="markAsRead('{!! $notification->id !!}')">
 						@elseif($notification->data['type'] == "reply")
 							@if($notification->data["toType"] == 'App\Post')
 								<a href="{{route('posts.show',$notification->data['toId'])}}" id="notificationLink" onclick="markAsRead('{!! $notification->id !!}')">

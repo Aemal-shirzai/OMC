@@ -128,7 +128,7 @@ class NormalUserController extends Controller
             // all notifications record for follwing
             $forFollowings =  $doctor->account->notifications()->where("notifications.type",'=','App\Notifications\followDoctor')->get();
             foreach($forFollowings as $forFollowing){
-                if($forFollowing->data['byUsername'] == $user->username){
+                if($forFollowing->data['byId'] == $user->id){
                     // delete all those notifications related to this unfollowing
                     $forFollowing->delete();
                 }
