@@ -455,23 +455,23 @@ if(txt.trim().length > 0 ){
 window.onscroll = function() {
 	changeMenuSize();
 	showToButton();
-	changeTagsPosition();
+	// changeTagsPosition();
 };	
 // Beggining of the function which change the pososition of tags div in profile page 
-function changeTagsPosition(){
-	if(document.body.scrollTop > 360 || document.documentElement.scrollTop > 360){
-	document.getElementById('tags').setAttribute("style","position:fixed; right:130px;top: 130px; padding:12px 15px; transition: 0.5s; width:200px;");
-	}else{
-		document.getElementById('tags').setAttribute("style","float: right; position: relative;right: 130px; width:200px; top: 130px;padding: 12px 15px; transition: 0.5s;")
-	}
-}
+// function changeTagsPosition(){
+// 	if(document.body.scrollTop > 360 || document.documentElement.scrollTop > 360){
+// 	document.getElementById('tags').setAttribute("style","position:fixed; right:130px;top: 130px; padding:12px 15px; transition: 0.5s; width:200px;");
+// 	}else{
+// 		document.getElementById('tags').setAttribute("style","float: right; position: relative;right: 130px; width:200px; top: 130px;padding: 12px 15px; transition: 0.5s;")
+// 	}
+// }
 // End of the function which change the pososition of tags div in profile page 
 
 // This if statement checks if the page is refreshed when the scroll in more that 310 then alsom apply these style to tags in profile page
 // RElated to above on scroll function
-if(document.documentElement.scrollTop > 360){
-	document.getElementById('tags').setAttribute("style","position:fixed;right:130px;top:130px; padding:12px 15px; width:200px; transition: 0.5s;");
-}
+// if(document.documentElement.scrollTop > 360){
+// 	document.getElementById('tags').setAttribute("style","position:fixed;right:130px;top:130px; padding:12px 15px; width:200px; transition: 0.5s;");
+// }
 
 
 //Beggining of : The function which add and update vote to post

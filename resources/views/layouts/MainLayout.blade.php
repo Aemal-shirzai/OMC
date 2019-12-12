@@ -304,7 +304,7 @@
 
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
-<script type="text/javascript" src="{{asset('js/profileScript1.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/profileScript12.js')}}"></script>
 
 @elseif(Route::currentRouteName() == 'posts.create' || Route::currentRouteName() == 'questions.create' || Route::currentRouteName() == 'posts.edit' || Route::currentRouteName() == 'questions.edit' ||  Route::currentRouteName() == 'comments.edit' || Route::currentRouteName() == 'replies.edit')
 <!-- Link to local  js for posts page -->
@@ -326,7 +326,7 @@
 
 @elseif(Route::currentRouteName() == 'profile.edit')
 <!-- Link to local js for editing users -->
-<script type="text/javascript" src="{{asset('js/editUsers1.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/editUsers.js')}}"></script>
 @endif
 
 <script type="text/javascript">

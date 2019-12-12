@@ -710,17 +710,20 @@ div.reply-divider{
 
 /* tags section */
 #tags{
-	position: relative;
-	right: 130px;
+	position: sticky;
+	right: 100px;
 	padding: 12px 15px;
 	width: 200px;
 	transition: 0.5s;
 	background-color: #fbfbfd;
 	float: right;
+	margin-top: 30px;
+	top: 120px;
 	font-size: 12px;
 }
 #tags a{
 	display: block;
+	color: #3fbbc0;
 }
 
 
@@ -1328,6 +1331,63 @@ div.ach-ImageDiv button:focus{
 	top: 25%;
 	cursor: pointer;
 }
+
+
+/*full info par beggining */
+#fullInfo{
+	padding: 20px  200px;
+	
+}
+#fullInfoParent{
+	background-color: white !important;
+	padding: 5px 20px;
+	position: relative;
+}
+.infoTitle{
+	font-size: 17px;
+	color: #999;
+	font-weight: bold;
+}
+#PersonalInfo,#contactInfo,#generalInfo{
+	padding: 5px 24px;
+    padding-top: 0px;
+    font-size: 15px;
+}
+.fullInfoContent{
+	display: inline-block;
+	max-width: 400px;
+	padding: 5px 15px;
+	font-size: 15px;
+}
+.infosmallTitle{
+	font-weight: bold;
+	width: 100px;
+	font-size: 13px;
+	
+	/*background-color: green;*/
+	text-align: right;
+	display: inline-block;
+}
+.info-links{
+	color: #3fbbc0;
+	font-size: 14px;
+	transition: 0.5s
+}
+.info-links:hover{
+	color: #3fbbc0;
+	text-decoration: none;
+	font-size: 15px;
+}
+
+#extraInfo{
+	padding: 14px 20px;
+	position: absolute;
+	right: 12px;
+}
+#extraInfo span{
+	font-size: 12px;
+}
+
 /* iphod pro /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 1200px) and (min-width: 1024px){
 	#tags{
@@ -1436,6 +1496,26 @@ div.ach-ImageDiv button:focus{
 	/*achievments part*/
 	#achiemvents-content{
 		width: 80%;
+	}
+
+	/*full info par beggining */
+	#fullInfo{
+		padding-left: 180px;
+		
+	}
+	.fullInfoContent{
+		display: inline-block;
+		max-width: 400px;
+		padding: 5px 15px;
+		font-size: 13px;
+	}
+	.info-links{
+		color: #3fbbc0;
+		font-size: 13px;
+		transition: 0.5s
+	}
+	.info-links:hover{
+		font-size: 13px;
 	}
 
 
@@ -1731,6 +1811,35 @@ div.ach-ImageDiv button:focus{
 	.achievement-titleAndInfo{
 		box-shadow: 0 2px 3px rgba(59,64,69,0.2);
 
+	}
+	/*full info par beggining */
+	#fullInfo{
+		padding: 20px  0px;
+		
+	}
+	.infoTitle{
+		font-size: 16px;
+	}
+	#PersonalInfo,#contactInfo,#generalInfo{
+	    font-size: 13px;
+	}
+	.fullInfoContent{
+		font-size: 12px;
+	}
+	.infosmallTitle{
+		font-size: 13px;
+	}
+	.info-links{
+		font-size: 12px;
+	}
+	.info-links:hover{
+		font-size: 12px;
+	}
+	#extraInfo{
+		right: 59px;
+	}
+	#extraInfo span{
+		font-size: 11px;
 	}
 
 }
@@ -2278,6 +2387,50 @@ div.ach-ImageDiv button:focus{
 		cursor: pointer;
 	}
 
+	/*full info par beggining */
+	#fullInfo{
+		padding: 20px  0px;
+		padding-right: 12px;
+		
+	}
+	#fullInfoParent{
+		padding: 5px 0px;
+	}
+	.infoTitle{
+		font-size: 14px;
+	}
+	#PersonalInfo,#contactInfo,#generalInfo{
+		padding: 5px 5px;
+	    font-size: 12px;
+	}
+	.fullInfoContent{
+		max-width: 100%;
+		padding: 5px 2px;
+		font-size: 12px;
+	}
+	.infosmallTitle{
+		font-weight: bold;
+		width: 100%;
+		font-size: 12px;
+		text-align: left;
+	}
+	.info-links{
+		color: #3fbbc0;
+		font-size: 12px;
+		transition: 0.5s
+	}
+	.info-links:hover{
+		font-size: 12px;
+	}
+
+	#extraInfo{
+		padding: 0px 1px;
+		right: 3px;
+	}
+	#extraInfo span{
+		font-size: 10px;
+	}
+
 
 } 
 
@@ -2416,6 +2569,34 @@ div.ach-ImageDiv button:focus{
 	#submitButtonIcon{
 		right:5px;
 		top: 8px;
+	}
+
+	/*full info par beggining */
+	#fullInfo{
+		padding-right: 0px;
+		
+	}
+	.infoTitle{
+		font-size: 13px;
+	}
+	#PersonalInfo,#contactInfo,#generalInfo{
+		padding: 5px 0px;
+	    font-size: 11px;
+	}
+	.fullInfoContent{
+		font-size: 11px;
+	}
+	.infosmallTitle{
+		font-size: 11px;
+	}
+	.info-links{
+		font-size: 11px;
+	}
+	.info-links:hover{
+		font-size: 11px;
+	}
+	#extraInfo span{
+		font-size: 9px;
 	}
 
 }

@@ -177,7 +177,7 @@
     <div id="adsParent" class="owl-carousel container owl-theme">
         <div class="adsItems">
             <div class="card">
-                <div class="card-heading adsImage"><img src="{{asset('images/section1.jpg')}}" class="img-fluid" style="height:100px;" alt="no image"></div>
+                <div class="card-heading adsImage"><img src="{{asset('images/bg-banner.jpg')}}" class="img-fluid" style="height:100px;" alt="no image"></div>
                 <div class="card-body">
                     <p  class="adsTitle">Murtaza</p>
                     <p class="adsContent"> Our mission is to help medical experts get publicity in short time. This means that other peoples will be able to find medical experts easily through omc.</p>

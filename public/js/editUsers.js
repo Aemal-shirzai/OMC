@@ -188,7 +188,7 @@ $(document).ready(function(e){
 	// to delete the account using ajax
 	$("#deleteAccountForm").submit(function(e){
 		e.preventDefault();
-		var formData = new FormData(this);
+		var formData = $(this).serialize();
 		$("#deleteProceedButton").text('Loading...');
 		$("#deleteLoading").show();
 
@@ -203,10 +203,10 @@ $(document).ready(function(e){
 		});
 
 		$.ajax({
-			method: "POST",
+			method: "DELETE",
 			url: accountDelete,
-			contentType: false,
-		 	cache:false,
+			
+		 	// cache:false,
 		 	processData: false,
 			data: formData,
 		}).done(function(response){

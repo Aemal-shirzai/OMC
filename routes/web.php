@@ -35,7 +35,7 @@ Route::MATCH(["PUT","PATCH"],"profile/{profile}/update","ProfileController@updat
 // update  account (account table witout passowrd)
 Route::MATCH(["PUT","PATCH"],"profile/{profile}/update/account","ProfileController@updateAccount")->name("profile.update.account");
 // Delete account
-Route::POST("/account/destroy","ProfileController@deleteAccount")->name("deleteAccount");
+Route::DELETE("/account/destroy","ProfileController@deleteAccount")->name("deleteAccount");
 // Change your password
 Route::MATCH(['PUT','PATCH'],"/account/changepassword","ProfileController@changePassword")->name("changepassword");
 

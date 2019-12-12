@@ -72,7 +72,7 @@
 	@auth
 		@if(Auth::user()->owner_type == 'App\Doctor' && Auth::user()->username == $user->username)
 			<!-- Beggining of the div which shows the tags of doctors in profile page -->
-			<div id="tags" style="top: 130px;">
+			<div id="tags" style="">
 				Your Tags
 					<a href="#">tag1</a>
 					<a href="#">tag2</a>
@@ -90,7 +90,7 @@
 	
 		<div id="tabs">
 				@if($user->owner_type == "App\Doctor")
-					<button class="tabLinks active" onclick="openContent(event,'posts')">
+					<button class="tabLinks active" id="postsMainButton" onclick="openContent(event,'posts')">
 						<span class="fal fa-th btn-icon-large"></span> 
 						<span class="fal fa-th btn-icon"></span> 
 						<span class="btnText">Posts</span>
@@ -100,15 +100,10 @@
 						<span class="fal fa-graduation-cap btn-icon"></span>
 						<span class="btnText">Achievements</span>
 					</button>
-					<button class="tabLinks" onclick="openContent(event,'followers')">
+					<button class="tabLinks" id="followersMainButton" onclick="openContent(event,'followers')">
 						<span class="fad fa-users btn-icon-large"></span> 
 						<span class="fal fa-users btn-icon"></span> 
 						<span class="btnText">Followers <span id="followerCount">{{$user->owner->followed()->count()}}</span>
-					</button>
-					<button class="tabLinks" onclick="openContent(event,'fullInfo')">
-						<span class="fad fa-info-square btn-icon-large"></span> 
-						<span class="fal fa-info-square btn-icon"></span> 
-						<span class="btnText">Full Info</span>
 					</button>
 				@else
 					<button class="tabLinks active" onclick="openContent(event,'favorites')">
@@ -126,12 +121,17 @@
 						<span class="fal fa-users btn-icon"></span> 
 						<span class="btnText">Following <span id="followingCount">{{$user->owner->following()->count()}}</span></span>
 					</button>
-					<button class="tabLinks" onclick="openContent(event,'fullInfoUser')">
+<!-- 					<button class="tabLinks" onclick="openContent(event,'fullInfoUser')">
 						<span class="fad fa-info-square btn-icon-large"></span> 
 						<span class="fal fa-info-square btn-icon"></span> 
 						<span class="btnText">Full Info</span>
-					</button>
+					</button> -->
 				@endif
+				<button class="tabLinks" onclick="openContent(event,'fullInfo')">
+					<span class="fad fa-info-square btn-icon-large"></span> 
+					<span class="fal fa-info-square btn-icon"></span> 
+					<span class="btnText">Full Info</span>
+				</button>
 		</div>
 </div>
 
@@ -952,9 +952,6 @@
 		</div>
 	</div>
 
-	<div id="fullInfo" class="tab-content"> 
-		This is full info part
-	</div>
 @else
 	<div id="favorites" class="tab-content">
 		<div id="favoritesTabs">
@@ -1316,8 +1313,100 @@
 	</div>
 
 
-	<div id="fullInfoUser" class="tab-content">This is full info part user</div>
+	<!-- <div id="fullInfoUser" class="tab-content">This is full info part user</div> -->
 @endif
+
+	<div id="fullInfo" class="tab-content"> 
+
+		<div id="fullInfoParent">
+			<div id="extraInfo">
+				<div id="info-Location">
+					<span class="far fa-map-marker-alt"></span> 
+					<span>{{ ($user->owner->province) ? $user->owner->province->province."," : '' }} {{ ($user->owner->country) ? $user->owner->country->country : '' }}</span>
+				</div>
+				<div id="info-memberFor">
+					<span class="far fa-clock"></span> 
+					<span>Member since {{$user->created_at->format('M-Y')}}</span>
+				</div>
+			</div>
+			<div id="PersonalInfoParent">
+				<h4 class="infoTitle">Personal Inforamtion</h4>
+				<div id="PersonalInfo">
+					<div id="info-fullName">
+						<div class="infosmallTitle">Full Name</div>
+						<div class="fullInfoContent">{{$user->owner->fullName}}</div>
+					</div>
+					<div id="info-gender">
+						<div class="infosmallTitle">Gender</div>
+						<div class="fullInfoContent">{{ ($user->owner->gender == 0) ? "Male" : "Female" }}</div>
+					</div>
+					<div id="info-dob">
+						<div class="infosmallTitle">Birthday</div>
+						<div class="fullInfoContent">
+							@if($user->DateOfBirth)
+								{{$user->DOB->format('d-M-Y')}} <small>({{ $user->DOB->diffInYears() }} Years old)</small>
+							@else
+								No Birth Date Yet!
+							@endif
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="contactInfoParent">
+				<h4 class="infoTitle">Contact Inforamtion</h4>
+				<div id="contactInfo">
+					@if($user->oPhone)
+					<div id="info-oPhone">
+						<div class="infosmallTitle">Office Phone</div>
+						<div class="fullInfoContent"><a class="info-links" href="tel:+93{{$user->oPhone}}">{{$user->oPhone}}</a></div>
+					</div>
+					@endif
+					@if($user->oPhone)
+					<div id="info-pPhone">
+						<div class="infosmallTitle">Personal Phone</div>
+						<div class="fullInfoContent"><a class="info-links" href="tel:+93{{$user->pPhone}}">{{$user->pPhone}}</a></div>
+					</div>
+					@endif
+					<div id="info-gender">
+						<div class="infosmallTitle">E-mail</div>
+						<div class="fullInfoContent"><a class="info-links" href="mailto:{{$user->email}}">{{ $user->email }}</a></div>
+					</div>
+					<div id="info-address">
+						<div class="infosmallTitle">Address </div>
+						<div class="fullInfoContent">
+							{{ ($user->owner->country) ? $user->owner->country->country."," : '' }}
+							{{ ($user->owner->province) ? $user->owner->province->province."," : '' }}
+							{{ ($user->owner->district) ? $user->owner->district->district."," : '' }}
+							{{ $user->owner->street }}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="generalInfoParent">
+				<h4 class="infoTitle">General Inforamtion</h4>
+				<div id="generalInfo">
+					@if($user->owner_type == "App\Doctor")
+						<div id="info-posts">
+							<div class="infosmallTitle">Posts</div>
+							<div class="fullInfoContent"><a href="javascript::void(0)" class="info-links" onclick="openContent1('postsMainButton','posts')">{{$user->owner->posts->count()}} view all</a></div>
+						</div>
+						<div id="info-followers">
+							<div class="infosmallTitle">Followers</div>
+							<div class="fullInfoContent"><a href="javascript::void(0)" class="info-links" onclick="openContent1('followersMainButton','followers')">{{$user->owner->followed()->count()}} view all</a></div>
+						</div>
+						<div id="info-achievements">
+							<div class="infosmallTitle">Achievements</div>
+							<div class="fullInfoContent"><a href="javascript::void(0)" class="info-links" onclick="openContent1('achMainButton','achievements')">{{$user->owner->achievements()->count()}} view all </a> </div>
+						</div>
+						<div id="info-answers">
+							<div class="infosmallTitle">Contribution</div>
+							<div class="fullInfoContent">{{$user->comments()->where("comments.to_type","App\Question")->count()}} Answers on people asked questions</div>
+						</div>
+					@endif
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 

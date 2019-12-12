@@ -45,6 +45,24 @@ class ProfileController extends Controller
     {
         
         $user = Account::where("username",$username)->first();
+
+        if($user->DateOfBirth){
+            //get date
+            $initialDOB = $user->owner->DateOfBirth;
+            $partsofDate = explode("-",$initialDOB);
+            $year = $partsofDate[0];
+            $month = $partsofDate[1];
+            $day = explode(" ",$partsofDate[2])[0];
+            $finalDOB = Carbon::createFromDate($year,$month,$day);
+            $user["DOB"] = $finalDOB;
+        }
+        // grab accoounts phone numbers
+        $oPhone = $user->phones()->where('type',1)->first();
+        $pPhone = $user->phones()->where('type',0)->first();
+        // if  use has a number then access its phone column but if the phone is empty then just send empty to view wit account array
+        ($oPhone ? $user['oPhone'] = $oPhone->phone : $user["oPhone"] = $oPhone);
+        ($pPhone ? $user['pPhone'] = $pPhone->phone : $user["pPhone"] = $pPhone);
+
         if($user)
         {
             if($user->owner_type == "App\NormalUser")
