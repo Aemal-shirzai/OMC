@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Doctor;
+use App\Dcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -246,7 +247,6 @@ class DoctorController extends Controller
     public function achDelete(Request $request){
         if($this->authorize("Doctor_related",Auth::user())){
             $ach = DoctorAchievement::find($request->id);
-
             if(Auth::user()->is($ach->doctor->account)){
                 if($ach->photos()->count() > 0){
                     foreach($ach->photos as $photo){
@@ -256,13 +256,17 @@ class DoctorController extends Controller
                 }
                 $ach->delete();
             }
-        
         }
         // end of authorization statement
     }
     // End of:function which deletes the achiemvent using ajax request
 
 
+// function which removes doctor fields using ajax request
+public function removeFields(Request $request){ 
+   $categroy = Dcategory::find($request->id);
+   Auth::user()->owner->fields()->detach($categroy);
+}
 
 
 

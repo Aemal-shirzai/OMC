@@ -712,18 +712,34 @@ div.reply-divider{
 #tags{
 	position: sticky;
 	right: 100px;
-	padding: 12px 15px;
 	width: 200px;
 	transition: 0.5s;
-	background-color: #fbfbfd;
+	/*background-color: #fbfbfd;*/
 	float: right;
 	margin-top: 30px;
 	top: 120px;
-	font-size: 12px;
+	/*font-size: 12px;*/
+	border-radius: 8px;
+	background-color: white;
+    box-shadow: 0 1px 3px rgba(59,64,69,0.2);
+    padding: 20px 14px;
+    font-size: 12px;
+}
+#tagsTitle{
+	font-size: 14px;
+	font-weight: bold;
+	padding: 8px 2px;
 }
 #tags a{
 	display: block;
 	color: #3fbbc0;
+	background-color: #fbfbfd;
+	margin-bottom: 4px;
+	padding: 10px;
+	border-radius: 6px;
+}
+#tags a:hover{
+	text-decoration: none;
 }
 
 
@@ -837,7 +853,7 @@ div#allQuestionsParent{
 }
 div.allQuestions{
 	padding: 12px 30px;
-	box-shadow:0 4px 6px rgba(59,64,69,0.2);
+	box-shadow:0 1px 2px rgba(59,64,69,0.2);
 	margin-bottom: 5px;
 }
 div#questionTitle{
@@ -1357,7 +1373,7 @@ div.ach-ImageDiv button:focus{
 	display: inline-block;
 	max-width: 400px;
 	padding: 5px 15px;
-	font-size: 15px;
+	font-size: 14px;
 }
 .infosmallTitle{
 	font-weight: bold;
@@ -1370,13 +1386,13 @@ div.ach-ImageDiv button:focus{
 }
 .info-links{
 	color: #3fbbc0;
-	font-size: 14px;
+	font-size: 13px;
 	transition: 0.5s
 }
 .info-links:hover{
 	color: #3fbbc0;
 	text-decoration: none;
-	font-size: 15px;
+	font-size: 14px;
 }
 
 #extraInfo{
@@ -2426,9 +2442,10 @@ div.ach-ImageDiv button:focus{
 	#extraInfo{
 		padding: 0px 1px;
 		right: 3px;
+		width: 128px;
 	}
 	#extraInfo span{
-		font-size: 10px;
+		font-size: 8px;
 	}
 
 

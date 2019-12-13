@@ -90,7 +90,10 @@ Route::DELETE("/reply/delete","CommentReplyController@delete")->name("deleteRepl
 Route::POST("/markasread","notificationController@readMark")->name("readMark");
 
 
-route::get("/doctors/search","DoctorController@search")->name("search");
+
+// route which remove doctor fields
+Route::DELETE('/doctors/fields/remove',"DoctorController@removeFields")->name("fields.remove");
+Route::get("/doctors/search","DoctorController@search")->name("search");
 // routes for doctors
 Route::resource("/doctors","DoctorController");
 // sort posts route

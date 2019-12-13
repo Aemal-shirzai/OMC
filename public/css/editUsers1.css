@@ -423,7 +423,7 @@ div.tags div{
 	/*margin-top:-4px; */
 }
 div.tags div a{
-	font-size: 12px;
+	font-size: 10px;
 	margin-right: 5px;
 }
 div.tags div a:hover{
@@ -916,6 +916,17 @@ div.tags div:hover .close{
 	    top: 66%;
 	    /* right: -15px; */
 	    font-size: 9px;
+	}
+
+	div.tags div a{
+		font-size: 8px;
+		
+	}
+	.form-fields{
+    	font-size: 12px;
+	}
+	.address{
+		font-size: 10px !important;
 	}
 
 }

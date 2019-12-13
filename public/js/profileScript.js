@@ -1339,7 +1339,7 @@ function achClosePermissionBox(value){
 
 
 
-
+// delete achivements using ajax request
 function deleteAch(value,evt){
 	achClosePermissionBox(value);	
 	$("#ach-DeleteLink-"+value).hide();
@@ -1353,4 +1353,33 @@ function deleteAch(value,evt){
 		$("#ach-MainContent-"+value).slideUp();
 	});
 	// achDelete
+}
+
+
+// function which delete doctor categoires
+function deleteFields(fieldId){
+	window.setTimeout(function() {
+		$("#fieldMessage").slideUp(400);
+		$("#fieldMessage").text("");
+	}, 10000);
+	event.preventDefault();
+	$("#removeFieldButton-"+fieldId).hide();
+	$("#loadField-"+fieldId).show();
+	$("#fieldName-"+fieldId).css('opacity',"0.4");
+	// fieldsRemo
+
+	$.ajax({
+		method: "DELETE",
+		url: fieldsRemove,
+		data: {id:fieldId, _token:token},
+	}).done(function(response){
+		$("#fieldMessage").text("The Field Removed seccessfully");
+		$("#fieldNumber-"+fieldId).slideUp();
+		$("#d-field-"+fieldId).hide();
+	}).fail(function(response){
+		$("#removeFieldButton-"+fieldId).show();
+		$("#loadField-"+fieldId).hide();
+		$("#fieldName-"+fieldId).css('opacity',"1");
+		$("#fieldMessage").text("SomeThing went wrong!");
+	});
 }

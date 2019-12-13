@@ -73,13 +73,19 @@
 		@if(Auth::user()->owner_type == 'App\Doctor' && Auth::user()->username == $user->username)
 			<!-- Beggining of the div which shows the tags of doctors in profile page -->
 			<div id="tags" style="">
-				Your Tags
-					<a href="#">tag1</a>
-					<a href="#">tag2</a>
-					<a href="#">tag3</a>
-					<a href="#">tag4</a>
-					<a href="#">tag5</a>
-					<a href="#">tag6</a>
+				<span id="tagsTitle">Your choosen field</span>
+				<small id="fieldMessage" class="d-block mb-2 mt-2"></small>
+				@if($user->owner->fields()->count() > 0)
+					@foreach($user->owner->fields as $field)
+						<a href="javascript::void(0)" style="" title="remove field" id="fieldNumber-{{$field->id}}" onclick="deleteFields('{{$field->id}}')">
+							<button id="removeFieldButton-{{$field->id}}" class="close" style="font-size: 14px;"><span class="fal fa-times"></span></button>
+							<img src="{{asset('images/load1.gif')}}" style="width: 18px;float: right;display: none;" id="loadField-{{$field->id}}">
+							<p id="fieldName-{{$field->id}}" class="mb-0">{{ $field->category }}</p>
+						</a>
+					@endforeach
+				@else
+				<p>No fields added! <a href="{{route('profile.edit',$user->username)}}">Go to edit your profle and add fields</a></p>
+				@endif
 			</div>
 			<!-- End of the div which shows the tags of doctors in profile page -->
 		@endif
@@ -106,17 +112,17 @@
 						<span class="btnText">Followers <span id="followerCount">{{$user->owner->followed()->count()}}</span>
 					</button>
 				@else
-					<button class="tabLinks active" onclick="openContent(event,'favorites')">
+					<button class="tabLinks active"  onclick="openContent(event,'favorites')">
 						<span class="fas fa-bookmark btn-icon-large"></span> 
 						<span class="fal fa-bookmark btn-icon"></span> 
 						<span class="btnText">Favorites</span>
 					</button>
-					<button class="tabLinks" onclick="openContent(event,'questions')">
+					<button class="tabLinks" id="questionsMainButton" onclick="openContent(event,'questions')">
 						<span class="fad fa-question-square btn-icon-large"></span> 
 						<span class="fal fa-question-square btn-icon"></span> 
 						<span class="btnText" >Questions <span id="allQuestionTextAbove">{{$questions->count()}}</span></span>
 					</button>
-					<button class="tabLinks" onclick="openContent(event,'following')">
+					<button class="tabLinks" id="followingMainButton" onclick="openContent(event,'following')">
 						<span class="fad fa-users btn-icon-large"></span> 
 						<span class="fal fa-users btn-icon"></span> 
 						<span class="btnText">Following <span id="followingCount">{{$user->owner->following()->count()}}</span></span>
@@ -722,6 +728,8 @@
 					<!-- ///////////////////////////////////////// End of comment part ////////////////////////////////////////////////////////////////-->
 			</div> <!-- End of main post div  -->
 			@endforeach
+		@else
+			<h4 class="mt-2">No Posts To Display!</h4>
 		@endif
 	</div>
 	<div id="achievements" class="tab-content">
@@ -954,10 +962,12 @@
 
 @else
 	<div id="favorites" class="tab-content">
+		@if(count($favPosts) || count($favQuestions) > 0)
 		<div id="favoritesTabs">
 			<button class="favoriteTabLinks active" onclick="openFavoritesContent(event,'favoritePosts')"><span id="favoriteTabsText">Posts <span id="favPcount">{{count($favPosts)}}</span></span></button>
 			<button class="favoriteTabLinks" onclick="openFavoritesContent(event,'favoriteQuestions')"><span id="favoriteTabsText">Questions <span id="favQcount">{{count($favQuestions)}}</span></span></button>
 		</div>
+		@endif
 		<div>
 			<div id="favoritePosts" class="favoriteTabsContent">
 				@if(count($favPosts) > 0 )
@@ -1319,15 +1329,31 @@
 	<div id="fullInfo" class="tab-content"> 
 
 		<div id="fullInfoParent">
-			<div id="extraInfo">
+			<div id="extraInfo" >
 				<div id="info-Location">
 					<span class="far fa-map-marker-alt"></span> 
-					<span>{{ ($user->owner->province) ? $user->owner->province->province."," : '' }} {{ ($user->owner->country) ? $user->owner->country->country : '' }}</span>
+					@if($user->owner->country || $user->owner->province)
+						<span>{{ ($user->owner->province) ? $user->owner->province->province."," : '' }} {{ ($user->owner->country) ? $user->owner->country->country : '' }}</span>
+					@else
+						<span>No Location Yet!</span>
+					@endif
 				</div>
 				<div id="info-memberFor">
 					<span class="far fa-clock"></span> 
 					<span>Member since {{$user->created_at->format('M-Y')}}</span>
 				</div>
+				@if($user->owner_type == "App\Doctor")
+					<div id="info-fields">
+						<span class="fal fa-graduation-cap"></span> 
+						@if($user->owner->fields()->count() > 0)
+							@foreach($user->owner->fields as $field)
+								<span id="d-field-{{$field->id}}" class="d-fields">{{$field->category}}</span>
+							@endforeach
+						@else	
+						<span>No fields yet!</span>
+						@endif
+					</div>
+				@endif
 			</div>
 			<div id="PersonalInfoParent">
 				<h4 class="infoTitle">Personal Inforamtion</h4>
@@ -1397,6 +1423,19 @@
 						<div id="info-achievements">
 							<div class="infosmallTitle">Achievements</div>
 							<div class="fullInfoContent"><a href="javascript::void(0)" class="info-links" onclick="openContent1('achMainButton','achievements')">{{$user->owner->achievements()->count()}} view all </a> </div>
+						</div>
+						<div id="info-answers">
+							<div class="infosmallTitle">Contribution</div>
+							<div class="fullInfoContent">{{$user->comments()->where("comments.to_type","App\Question")->count()}} Answers on people asked questions</div>
+						</div>
+					@else
+						<div id="info-questions">
+							<div class="infosmallTitle">Questions</div>
+							<div class="fullInfoContent"><a href="javascript::void(0)" class="info-links" onclick="openContent1('questionsMainButton','questions')">{{$user->owner->questions->count()}} view all</a></div>
+						</div>
+						<div id="info-following">
+							<div class="infosmallTitle">Following</div>
+							<div class="fullInfoContent"><a href="javascript::void(0)" class="info-links" onclick="openContent1('followingMainButton','following')">{{$user->owner->following()->count()}} view all</a></div>
 						</div>
 						<div id="info-answers">
 							<div class="infosmallTitle">Contribution</div>
@@ -1501,6 +1540,9 @@
 
 		// This route is delete the achivments by dcotor
 		var achDelete = '{{route("achDelete")}}';
+
+		// This route is delete the fields by dcotor
+		var fieldsRemove = '{{route("fields.remove")}}';
 
 
 	</script>
