@@ -8,16 +8,7 @@
 		<!-- Begginng of title and sortBy options -->
 		<div class="title">
 			<h3>
-				@if(empty($type))
-					All Users
-				@endif
-				@isset($type) 
-					@if($type == "mostQuestions")
-						Users With Most Questions
-					@elseif($type == 'new')
-						Mew Users
-					@endif 
-				@endisset 
+				All users results for {{request()->searchFor}}
 			</h3>
 		</div>
 		<div id="searchFor">
@@ -38,21 +29,8 @@
 			</div>
 		</div>
 		<div class="orderBy">
-			<div class="orderByOptionParent" style="">
-				<a href="{{route('nusers.index')}}" class="btn btn-sm" title="All Users">
-					@if(empty($type))<span class="fad fa-check"></span>@endif All
-				</a>
-				<a href="{{route('nusersSortBy','new')}}" class="btn btn-sm " title="The Users who are new">
-					@isset($type)@if($type == "new")<span class="fad fa-check"></span>@endif @endisset 
-					Newest
-				</a>
-				<a href="{{route('nusersSortBy','mostQuestions')}}" class="btn btn-sm " title="The userss who are new">
-					@isset($type)@if($type == "mostQuestions")<span class="fad fa-check"></span>@endif @endisset 
-					Most Questions
-				</a>
-			</div>
-
-			<span class="float-right sortText">SortBy:</span>
+			<div class="orderByOptionParent" style=""></div>
+			<span class="float-right sortText"></span>
 		</div>
 		<!-- End of title and sortBy options -->
 

@@ -4,42 +4,79 @@ namespace App\Http\Controllers;
 
 use App\Doctor;
 use App\Dcategory;
+use App\Account;
+use App\DoctorAchievement;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\DoctorAchievementsRequest;
 use App\Http\Requests\DoctorAchievementsUpdateRequest;
 use Carbon\Carbon;
-use App\DoctorAchievement;
+
 class DoctorController extends Controller
 {
     public function __construct(){
         $this->middleware("auth")->only(["achAdd","achUpdate","achDelete","achEdit"]);
     }
 
-
-    public function search(Request $req){
-        $doctors = Doctor::where("fullName",'like',"%$req->searchFor%")->paginate(30);
-        return view("doctors.doctorsSearch",compact("doctors"));
-    }
-
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
+    */
     public function index()
     {
         $doctors = Doctor::paginate(30);
         return view("doctors.index",compact("doctors"));
     }
 
+    // Beggining of the function which retrn the result of the user search using ajax
+    public function searchResult(Request $req){
+        if($req->type === "name"){
+            $doctors = Doctor::where("fullName","like","%$req->data%")->select("fullName")->distinct()->get();
+        }else if($req->type === "username"){
+            $doctors = Account::where("username","like","%$req->data%")->where('owner_type',"App\Doctor")->select("username")->get();
+        }else if($req->type === "field"){
+             $doctors = Dcategory::where("category","like","%$req->data%")->select("category")->get();
+        }
+        if(count($doctors) > 0){
+            return response()->json(["resultFound"=>$doctors]);
+        }else{
+            return response()->json(["resultNotFound"=>"Result Not Found"]);
+        }
+    }
+// End of the function which retrn the result of the user search using ajax
+
+
+// Beggining of the function which search the doctor
+    public function search(Request $req){
+        $this->validate($req,[
+            "searchFor" => "bail|required|string|max:60",
+            "searchType" => "bail|required",
+        ]);
+        // return $req->searchFor;
+        if($req->searchType === "name"){
+            $doctors = Doctor::where("fullName",'like',"%$req->searchFor%")->paginate(30);
+        }elseif($req->searchType === "username"){
+            $account = Account::where("username",'like',"%$req->searchFor%")->first();
+            return redirect()->route("profile",$account->username);
+        }elseif($req->searchType === "field"){
+            $doctors = Doctor::join("dcategory_doctor","doctors.id","=","dcategory_doctor.doctor_id")->join("dcategories","dcategory_doctor.dcategory_id","=","dcategories.id")->where('dcategories.category',"like","%$req->searchFor%")->groupBy("doctors.id")->select("doctors.*")->paginate(30);
+        }
+
+        return view("doctors.doctorsSearch",compact("doctors"));
+    }
+// Beggining of the function which search the doctor
+
+
+
+
     /**
-     * order by method
+     * order by method  from main 
      *
      * @return \Illuminate\Http\Response
-     */
+    */
     public function sortBy($type){
         if($type == "top"){
             $doctors = Doctor::orderBy("followers","desc")->paginate(30);

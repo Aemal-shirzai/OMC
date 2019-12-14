@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\NormalUser;
 use App\Doctor;
+use App\Account;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\followDoctor;
@@ -26,11 +27,46 @@ class NormalUserController extends Controller
          return view("normalusers.index",compact("nusers"));
 
     }
-        /**
+
+ // Beggining of the function which retrn the result of the user search using ajax
+    public function searchResult(Request $req){
+        if($req->type === "name"){
+            $nusers = NormalUser::where("fullName","like","%$req->data%")->select("fullName")->distinct()->get();
+        }else if($req->type === "username"){
+            $nusers = Account::where("username","like","%$req->data%")->where('owner_type',"App\NormalUser")->select("username")->get();
+        }
+        if(count($nusers) > 0){
+            return response()->json(["resultFound"=>$nusers]);
+        }else{
+            return response()->json(["resultNotFound"=>"Result Not Found"]);
+        }
+    }
+// End of the function which retrn the result of the user search using ajax
+
+// Beggining of the function which search the doctor
+    public function search(Request $req){
+        $this->validate($req,[
+            "searchFor" => "bail|required|string|max:60",
+            "searchType" => "bail|required",
+        ]);
+        // return $req->searchFor;
+        if($req->searchType === "name"){
+            $nusers = NormalUser::where("fullName",'like',"%$req->searchFor%")->paginate(30);
+        }elseif($req->searchType === "username"){
+            $account = Account::where("username",'like',"%$req->searchFor%")->where('owner_type',"App\NormalUser")->first();
+            return redirect()->route("profile",$account->username);
+        }
+
+        return view("normalusers.nusersSearch",compact("nusers"));
+    }
+// Beggining of the function which search the doctor
+
+
+    /**
      * order by method
      *
      * @return \Illuminate\Http\Response
-     */
+    */
     public function sortBy($type){
         if($type == "mostQuestions"){
             $nusers = NormalUser::leftJoin("questions","normal_users.id","=","questions.normal_user_id")->groupBy("normal_users.id")->orderBy('questions_count','desc')->selectRaw("normal_users.*,count(questions.id) as questions_count")->paginate(30);

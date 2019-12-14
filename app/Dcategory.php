@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Doctor;
 class Dcategory extends Model
 {
    	/**
@@ -17,6 +17,6 @@ class Dcategory extends Model
 
     // relationship with doctors table 
     public function doctors(){
-        return $this->belongsToMany(Dcategory::class,"dcategory_doctor","dcategory_id","doctor_id")->withTimeStamps()();
+        return $this->belongsToMany(Doctor::class,"dcategory_doctor","dcategory_id","doctor_id")->withTimeStamps();
     }
 }

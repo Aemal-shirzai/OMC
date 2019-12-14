@@ -41,14 +41,18 @@
 
 #searchFor{
 	position: relative;
-	width: 20%;
+	width: 25%;
 	margin-bottom: 5px;
 }
 #searchForField{
-	padding-left: 25px;
+	padding-left: 30px;
+	padding-right: 75px;
 	color: #bbc0c4;
 	height: 45px;
-	font-size: 15px;
+	font-size: 14px;
+}
+#searchForField:focus{
+	box-shadow: 0 0 0 1px rgba(52, 144, 220,0.25) !important;
 }
 #searchForField::placeholder{
 	color: #bbc0c4;
@@ -58,7 +62,65 @@
 	top:15px;
 	left: 7px;
 	font-size: 15px;
+	cursor: pointer;
 	color: #bbc0c4;
+}
+#searchTypeDiv{
+	position: absolute;
+    width: 74px;
+    top: 7px;
+    right: 3px;
+    background: transparent
+}
+#searchType{
+	border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 11px;
+    padding: 0px;
+    color: #757563;
+}
+#searchType:focus{
+	box-shadow: 0 0 0 1px rgba(52, 144, 220,0.25) !important;
+}
+#searchResult{
+	background-color: white;
+    padding: 12px 12px;
+    box-shadow: 0px 0px 3px lightgrey;
+    border-radius: 5px;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    display: none;
+}
+#searchInfo{
+	margin-bottom: 0px;
+	border-bottom: 1px solid #fdfdfb;
+}
+#searchText {
+	font-weight: bold;
+	font-size: 11px;
+	margin-bottom: 0px;
+}
+#searchLoad{
+	width: 16px;
+	float: right;
+	display: none;
+}
+#searchResult a{
+	/*border-bottom: 1px solid lightgrey;*/
+	padding:3px 0px;
+	cursor: pointer;
+	margin-bottom: 1px;
+	border-radius: 5px;
+	font-size: 12px;
+	display: block;
+	text-decoration: none;
+	color: black;
+}
+#searchResult a:hover{
+	background-color: #fdfdfd;
+	
 }
 /* user info part */
 .fullInfo{
@@ -96,6 +158,9 @@
 	color: #3fbbc0;
 	font-size: 13px;
 	word-wrap: break-word;
+}
+.userName a{
+	color: #3fbbc0;
 }
 .userName a:hover{
 	text-decoration: none;
@@ -150,7 +215,7 @@
 		margin-bottom: 7px;
 	}
 	#searchFor{
-		width: 25%;
+		width: 30%;
 	}
 }
 /* ///////////////////////////////////////////////////////////////// IPHAD /////////////////////////////////////////////////////////////////// */
@@ -163,7 +228,7 @@
 		font-size: 12px;
 	}
 	#searchFor{
-		width: 30%;
+		width: 40%;
 	}
 	.fullInfo{
 		width: 50%;
@@ -227,6 +292,13 @@
 		top:13px;
 		font-size: 14px;
 	}
+	#searchTypeDiv{
+	    top: 1px;
+	}
+	#searchResult a{
+		font-size: 11px;
+	}
+
 	/* user info part */
 	#rowContainer{
 		margin: 0 !important;

@@ -93,7 +93,10 @@ Route::POST("/markasread","notificationController@readMark")->name("readMark");
 
 // route which remove doctor fields
 Route::DELETE('/doctors/fields/remove',"DoctorController@removeFields")->name("fields.remove");
-Route::get("/doctors/search","DoctorController@search")->name("search");
+// Search doctors 
+Route::get("/doctors/search","DoctorController@search")->name("search.doctors");
+// return the search result using ajax
+Route::get("/doctors/search/result","DoctorController@searchResult")->name("searchResult.doctors");
 // routes for doctors
 Route::resource("/doctors","DoctorController");
 // sort posts route
@@ -109,6 +112,10 @@ Route::get("/ach/{ach}/edit","DoctorController@achEdit")->name("achEdit");
 //  to updte acheivements to doctor
 Route::MATCH(['PUT','PATCH'],"/ach/{ach}/update","DoctorController@achUpdate")->name("achUpdate");
 
+// return the search result using ajax
+Route::get("/nusers/search/result","NormalUserController@searchResult")->name("searchResult.nusers");
+// Search nusers 
+Route::get("/nusers/search","NormalUserController@search")->name("search.nusers");
 // Routes for normal users
 Route::resource("/nusers","NormalUserController");
 // sort posts route

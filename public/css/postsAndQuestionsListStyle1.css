@@ -93,8 +93,10 @@ div#followDoctorParent{
 }
 div#forDoctors{
 	position: absolute;
-	width: 19%;
-	right: 94px;
+	width: 20%;
+	top: 155px;
+	border-radius: 5px;
+	right: 110px;
 	float: right;
 	margin-top: 100px;
     background-color: white;
@@ -107,6 +109,7 @@ div#Forguests{
 	right: 94px;
 	width: 20%;
 	float: right;
+	border-radius: 5px;
 	margin-top: 79px;
     background-color: white;
     box-shadow: 0 1px 3px rgba(59,64,69,0.2);
@@ -173,10 +176,12 @@ div#listParent{
 div.mainContent{
 	background-color: white;
 	width: 65%;
-	padding: 12px 12px;
-	box-shadow: 0 4px 8px rgba(59,64,69,0.2);
+	padding: 0px 12px;
+	padding-top: 5px; 
+	box-shadow: 0 0px 2px rgba(59,64,69,0.2);
 	/*box-shadow:  0 2px 5px rgba(59,64,69,0.2);	*/
 	margin-top: 1px;
+	border-radius: 8px;
 
 }
 div#divider{

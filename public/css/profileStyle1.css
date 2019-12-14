@@ -1238,9 +1238,10 @@ div.ach-ImageDiv button:focus{
 	
 }
 .achievement-titleAndInfo{
-	padding:16px 20px;
+	padding:9px 20px;
 	margin:0 auto;
-	box-shadow: 0 4px 8px rgba(59,64,69,0.2);
+	border-radius: 8px;
+	box-shadow: 0 0px 4px rgba(59,64,69,0.2);
 
 }
 .achievement-titleAndInfo h5{
@@ -1258,7 +1259,7 @@ div.ach-ImageDiv button:focus{
 	margin-top: 12px;
 }
 .ach-fulllContent p::first-letter{
-	font-size: 20px;
+	font-size: 16px;
 	font-weight: bold;
 	text-transform: uppercase;
 	text-shadow: 0 0 1px lightgray;

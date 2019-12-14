@@ -4,46 +4,34 @@
 
 @section("content")
 
-@if(session('type'))
-	@php 
-		$type = session('type');
-	@endphp
-@endif
-@if(session('doctors'))
-	{{session("doctors")}}
-	@php 
-		$doctors = session('doctors');
-	@endphp
-@endif
+
 	<div id="allUsersParent">
+		<div class="title">
+			<h3>
+				All results for {{request()->searchFor}}
+			</h3>
+		</div>
 		<div id="searchFor">
-			{!! Form::open(["method"=>"GET","action"=>"DoctorController@search"]) !!}
+			{!! Form::open(["method"=>"GET","action"=>"DoctorController@search","id"=>"searchForm"]) !!}
 				<div style="position: relative;">
-					{!! Form::text("searchFor",request()->input('searchFor'),["class"=>"form-control","id"=>"searchForField","placeholder"=>"search doctors"]) !!}
-					<span id="searchIcon" class="far fa-search"></span>
+					{!! Form::text("searchFor",request()->input('searchFor'),["class"=>"form-control","id"=>"searchForField","placeholder"=>"search doctors","onkeyup"=>"searchDoctors()","autocomplete"=>"off","maxLength"=>"60"]) !!}
+					<a href="javascript:void(0)" id="searchIcon" class="far fa-search" onclick="submitSearchForm()"></a>
+					<div id="searchTypeDiv">
+						{!! Form::select('searchType',['name'=>'name','username'=>'username','field'=>'field'],request()->input('searchType'),["class"=>"form-control","id"=>"searchType"]) !!}
+					</div>
 				</div>
 			{!! Form::close() !!}
+			<div id="searchResult">
+				<h6 id="searchInfo"><span id="searchText">results</span> <img src="{{asset('images/load1.gif')}}" id="searchLoad"></h6>
+				<div id="allResultsDiv">
+					
+				</div>
+			</div>
 		</div>
 		<div class="orderBy">
 			<div class="orderByOptionParent" style="">
-				<a href="{{route('doctors.index')}}" class="btn btn-sm" title="All doctors">
-					@if(empty($type))<span class="fad fa-check"></span>@endif All
-				</a>
-				<a href="{{route('doctorsSortBy','top')}}" class="btn btn-sm" title="Most followed doctors">
-					@isset($type)@if($type == "top")<span class="fad fa-check"></span>@endif @endisset 
-					Populars
-				</a>
-				<a href="{{route('doctorsSortBy','new')}}" class="btn btn-sm " title="The doctors who are new">
-					@isset($type)@if($type == "new")<span class="fad fa-check"></span>@endif @endisset 
-					Newest
-				</a>
-				<a href="{{route('doctorsSortBy','mostposts')}}" class="btn btn-sm " title="The doctors who are new">
-					@isset($type)@if($type == "mostposts")<span class="fad fa-check"></span>@endif @endisset 
-					Most Posts
-				</a>
+				<span class="float-right sortText"></span>
 			</div>
-
-			<span class="float-right sortText">SortBy:</span>
 		</div>
 		<!-- End of title and sortBy options -->
 
@@ -105,6 +93,8 @@
 		var token = '{{ Session::token() }}';
 		// This route is to add and remove doctors to follow by normal user
 		var DoctorFollow = '{{route("DoctorFollow")}}';
+
+		var doctorsSearchResult = '{{route("searchResult.doctors")}}';
 	</script>
 
 @endsection

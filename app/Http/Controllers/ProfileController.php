@@ -42,8 +42,7 @@ class ProfileController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
     */
     public function index($username)
-    {
-        
+    {    
         $user = Account::where("username",$username)->first();
 
         if($user->DateOfBirth){
