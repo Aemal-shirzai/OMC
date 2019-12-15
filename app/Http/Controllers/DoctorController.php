@@ -39,6 +39,8 @@ class DoctorController extends Controller
             $doctors = Account::where("username","like","%$req->data%")->where('owner_type',"App\Doctor")->select("username")->get();
         }else if($req->type === "field"){
              $doctors = Dcategory::where("category","like","%$req->data%")->select("category")->get();
+        }else if($req->type === "location"){
+            $doctors = Doctor::where("street","like","%$req->data%")->select("street")->get();
         }
         if(count($doctors) > 0){
             return response()->json(["resultFound"=>$doctors]);
@@ -63,6 +65,8 @@ class DoctorController extends Controller
             return redirect()->route("profile",$account->username);
         }elseif($req->searchType === "field"){
             $doctors = Doctor::join("dcategory_doctor","doctors.id","=","dcategory_doctor.doctor_id")->join("dcategories","dcategory_doctor.dcategory_id","=","dcategories.id")->where('dcategories.category',"like","%$req->searchFor%")->groupBy("doctors.id")->select("doctors.*")->paginate(30);
+        }else if($req->searchType === "location"){
+            $doctors = Doctor::where("street",'like',"%$req->searchFor%")->paginate(30);
         }
 
         return view("doctors.doctorsSearch",compact("doctors"));

@@ -14,7 +14,7 @@ class NormalUserController extends Controller
 {
 
     public function __construct(){
-        $this->middleware("auth")->except(["index","sortBy"]);
+        $this->middleware("auth")->except(["index","sortBy","search","searchResult"]);
     }
     /**
      * Display a listing of the resource.

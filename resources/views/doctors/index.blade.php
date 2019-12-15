@@ -27,7 +27,7 @@
 					{!! Form::text("searchFor",request()->input('searchFor'),["class"=>"form-control","id"=>"searchForField","placeholder"=>"search doctors","onkeyup"=>"searchDoctors()","autocomplete"=>"off","maxLength"=>"60"]) !!}
 					<a href="javascript:void(0)" id="searchIcon" class="far fa-search" onclick="submitSearchForm()"></a>
 					<div id="searchTypeDiv">
-						{!! Form::select('searchType',['name'=>'name','username'=>'username','field'=>'field'],request()->input('searchType'),["class"=>"form-control","id"=>"searchType"]) !!}
+						{!! Form::select('searchType',['name'=>'Name','username'=>'Username','field'=>'Field',"location"=>"Location"],request()->input('searchType'),["class"=>"form-control","id"=>"searchType"]) !!}
 					</div>
 				</div>
 			{!! Form::close() !!}

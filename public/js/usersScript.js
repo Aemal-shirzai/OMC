@@ -83,6 +83,11 @@ function searchDoctors(){
 				$.each(response.resultFound,function(index,value){
 					resultsDiv.append($("<a href='javascript:void(0)' onclick='getdata(" + '"' + value.category  + '"' + ")'>").text(value.category));
 				});
+			}else if(stype === "location"){
+				console.log(response.resultFound);
+				$.each(response.resultFound,function(index,value){
+					resultsDiv.append($("<a href='javascript:void(0)' onclick='getdata(" + '"' + value.street  + '"' + ")'>").text(value.street));
+				});
 			}
 		}else{
 			if(!$.isEmptyObject(response.resultNotFound)){
