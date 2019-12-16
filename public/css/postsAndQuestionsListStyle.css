@@ -432,9 +432,91 @@ button.followed span{
 
 /*  some styles are different in single page showing    */
 
-/* single page main content  */
-.singlePageMain{
 
+
+/*  search part */
+#searchFor{
+	position: relative;
+	width: 25%;
+	margin-bottom: 5px;
+}
+#searchForField{
+	padding-left: 35px;
+	color: #bbc0c4;
+	height: 45px;
+	font-size: 14px;
+}
+#searchForField:focus{
+	box-shadow: 0 0 0 1px rgba(52, 144, 220,0.25) !important;
+}
+#searchForField::placeholder{
+	color: #bbc0c4;
+}
+#searchIcon{
+	position: absolute !important;
+	top:15px;
+	left: 10px;
+	font-size: 15px;
+	cursor: pointer;
+	color: #bbc0c4;
+}
+#searchTypeDiv{
+	position: absolute;
+    width: 74px;
+    top: 7px;
+    right: 3px;
+    background: transparent
+}
+#searchType{
+	border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 11px;
+    padding: 0px;
+    color: #757563;
+}
+#searchType:focus{
+	box-shadow: 0 0 0 1px rgba(52, 144, 220,0.25) !important;
+}
+#searchResult{
+	background-color: white;
+    padding: 12px 12px;
+    box-shadow: 0px 0px 3px lightgrey;
+    border-radius: 5px;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    display: none;
+}
+#searchInfo{
+	margin-bottom: 0px;
+	border-bottom: 1px solid #fdfdfb;
+}
+#searchText {
+	color: #bbc0c4;
+	font-size: 11px;
+	margin-bottom: 0px;
+}
+#searchLoad{
+	width: 16px;
+	float: right;
+	display: none;
+}
+#searchResult a{
+	/*border-bottom: 1px solid lightgrey;*/
+	padding:3px 0px;
+	font-weight: bold;
+	cursor: pointer;
+	margin-bottom: 1px;
+	border-radius: 5px;
+	font-size: 12px;
+	display: block;
+	text-decoration: none;
+	color: black;
+}
+#searchResult a:hover{
+	background-color: #fdfdfd;
+	
 }
 
 
@@ -499,6 +581,10 @@ textarea::-webkit-scrollbar {
 		border-radius: 50%;
 	}
 
+	/* Search part */
+	#searchFor{
+		width: 25%;
+	}
 }
 
 
@@ -582,149 +668,181 @@ textarea::-webkit-scrollbar {
 		display:none;
 	}
 	
-	
-	
+	/* Search part */
+	#searchFor{
+		width: 30%;
+	}
+	#searchForField{
+		margin-left: 55px;
+	}
+	#searchIcon{
+		left: 66px;
+	}
+	#searchResult{
+		margin-left: 55px;
+	}
+		
 }
 
 
 /* ///////////////////////////////////////////////////////////////// Samll sizes rotate /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 767px){
-body{
-	background-color: white;
-}
-div#footer{
-	margin-top: 30px;
-}
-/* main content part */
-.title{
-	width: 100%;
-	/*padding-left: 12px;*/
-}
-.title h3{
-	font-size: 14px;
-	font-weight: bold;
-}
-.orderBy{
-	width: 100%;
-	background-color: white;
-}
+	body{
+		background-color: white;
+	}
+	div#footer{
+		margin-top: 30px;
+	}
+	/* main content part */
+	.title{
+		width: 100%;
+		/*padding-left: 12px;*/
+	}
+	.title h3{
+		font-size: 14px;
+		font-weight: bold;
+	}
+	.orderBy{
+		width: 100%;
+		background-color: white;
+	}
 
-.orderBy a{
-	/*border-right:1px solid #3fbbc0;*/
-	/*margin-left: 12px;*/
-	font-size: 9px;
-}
-.sortText{
-	display: none;
-	/*font-size: 9px;
-	padding-top: 6px;
-	padding-left: 12px;
-	float: left !important;*/
-}
+	.orderBy a{
+		/*border-right:1px solid #3fbbc0;*/
+		/*margin-left: 12px;*/
+		font-size: 9px;
+	}
+	.sortText{
+		display: none;
+		/*font-size: 9px;
+		padding-top: 6px;
+		padding-left: 12px;
+		float: left !important;*/
+	}
 
-div#followDoctorParent{
-	display: none;
-}
-div#forDoctors{
-	display: none;
-}
-div#Forguests{
-	display: none;
-}
-div.mainContent{
-	width: 100%;
-	padding: 12px 0px;
-	box-shadow: none;
-	background-color: white;
-	border-top: 1px solid lightgray;
-}
-div.ownerInfo img{
-	width: 35px; 
-	height: 35px;
-}
-#no-owner-image{
-	padding: 10px 11px;
-    font-size: 14px;
-    height: 35px;
-    width: 35px;
-}
-div#ownerName{
-	font-size:11px;
-	padding-left: 10px;
-}
-div.mainContent span#createTime{
-	font-size: 8px;
-}
-div.content{
-	padding: 4px 4px;
-}
-a.readMoreLess{
-	font-size: 10px;
-}
-div.content h5{
-	margin-bottom:0;
-	margin-top:5px;
-	font-size: 11px;
-}
-div.content p{
-	font-size: 12px;
-}
-div.contentImage{
-	width: 100%;
-}
-div.contentImage img{
-	max-height: 200px !important;
-}
+	div#followDoctorParent{
+		display: none;
+	}
+	div#forDoctors{
+		display: none;
+	}
+	div#Forguests{
+		display: none;
+	}
+	div.mainContent{
+		width: 100%;
+		padding: 12px 0px;
+		box-shadow: none;
+		background-color: white;
+		border-top: 1px solid lightgray;
+	}
+	div.ownerInfo img{
+		width: 35px; 
+		height: 35px;
+	}
+	#no-owner-image{
+		padding: 10px 11px;
+	    font-size: 14px;
+	    height: 35px;
+	    width: 35px;
+	}
+	div#ownerName{
+		font-size:11px;
+		padding-left: 10px;
+	}
+	div.mainContent span#createTime{
+		font-size: 8px;
+	}
+	div.content{
+		padding: 4px 4px;
+	}
+	a.readMoreLess{
+		font-size: 10px;
+	}
+	div.content h5{
+		margin-bottom:0;
+		margin-top:5px;
+		font-size: 11px;
+	}
+	div.content p{
+		font-size: 12px;
+	}
+	div.contentImage{
+		width: 100%;
+	}
+	div.contentImage img{
+		max-height: 200px !important;
+	}
 
-div.tags span a{
-	font-size: 8px;
-}
-/* options for  part */
-div.options{
-	width: 100%;
-	text-align: left;
-}
-span.optionsText{
-	display:none;
-}
-div.options button{
-	font-size: 9px;
-}
-span.optionsIcons{
-	font-size: 12px;
-}
-div.shareOptions{
-	margin-left: -74px;
-}
-div.shareOptions::after{
-	left: 66%;
-}
-div.shareOptions a.social-button span{
-	font-size: 9px;
-}
+	div.tags span a{
+		font-size: 8px;
+	}
+	/* options for  part */
+	div.options{
+		width: 100%;
+		text-align: left;
+	}
+	span.optionsText{
+		display:none;
+	}
+	div.options button{
+		font-size: 9px;
+	}
+	span.optionsIcons{
+		font-size: 12px;
+	}
+	div.shareOptions{
+		margin-left: -74px;
+	}
+	div.shareOptions::after{
+		left: 66%;
+	}
+	div.shareOptions a.social-button span{
+		font-size: 9px;
+	}
 
-.PostEditDelete{
-	font-size: 9px !important;
-}
+	.PostEditDelete{
+		font-size: 9px !important;
+	}
 
-div.shareOptions p{
-	font-size: 9px;
-}
+	div.shareOptions p{
+		font-size: 9px;
+	}
 
-/* class added using ajax to check span */
-.upVotedCheck{
-	font-size: 9px;
-	color: #3fbbc0;
-}
-button.OptionsForGuest{
-	cursor:default;
-}
-button.OptionsForGuest a{
-	cursor: default;
-}
-button.followed span{
-	color: #3fbbc0;
-}
+	/* class added using ajax to check span */
+	.upVotedCheck{
+		font-size: 9px;
+		color: #3fbbc0;
+	}
+	button.OptionsForGuest{
+		cursor:default;
+	}
+	button.OptionsForGuest a{
+		cursor: default;
+	}
+	button.followed span{
+		color: #3fbbc0;
+	}
+
+	/* search part */
+	#searchFor{
+			width: 100%;
+	}
+	#searchForField{
+		height: 37px;
+		font-size: 14px;
+	}
+	#searchIcon{
+		top:13px;
+		font-size: 14px;
+	}
+	#searchTypeDiv{
+	    top: 1px;
+	}
+	#searchResult a{
+		font-size: 11px;
+	}
+
 }	
 
 

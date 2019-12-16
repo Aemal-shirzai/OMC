@@ -8,7 +8,10 @@
 		<!-- Begginng of title and sortBy options -->
 		<div class="title">
 			<h3>
-				All users results for {{request()->searchFor}}
+				All users
+				@if(request()->searchType === 'name')
+					for ({{request()->searchFor}})
+				@endif
 			</h3>
 		</div>
 		<div id="searchFor">

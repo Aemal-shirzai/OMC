@@ -8,7 +8,15 @@
 	<div id="allUsersParent">
 		<div class="title">
 			<h3>
-				All results for {{request()->searchFor}}
+
+				All doctors 
+				@if(request()->searchType === 'name')
+					for ({{request()->searchFor}})
+				@elseif(request()->searchType === "field")
+					with field ({{request()->searchFor}})
+				@elseif(request()->searchType === "location")
+					in location ({{request()->searchFor}})
+				@endif
 			</h3>
 		</div>
 		<div id="searchFor">
@@ -17,7 +25,7 @@
 					{!! Form::text("searchFor",request()->input('searchFor'),["class"=>"form-control","id"=>"searchForField","placeholder"=>"search doctors","onkeyup"=>"searchDoctors()","autocomplete"=>"off","maxLength"=>"60"]) !!}
 					<a href="javascript:void(0)" id="searchIcon" class="far fa-search" onclick="submitSearchForm()"></a>
 					<div id="searchTypeDiv">
-						{!! Form::select('searchType',['name'=>'name','username'=>'username','field'=>'field'],request()->input('searchType'),["class"=>"form-control","id"=>"searchType"]) !!}
+						{!! Form::select('searchType',['name'=>'Name','username'=>'Username','field'=>'Field','location'=>"Location"],request()->input('searchType'),["class"=>"form-control","id"=>"searchType"]) !!}
 					</div>
 				</div>
 			{!! Form::close() !!}

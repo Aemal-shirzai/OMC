@@ -98,7 +98,7 @@
 	border-bottom: 1px solid #fdfdfb;
 }
 #searchText {
-	font-weight: bold;
+	color: #bbc0c4;
 	font-size: 11px;
 	margin-bottom: 0px;
 }
@@ -111,6 +111,7 @@
 	/*border-bottom: 1px solid lightgrey;*/
 	padding:3px 0px;
 	cursor: pointer;
+	font-weight: bold;
 	margin-bottom: 1px;
 	border-radius: 5px;
 	font-size: 12px;

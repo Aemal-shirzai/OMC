@@ -15,7 +15,7 @@ use App\DiseaseCategory;
 class PostController extends Controller
 {
     public function __construct(){
-        $this->middleware("auth")->except(["index","sortBy","show"]);
+        $this->middleware("auth")->except(["index","sortBy","show","searchResult","search"]);
     }
     /**
      * Display a listing of the resource.
@@ -31,6 +31,28 @@ class PostController extends Controller
         return view("posts.index",compact("posts","mostVotedDoctors","numberOfDoctors")); 
     }
 
+
+// Beggining of the function which retrn the result of the posts search using ajax
+    public function searchResult(Request $req){
+        $posts = Post::where("title","like","%$req->data%")->select("title")->distinct()->get();
+        if(count($posts) > 0){
+            return response()->json(["resultFound"=>$posts]);
+        }else{
+            return response()->json(["resultNotFound"=>"Result Not Found"]);
+        }
+    }
+// End of the function which retrn the result of the posts search using ajax
+
+// Beggining of the function which search the posts
+    public function search(Request $req){
+        $this->validate($req,[
+            "searchFor" => "bail|required|string|max:60",
+        ]);
+        // return $req->searchFor;
+        $posts = Post::where("title",'like',"%$req->searchFor%")->paginate(20);
+        return view("posts.postsSearch",compact("posts"));
+    }
+// Beggining of the function which search the posts
 
 
     public function sortBy($type){

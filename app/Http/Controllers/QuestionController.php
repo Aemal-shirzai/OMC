@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 class QuestionController extends Controller
 {
     public function __construct(){
-        $this->middleware("auth")->except(["index","sortBy","show"]);
+        $this->middleware("auth")->except(["index","sortBy","show","searchResult","search"]);
     }
     /**
      * Display a listing of the resource.
@@ -28,6 +28,29 @@ class QuestionController extends Controller
         $numberOfDoctors = 1;
         return view("questions.index",compact("questions","mostVotedDoctors","numberOfDoctors"));
     }
+
+// Beggining of the function which retrn the result of the questions search using ajax
+    public function searchResult(Request $req){
+        $questions = Question::where("title","like","%$req->data%")->select("title")->distinct()->get();
+        if(count($questions) > 0){
+            return response()->json(["resultFound"=>$questions]);
+        }else{
+            return response()->json(["resultNotFound"=>"Result Not Found"]);
+        }
+    }
+// End of the function which retrn the result of the questions search using ajax
+
+// Beggining of the function which search the questions
+    public function search(Request $req){
+        $this->validate($req,[
+            "searchFor" => "bail|required|string|max:60",
+        ]);
+        // return $req->searchFor;
+        $questions = Question::where("title",'like',"%$req->searchFor%")->paginate(20);
+        return view("questions.questionsSearch",compact("questions"));
+    }
+// Beggining of the function which search the questions
+
 
     public function sortBy($type){
         if($type == "top"){

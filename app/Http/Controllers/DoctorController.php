@@ -6,6 +6,8 @@ use App\Doctor;
 use App\Dcategory;
 use App\Account;
 use App\DoctorAchievement;
+use App\Post;
+use App\Question;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,11 +29,12 @@ class DoctorController extends Controller
     */
     public function index()
     {
+
         $doctors = Doctor::paginate(30);
         return view("doctors.index",compact("doctors"));
     }
 
-    // Beggining of the function which retrn the result of the user search using ajax
+// Beggining of the function which retrn the result of the user search using ajax
     public function searchResult(Request $req){
         if($req->type === "name"){
             $doctors = Doctor::where("fullName","like","%$req->data%")->select("fullName")->distinct()->get();

@@ -133,6 +133,20 @@
 			@endisset 
 		</h3>
 	</div>
+	<div id="searchFor">
+		{!! Form::open(["method"=>"GET","action"=>"QuestionController@search","id"=>"searchForm"]) !!}
+			<div style="position: relative;">
+				{!! Form::text("searchFor",request()->input('searchFor'),["class"=>"form-control","id"=>"searchForField","placeholder"=>"search questions ","onkeyup"=>"searchQuestions()","autocomplete"=>"off","maxLength"=>"60"]) !!}
+				<a href="javascript:void(0)" id="searchIcon" class="far fa-search" onclick="submitSearchForm()"></a>
+			</div>
+		{!! Form::close() !!}
+		<div id="searchResult">
+			<h6 id="searchInfo"><span id="searchText">results</span> <img src="{{asset('images/load1.gif')}}" id="searchLoad"></h6>
+			<div id="allResultsDiv">
+				
+			</div>
+		</div>
+	</div>
 	<div class="orderBy">
 		<div class="orderByOptionParent float-right" style="">
 			<a href="{{route('questions.index')}}" class="btn btn-sm ">
@@ -345,6 +359,10 @@
 
 		// This route is delete the post by post owner
 		var deleteQuestion = '{{route("deleteQuestion")}}';
+
+
+		// retrive search result using ajax
+		var questionsSearchResult = '{{route("searchResults.questions")}}';
 	</script>
 
 @endsection

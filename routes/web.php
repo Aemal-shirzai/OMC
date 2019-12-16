@@ -47,6 +47,11 @@ Route::DELETE('/profile/photo/remove', 'ProfileController@removePhoto')->name('p
 // Routes for contuct us
 Route::resource('/contactUs','ContactUsController');
 
+
+//Search posts route
+Route::get("/posts/search/results","PostController@searchResult")->name("searchResults.posts");
+// Search posts 
+Route::get("/posts/search","PostController@search")->name("search.posts");
 // Routes for Post
 Route::resource("/posts","PostController");
 // This route is responsible for adding and updateing votes to post using ajax request
@@ -66,6 +71,12 @@ Route::POST("/comment/storequestion","CommentController@storeQuestion")->name("s
 Route::POST("/comments/vote","CommentController@vote")->name("commentVote");
 // Deleting comment using ajax
 Route::DELETE("/comment/delete","CommentController@delete")->name("deleteComment");
+
+
+//Search questions route ajax
+Route::get("/questions/search/results","QuestionController@searchResult")->name("searchResults.questions");
+// Search questions 
+Route::get("/questions/search","QuestionController@search")->name("search.questions");
 
 // Routes for questions
 Route::resource("/questions","QuestionController");

@@ -117,21 +117,10 @@
 	@endguest
 	<!-- End of the part to show news and options for guests -->
 
-<!-- Begginng of title and sortBy options -->
+<!-- Begginng search part -->
 	<div class="title">
 		<h3>
-			@if(empty($type))
-				Latest Posts
-			@endif
-			@isset($type) 
-				@if($type == "top") 
-					Top Posts 
-				@elseif($type == "down")
-					Less Voted Posts
-				@elseif($type == "mostFollowed")
-					Most Followed Posts
-				@endif 
-			@endisset 
+			<b>{{$posts->total()}}</b> results found for ({{request()->searchFor}})
 		</h3>
 	</div>
 	<div id="searchFor">
@@ -148,26 +137,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="orderBy">
-		<div class="orderByOptionParent float-right" style="">
-			<a href="{{route('posts.index')}}" class="btn btn-sm ">
-				@if(empty($type))<span class="fad fa-check"></span>@endif Latest
-			</a>
-			<a href="{{route('postsSortBy','top')}}" class="btn btn-sm">
-				@isset($type)@if($type == "top")<span class="fad fa-check"></span>@endif @endisset 
-				Most Voted
-			</a>
-			<a href="{{route('postsSortBy','down')}}" class="btn btn-sm ">
-				@isset($type)@if($type == "down")<span class="fad fa-check"></span>@endif @endisset 
-				Down Voted
-			</a>
-			<a href="{{route('postsSortBy','mostFollowed')}}" class="btn btn-sm ">@isset($type)@if($type == "mostFollowed")<span class="fad fa-check"></span>@endif @endisset Most Followed
-			</a>
-		</div>
-
-		<span class="float-right sortText">SortBy:</span>
-	</div>
-<!-- End of title and sortBy options -->
+	<hr>
+<!-- End of search part -->
 <div class="clearfix"></div>
 	<!-- Beggining of showing posts part -->
 	@if(count($posts) > 0)
