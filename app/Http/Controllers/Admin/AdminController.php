@@ -54,7 +54,7 @@ class AdminController extends Controller
        $insert = Dcategory::create(["category"=>$request->category,"createdBy"=>Auth::user()->username]);
        $categoryInserted = Dcategory::latest("id")->first();
        $createDate = $categoryInserted->created_at->format("Y-M-d");
-       $updateDate = $categoryInserted->updated_at->format("Y-M-d");
+       $updateDate = $categoryInserted->updated_at->format("Y-M-d"); 
        if($insert){
             if($request->ajax()){
                 return response()->json(["data"=>$categoryInserted,"createDate"=>$createDate,"updateDate"=>$updateDate]);

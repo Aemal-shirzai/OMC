@@ -1,5 +1,6 @@
-$("#chooseAll").click(function(){
-	if(this.checked){
+function showDeleteButtonAll(){
+
+	if($("#chooseAll").is(":checked")){
 		$(".one_by_one").each(function(){
 			this.checked = true;
 				$("#deleteCatButton").show();
@@ -10,7 +11,7 @@ $("#chooseAll").click(function(){
 			$("#deleteCatButton").hide();
 		});
 	}	
-});
+}
 // $(".one_by_one").click(function(){
 // 	alert("done");
 // 	var toBeDeleted = $(".one_by_one:checked").length;
@@ -114,16 +115,24 @@ $(document).ready(function(e){
 
 			if($.isEmptyObject(response.errors)){
 				$(".done").text("category Added!")
+				$(".errors").text("")
+				 $("#formField").focus();
 				document.getElementById("dCategoryAddForm").reset();
-
-				$("#catTableBody tr:first").before("<tr id='row-"+ response.data["id"] +"''>" +"<td>"+ response.data['id'] +"</td>"+ "<td>"+ response.data['category'] +"</td>"+ 
-					"<td>"+ 0  +"</td>"+ "<td>"+ "<a href='/profile/"+ response.data['createdBy']  +"'>" + response.data['createdBy'] + "</a>" +"</td>"+ "<td>"+ ""  +"</td>"+ 
-					"<td>"+ response.createDate  +"</td>"+ "<td>"+ response.updateDate  +"</td>"+ "<td><a href='#' class='fal fa-edit'></span></a>"+ 
-					"<td><input type='checkbox' class='one_by_one' name='catIds[]' value='"+ response.data['id'] +"' id='checkbox-"+ response.data["id"] +"' onclick='showDeleteButtonSingle()'></td>"+  "</tr>")
-
+				if($("#catTableBody tr").length > 0){
+					$("#catTableBody tr:first").before("<tr id='row-"+ response.data["id"] +"''>" +"<td>"+ response.data['id'] +"</td>"+ "<td>"+ response.data['category'] +"</td>"+ 
+						"<td>"+ 0  +"</td>"+ "<td>"+ "<a href='/profile/"+ response.data['createdBy']  +"'>" + response.data['createdBy'] + "</a>" +"</td>"+ "<td>"+ ""  +"</td>"+ 
+						"<td>"+ response.createDate  +"</td>"+ "<td>"+ response.updateDate  +"</td>"+ "<td><a href='#' class='fal fa-edit'></span></a>"+ 
+						"<td><input type='checkbox' class='one_by_one' name='catIds[]' value='"+ response.data['id'] +"' id='checkbox-"+ response.data["id"] +"' onclick='showDeleteButtonSingle()'></td>"+  "</tr>")
+				}else if($("#catTableBody tr").length < 1){
+					$("#catTableBody").append("<tr id='row-"+ response.data["id"] +"''>" +"<td>"+ response.data['id'] +"</td>"+ "<td>"+ response.data['category'] +"</td>"+ 
+						"<td>"+ 0  +"</td>"+ "<td>"+ "<a href='/profile/"+ response.data['createdBy']  +"'>" + response.data['createdBy'] + "</a>" +"</td>"+ "<td>"+ ""  +"</td>"+ 
+						"<td>"+ response.createDate  +"</td>"+ "<td>"+ response.updateDate  +"</td>"+ "<td><a href='#' class='fal fa-edit'></span></a>"+ 
+						"<td><input type='checkbox' class='one_by_one' name='catIds[]' value='"+ response.data['id'] +"' id='checkbox-"+ response.data["id"] +"' onclick='showDeleteButtonSingle()'></td>"+  "</tr>")
+				}
 			}else{
 				 $("#formField").focus();
 				 $(".errors").text(response.errors['category']);
+				 $(".done").text("");
 				 $("#formField").addClass("errorForm");
 			}
 		}).fail(function(response){
@@ -131,10 +140,10 @@ $(document).ready(function(e){
 			$("#submitButton").removeAttr("disabled");
 			$("#formField").removeAttr("disabled");
 			$("#addLoad").hide();
+			$(".errors").text("oops! something went wrong!");
+			$(".done").text("");
 		});
 	});
-
-
 
 
 
@@ -142,7 +151,10 @@ $(document).ready(function(e){
 		$("#deleteMessage").fadeOut(200);
 	}, 2000);
 
+
+
 });
+
 
 
 // function which open the form

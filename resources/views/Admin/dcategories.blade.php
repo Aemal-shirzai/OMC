@@ -39,13 +39,11 @@
 		{!! form::close() !!}
 	</div>
 	<div id="catList">
-		@if(count($dcategories) > 0)
-			<h4>All Doctors Categories</h4>
 			<div class="table-responsive">
 				{!! Form::open(["method"=>"DELETE","action"=>"Admin\AdminController@deleteCategories","id"=>"deleteCatForm"]) !!}
 				<button class="btn btn-sm" id="deleteCatButton"><span class="fal fa-trash "></span></button>
 				<table class="table table-bordered" id="dcatTable">
-					<thead>
+					<thead id="catTableHead">
 						<tr>
 							<th>Id</th>
 							<th>Category</th>
@@ -55,10 +53,12 @@
 							<th>Created</th>
 							<th>Updated</th>
 							<th>Edit</th>
-							<th>{!! Form::checkbox("all",null,null,["id"=>"chooseAll"]) !!}</th>
+							<th>{!! Form::checkbox("all",null,null,["id"=>"chooseAll","onclick"=>"showDeleteButtonAll()	"]) !!}</th>
 						</tr>
 					</thead>
 					<tbody id="catTableBody">
+						@if(count($dcategories) > 0)
+						<h4>All Doctors Categories</h4>
 						@foreach($dcategories as $dcategory)
 							<tr id="row-{{$dcategory->id}}">
 								<td>{{$dcategory->id}}</td>
@@ -82,14 +82,14 @@
 								</td>
 							</tr>
 						@endforeach
+						@else
+							<h4>No Doctor Fields Yet!</h4>
+						@endif
 					</tbody>
 				</table>
 				{!! Form::close() !!}
 			</div>
 			{{$dcategories->links()}}
-		@else
-		<h4>No Doctor Fields Yet!</h4>
-		@endif
 	</div>
 	<!-- categories list div end -->
 	<div class="clearfix"></div>
