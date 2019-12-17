@@ -1,0 +1,107 @@
+body{
+	background-color: #fdfdfd;
+}
+#adminSidebar{
+	background-color: white;
+	width: 20%;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    box-shadow: 0 1px 3px rgba(59,64,69,0.2);
+    overflow: hidden;
+    float: left;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+#adminSidebar h5{
+	padding: 8px 15px;
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+}
+#adminSidebar a{
+	text-decoration: none;
+	display: block;
+	margin-bottom: 0px;
+	padding: 14px 30px;
+	font-size: 14px;
+	border-bottom: 1px solid rgba(59,64,69,0.2);
+	color: #999;
+}
+.adminActive{
+	border-right: 2px solid #3fbbc0 !important;
+	color: #3fbbc0 !important;
+	font-weight: bold;
+	background-color: #f9f9f9;
+}
+
+
+/* ///////////////////////////////////////////////////////////////// IPHAD PRO /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 1200px) and (min-width: 1024px){
+	#adminSidebar{
+		width: 26%;
+	}
+}
+/* ///////////////////////////////////////////////////////////////// IPHAD /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 1023px) and (min-width: 768px){
+	.adminMunuText{
+		display: none;
+	}
+	#adminSidebar{
+		width: 100%;
+	    border: 0px solid rgba(0, 0, 0, 0.125);
+	    box-shadow: 0 1px 1px rgba(59,64,69,0.2);
+	    margin-top: 5px;
+	}
+	#adminMenus{
+		text-align: center;
+	}
+	#adminSidebar a{
+		display: inline-block;
+		margin-bottom: 0px;
+		padding: 0px 20px;
+		font-size: 30px;
+		border-bottom: 0px solid rgba(59,64,69,0.2);
+	}
+	.adminActive{
+		border-right: 0px !important;
+		border-bottom: 1px solid #3fbbc0 !important;
+	}
+}
+/* ///////////////////////////////////////////////////////////////// Samll sizes rotate /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 767px){
+	.adminMunuText{
+		display: none;
+	}
+	#adminSidebar{
+		width: 100%;
+	    border: 0px solid rgba(0, 0, 0, 0.125);
+	    box-shadow: 0 1px 1px rgba(59,64,69,0.2);
+	    margin-top: 5px;
+	}
+	#adminMenus{
+		text-align: center;
+	}
+	#adminSidebar a{
+		display: inline-block;
+		margin-bottom: 0px;
+		padding: 0px 6px;
+		font-size: 18px;
+		border-bottom: 0px solid rgba(59,64,69,0.2);
+	}
+	.adminActive{
+		border-right: 0px !important;
+		border-bottom: 1px solid #3fbbc0 !important;
+	}
+
+}
+/* ///////////////////////////////////////////////////////////////// Samll sizes /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 468px){}
+/* ///////////////////////////////////////////////////////////////// Very Samll sizes /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 320px){
+	#adminSidebar a{
+		display: inline-block;
+		margin-bottom: 0px;
+		padding: 0px 5px;
+		font-size: 16px;
+		border-bottom: 0px solid rgba(59,64,69,0.2);
+	}
+}

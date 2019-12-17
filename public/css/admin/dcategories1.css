@@ -1,0 +1,161 @@
+#deleteLoad{
+	width: 50px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	z-index: 1;
+	box-shadow: 0 2px 4px 900px rgba(59,64,69,0.1);
+	background: rgba(59,64,69,0.1);
+	display: none;
+}
+#deleteMessage{
+	width: 20%;
+	position: fixed;
+	top: 50%;
+	left: 40%;
+	z-index: 1;
+	font-weight: bold;
+	box-shadow: 0 2px 4px 900px rgba(59,64,69,0.1);
+	/*background: rgba(59,64,69,0.1);*/
+	background-color: #3fbbc0;
+	color: white;
+	display: none;
+}
+div#footer{
+	margin-top: 700px;	
+}
+#main{
+	padding: 14px 20px;
+	overflow: hidden;
+	background-color: #fdfdfd;
+}
+table{
+	background-color: white;
+}
+table tr th{
+	text-align: center;
+	font-size: 12px;
+}
+table tr td{
+	border-right: 1px solid rgba(59,64,69,0.2);
+	text-align: center;
+	font-size: 13px;
+	padding:5px !important;
+}
+table tr td a{
+	color: #3fbbc0;
+}
+table tr td a:hover{
+	text-decoration: none;
+}
+table tr:hover{
+	background-color: #f9f9f9 !important;
+	color: #3fbbc0;
+}
+#catList{
+	overflow: hidden;
+	width: 90%;
+	position: relative;
+	/*margin: 0 auto;*/
+}
+#catList h4{
+	font-weight: bold;
+	font-size: 15px;
+	text-align: center;	
+}
+#deleteCatButton{
+	background-color: #f37276;
+	border-color: #f37276;
+	color: white;
+	font-weight: bold;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width:68px;
+	display: none;
+}
+#deleteCatButton:focus{
+	box-shadow: none;
+}
+/*#catForm{
+	width: 50%;
+	float:left;
+	overflow: hidden;
+	padding:12px 80px;
+	display: none;
+}
+.form_elements{
+	margin-bottom: 8px;
+}
+
+#submitButton{
+	background-color: #3fbbc0;
+	color: white;
+	float: right;
+}*/
+
+/* ///////////////////////////////////////////////////////////////// IPHAD PRO /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 1200px) and (min-width: 1024px){	
+	#catList{
+		width: 100%;
+	}
+	#deleteCatButton{
+		width:53px;
+	}
+	#deleteMessage{
+		top: 40%;
+		left: 40%;
+	}
+}
+/* ///////////////////////////////////////////////////////////////// IPHAD /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 1023px) and (min-width: 768px){
+	#main{
+		padding: 0px 20px;
+	}
+	#catList{
+		width: 100%;
+	}
+	#catList h4{
+		margin-top: 0px;
+	}
+	#deleteCatButton{
+		width:53px;
+	}
+}
+/* ///////////////////////////////////////////////////////////////// Samll sizes rotate /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 767px){
+	#main{
+		padding: 0px 2px;
+	}
+	table tr td{
+		font-size: 10px;
+	}
+	table tr th{
+		font-size: 9px;
+	}
+	#catList{
+		width: 100%;
+	}
+	#deleteCatButton{
+		width:53px;
+	}
+	#deleteMessage{
+		width: 70%;
+		left: 15%;
+	}
+}
+/* ///////////////////////////////////////////////////////////////// Samll sizes /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 468px){
+	#deleteCatButton{
+		width:39px;
+	}
+}
+/* ///////////////////////////////////////////////////////////////// Very Samll sizes /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 320px){
+	table tr td{
+		font-size: 9px;
+	}
+	table tr th{
+		font-size: 8px;
+	}
+}

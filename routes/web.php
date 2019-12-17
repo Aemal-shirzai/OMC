@@ -21,6 +21,13 @@ Route::get("/app",function(){
 	return view("layouts.MainLayout");
 });
 
+// Admin Layouts
+
+// all doctor fields (dcategories) and form to insert the categories from 
+route::get("/dcategories","Admin\AdminController@dcategories")->name("dcategories.manage");
+// all doctor fields (dcategories) and form to insert the categories from 
+route::DELETE("/dcategories/delete","Admin\AdminController@deleteCategories")->name("dcategories.delete");
+
 // Routes for Auth
 Auth::routes();
 // Route to show the page for user to add extra information after the registration process

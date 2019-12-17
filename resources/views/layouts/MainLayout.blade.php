@@ -8,7 +8,10 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle1.css')}}">	
+
+	<!-- Link to local css file -->
+	<link rel="stylesheet" type="text/css" href="{{asset('css/admin/adminLayout.css')}}">
 	
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
@@ -38,7 +41,12 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/achEditStyle11.css')}}">
 	@elseif(Route::currentRouteName() == 'profile.edit')
 	<!-- Link to local styles for doctors and normal users list page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/editUsers1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/editUsers1.css')}}">	
+
+	<!-- ADMIN PART -->
+	@elseif(Route::currentRouteName() == 'dcategories.manage')
+	<!-- Link to local styles for admin doctor categories -->
+	<link rel="stylesheet" type="text/css" href="{{asset('css/admin/dcategories1.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -327,6 +335,11 @@
 @elseif(Route::currentRouteName() == 'profile.edit')
 <!-- Link to local js for editing users -->
 <script type="text/javascript" src="{{asset('js/editUsers.js')}}"></script>
+
+<!-- ADMIN PART -->
+@elseif(Route::currentRouteName() == 'dcategories.manage')
+<!-- Link to local styles for admin doctor categories -->
+<script type="text/javascript" src="{{asset('js/admin/dcategories1.js')}}"></script>
 @endif
 
 <script type="text/javascript">
