@@ -46,7 +46,7 @@
 	<!-- ADMIN PART -->
 	@elseif(Route::currentRouteName() == 'dcategories.manage')
 	<!-- Link to local styles for admin doctor categories -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/admin/dcategories1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/admin/dcategories.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -251,7 +251,7 @@
 		@endif
 	@endauth
      
-    <a href="javascript:void(0)" title="Go to top" id="topButton" onclick="goToTop()" class="btn btn-sm" style=""><b>Top</b></a> 
+    <a href="javascript:void(0)" title="Go to top" id="topButton" onclick="goToTop()" class="btn btn-sm" style=""><b class="far fa-arrow-up"></b></a> 
 
 	@yield("content")
 

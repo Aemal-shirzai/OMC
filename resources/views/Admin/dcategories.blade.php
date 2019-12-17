@@ -6,9 +6,37 @@
 @include("../layouts.adminLayout")
 <div id="main">
 	<img src="{{asset('images/load.gif')}}" id="deleteLoad">
-	<div id="deleteMessage" class="alert alert-success alert-sm">
+	<div id="deleteMessage" class="alert alert-success alert-sm" style="{{(session('success') ? 'display: block' : '')}}">
 		<button class="close"  data-dismiss="alert"><span class="far fa-times"></span></button>
-		Deleted
+		<span id="messages">
+			{{session('success')}}
+		</span>
+	</div>
+	<div id="addCatButton" title="Add category" onclick="openForm()">
+		<span class="far fa-plus"></span>
+	</div>
+	<!-- Category Form -->
+	<div id="formDiv">
+		<div   id="closeFormButton" onclick="closeForm()"><span class="far fa-times"></span></div>
+		{!! Form::open(["method"=>"POST","action"=>"Admin\AdminController@storeCategories","id"=>"dCategoryAddForm"]) !!}
+			<div class="form-elemets">
+				{!! Form::label("category","Add Doctor Cateogry",["class"=>"form-labels"]) !!}
+				{!! Form::text("category",null,["class"=>"form-control ".($errors->has('category') ? ' errorForm' : ''),"placeholder"=>"category name ... ","autocomplete"=>"off", "id"=>"formField"]) !!}
+				<img src="{{asset('images/load.gif')}}" id="addLoad">
+				<div class="errors">
+					@error("category")
+						{{$message}}
+					@enderror
+				</div>
+				<div class="done" style="color: green; font-size: 12px;">
+					
+				</div>
+				<span class="notes">Duplicate names are ingnored!</span>
+			</div>
+			<div class="form-elemets">
+				{!! Form::submit("Add",["class"=>"btn btn-sm","id"=>"submitButton"]) !!}
+			</div>
+		{!! form::close() !!}
 	</div>
 	<div id="catList">
 		@if(count($dcategories) > 0)
@@ -16,7 +44,7 @@
 			<div class="table-responsive">
 				{!! Form::open(["method"=>"DELETE","action"=>"Admin\AdminController@deleteCategories","id"=>"deleteCatForm"]) !!}
 				<button class="btn btn-sm" id="deleteCatButton"><span class="fal fa-trash "></span></button>
-				<table class="table table-bordered">
+				<table class="table table-bordered" id="dcatTable">
 					<thead>
 						<tr>
 							<th>Id</th>
@@ -30,19 +58,27 @@
 							<th>{!! Form::checkbox("all",null,null,["id"=>"chooseAll"]) !!}</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="catTableBody">
 						@foreach($dcategories as $dcategory)
 							<tr id="row-{{$dcategory->id}}">
 								<td>{{$dcategory->id}}</td>
 								<td>{{$dcategory->category}}</td>
 								<td>{{$dcategory->doctors()->count()}}</td>
-								<td>{{$dcategory->createdBy}}</td>
+								<td>
+									@if($dcategory->createdBy)
+										<a href="{{route('profile',$dcategory->createdBy)}}" >
+											{{$dcategory->createdBy}}
+										</a>
+									@else
+										{{$dcategory->createdBy}}
+									@endif
+								</td>
 								<td>{{$dcategory->updatedBy}}</td>
 								<td>{{$dcategory->created_at->format("Y-M-d")}}</td>
 								<td>{{$dcategory->updated_at->format("Y-M-d")}}</td>
 								<td><a href="#" class="fal fa-edit"></a></td>
 								<td style="position: relative;">
-									{!! Form::checkbox("catIds[]",$dcategory->id,null,["class"=>"one_by_one","id"=>"checkBox-$dcategory->id"]) !!}
+									{!! Form::checkbox("catIds[]",$dcategory->id,null,["class"=>"one_by_one","id"=>"checkBox-$dcategory->id","onclick"=>"showDeleteButtonSingle()"]) !!}
 								</td>
 							</tr>
 						@endforeach
@@ -82,5 +118,6 @@
 	<script type="text/javascript">
 		var token = '{{ Session::token() }}';
 		var dcategoryDelete = '{{route("dcategories.delete")}}';
+		var storeCategories = '{{route("dcategories.store")}}';
 	</script>
 @endsection

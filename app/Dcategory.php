@@ -11,6 +11,8 @@ class Dcategory extends Model
     */
     protected $fillable = [
     	"category",
+        "createdBy",
+        "updatedBy",
     ];
 
 

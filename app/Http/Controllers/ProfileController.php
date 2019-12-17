@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 
 use AuthenticatesUsers;
+
 class ProfileController extends Controller
 {
     /**

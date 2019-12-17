@@ -24,9 +24,11 @@ Route::get("/app",function(){
 // Admin Layouts
 
 // all doctor fields (dcategories) and form to insert the categories from 
-route::get("/dcategories","Admin\AdminController@dcategories")->name("dcategories.manage");
+Route::get("/dcategories","Admin\AdminController@dcategories")->name("dcategories.manage");
 // all doctor fields (dcategories) and form to insert the categories from 
-route::DELETE("/dcategories/delete","Admin\AdminController@deleteCategories")->name("dcategories.delete");
+Route::DELETE("/dcategories/delete","Admin\AdminController@deleteCategories")->name("dcategories.delete");
+// route to add the dcateogry for doctors
+Route::POST("/dcategories/store","Admin\AdminController@storeCategories")->name("dcategories.store");
 
 // Routes for Auth
 Auth::routes();
