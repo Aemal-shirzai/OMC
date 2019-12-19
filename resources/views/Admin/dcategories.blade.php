@@ -6,23 +6,23 @@
 @include("../layouts.adminLayout")
 <div id="main">
 	<img src="{{asset('images/load.gif')}}" id="deleteLoad">
-	<div id="deleteMessage" class="alert alert-success alert-sm" style="{{(session('success') ? 'display: block' : '')}}">
+	<div id="deleteMessage" class="alert alert-success alert-sm text-center" style="{{(session('success') ? 'display: block' : '')}}">
 		<button class="close"  data-dismiss="alert"><span class="far fa-times"></span></button>
 		<span id="messages">
 			{{session('success')}}
 		</span>
 	</div>
-	<div id="addCatButton" title="Add category" onclick="openForm()">
+	<div id="addCatButton" title="Add category" onclick="openForm('Cadd')">
 		<span class="far fa-plus"></span>
 	</div>
-	<!-- Category Form -->
-	<div id="formDiv">
-		<div   id="closeFormButton" onclick="closeForm()"><span class="far fa-times"></span></div>
+	<!-- Category add Form -->
+	<div class="formDiv" id="cFormDivAdd">
+		<div class="closeFormButton" onclick="closeForm('Cadd')"><span class="far fa-times"></span></div>
 		{!! Form::open(["method"=>"POST","action"=>"Admin\AdminController@storeCategories","id"=>"dCategoryAddForm"]) !!}
 			<div class="form-elemets">
 				{!! Form::label("category","Add Doctor Cateogry",["class"=>"form-labels"]) !!}
 				{!! Form::text("category",null,["class"=>"form-control ".($errors->has('category') ? ' errorForm' : ''),"placeholder"=>"category name ... ","autocomplete"=>"off", "id"=>"formField"]) !!}
-				<img src="{{asset('images/load.gif')}}" id="addLoad">
+				<img src="{{asset('images/load.gif')}}" class="addLoad">
 				<div class="errors">
 					@error("category")
 						{{$message}}
@@ -34,7 +34,31 @@
 				<span class="notes">Duplicate names are ingnored!</span>
 			</div>
 			<div class="form-elemets">
-				{!! Form::submit("Add",["class"=>"btn btn-sm","id"=>"submitButton"]) !!}
+				{!! Form::submit("Add",["class"=>"btn btn-sm submitButton","id"=>"submitButtonAdd"]) !!}
+			</div>
+		{!! form::close() !!}
+	</div>
+	<!-- Category update Form -->
+	<div class="formDiv" id="cFormDivUpdate">
+		<div class="closeFormButton" onclick="closeForm('Cupdate')"><span class="far fa-times"></span></div>
+		{!! Form::open(["method"=>"POST","action"=>"Admin\AdminController@storeCategories","id"=>"dCategoryUpdateForm"]) !!}
+			<div class="form-elemets">
+				{!! Form::label("category","Update Doctor Cateogry",["class"=>"form-labels"]) !!}
+				{!! Form::text("category",null,["class"=>"form-control ".($errors->has('category') ? ' errorForm' : ''),"placeholder"=>"category name ... ","autocomplete"=>"off", "id"=>"formFieldUpdate"]) !!}
+				{!! Form::hidden("cat_id",null,["id"=>"cat_id"]) !!}
+				<img src="{{asset('images/load.gif')}}" class="addLoad">
+				<div class="errors">
+					@error("category")
+						{{$message}}
+					@enderror
+				</div>
+				<div class="done" style="color: green; font-size: 12px;">
+					
+				</div>
+				<span class="notes">Duplicate names are ingnored!</span>
+			</div>
+			<div class="form-elemets">
+				{!! Form::submit("Update",["class"=>"btn btn-sm submitButton","id"=>"submitButtonUpdate"]) !!}
 			</div>
 		{!! form::close() !!}
 	</div>
@@ -73,10 +97,18 @@
 										{{$dcategory->createdBy}}
 									@endif
 								</td>
-								<td>{{$dcategory->updatedBy}}</td>
+								<td>
+									@if($dcategory->updatedBy)
+										<a href="{{route('profile',$dcategory->createdBy)}}" >
+											{{$dcategory->updatedBy}}
+										</a>
+									@else
+										{{$dcategory->updatedBy}}
+									@endif
+								</td>
 								<td>{{$dcategory->created_at->format("Y-M-d")}}</td>
 								<td>{{$dcategory->updated_at->format("Y-M-d")}}</td>
-								<td><a href="#" class="fal fa-edit"></a></td>
+								<td><a href="javascript:void(0)" class="fal fa-edit" onclick="openUpdateForm({!! $dcategory->id !!})"></a></td>
 								<td style="position: relative;">
 									{!! Form::checkbox("catIds[]",$dcategory->id,null,["class"=>"one_by_one","id"=>"checkBox-$dcategory->id","onclick"=>"showDeleteButtonSingle()"]) !!}
 								</td>
@@ -119,5 +151,7 @@
 		var token = '{{ Session::token() }}';
 		var dcategoryDelete = '{{route("dcategories.delete")}}';
 		var storeCategories = '{{route("dcategories.store")}}';
+		var editCategories = '{{route("dcategories.edit")}}';
+		var updateCategories = '{{route("dcategories.update")}}';
 	</script>
 @endsection

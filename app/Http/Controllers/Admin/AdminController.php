@@ -55,6 +55,7 @@ class AdminController extends Controller
        $categoryInserted = Dcategory::latest("id")->first();
        $createDate = $categoryInserted->created_at->format("Y-M-d");
        $updateDate = $categoryInserted->updated_at->format("Y-M-d"); 
+
        if($insert){
             if($request->ajax()){
                 return response()->json(["data"=>$categoryInserted,"createDate"=>$createDate,"updateDate"=>$updateDate]);
@@ -62,7 +63,36 @@ class AdminController extends Controller
                 return back()->with("success","Category Added!");
             }
        }
+    }
+//End of store function 
 
+// edit function beggining
+    public function edit(Request $request){
+        $category = Dcategory::find($request->id);
+        return response()->json(["category"=>$category]);
+    }
+// update function beggining
+    public function update(Request $request){
+        $validator = Validator::make($request->all(),[
+            "category" => "bail|required|string|min:3|max:60|unique:dcategories,category",
+        ],[
+            "category.required" => "The field can not be empty",
+            "category.unique"=> "The category name already exists",
+        ]);
+
+        if($validator->fails()){
+            if($request->ajax()){
+                return response()->json(["errors"=>$validator->errors()]);
+            }
+        }
+        $category = Dcategory::find($request->cat_id);
+        $updated = $category->update(["category"=>$request->category,"updatedBy"=>Auth::user()->username]);
+        $updatedCat =  Dcategory::find($request->cat_id);
+        $createDate = $updatedCat->created_at->format("Y-M-d");
+        $updateDate = $updatedCat->updated_at->format("Y-M-d"); 
+        if($updated){
+            return response()->json(["data"=>$category,"createDate"=>$createDate,"updateDate"=>$updateDate]);
+        }
     }
 
 

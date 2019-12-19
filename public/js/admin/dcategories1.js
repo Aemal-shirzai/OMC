@@ -71,7 +71,6 @@ $(document).ready(function(e){
 
 	// To add dcategories using ajax
 	$("#dCategoryAddForm").submit(function(e){
-
 		// validation part
 		if($("#formField").val().trim().length < 1){
 			$("#formField").addClass("errorForm");
@@ -96,9 +95,9 @@ $(document).ready(function(e){
 		// ajax request part
 		$(".errors").text("");
 		$("#formField").removeClass("errorForm");
-		$("#addLoad").show();
-		$("#submitButton").attr('value','Adding ...')
-		$("#submitButton").attr('disabled','true')
+		$(".addLoad").show();
+		$("#submitButtonAdd").attr('value','Adding ...')
+		$("#submitButtonAdd").attr('disabled','true')
 		event.preventDefault();
 
 		var formData = $(this).serialize();
@@ -108,10 +107,10 @@ $(document).ready(function(e){
 			url: storeCategories,
 			data: formData,
 		}).done(function(response){
-			$("#submitButton").attr('value','Add')
-			$("#submitButton").removeAttr("disabled");
+			$("#submitButtonAdd").attr('value','Add')
+			$("#submitButtonAdd").removeAttr("disabled");
 			$("#formField").removeAttr("disabled");
-			$("#addLoad").hide();
+			$(".addLoad").hide();
 
 			if($.isEmptyObject(response.errors)){
 				$(".done").text("category Added!")
@@ -121,7 +120,7 @@ $(document).ready(function(e){
 				if($("#catTableBody tr").length > 0){
 					$("#catTableBody tr:first").before("<tr id='row-"+ response.data["id"] +"''>" +"<td>"+ response.data['id'] +"</td>"+ "<td>"+ response.data['category'] +"</td>"+ 
 						"<td>"+ 0  +"</td>"+ "<td>"+ "<a href='/profile/"+ response.data['createdBy']  +"'>" + response.data['createdBy'] + "</a>" +"</td>"+ "<td>"+ ""  +"</td>"+ 
-						"<td>"+ response.createDate  +"</td>"+ "<td>"+ response.updateDate  +"</td>"+ "<td><a href='#' class='fal fa-edit'></span></a>"+ 
+						"<td>"+ response.createDate  +"</td>"+ "<td>"+ response.updateDate  +"</td>"+ "<td><a href='javascript:void(0)' class='fal fa-edit' onclick='openUpdateForm("+ response.data['id'] +")'></a></td>" + 
 						"<td><input type='checkbox' class='one_by_one' name='catIds[]' value='"+ response.data['id'] +"' id='checkbox-"+ response.data["id"] +"' onclick='showDeleteButtonSingle()'></td>"+  "</tr>")
 				}else if($("#catTableBody tr").length < 1){
 					$("#catTableBody").append("<tr id='row-"+ response.data["id"] +"''>" +"<td>"+ response.data['id'] +"</td>"+ "<td>"+ response.data['category'] +"</td>"+ 
@@ -136,20 +135,88 @@ $(document).ready(function(e){
 				 $("#formField").addClass("errorForm");
 			}
 		}).fail(function(response){
-			$("#submitButton").attr('value','Add')
-			$("#submitButton").removeAttr("disabled");
+			$("#submitButtonAdd").attr('value','Add')
+			$("#submitButtonAdd").removeAttr("disabled");
 			$("#formField").removeAttr("disabled");
-			$("#addLoad").hide();
+			$(".addLoad").hide();
 			$(".errors").text("oops! something went wrong!");
 			$(".done").text("");
 		});
 	});
 
+	// to update dcategories form using ajax
+	$("#dCategoryUpdateForm").submit(function(e){
+		// validation part
+		if($("#formFieldUpdate").val().trim().length < 1){
+			$("#formFieldUpdate").addClass("errorForm");
+			$(".errors").text("The field can not be empty");
+			 $("#formFieldUpdate").focus();
+			return false;
+		}else if($("#formFieldUpdate").val().trim().length < 3){
+			$("#formFieldUpdate").addClass("errorForm");
+			$(".errors").text("The category must be at least 3 characters");
+			 $("#formFieldUpdate").focus();
+			return false;
+		}else if($("#formFieldUpdate").val().trim().length > 60){
+			$("#formFieldUpdate").addClass("errorForm");
+			$(".errors").text("The category may not be greater than 60 characters.");
+			 $("#formFieldUpdate").focus();
+			return false;
+		}else{
+			$("#formFieldUpdate").removeClass("errorForm");
+			$(".errors").text("");
+		}
+
+		e.preventDefault();
+		var formData = $(this).serialize();
+
+		$(".addLoad").show();
+		$("#submitButtonUpdate").attr('value','Updating ...');
+		$("#submitButtonUpdate").attr('disabled','true');
+		$("#formFieldUpdate").attr("disabled","true");
+		$(".errors").text("");
+		$("#formFieldUpdate").removeClass("errorForm");
+		console.log(formData['cat_id']);
+
+		$.ajax({
+			method: "PUT",
+			url:updateCategories,
+			data: formData,
+		}).done(function(response){
+			$(".addLoad").hide();
+			$("#submitButtonUpdate").attr('value','Update');
+			$("#submitButtonUpdate").removeAttr('disabled');
+			$("#formFieldUpdate").removeAttr('disabled');
+			if(!$.isEmptyObject(response.errors)){
+				$(".errors").text(response.errors["category"]);
+			}else{
+				$("body").css("pointer-events","initial");
+				$("#cFormDivUpdate").fadeOut();	
+				$("#row-"+ response.data['id']).after("<tr id='row-"+ response.data["id"] +"''>" +"<td>"+ response.data['id'] +"</td>"+ "<td>"+ response.data['category'] +"</td>"+ 
+						"<td>"+ 0  +"</td>"+ "<td>"+ "<a href='/profile/"+ response.data['createdBy']  +"'>" + response.data['createdBy'] + "</a>" +"</td>"+ "<td>"+ "<a href='/profile/"+ response.data['updatedBy']  +"'>" + response.data['updatedBy'] + "</a>"  +"</td>"+ 
+						"<td>"+ response.createDate  +"</td>"+ "<td>"+ response.updateDate  +"</td>"+ "<td><a href='javascript:void(0)' class='fal fa-edit' onclick='openUpdateForm("+ response.data['id'] +")'></a></td>"+ 
+						"<td><input type='checkbox' class='one_by_one' name='catIds[]' value='"+ response.data['id'] +"' id='checkbox-"+ response.data["id"] +"' onclick='showDeleteButtonSingle()'></td>"+  "</tr>");
+				$("#row-"+response.data['id']).remove();
+				$("#deleteMessage").show();
+				$("#deleteMessage").text("updated");
+				window.setTimeout(function() {
+					$("#deleteMessage").fadeOut(200);
+				}, 1500);
+			}
+
+		}).fail(function(response){
+			$(".addLoad").show();
+			$("#submitButtonUpdate").attr('value','Updating ...');
+			$("#submitButtonUpdate").removeAttr('disabled');
+			$("#formFieldUpdate").removeAttr('disabled');
+		});
+	});
 
 
-	window.setTimeout(function() {
-		$("#deleteMessage").fadeOut(200);
-	}, 2000);
+
+	// window.setTimeout(function() {
+	// 	$("#deleteMessage").fadeOut(200);
+	// }, 2000);
 
 
 
@@ -158,19 +225,52 @@ $(document).ready(function(e){
 
 
 // function which open the form
-function openForm(){
-	$("#formDiv").fadeIn();
+function openForm(value){
+	if(value === "Cadd"){
+		$("#cFormDivAdd").fadeIn();
+	}
+	if(value === "Cupdate"){
+		$("#cFormDivUpdate").fadeIn();	
+	}
 	$("#formField").focus();
 	$("body").css("pointer-events","none");
 }
 
+// function which open the form for dcategorires
+function openUpdateForm(id){
+	$("#deleteLoad").show();
+	$("body").css("pointer-events","none");
+	$.ajax({
+		method: "GET",
+		url: editCategories,
+		data:{id:id,_token:token}
+	}).done(function(response){
+		$("#deleteLoad").hide();
+		if(!$.isEmptyObject(response.category)){
+			$("#cFormDivUpdate").fadeIn();	
+			$("#formFieldUpdate").focus();
+			$("#formFieldUpdate").val(response.category['category']);	
+			$("#cat_id").val(response.category['id']);
+		}
+	}).fail(function(response){
+		$("#deleteLoad").hide();
+		alert("fail");
+	});
+}
+
 // function to close form
-function closeForm(){
+function closeForm(value){
 	$("#formField").removeClass("errorForm");
 	$(".errors").text("");
 	$(".done").text("");
-	document.getElementById("dCategoryAddForm").reset();
-	$("#formDiv").hide();
+	if(value === "Cadd"){
+		document.getElementById("dCategoryAddForm").reset();
+		$("#cFormDivAdd").hide();
+	}
+	if(value === "Cupdate"){
+		document.getElementById("dCategoryUpdateForm").reset();
+		$("#cFormDivUpdate").hide();
+	}
 	$("body").css("pointer-events","initial");
 }
 

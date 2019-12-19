@@ -29,6 +29,9 @@ Route::get("/dcategories","Admin\AdminController@dcategories")->name("dcategorie
 Route::DELETE("/dcategories/delete","Admin\AdminController@deleteCategories")->name("dcategories.delete");
 // route to add the dcateogry for doctors
 Route::POST("/dcategories/store","Admin\AdminController@storeCategories")->name("dcategories.store");
+// Route to retive the data for dcatrogry that needs to be updated
+Route::get("/dcategories/edit","Admin\AdminController@edit")->name("dcategories.edit");
+Route::PUT("/dcategories/update","Admin\AdminController@update")->name("dcategories.update");
 
 // Routes for Auth
 Auth::routes();
