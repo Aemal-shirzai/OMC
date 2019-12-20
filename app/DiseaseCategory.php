@@ -12,6 +12,8 @@ class DiseaseCategory extends Model
     */
     protected $fillable = [
     	"category",
+        "createdBy",
+        "updatedBy",
     ];
 
     // Relationship with posts
@@ -20,7 +22,7 @@ class DiseaseCategory extends Model
     }
 
     //relationship with quesitons
-    public function quesions(){
+    public function questions(){
         return $this->morphedByMany(Question::class,"owner","post_and_question_category","disease_category_id");
     }
 }

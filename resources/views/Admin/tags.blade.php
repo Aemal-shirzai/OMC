@@ -5,6 +5,7 @@
 @section("content")
 @include("../layouts.adminLayout")
 <div id="main">
+
 	<img src="{{asset('images/load.gif')}}" id="deleteLoad">
 	<div id="deleteMessage" class="alert alert-success alert-sm text-center" style="{{(session('success') ? 'display: block' : '')}}">
 		<button class="close"  data-dismiss="alert"><span class="far fa-times"></span></button>
@@ -15,12 +16,13 @@
 	<div id="addCatButton" title="Add category" onclick="openForm('Cadd')">
 		<span class="far fa-plus"></span>
 	</div>
+
 	<!-- Category add Form -->
 	<div class="formDiv" id="cFormDivAdd">
 		<div class="closeFormButton" onclick="closeForm('Cadd')"><span class="far fa-times"></span></div>
-		{!! Form::open(["method"=>"POST","action"=>"Admin\DcategoryController@storeCategories","id"=>"dCategoryAddForm"]) !!}
+		{!! Form::open(["method"=>"POST","action"=>"Admin\TagController@storeTags","id"=>"tagsAddForm"]) !!}
 			<div class="form-elemets">
-				{!! Form::label("category","Add Doctor Cateogry",["class"=>"form-labels"]) !!}
+				{!! Form::label("category","Add Tags",["class"=>"form-labels"]) !!}
 				{!! Form::text("category",null,["class"=>"form-control ".($errors->has('category') ? ' errorForm' : ''),"placeholder"=>"category name ... ","autocomplete"=>"off", "id"=>"formField"]) !!}
 				<img src="{{asset('images/load.gif')}}" class="addLoad">
 				<div class="errors">
@@ -31,21 +33,22 @@
 				<div class="done" style="color: green; font-size: 12px;">
 					
 				</div>
-				<span class="notes">Duplicate names are ingnored!</span>
+				<span class="notes">Duplicate tags are ingnored!</span>
 			</div>
 			<div class="form-elemets">
 				{!! Form::submit("Add",["class"=>"btn btn-sm submitButton","id"=>"submitButtonAdd"]) !!}
 			</div>
 		{!! form::close() !!}
 	</div>
+
 	<!-- Category update Form -->
 	<div class="formDiv" id="cFormDivUpdate">
 		<div class="closeFormButton" onclick="closeForm('Cupdate')"><span class="far fa-times"></span></div>
-		{!! Form::open(["method"=>"PUT","action"=>"Admin\DcategoryController@update","id"=>"dCategoryUpdateForm"]) !!}
+		{!! Form::open(["method"=>"PUT","action"=>"Admin\TagController@update","id"=>"tagsUpdateForm"]) !!}
 			<div class="form-elemets">
 				{!! Form::label("category","Update Doctor Cateogry",["class"=>"form-labels"]) !!}
 				{!! Form::text("category",null,["class"=>"form-control ".($errors->has('category') ? ' errorForm' : ''),"placeholder"=>"category name ... ","autocomplete"=>"off", "id"=>"formFieldUpdate"]) !!}
-				{!! Form::hidden("cat_id",null,["id"=>"cat_id"]) !!}
+				{!! Form::hidden("tag_id",null,["id"=>"tag_id"]) !!}
 				<img src="{{asset('images/load.gif')}}" class="addLoad">
 				<div class="errors">
 					@error("category")
@@ -64,14 +67,14 @@
 	</div>
 	<div id="catList">
 			<div class="table-responsive">
-				{!! Form::open(["method"=>"DELETE","action"=>"Admin\DcategoryController@deleteCategories","id"=>"deleteCatForm"]) !!}
+				{!! Form::open(["method"=>"DELETE","action"=>"Admin\TagController@deleteTags","id"=>"deleteTagForm"]) !!}
 				<button class="btn btn-sm" id="deleteCatButton"><span class="fal fa-trash "></span></button>
 				<table class="table table-bordered" id="dcatTable">
 					<thead id="catTableHead">
 						<tr>
 							<th>Id</th>
 							<th>Category</th>
-							<th>Registered</th>
+							<th>Registered P&Q</th>
 							<th>C.by</th>
 							<th>U.by</th>
 							<th>Created</th>
@@ -81,47 +84,47 @@
 						</tr>
 					</thead>
 					<tbody id="catTableBody">
-						@if(count($dcategories) > 0)
-						<h4>All Doctors Categories</h4>
-						@foreach($dcategories as $dcategory)
-							<tr id="row-{{$dcategory->id}}">
-								<td>{{$dcategory->id}}</td>
-								<td>{{$dcategory->category}}</td>
-								<td>{{$dcategory->doctors()->count()}}</td>
+						@if(count($tags) > 0)
+						<h4>All Tags</h4>
+						@foreach($tags as $tag)
+							<tr id="row-{{$tag->id}}">
+								<td>{{$tag->id}}</td>
+								<td>{{$tag->category}}</td>
+								<td>{{count($tag->posts) + count($tag->questions)}}</td>
 								<td>
-									@if($dcategory->createdBy)
-										<a href="{{route('profile',$dcategory->createdBy)}}" >
-											{{$dcategory->createdBy}}
+									@if($tag->createdBy)
+										<a href="{{route('profile',$tag->createdBy)}}" >
+											{{$tag->createdBy}}
 										</a>
 									@else
-										{{$dcategory->createdBy}}
+										{{$tag->createdBy}}
 									@endif
 								</td>
 								<td>
-									@if($dcategory->updatedBy)
-										<a href="{{route('profile',$dcategory->createdBy)}}" >
-											{{$dcategory->updatedBy}}
+									@if($tag->updatedBy)
+										<a href="{{route('profile',$tag->createdBy)}}" >
+											{{$tag->updatedBy}}
 										</a>
 									@else
-										{{$dcategory->updatedBy}}
+										{{$tag->updatedBy}}
 									@endif
 								</td>
-								<td>{{$dcategory->created_at->format("Y-M-d")}}</td>
-								<td>{{$dcategory->updated_at->format("Y-M-d")}}</td>
-								<td><a href="javascript:void(0)" class="fal fa-edit" onclick="openUpdateForm({!! $dcategory->id !!})"></a></td>
+								<td>{{$tag->created_at->format("Y-M-d")}}</td>
+								<td>{{$tag->updated_at->format("Y-M-d")}}</td>
+								<td><a href="javascript:void(0)" class="fal fa-edit" onclick="openUpdateForm({!! $tag->id !!})"></a></td>
 								<td style="position: relative;">
-									{!! Form::checkbox("catIds[]",$dcategory->id,null,["class"=>"one_by_one","id"=>"checkBox-$dcategory->id","onclick"=>"showDeleteButtonSingle()"]) !!}
+									{!! Form::checkbox("tagIds[]",$tag->id,null,["class"=>"one_by_one","id"=>"checkBox-$tag->id","onclick"=>"showDeleteButtonSingle()"]) !!}
 								</td>
 							</tr>
 						@endforeach
 						@else
-							<h4>No Doctor Fields Yet!</h4>
+							<h4>No Tags!</h4>
 						@endif
 					</tbody>
 				</table>
 				{!! Form::close() !!}
 			</div>
-			{{$dcategories->links()}}
+			{{$tags->links()}}
 	</div>
 	<!-- categories list div end -->
 	<div class="clearfix"></div>
@@ -130,18 +133,6 @@
 @endsection
 
 
-<!-- <div id="catForm">
-		{!! Form::open(["id"=>"dcategoryForm"]) !!}
-			<div class="form_elements">
-				{!! Form::label("category","Add Doctor Category") !!}
-				{!! Form::text("category",null,["class"=>"form-control","placeholder"=>"Category name"]) !!}
-			</div>
-			<div class="form_elements">
-				{!! Form::submit("Add Category",["class"=>"btn btn-sm","id"=>"submitButton"]) !!}
-			</div>
-		{!! Form::close() !!}
-	</div> -->
-	<!-- categories form div end -->
 
 @section("scripts")
 
@@ -149,9 +140,9 @@
 <!-- These variables are for ajax  token and route to which vote the post, comments , replies-->
 	<script type="text/javascript">
 		var token = '{{ Session::token() }}';
-		var dcategoryDelete = '{{route("dcategories.delete")}}';
-		var storeCategories = '{{route("dcategories.store")}}';
-		var editCategories = '{{route("dcategories.edit")}}';
-		var updateCategories = '{{route("dcategories.update")}}';
+		var tagsDelete = '{{route("tags.delete")}}';
+		var storeTags = '{{route("tags.store")}}';
+		var editTags = '{{route("tags.edit")}}';
+		var updateTags = '{{route("tags.update")}}';
 	</script>
 @endsection

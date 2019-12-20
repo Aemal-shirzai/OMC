@@ -30,7 +30,7 @@
 			<span class="fal fa-bell"></span> 
 			<span class="adminMunuText">Manage Doctor Category</span> 
 		</a>
-		<a href="#">
+		<a href="{{route('tags.manage')}}" class="{{ (Route::currentRouteName() === 'tags.manage' ? 'adminActive' : '' ) }}">
 			<span class="fal fa-tags"></span> 
 			<span class="adminMunuText">Manage Tags</span>
 		</a>

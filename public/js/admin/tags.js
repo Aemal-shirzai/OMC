@@ -36,7 +36,7 @@ function showDeleteButtonSingle(){
 $(document).ready(function(e){
 
 	// to delete the dcateogires using ajax
-	$("#deleteCatForm").submit(function(e){
+	$("#deleteTagForm").submit(function(e){
 		$("#deleteLoad").show();
 		$("body").css("pointer-events","none");
 		e.preventDefault();
@@ -45,7 +45,7 @@ $(document).ready(function(e){
 
 		$.ajax({
 			method: "DELETE",
-			url: dcategoryDelete,
+			url: tagsDelete,
 			data: formData,
 		}).done(function(response){
 			$("#deleteCatButton").hide();
@@ -55,7 +55,7 @@ $(document).ready(function(e){
 			});
 			$("#deleteLoad").hide();
 			$("#deleteMessage").show();
-			$("#messages").text(response.ids.length + " category (s) deleted!");
+			$("#messages").text(response.ids.length + " tag (s) deleted!");
 			window.setTimeout(function() {
 				$("#deleteMessage").fadeOut(200);
 			}, 2000);
@@ -70,7 +70,9 @@ $(document).ready(function(e){
 
 
 	// To add dcategories using ajax
-	$("#dCategoryAddForm").submit(function(e){
+	$("#tagsAddForm").submit(function(e){
+		$(".done").text("");
+		$(".errors").text("");
 		// validation part
 		if($("#formField").val().trim().length < 1){
 			$("#formField").addClass("errorForm");
@@ -79,12 +81,12 @@ $(document).ready(function(e){
 			return false;
 		}else if($("#formField").val().trim().length < 3){
 			$("#formField").addClass("errorForm");
-			$(".errors").text("The category must be at least 3 characters");
+			$(".errors").text("The tag name must be at least 3 characters");
 			 $("#formField").focus();
 			return false;
 		}else if($("#formField").val().trim().length > 60){
 			$("#formField").addClass("errorForm");
-			$(".errors").text("The category may not be greater than 60 characters.");
+			$(".errors").text("The tag name may not be greater than 60 characters.");
 			 $("#formField").focus();
 			return false;
 		}else{
@@ -93,7 +95,6 @@ $(document).ready(function(e){
 		}
 
 		// ajax request part
-		$(".errors").text("");
 		$("#formField").removeClass("errorForm");
 		$(".addLoad").show();
 		$("#submitButtonAdd").attr('value','Adding ...')
@@ -104,7 +105,7 @@ $(document).ready(function(e){
 		$("#formField").attr("disabled","true");
 		$.ajax({
 			method: "POST",
-			url: storeCategories,
+			url: storeTags,
 			data: formData,
 		}).done(function(response){
 			$("#submitButtonAdd").attr('value','Add')
@@ -116,17 +117,17 @@ $(document).ready(function(e){
 				$(".done").text("category Added!")
 				$(".errors").text("")
 				 $("#formField").focus();
-				document.getElementById("dCategoryAddForm").reset();
+				document.getElementById("tagsAddForm").reset();
 				if($("#catTableBody tr").length > 0){
 					$("#catTableBody tr:first").before("<tr id='row-"+ response.data["id"] +"''>" +"<td>"+ response.data['id'] +"</td>"+ "<td>"+ response.data['category'] +"</td>"+ 
 						"<td>"+ 0  +"</td>"+ "<td>"+ "<a href='/profile/"+ response.data['createdBy']  +"'>" + response.data['createdBy'] + "</a>" +"</td>"+ "<td>"+ ""  +"</td>"+ 
 						"<td>"+ response.createDate  +"</td>"+ "<td>"+ response.updateDate  +"</td>"+ "<td><a href='javascript:void(0)' class='fal fa-edit' onclick='openUpdateForm("+ response.data['id'] +")'></a></td>" + 
-						"<td><input type='checkbox' class='one_by_one' name='catIds[]' value='"+ response.data['id'] +"' id='checkbox-"+ response.data["id"] +"' onclick='showDeleteButtonSingle()'></td>"+  "</tr>")
+						"<td><input type='checkbox' class='one_by_one' name='tagIds[]' value='"+ response.data['id'] +"' id='checkbox-"+ response.data["id"] +"' onclick='showDeleteButtonSingle()'></td>"+  "</tr>")
 				}else if($("#catTableBody tr").length < 1){
 					$("#catTableBody").append("<tr id='row-"+ response.data["id"] +"''>" +"<td>"+ response.data['id'] +"</td>"+ "<td>"+ response.data['category'] +"</td>"+ 
 						"<td>"+ 0  +"</td>"+ "<td>"+ "<a href='/profile/"+ response.data['createdBy']  +"'>" + response.data['createdBy'] + "</a>" +"</td>"+ "<td>"+ ""  +"</td>"+ 
 						"<td>"+ response.createDate  +"</td>"+ "<td>"+ response.updateDate  +"</td>"+ "<td><a href='#' class='fal fa-edit'></span></a>"+ 
-						"<td><input type='checkbox' class='one_by_one' name='catIds[]' value='"+ response.data['id'] +"' id='checkbox-"+ response.data["id"] +"' onclick='showDeleteButtonSingle()'></td>"+  "</tr>")
+						"<td><input type='checkbox' class='one_by_one' name='tagIds[]' value='"+ response.data['id'] +"' id='checkbox-"+ response.data["id"] +"' onclick='showDeleteButtonSingle()'></td>"+  "</tr>")
 				}
 			}else{
 				 $("#formField").focus();
@@ -145,7 +146,7 @@ $(document).ready(function(e){
 	});
 
 	// to update dcategories form using ajax
-	$("#dCategoryUpdateForm").submit(function(e){
+	$("#tagsUpdateForm").submit(function(e){
 		// validation part
 		if($("#formFieldUpdate").val().trim().length < 1){
 			$("#formFieldUpdate").addClass("errorForm");
@@ -180,7 +181,7 @@ $(document).ready(function(e){
 
 		$.ajax({
 			method: "PUT",
-			url:updateCategories,
+			url:updateTags,
 			data: formData,
 		}).done(function(response){
 			$(".addLoad").hide();
@@ -189,16 +190,19 @@ $(document).ready(function(e){
 			$("#formFieldUpdate").removeAttr('disabled');
 			if(!$.isEmptyObject(response.errors)){
 				$(".errors").text(response.errors["category"]);
+				$("#formFieldUpdate").focus();
+				$("#formFieldUpdate").addClass("errorForm");
 			}else{
 				$("body").css("pointer-events","initial");
 				$("#cFormDivUpdate").fadeOut();	
 				$("#row-"+ response.data['id']).after("<tr id='row-"+ response.data["id"] +"''>" +"<td>"+ response.data['id'] +"</td>"+ "<td>"+ response.data['category'] +"</td>"+ 
-						"<td>"+ 0  +"</td>"+ "<td>"+ "<a href='/profile/"+ response.data['createdBy']  +"'>" + response.data['createdBy'] + "</a>" +"</td>"+ "<td>"+ "<a href='/profile/"+ response.data['updatedBy']  +"'>" + response.data['updatedBy'] + "</a>"  +"</td>"+ 
+						"<td>"+ response.registered  +"</td>"+ "<td>"+ "<a href='/profile/"+ response.data['createdBy']  +"'>" + response.data['createdBy'] + "</a>" +"</td>"+ "<td>"+ "<a href='/profile/"+ response.data['updatedBy']  +"'>" + response.data['updatedBy'] + "</a>"  +"</td>"+ 
 						"<td>"+ response.createDate  +"</td>"+ "<td>"+ response.updateDate  +"</td>"+ "<td><a href='javascript:void(0)' class='fal fa-edit' onclick='openUpdateForm("+ response.data['id'] +")'></a></td>"+ 
-						"<td><input type='checkbox' class='one_by_one' name='catIds[]' value='"+ response.data['id'] +"' id='checkbox-"+ response.data["id"] +"' onclick='showDeleteButtonSingle()'></td>"+  "</tr>");
+						"<td><input type='checkbox' class='one_by_one' name='tagIds[]' value='"+ response.data['id'] +"' id='checkbox-"+ response.data["id"] +"' onclick='showDeleteButtonSingle()'></td>"+  "</tr>");
 				$("#row-"+response.data['id']).remove();
 				$("#deleteMessage").show();
-				$("#deleteMessage").text("updated");
+				$("#deleteMessage").show();
+				$("#messages").text("updated");
 				window.setTimeout(function() {
 					$("#deleteMessage").fadeOut(200);
 				}, 1500);
@@ -213,12 +217,9 @@ $(document).ready(function(e){
 	});
 
 
-
-	// window.setTimeout(function() {
-	// 	$("#deleteMessage").fadeOut(200);
-	// }, 2000);
-
-
+	window.setTimeout(function() {
+		$("#deleteMessage").fadeOut(200);
+	}, 2000);
 
 });
 
@@ -236,13 +237,13 @@ function openForm(value){
 	$("body").css("pointer-events","none");
 }
 
-// function which open the form for dcategorires
+// function which open the form for tags
 function openUpdateForm(id){
 	$("#deleteLoad").show();
 	$("body").css("pointer-events","none");
 	$.ajax({
 		method: "GET",
-		url: editCategories,
+		url: editTags,
 		data:{id:id,_token:token}
 	}).done(function(response){
 		$("#deleteLoad").hide();
@@ -250,7 +251,7 @@ function openUpdateForm(id){
 			$("#cFormDivUpdate").fadeIn();	
 			$("#formFieldUpdate").focus();
 			$("#formFieldUpdate").val(response.category['category']);	
-			$("#cat_id").val(response.category['id']);
+			$("#tag_id").val(response.category['id']);
 		}
 	}).fail(function(response){
 		$("#deleteLoad").hide();
@@ -264,11 +265,11 @@ function closeForm(value){
 	$(".errors").text("");
 	$(".done").text("");
 	if(value === "Cadd"){
-		document.getElementById("dCategoryAddForm").reset();
+		document.getElementById("tagsAddForm").reset();
 		$("#cFormDivAdd").hide();
 	}
 	if(value === "Cupdate"){
-		document.getElementById("dCategoryUpdateForm").reset();
+		document.getElementById("tagsUpdateForm").reset();
 		$("#cFormDivUpdate").hide();
 	}
 	$("body").css("pointer-events","initial");

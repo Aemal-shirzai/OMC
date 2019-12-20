@@ -24,14 +24,26 @@ Route::get("/app",function(){
 // Admin Layouts
 
 // all doctor fields (dcategories) and form to insert the categories from 
-Route::get("/dcategories","Admin\AdminController@dcategories")->name("dcategories.manage");
+Route::get("/admin/dcategories","Admin\DcategoryController@dcategories")->name("dcategories.manage");
 // all doctor fields (dcategories) and form to insert the categories from 
-Route::DELETE("/dcategories/delete","Admin\AdminController@deleteCategories")->name("dcategories.delete");
+Route::DELETE("/admin/dcategories/delete","Admin\DcategoryController@deleteCategories")->name("dcategories.delete");
 // route to add the dcateogry for doctors
-Route::POST("/dcategories/store","Admin\AdminController@storeCategories")->name("dcategories.store");
+Route::POST("/admin/dcategories/store","Admin\DcategoryController@storeCategories")->name("dcategories.store");
 // Route to retive the data for dcatrogry that needs to be updated
-Route::get("/dcategories/edit","Admin\AdminController@edit")->name("dcategories.edit");
-Route::PUT("/dcategories/update","Admin\AdminController@update")->name("dcategories.update");
+Route::get("/admin/dcategories/edit","Admin\DcategoryController@edit")->name("dcategories.edit");
+// to update the doctor categoires
+Route::PUT("/admin/dcategories/update","Admin\DcategoryController@update")->name("dcategories.update");
+
+// all tags and form to insert the tags from
+Route::get("/admin/tags","Admin\TagController@tags")->name("tags.manage"); 
+// all doctor fields (dcategories) and form to insert the categories from 
+Route::DELETE("/admin/tags/delete","Admin\TagController@deleteTags")->name("tags.delete");
+// route to add the tags 
+Route::POST("/admin/tags/store","Admin\TagController@storeTags")->name("tags.store");
+// Route to retive the data for tags that needs to be updated
+Route::get("/admin/tags/edit","Admin\TagController@edit")->name("tags.edit");
+// to update the doctor categoires
+Route::PUT("/admin/tags/update","Admin\TagController@update")->name("tags.update");
 
 // Routes for Auth
 Auth::routes();
