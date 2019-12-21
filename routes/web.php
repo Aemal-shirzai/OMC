@@ -36,7 +36,7 @@ Route::PUT("/admin/dcategories/update","Admin\DcategoryController@update")->name
 
 // all tags and form to insert the tags from
 Route::get("/admin/tags","Admin\TagController@tags")->name("tags.manage"); 
-// all doctor fields (dcategories) and form to insert the categories from 
+// delete tags 
 Route::DELETE("/admin/tags/delete","Admin\TagController@deleteTags")->name("tags.delete");
 // route to add the tags 
 Route::POST("/admin/tags/store","Admin\TagController@storeTags")->name("tags.store");
@@ -44,6 +44,17 @@ Route::POST("/admin/tags/store","Admin\TagController@storeTags")->name("tags.sto
 Route::get("/admin/tags/edit","Admin\TagController@edit")->name("tags.edit");
 // to update the doctor categoires
 Route::PUT("/admin/tags/update","Admin\TagController@update")->name("tags.update");
+
+// all roles and form to insert the roles from
+Route::get("/admin/roles","Admin\RoleController@roles")->name("roles.manage"); 
+// delete roles 
+Route::DELETE("/admin/roles/delete","Admin\RoleController@deleteRoles")->name("roles.delete");
+// route to add the roles 
+Route::POST("/admin/roles/store","Admin\RoleController@storeRoles")->name("roles.store");
+// Route to retive the data for roles that needs to be updated
+Route::get("/admin/roles/edit","Admin\RoleController@edit")->name("roles.edit");
+// to update the doctor categoires
+Route::PUT("/admin/roles/update","Admin\RoleController@update")->name("roles.update");
 
 // Routes for Auth
 Auth::routes();

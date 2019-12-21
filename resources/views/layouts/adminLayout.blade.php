@@ -38,7 +38,7 @@
 			<span class="fal fa-ad"></span> 
 			<span class="adminMunuText">Manage Advertisementss</span>
 		</a>
-		<a href="#">
+		<a href="{{route('roles.manage')}}" class="{{ (Route::currentRouteName() === 'roles.manage' ? 'adminActive' : '' ) }}">
 			<span class="fal fa-bell"></span>
 			<span class="adminMunuText">Roles</span>
 		</a>

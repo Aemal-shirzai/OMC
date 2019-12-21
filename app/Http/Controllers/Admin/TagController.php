@@ -10,18 +10,18 @@ use App\DiseaseCategory;
 
 class TagController extends Controller
 {
-      public function __construct(){
+    public function __construct(){
     	return $this->middleware(["auth","isAdmin"]);
     }
 
 
-    // function which return all doctor fields (dcagegories) and form to insert the categories from
+    // function which return all tags and form to insert the roles from
     public function tags(){
     	$tags = DiseaseCategory::orderBy("created_at","desc")->paginate(40);
     	return view("admin.tags",compact("tags"));
     }
 
-    // function to delete the doctor categories
+    // function to delete the tags
     public function deleteTags(Request $request){
     	$tagIds = $request->tagIds;
     	foreach($tagIds as $id){

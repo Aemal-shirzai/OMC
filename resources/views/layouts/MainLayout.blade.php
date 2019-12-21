@@ -44,7 +44,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/editUsers1.css')}}">	
 
 	<!-- ADMIN PART -->
-	@elseif(Route::currentRouteName() == 'dcategories.manage' || Route::currentRouteName() == 'tags.manage')
+	@elseif(Route::currentRouteName() == 'dcategories.manage' || Route::currentRouteName() == 'tags.manage' || Route::currentRouteName() == 'roles.manage')
 	<!-- Link to local styles for admin doctor categories -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/admin/dcategories.css')}}">
 	@endif
@@ -341,9 +341,11 @@
 <!-- Link to local styles for admin doctor categories -->
 <script type="text/javascript" src="{{asset('js/admin/dcategories.js')}}"></script>
 @elseif(Route::currentRouteName() == 'tags.manage')
-<!-- Link to local styles for admin doctor categories -->
+<!-- Link to local styles for admin tags -->
 <script type="text/javascript" src="{{asset('js/admin/tags.js')}}"></script>
-
+@elseif(Route::currentRouteName() == 'roles.manage')
+<!-- Link to local styles for roles-->
+<script type="text/javascript" src="{{asset('js/admin/roles.js')}}"></script>
 @endif
 
 <script type="text/javascript">
