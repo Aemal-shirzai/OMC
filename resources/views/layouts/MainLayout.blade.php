@@ -47,6 +47,9 @@
 	@elseif(Route::currentRouteName() == 'dcategories.manage' || Route::currentRouteName() == 'tags.manage' || Route::currentRouteName() == 'roles.manage')
 	<!-- Link to local styles for admin doctor categories -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/admin/dcategories.css')}}">
+	@elseif(Route::currentRouteName() == 'contact.manage')
+	<!-- Link to local styles for messaes-->
+	<link rel="stylesheet" type="text/css" href="{{asset('css/admin/messages1.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -345,7 +348,10 @@
 <script type="text/javascript" src="{{asset('js/admin/tags.js')}}"></script>
 @elseif(Route::currentRouteName() == 'roles.manage')
 <!-- Link to local styles for roles-->
-<script type="text/javascript" src="{{asset('js/admin/roles.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/admin/roles1.js')}}"></script>
+@elseif(Route::currentRouteName() == 'contact.manage')
+<!-- Link to local styles for messages-->
+<script type="text/javascript" src="{{asset('js/admin/messages1.js')}}"></script>
 @endif
 
 <script type="text/javascript">

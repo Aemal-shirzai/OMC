@@ -145,7 +145,7 @@ $(document).ready(function(e){
 		});
 	});
 
-	// to update dcategories form using ajax
+// to update dcategories form using ajax
 	$("#rolesUpdateForm").submit(function(e){
 		// validation part
 		if($("#formFieldUpdate").val().trim().length < 1){
@@ -189,7 +189,7 @@ $(document).ready(function(e){
 			$("#submitButtonUpdate").removeAttr('disabled');
 			$("#formFieldUpdate").removeAttr('disabled');
 			if(!$.isEmptyObject(response.errors)){
-				$(".errors").text(response.errors["category"]);
+				$(".errors").text(response.errors["role"]);
 				$("#formFieldUpdate").focus();
 				$("#formFieldUpdate").addClass("errorForm");
 			}else{

@@ -320,7 +320,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    {!! Form::textarea("message",null,["class"=>"form-control contactFormElement col-lg-8 offset-lg-2".($errors->has("message") ? "ContactBackEndErrorInput" : ""),"rows"=>"7","maxlength"=>"2","id"=>"message","placeholder"=>"Your message * max 500 chars","onkeyup"=>"enableContactButton()"]) !!}
+                    {!! Form::textarea("message",null,["class"=>"form-control contactFormElement col-lg-8 offset-lg-2".($errors->has("message") ? "ContactBackEndErrorInput" : ""),"rows"=>"7","maxlength"=>"500","id"=>"message","placeholder"=>"Your message * max 500 chars","onkeyup"=>"enableContactButton()"]) !!}
                     <div id="messageErrorForBothScreen" class="contactErrorMsgs col-lg-8 offset-lg-2">
                         @error("message")
                             {{ $message }}

@@ -12,6 +12,7 @@ use App\Comment;
 use App\CommentReply;
 use App\Post;
 use App\Question;
+use App\ContactUs;
 
 class Account extends Authenticatable
 {
@@ -89,6 +90,11 @@ class Account extends Authenticatable
     // Relationship with replies table based on voting up and downn (polymorphic relationship many to mahy)
     public function repliesVotes(){
         return $this->morphedByMany(CommentReply::class,"to","votes","account_id")->withTimeStamps()->withPivot("type");
+    }
+
+    // Relationship with contact us
+    public function messages(){
+        return $this->hasMany(ContactUs::class);
     }
 
     

@@ -56,6 +56,12 @@ Route::get("/admin/roles/edit","Admin\RoleController@edit")->name("roles.edit");
 // to update the doctor categoires
 Route::PUT("/admin/roles/update","Admin\RoleController@update")->name("roles.update");
 
+// contact us manage part
+// route to return the pages of all contact us messages
+Route::get("/admin/messages","Admin\ContactController@index")->name("contact.manage");
+// route to delte the messages for admin
+Route::DELETE("/admin/messages/delete","Admin\ContactController@delete")->name("contact.delete");
+
 // Routes for Auth
 Auth::routes();
 // Route to show the page for user to add extra information after the registration process
@@ -80,7 +86,7 @@ Route::POST('/profile/photo/', 'ProfileController@uploadPhoto')->name('profile.u
 Route::DELETE('/profile/photo/remove', 'ProfileController@removePhoto')->name('profile.removePhoto');
 
 // Routes for contuct us
-Route::resource('/contactUs','ContactUsController');
+Route::POST('/contactUs/store','ContactUsController@store')->name("contuctus.store");
 
 
 //Search posts route

@@ -1,6 +1,6 @@
 @extends("../layouts.MainLayout")
 
-@section("title","Admin Panel Doctor Categories")
+@section("title","Admin Panel Tags")
 
 @section("content")
 @include("../layouts.adminLayout")

@@ -6,7 +6,7 @@
 			<span class="adminMunuText">Notifications</span> 
 			<span class="badge badge-danger">4</span>
 		</a>
-		<a href="#">
+		<a href="{{route('contact.manage')}}" class="{{ (Route::currentRouteName() === 'contact.manage' ? 'adminActive' : '' ) }}">
 			<span class="fal fa-envelope"></span>
 			<span class="adminMunuText">Messages</span>
 		</a>

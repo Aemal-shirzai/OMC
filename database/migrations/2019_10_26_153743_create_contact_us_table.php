@@ -19,11 +19,14 @@ class CreateContactUsTable extends Migration
             $table->string("phoneNumber");
             $table->string("emailAddress");
 
-            //  If the sender aleady have an account in our website theis senderUsername column is for
-            $table->string("senderUsername")->nullable();
+            //  If the sender aleady have an account in our website column is for
+            $table->bigInteger("account_id")->unsigned()->nullable();
 
             $table->text("message");
             $table->timestamps();
+
+            $table->foreign("account_id")->references("id")->on("accounts")->onDelete("set Null")->onUpdate("cascade");
+
         });
     }
 
