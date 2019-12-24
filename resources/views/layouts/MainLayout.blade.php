@@ -50,6 +50,9 @@
 	@elseif(Route::currentRouteName() == 'contact.manage')
 	<!-- Link to local styles for messaes-->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/admin/messages1.css')}}">
+	@elseif(Route::currentRouteName() == 'ads.index')
+	<!-- Link to local styles for admin advertisemnts-->
+	<link rel="stylesheet" type="text/css" href="{{asset('css/admin/adds.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -352,6 +355,9 @@
 @elseif(Route::currentRouteName() == 'contact.manage')
 <!-- Link to local styles for messages-->
 <script type="text/javascript" src="{{asset('js/admin/messages1.js')}}"></script>
+@elseif(Route::currentRouteName() == 'ads.index')
+<!-- Link to local styles for admin ads-->
+<script type="text/javascript" src="{{asset('js/admin/adds1.js')}}"></script>
 @endif
 
 <script type="text/javascript">

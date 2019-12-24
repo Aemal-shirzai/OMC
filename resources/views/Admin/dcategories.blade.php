@@ -62,6 +62,7 @@
 			</div>
 		{!! form::close() !!}
 	</div>
+	
 	<div id="catList">
 			<div class="table-responsive">
 				{!! Form::open(["method"=>"DELETE","action"=>"Admin\DcategoryController@deleteCategories","id"=>"deleteCatForm"]) !!}

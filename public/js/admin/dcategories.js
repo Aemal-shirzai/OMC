@@ -231,7 +231,7 @@ function openForm(value){
 	$("body").css("pointer-events","none");
 }
 
-// function which open the form for dcategorires
+// function which open  edit the form for dcategorires
 function openUpdateForm(id){
 	$("#deleteLoad").show();
 	$("body").css("pointer-events","none");

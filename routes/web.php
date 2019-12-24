@@ -62,6 +62,19 @@ Route::get("/admin/messages","Admin\ContactController@index")->name("contact.man
 // route to delte the messages for admin
 Route::DELETE("/admin/messages/delete","Admin\ContactController@delete")->name("contact.delete");
 
+// Route for admin achievements
+// route to access the admin ads list page, adding form and adding ads category form and list
+Route::get("/admin/advertisements","Admin\AdvertisementController@index")->name("ads.index");
+// route to add the ads category 
+Route::POST("/admin/advertisements/store","Admin\AdvertisementController@storeAdsCat")->name("ads.store");
+// Route to retive the data for ads category that needs to be updated
+Route::get("/admin/advertisements/edit","Admin\AdvertisementController@editAdsCat")->name("ads.edit");
+// to update the doctor categoires
+Route::PUT("/admin/advertisements/update","Admin\AdvertisementController@updateAdsCat")->name("ads.update");
+// route to delte the ads for admin
+Route::DELETE("/admin/advertisements/delete","Admin\AdvertisementController@deleteAdsCat")->name("ads.delete");
+
+
 // Routes for Auth
 Auth::routes();
 // Route to show the page for user to add extra information after the registration process

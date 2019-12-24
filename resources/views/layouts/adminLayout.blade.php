@@ -34,7 +34,7 @@
 			<span class="fal fa-tags"></span> 
 			<span class="adminMunuText">Manage Tags</span>
 		</a>
-		<a href="#">
+		<a href="{{route('ads.index')}}" class="{{ (Route::currentRouteName() === 'ads.index' ? 'adminActive' : '' ) }}">
 			<span class="fal fa-ad"></span> 
 			<span class="adminMunuText">Manage Advertisementss</span>
 		</a>
