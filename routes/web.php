@@ -66,14 +66,24 @@ Route::DELETE("/admin/messages/delete","Admin\ContactController@delete")->name("
 // route to access the admin ads list page, adding form and adding ads category form and list
 Route::get("/admin/advertisements","Admin\AdvertisementController@index")->name("ads.index");
 // route to add the ads category 
-Route::POST("/admin/advertisements/store","Admin\AdvertisementController@storeAdsCat")->name("ads.store");
+Route::POST("/admin/advertisements/category/store","Admin\AdvertisementController@storeAdsCat")->name("ads.category.store");
 // Route to retive the data for ads category that needs to be updated
-Route::get("/admin/advertisements/edit","Admin\AdvertisementController@editAdsCat")->name("ads.edit");
+Route::get("/admin/advertisements/category/edit","Admin\AdvertisementController@editAdsCat")->name("ads.category.edit");
 // to update the doctor categoires
-Route::PUT("/admin/advertisements/update","Admin\AdvertisementController@updateAdsCat")->name("ads.update");
-// route to delte the ads for admin
-Route::DELETE("/admin/advertisements/delete","Admin\AdvertisementController@deleteAdsCat")->name("ads.delete");
+Route::PUT("/admin/advertisements/category/update","Admin\AdvertisementController@updateAdsCat")->name("ads.category.update");
+// route to delte the ads category for admin
+Route::DELETE("/admin/advertisements/category/delete","Admin\AdvertisementController@deleteAdsCat")->name("ads.category.delete");
 
+// To add advertisements 
+Route::POST("/admin/advertisements/store","Admin\AdvertisementController@store")->name("ads.store");
+// read ads readmore data using ajax
+Route::get("/admin/advertisements/readmore","Admin\AdvertisementController@readMore")->name("ads.readMore");
+// route to delte the ads for admin
+Route::DELETE("/admin/advertisements/delete","Admin\AdvertisementController@deleteAds")->name("ads.delete");
+// load ads  data using ajax
+Route::get("/admin/advertisements/edit","Admin\AdvertisementController@edit")->name("ads.edit");
+// update the advertiseemnts data
+Route::PUT("/admin/advertisements/update","Admin\AdvertisementController@update")->name("ads.update");
 
 // Routes for Auth
 Auth::routes();

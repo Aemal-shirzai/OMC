@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\Admin\AdvertisementRequest;
+use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Facades\Auth;
 
 use Validator;
-// use App\Advertisement;
+use Carbon\Carbon;
+use App\Advertisement;
 use App\AdvertisementCategory;
 class AdvertisementController extends Controller
 {
@@ -18,7 +21,9 @@ class AdvertisementController extends Controller
 
     public function index(){
     	$categories = AdvertisementCategory::latest()->get();
-    	return view("admin.adds",compact("categories"));
+        $ads_cat = AdvertisementCategory::pluck("category","id");
+        $ads = Advertisement::latest()->get();
+    	return view("admin.adds",compact("categories","ads_cat","ads"));
     }
 
     // adding ads category
@@ -86,4 +91,139 @@ class AdvertisementController extends Controller
     }
 
 
+    // to store advertisement
+    public function store(AdvertisementRequest $request){
+      // grab the current doctor 
+        $user = Auth::user();
+        // store the year, month, and day fields in single variable
+        $ads_date =  Carbon::createFromDate($request->ads_year,$request->ads_month,$request->ads_day)->format("Y-m-d");
+
+        // find cateogry
+        $category= AdvertisementCategory::findOrFail($request->ads_category);
+        //creat array
+        $data = 
+        [
+            "title" =>$request->ads_title,
+            "content" => $request->ads_content,
+            "expire_date" => $ads_date,
+            "createdBy" => $user->username,
+        ];
+        // insert data
+        $advertisement= $category->advertisements()->create($data);
+        // if photo is selected then add it to a folder and to db aswell
+        if($request->hasFile("ads_photo")){
+            $photo = $request->file("ads_photo");
+            $fullName  = $photo->getClientOriginalName();
+            $onlyName = pathinfo($fullName,PATHINFO_FILENAME);
+            $extension = $photo->getClientOriginalExtension();
+            $nameToBeStored = $onlyName.time(). "." .$extension;
+            $folder = "public/images/advertisements/";  
+            // $photo->move($folder,$nameToBeStored);
+
+            $photo->storeAs($folder,$nameToBeStored);
+            $advertisement->photos()->create(["path"=>$nameToBeStored,"status"=>"1"]);
+        }
+
+        if($advertisement){
+            return back()->with("ads_success","Advertisement Added");
+        }
+     }
+
+
+    // read more data using ajax
+    public function readMore(Request $request){
+        $ad = Advertisement::findOrFail($request->id);
+        return response()->json(["data"=>$ad]);
+    }
+
+    // delet ads
+    public function deleteAds(Request $request){
+        $ad = Advertisement::findOrFail($request->id);
+        if($ad->photos()->count() > 0){
+            foreach($ad->photos as $photo){
+                Storage::delete("public/images/advertisements/".$photo->path);
+                $photo->delete();
+            }
+               
+        }
+        $ad->delete();
+    }
+
+
+    // load data of the ads which is to be uupdated
+    function edit(Request $request){
+        $ad = Advertisement::findOrFail($request->id);
+
+        $date = explode("-",$ad->expire_date);
+        $year = $date[0];
+        $month = $date[1];
+        $day = explode(" ",$date[2])[0];
+        // in the form  the values are 1 2 3 and so on but the splite month is 01 02 03 04 up to 10 and so on so suppose it is 01 then if we pass 01 in the value in the edit form it will not select that becase it expects 1 not 01. so for that reason we check if the first digit is 0 then just add the second one else add both the 2 digigs
+        if($month[0] === "0"){
+            $month = $month[1];
+        }else{
+            $month = $month;
+        }
+
+        // same like month
+        if($day[0] === "0"){
+            $day = $day[1];
+        }else{
+            $day = $day;
+        }
+        
+        if($ad->photos()->where("status",1)->first()){
+            $path = $ad->photos()->where("status",1)->first()->path;
+        }else{
+            $path = "empty";
+        }
+        return response()->json(["data"=>$ad,"year"=>$year,"month"=>$month,"day"=>$day,"path"=>$path]);
+    }
+
+
+    // function to update the adverisemnts
+    public function update(Request $request){
+        $ad =Advertisement::findOrFail($request->id);
+
+        // grab the current doctor 
+        $user = Auth::user();
+        // store the year, month, and day fields in single variable
+        $ads_update_date =  Carbon::createFromDate($request->ads_update_year,$request->ads_update_month,$request->ads_update_day)->format("Y-m-d");
+
+    
+        //creat array
+        $data = 
+        [
+            "title" =>$request->ads_update_title,
+            "content" => $request->ads_update_content,
+            "expire_date" => $ads_update_date,
+            "updatedBy" => $user->username,
+            "advertisement_category_id" => $request->ads_update_category,   
+        ];
+        // insert data
+        $advertisement= $ad->update($data);
+
+           // if photo is selected then add it to a folder and to db aswell
+        if($request->hasFile("ads_update_photo")){
+            $photo = $request->file("ads_update_photo");
+            $fullName  = $photo->getClientOriginalName();
+            $onlyName = pathinfo($fullName,PATHINFO_FILENAME);
+            $extension = $photo->getClientOriginalExtension();
+            $nameToBeStored = $onlyName.time(). "." .$extension;
+            $folder = "public/images/advertisements/";  
+            // $photo->move($folder,$nameToBeStored);
+            if($ad->photos()->count() > 0){
+                foreach($ad->photos as $onePhoto){
+                    Storage::delete("public/images/advertisements/".$onePhoto->path);
+                    $onePhoto->delete();
+                }
+               
+            }
+
+            $photo->storeAs($folder,$nameToBeStored);
+            $ad->photos()->create(["path"=>$nameToBeStored,"status"=>"1"]);
+        }
+
+         
+    }
 }

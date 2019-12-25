@@ -17,14 +17,14 @@ class CreateAdvertisementsTable extends Migration
             $table->bigIncrements('id');
             $table->string("title");
             $table->Text("content");
-            $table->timestamp("expire_date");
+            $table->datetime("expire_date");
 
             // add type
             $table->bigInteger("advertisement_category_id")->unsigned()->nullable();
             $table->foreign("advertisement_category_id")->references("id")->on("advertisement_categories")->onDelete("set null")->onUpdate("cascade");
             // admin 
-            $table->bigInteger("normal_user_id")->unsigned()->nullable();
-            $table->foreign("normal_user_id")->references("id")->on("normal_users")->onDelete("set null")->onUpdate("cascade");
+            $table->string("createdBy");
+            $table->string("updatedBy")->nullable();
             $table->timestamps();
         });
     }

@@ -177,12 +177,312 @@ a#topButtonP:focus{
 
 
 /*ads add form*/
-#adsAddForm{
-	background-color: green;
-	width: 65%;
-	display: inline-block;
+.AddUpdateForm{
+	background-color: white;
+	width: 60%;
+	padding:16px 12px;
+	margin:0 auto;
+	box-shadow: 0 4px 8px rgba(59,64,69,0.2);
+	margin-bottom: 15px;
+	float: left;
+	display: none;
 }
 
+#ads-close-icon{
+	font-size: 22px;
+	cursor: pointer;
+}
+#ads-close-icon:hover{
+	color: red;
+}
+.AddUpdateForm h5{
+	font-weight: bold;
+	color: #495056;
+}
+
+.ads-formlabels{
+	display: block;
+	font-weight: bold;
+	margin-top: 3px;
+	margin-bottom: 0px;
+}
+.ads-form-elements-descriptions{
+	font-weight: bold;
+	font-size: 10px;
+}
+.ads-form-fields{
+	font-size: 11px;
+	font-weight: bold;
+}
+.ads-form-fields::placeholder{
+	color: #9ba1ad;
+	font-size: 10px;
+}
+#ads_content, #ads_update_content{
+	resize: none;
+	overflow: hidden;
+}
+#ads-date-row{
+	margin-right: 0px !important;
+	margin-left: 0px !important;
+}
+.ads-date-fields{
+	width: 16% !important;
+	height: 30px;
+	margin-right: 2px;
+	font-size: 13px;
+	padding-top: 3px;
+}
+#ads-photo-icon{
+	text-decoration: none;
+	color: #3fbbc0;
+	font-size: 24px;
+	cursor: pointer;
+}
+#ads-buttons-div{
+	background-color: #3fbbc0;
+	padding: 8px 2px;
+}
+.ads-buttons{
+	color: white;
+	padding: 0px;
+	padding-right: 30px;
+	padding-left: 30px;	
+}
+.ads-buttons:hover{
+	color: white;
+}
+.cancelSubmitButtonDiv{
+	display: inline-block;
+	position: relative;
+}
+.ads-icons{
+	color: white;
+	position: absolute;
+	cursor: pointer;
+	font-size: 11px;
+}
+#cancelButtonIcon{
+	left: 18px;
+	top: 7px;
+}
+#submitButtonIcon{
+	right:18px;
+	top: 8px;
+}
+div.ads-ImageDiv{
+	width: 90%;
+    overflow: hidden;
+    max-height: 180px;
+    border-radius: 6px;
+    border: 1px solid lightgray;
+    overflow: hidden;
+    padding: 6px 4px;
+    margin: 0 auto;
+    display: none;
+
+}
+div.ads-ImageDiv img{
+	max-width: 220px;
+	max-height: 150px;
+	border-radius: 12px;
+}
+button.ads-removeImage{
+	color: red;
+	font-size: 18px !important; 
+}
+#ads-editIcon{
+	font-size: 12px;
+}
+.ads-removeImageText{
+	font-size: 10px !important;
+}
+div.ads-ImageDiv a{
+	float: left;
+}
+div.ads-ImageDiv a:hover{
+	color: black;
+	text-decoration: none;
+}
+div.ads-ImageDiv button:focus{
+	outline: none;
+}
+.ads-errors{
+	color: red;
+	font-size: 10px;
+	margin-top: 2px;
+	margin-left: 1px;
+	font-weight: bold;
+}
+.ads-errors-messages{
+	border:1px solid red;
+}
+.ads-messages{
+	height: 31px;
+    font-size: 11px;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 7px
+}
+.ads-close{
+	margin-top: -3px;
+}
+.ads-close span{
+	font-size: 11px
+}
+#showFormButton{
+	color: white;
+	background-color: #3fbbc0;
+	border-color: #3fbbc0;
+	margin-bottom: 4px;
+	margin-left: 20px;
+}
+
+/* Advertisemnt contents */
+#ads_content_div{
+	
+	width: 60%;
+	overflow: hidden;
+	position: relative;
+	padding-top: 12px;
+}
+#noAds{
+	font-weight: bold !important;
+	font-size: 20px !important;
+}
+.ads{
+	width: 45%;
+	margin-left: 20px;
+	margin-bottom: 20px;
+	padding: 5px 5px;
+	float: left;
+	border-radius: 5px;
+	box-shadow: 0 1px 3px rgba(59,64,69,0.2);
+	height: 340px;
+	position: relative;
+	overflow: hidden;
+}
+.imageDiv{
+	height: 150px;
+	overflow: hidden;
+	/*background-color: green;*/
+	text-align: center;
+	box-shadow: 0 1px 3px rgba(59,64,69,0.2);
+}
+#noImage{
+	/*background-color: green;*/
+	padding: 60px 12px;
+}
+#adsImage{
+	max-width: 100%;
+	height: 100%;
+	margin: 0 auto;
+	border-radius:8px; 
+}
+.title{
+	text-align: center;
+	overflow: hidden;
+	position: relative;
+	padding-top: 10px;
+	box-shadow: 0 1px 1px rgba(59,64,69,0.2);
+	
+}
+.title h4{
+	font-weight: bold;
+	font-size: 13px;
+	text-transform: uppercase;
+}
+div.content{
+	/*background-color: green;*/
+	overflow: none;
+}
+div.content p{
+	font-size: 13px;
+	overflow: hidden;
+	text-align: justify;
+	padding: 8px 3px;
+}
+.details{
+	position: absolute;
+	bottom: 0px;
+
+	right:4px;
+	font-size: 12px;
+	color: #3fbbc0;
+}
+.readmore{
+	font-size: 11px;
+}
+.ads-details{
+	/*background-color: green;*/
+	overflow: hidden;
+	position: absolute;
+	top: 100px;
+	left: 30px;
+	font-size: 13px;
+	background-color: #3fbbc0;
+	border-radius: 8px;
+	padding: 3px 4px;
+	color: white;
+	display: none;
+	box-shadow: 0px 0px 3px 1px #aaaaaa;
+	width: 80%;
+}
+.ads-details a{
+	content: #3fbbc0;
+	display: block;
+	color: white;
+	font-size: 11px;
+	font-weight: bold;
+}
+.detailsCloseButton:hover{
+	cursor: pointer;
+	color: red;
+}
+
+/*Read more part*/
+#readmorediv{
+	width: 273px;
+	background: white;
+	box-shadow: 0 2px 4px 1000px rgba(59,64,69,0.2);
+	border-radius: 10px;
+	position: fixed;
+	min-height: 250px;
+	z-index: 1;
+	top:30%;
+	left: 39%;
+	padding: 7px 3px;
+	overflow: hidden;
+	display: none;
+	pointer-events: initial !important; 
+
+}
+#closeButtonReadmore{
+	font-size: 20px;
+	padding-right: 5px;
+}
+#closeButtonReadmore:hover{
+	color:red;
+	cursor: pointer;
+}
+#readmoreHeading{
+	font-weight: bold;
+	text-align: center;
+	border-bottom: 1px solid lightgray;
+}
+#readmoredivContent{
+	padding: 4px 5px;
+	text-align: justify;
+	font-size: 12px;
+}
+#readmoreLoad{
+	position: absolute;
+	left: 42%;
+	top: 42%;
+	width: 40px;
+	z-index: 1;
+	display: none;
+}
 
 /* ///////////////////////////////////////////////////////////////// IPHAD PRO /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 1200px) and (min-width: 1024px){	
@@ -192,16 +492,56 @@ a#topButtonP:focus{
 	.formDiv{
 		top: 30%;
 	}
+	#adsCategory{
+		width: 25%;
+	}
 	#adsCategoryHeading h4{
-		font-size: 10px !important;
+		font-size: 8px !important;
 	}
 	#addAdsCatButton{
 	    font-size: 16px;
 	    padding:6px 0px;
 	    width: 30px;
 	}
+	.categories{
+		font-size: 12px;
+	}
 	.categories .close{
 		font-size: 13px;
+	}
+
+	/*ads content*/
+	/* Advertisemnt contents */
+	#ads_content_div{
+		width: 74%;
+	}
+	#noAds{
+		font-size: 17px !important;
+	}
+	.ads{
+		height: 300px;
+	}
+	.imageDiv{
+		height: 110px;
+	}
+	.title h4{
+		font-size: 10px;
+	}
+	div.content p{
+		font-size: 12px;
+	}
+	.details{
+		font-size: 11px;
+	}
+	.readmore{
+		font-size: 10px;
+	}
+	.ads-details a{
+		font-size: 10px;
+	}
+	#noImage{
+		padding: 40px 12px;
+		font-size: 14px;
 	}
 }
 /* ///////////////////////////////////////////////////////////////// IPHAD /////////////////////////////////////////////////////////////////// */
@@ -240,6 +580,99 @@ a#topButtonP:focus{
 	}
 	#adsCategoryContent{
 		display: none;
+	}
+
+	/* form part  */
+	.AddUpdateForm{
+		width: 70%;
+		float: none;
+		margin: 0 auto;
+	}
+
+	.AddUpdateForm h5{
+		font-size: 14px
+	}
+	.ads-buttons{
+		font-size: 13px;
+	}
+	#submitButtonIcon{
+		right:18px;
+		top: 7px;
+	}
+	div.ads-ImageDiv{
+		width: 90%;
+	    display: none;
+	    overflow: hidden;
+	    max-height: 180px;
+	    border-radius: 6px;
+	    border: 1px solid lightgray;
+	    overflow: hidden;
+	    padding: 6px 4px;
+	    /* margin-bottom: 12px; */
+	    margin: 0 auto;
+	}
+	div.ads-ImageDiv img{
+		max-width: 220px;
+		max-height: 150px;
+		border-radius: 12px;
+	}
+	button.ads-removeImage{
+		color: red;
+		font-size: 18px !important; 
+	}
+	#ads-editIcon{
+		font-size: 12px;
+	}
+	.ads-removeImageText{
+		font-size: 10px !important;
+	}
+	div.ads-ImageDiv a{
+		float: left;
+	}
+	div.ads-ImageDiv a:hover{
+		color: black;
+		text-decoration: none;
+	}
+	div.ads-ImageDiv button:focus{
+		outline: none;
+	}
+
+	/* Advertisemnt contents */
+	#ads_content_div{	
+		width: 100%;
+	}
+	#noAds{
+		font-size: 17px !important;
+	}
+	.ads{
+		width: 40%;
+		margin-left: 40px;
+		height: 290px;
+	}
+	.imageDiv{
+		height: 120px;
+	}
+	#noImage{
+		padding: 45px 12px;
+		font-size: 14px;
+	}
+	.title h4{
+		font-size: 10px;
+	}
+	div.content p{
+		font-size: 12px;
+	}
+	.details{
+		font-size: 10px;
+	}
+	.readmore{
+		font-size: 10px;
+	}
+	.ads-details a{
+		font-size: 10px;
+	}
+	#readmoredivContent{
+		font-size: 12px;
 	}
 }
 /* ///////////////////////////////////////////////////////////////// Samll sizes rotate /////////////////////////////////////////////////////////////////// */
@@ -282,6 +715,122 @@ a#topButtonP:focus{
 		font-size: 12px;
 		padding: 8px 28px;
 	}
+
+	/* forr part */
+	.AddUpdateForm{
+		width: 100%;
+		padding:16px 4px;
+		box-shadow: 0 2px 4px rgba(59,64,69,0.2);
+	}
+	.AddUpdateForm h5{
+		font-size: 13px;
+	}
+	.ads-formlabels{
+		font-size: 11px;
+	}
+	.ads-form-elements-descriptions{
+		font-size: 8px;
+	}
+	.ads-form-fields{
+		font-size: 9px;
+	}
+	.ads-form-fields::placeholder{
+		font-size: 8px;
+	}
+	.ads-date-fields{
+		width: 32% !important;
+		height: 28px;
+		font-size: 10px;
+		padding-top: 5px;
+	}
+	#ads-photo-icon{
+		font-size: 22px;
+		display: block;
+	}
+	#ads-buttons-div{
+		padding: 6px 2px;
+	}
+	.ads-buttons{
+		font-size: 11px;
+	}
+	#cancelButtonIcon{
+		top: 6px;
+	}
+	#submitButtonIcon{
+		top: 7px;
+	}
+	div.ads-ImageDiv{
+		width: 100%;
+	}
+	div.ads-ImageDiv img{
+		max-width: 150px;
+		max-height: 120px;
+	}
+	button.ads-removeImage{
+		color: red;
+		margin-top: -9px;
+		font-size: 26px !important; 
+	}
+	#ads-editIcon{
+		font-size: 12px;
+	}
+	.ads-removeImageText{
+		display: none;
+	}
+
+	.ads-messages{
+		height: 47px;
+	    font-size: 10px;
+	}
+
+	/* Advertisemnt contents */
+	#ads_content_div{	
+		width: 100%;
+	}
+	#noAds{
+		font-size: 17px !important;
+	}
+	.ads{
+		width: 40%;
+		margin-left: 40px;
+		height: 290px;
+	}
+	.imageDiv{
+		height: 120px;
+	}
+	#noImage{
+		padding: 45px 12px;
+		font-size: 14px;
+	}
+	.title h4{
+		font-size: 10px;
+	}
+	div.content p{
+		font-size: 12px;
+	}
+	.details{
+		font-size: 10px;
+	}
+	.readmore{
+		font-size: 10px;
+	}
+	.ads-details a{
+		font-size: 10px;
+	}
+	/* readmore part */
+	#readmorediv{
+		left: 31%;
+
+	}
+	#readmoreHeading{
+		font-size: 14px;
+	}
+	#readmoredivContent{
+		font-size: 12px;
+	}
+	#showFormButton{
+		margin-left: 40px;
+	}
 }
 /* ///////////////////////////////////////////////////////////////// Samll sizes /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 468px){
@@ -311,6 +860,54 @@ a#topButtonP:focus{
 	.categories{
 		padding: 8px 8px;
 	}
+	/* Advertisemnt contents */
+	#ads_content_div{	
+		width: 100%;
+	}
+	#noAds{
+		font-size: 17px !important;
+	}
+	.ads{
+		width: 100%;
+		margin-left: 0px;
+		height: 290px;
+	}
+	.imageDiv{
+		height: 120px;
+	}
+	#noImage{
+		padding: 45px 12px;
+		font-size: 13px;
+	}
+	.title h4{
+		font-size: 10px;
+	}
+	div.content p{
+		font-size: 12px;
+	}
+	.details{
+		font-size: 10px;
+	}
+	.readmore{
+		font-size: 10px;
+	}
+	.ads-details a{
+		font-size: 10px;
+	}
+	/*Read more part*/
+	#readmorediv{
+		left: 16%;
+	}
+	#readmoreHeading{
+		font-size: 13px;
+	}
+	#readmoredivContent{
+		font-size: 12px;
+	}
+	#showFormButton{
+		margin-left: 3px;
+	}
+
 }
 /* ///////////////////////////////////////////////////////////////// Very Samll sizes /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 320px){
@@ -340,6 +937,32 @@ a#topButtonP:focus{
 	}
 	.categories{
 		font-size: 10px;
+	}
+
+	/* Advertisemnt contents */
+	.ads{
+		height: 270px;
+	}
+	#noAds{
+		font-size: 15px !important;
+	}
+	.imageDiv{
+		height: 100px;
+	}
+
+	div.content p{
+		font-size: 11px;
+	}
+
+	/*read more part*/
+	#readmorediv{
+		left: 8%;
+	}
+	#readmoreHeading{
+		font-size: 12px;
+	}
+	#readmoredivContent{
+		font-size: 11px;
 	}
 
 }

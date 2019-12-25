@@ -40,7 +40,7 @@ class DoctorAchievementsRequest extends FormRequest
             'ach_title.max' => "Long title not allowed ...",
             'ach_title.required' => "The description can not be empty...",
             'ach_title.max' => "Long description  not  allowed ...",
-            'ach_location.required' => "Too long location info not allowed ...",
+            'ach_location.required' => "The location field can not be empty ...",
             'ach_location.max' => "Long location  not  allowed ...",
             'ach_photo.required' => "The photo is required",
             'ach_photo.image' => "Invalid file. Only photos are allowed...",
