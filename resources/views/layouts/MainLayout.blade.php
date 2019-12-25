@@ -15,7 +15,7 @@
 	
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/main1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}">
 	
 	@elseif(Route::currentRouteName() == 'profile')
 	<!-- Link to local profile style for profile page -->
@@ -319,7 +319,8 @@
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
 <script type="text/javascript" src="{{asset('js/profileScript.js')}}"></script>
-
+@elseif(Route::currentRouteName() == 'main')
+<script type="text/javascript" src="{{asset('js/main.js')}}"></script>
 @elseif(Route::currentRouteName() == 'posts.create' || Route::currentRouteName() == 'questions.create' || Route::currentRouteName() == 'posts.edit' || Route::currentRouteName() == 'questions.edit' ||  Route::currentRouteName() == 'comments.edit' || Route::currentRouteName() == 'replies.edit')
 <!-- Link to local  js for posts page -->
 <script type="text/javascript" src="{{asset('js/postsAndQuestionsScripts.js')}}"></script>

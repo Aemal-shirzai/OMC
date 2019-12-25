@@ -12,8 +12,10 @@
 */
 
 use App\Doctor;
+use App\Advertisement;
 Route::get('/', function () {
-    return view('main');
+	$advertisements = Advertisement::latest()->get();
+    return view('main',compact("advertisements"));
 })->name('main');
 
 

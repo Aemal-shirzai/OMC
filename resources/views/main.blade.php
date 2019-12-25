@@ -175,79 +175,39 @@
         <h2 id="section4Heading">Latest Advertisments</h2>
     </div>
     <div id="adsParent" class="owl-carousel container owl-theme">
+        @if(count($advertisements) > 0 )
+        @foreach($advertisements as $ads)
         <div class="adsItems">
-            <div class="card">
-                <div class="card-heading adsImage"><img src="{{asset('images/bg-banner.jpg')}}" class="img-fluid" style="height:100px;" alt="no image"></div>
-                <div class="card-body">
-                    <p  class="adsTitle">Murtaza</p>
-                    <p class="adsContent"> Our mission is to help medical experts get publicity in short time. This means that other peoples will be able to find medical experts easily through omc.</p>
-                    <hr>
-                    <a href="#" class="stretched-link">Read More...</a>
-                    <p class="float-right adsDate">{{\Carbon\Carbon::now()->format("Y-M-d")}}</p>
+                <div class="card">
+                    <div class="card-heading adsImage"><img src="/Storage/images/advertisements/{{$ads->photos()->where('status',1)->first()->path}}" class="" alt="no image"></div>
+                    <div class="card-body">
+                        <p  class="adsTitle">{{$ads->title}}</p>
+                        @if(strlen($ads->content) > 100)
+                        <p>{{Str::limit($ads->content,100)}} <a href="#" class="readmore" onclick="readMore('{{$ads->id}}')">read more...</a></p>
+                        @else
+                        <p>{{$ads->content}}</p>
+                        @endif
+                        <hr>
+                        <span class="categroy">{{$ads->Category->category}}</span>
+                        <p class="float-right adsDate">{{$ads->created_at->diffForHumans()}}</p>
+                    </div>
                 </div>
-            </div>
         </div>
-        <div class="adsItems">
-            <div class="card">
-                <div class="card-heading adsImage"><img src="{{asset('images/section1.jpg')}}" class="img-fluid" style="height:100px;" alt="no image"></div>
-                <div class="card-body">
-                    <p  class="adsTitle">Murtaza</p>
-                    <p class="adsContent"> Our mission is to help medical experts get publicity in short time. This means that other peoples will be able to find medical experts easily through omc.</p>
-                    <hr>
-                    <a href="#" class="stretched-link">Read More...</a>
-                    <p class="float-right adsDate">{{\Carbon\Carbon::now()->format("Y-M-d")}}</p>
-                </div>
-            </div>
-        </div>
-        <div class="adsItems">
-            <div class="card">
-                <div class="card-heading adsImage"><img src="{{asset('images/section1.jpg')}}" class="img-fluid" style="height:100px;" alt="no image"></div>
-                <div class="card-body">
-                    <p  class="adsTitle">Murtaza</p>
-                    <p class="adsContent"> Our mission is to help medical experts get publicity in short time. This means that other peoples will be able to find medical experts easily through omc.</p>
-                    <hr>
-                    <a href="#" class="stretched-link">Read More...</a>
-                    <p class="float-right adsDate">{{\Carbon\Carbon::now()->format("Y-M-d")}}</p>
-                </div>
-            </div>
-        </div>
-        <div class="adsItems">
-            <div class="card">
-                <div class="card-heading adsImage"><img src="{{asset('images/section1.jpg')}}" class="img-fluid" style="height:100px;" alt="no image"></div>
-                <div class="card-body">
-                    <p  class="adsTitle">Murtaza</p>
-                    <p class="adsContent"> Our mission is to help medical experts get publicity in short time. This means that other peoples will be able to find medical experts easily through omc.</p>
-                    <hr>
-                    <a href="#" class="stretched-link adsReadMore">Read More...</a>
-                    <p class="float-right adsDate">{{\Carbon\Carbon::now()->format("Y-M-d")}}</p>
-                </div>
-            </div>
-        </div>
-        <div class="adsItems">
-            <div class="card">
-                <div class="card-heading adsImage"><img src="{{asset('images/section1.jpg')}}" class="img-fluid" style="height:100px;" alt="no image"></div>
-                <div class="card-body">
-                    <p  class="adsTitle">Murtaza</p>
-                    <p class="adsContent"> Our mission is to help medical experts get publicity in short time. This means that other peoples will be able to find medical experts easily through omc.</p>
-                    <hr>
-                    <a href="#" class="stretched-link">Read More...</a>
-                    <p class="float-right adsDate">{{\Carbon\Carbon::now()->format("Y-M-d")}}</p>
-                </div>
-            </div>
-        </div>
-        <div class="adsItems">
-            <div class="card">
-                <div class="card-heading adsImage"><img src="{{asset('images/section1.jpg')}}" class="img-fluid" style="height:100px;" alt="no image"></div>
-                <div class="card-body">
-                    <p  class="adsTitle">Murtaza</p>
-                    <p class="adsContent"> Our mission is to help medical experts get publicity in short time. This means that other peoples will be able to find medical experts easily through omc.</p>
-                    <hr>
-                    <a href="#" class="stretched-link">Read More...</a>
-                    <p class="float-right adsDate">{{\Carbon\Carbon::now()->format("Y-M-d")}}</p>
-                </div>
-            </div>
-        </div>
+        @endforeach
+        @endif
     </div>
+        <!-- advertisements readmore div -->
+    <div id="readmorediv">
+        <div id="closeButtonReadmore"  class="far fa-times float-right" onclick="closeReadMore()"></div>
+        <div id="readmoreHeading">
+            
+        </div>
+        <div id="readmoredivContent">
+            
+        </div>
+        <img src="{{asset('images/load1.gif')}}" id="readmoreLoad">
+    </div>
+
     <div class="text-center mb-2" title="All advertisements"><a href="#" class="btn btn-primary btn-sm" style="background-color:  #3fbbc0;border:1px solid #3fbbc0;">View All Advertisements</a></div>
 </div>
 <!-- latest news part section 4 end-->
@@ -337,3 +297,13 @@
 <!-- section 5 end contact form -->
 @endsection
 
+
+@section("scripts")
+
+
+<!-- These variables are for ajax  token and route to which vote the post, comments , replies-->
+    <script type="text/javascript">
+        var token = '{{ Session::token() }}';
+        var readFull = '{{ route("ads.readMore") }}';
+    </script>
+@endsection

@@ -157,33 +157,96 @@ div#adsParent{
 	font-weight: bold;
 }
 div.adsItems{
-	margin: 10px;
+	margin: 40px;
 	box-shadow: 0 4px 8px rgba(59,64,69,0.2);
 	border:none;
+	min-height: 330px;
+	overflow: hidden;
+}
+div.adsItems p{
+	font-size: 13px;
+	color: black;
 }
 div.adsItems:hover{
 	box-shadow:0 0 12px rgba(36,39,41,0.2); 
 }
+.categroy{
+	font-size: 10px;
+	color: black;
+}
 div.adsItems a{
 	color: #3fbbc0; 
+	font-size: 11px;
 }
 div.adsImage{
-	height: 100px;
+	height: 130px;
+	overflow: hidden;
+}
+div.adsImage img{
+	max-width:100% !important;
+	height: 100%;
+	margin:0 auto;
 }
 .adsTitle{
 	font-weight: bold;
 	color: black;
+	text-align: center;
+	margin: 0px;
 }
 .adsContent{
 	color: black;
 }
 .adsDate{
 	color: black;
-	font-size: 12px;
+	font-size: 11px !important;
 }
 .navLatestNews{
 	color: #3fbbc0;
 }
+/*Read more part*/
+#readmorediv{
+	width: 273px;
+	background: white;
+	box-shadow: 0 2px 4px 1000px rgba(59,64,69,0.2);
+	border-radius: 10px;
+	position: fixed;
+	min-height: 250px;
+	z-index: 1;
+	top:30%;
+	left: 39%;
+	padding: 7px 3px;
+	overflow: hidden;
+	display: none;
+	pointer-events: initial !important; 
+
+}
+#closeButtonReadmore{
+	font-size: 20px;
+	padding-right: 5px;
+}
+#closeButtonReadmore:hover{
+	color:red;
+	cursor: pointer;
+}
+#readmoreHeading{
+	font-weight: bold;
+	text-align: center;
+	border-bottom: 1px solid lightgray;
+}
+#readmoredivContent{
+	padding: 4px 5px;
+	text-align: justify;
+	font-size: 12px;
+}
+#readmoreLoad{
+	position: absolute;
+	left: 42%;
+	top: 42%;
+	width: 40px;
+	z-index: 1;
+	display: none;
+}
+
 /* section 4 latest ads end */
 
 /*section 5*/
@@ -411,6 +474,10 @@ div.contactErrorMsgsSmallScreen{
 	 	margin-top: 30px;
 	}
 /* secion 3	 part end */
+/*sction 4*/
+	#readmoredivContent{
+		font-size: 11px;
+	}
 
 /*section 5*/
 	div#contactIcon span{
@@ -446,3 +513,44 @@ div.contactErrorMsgsSmallScreen{
 	}
 } 
 /* Ipad size end 
+
+/* ///////////////////////////////////////////////////////////////// Samll sizes rotate /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 767px){
+	/* readmore part */
+	#readmorediv{
+		left: 31%;
+
+	}
+	#readmoreHeading{
+		font-size: 14px;
+	}
+	#readmoredivContent{
+		font-size: 12px;
+	}
+}
+
+/* ///////////////////////////////////////////////////////////////// Samll sizes /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 468px){
+		/*Read more part*/
+	#readmorediv{
+		left: 16%;
+	}
+	#readmoreHeading{
+		font-size: 13px;
+	}
+	#readmoredivContent{
+		font-size: 12px;
+	}
+}
+/* ///////////////////////////////////////////////////////////////// Very Samll sizes /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 320px){
+	#readmorediv{
+		left: 8%;
+	}
+	#readmoreHeading{
+		font-size: 12px;
+	}
+	#readmoredivContent{
+		font-size: 11px;
+	}
+}

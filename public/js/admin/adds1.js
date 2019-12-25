@@ -1,3 +1,38 @@
+// function to reset all form errors and messages
+function resetErrors(type){
+	if(type == "addForm"){
+		var title = document.getElementById("ads_title");
+		var content = document.getElementById("ads_content");
+		var category = document.getElementById("ads_category");
+		var photofield = document.getElementById("adsPhotoField");
+		content.style.border = "1px solid #ced4da";
+		title.style.border = "1px solid #ced4da";
+		category.style.border = "1px solid #ced4da";
+		$("#adsContentError").text("");
+		$("#adsTitleError").text("");
+		$("#adsCategoryError").text("");
+		$("#adsPhotoError").text("");
+		$(".alert").hide();
+		$("#adsUpdateormDiv").hide();
+	}else if(type == "updateForm"){
+		
+		var title = document.getElementById("ads_update_title");
+		var content = document.getElementById("ads_update_content");
+		var category = document.getElementById("ads_update_category");
+		var photofield = document.getElementById("adsUpdatPhotoField");
+		content.style.border = "1px solid #ced4da";
+		title.style.border = "1px solid #ced4da";
+		category.style.border = "1px solid #ced4da";
+		$("#adsContentUpdateError").text("");
+		$("#adsTitleUpdateError").text("");
+		$("#adsCategoryUpdateError").text("");
+		$("#adsPhotoUpdateError").text("");
+		$(".alert").hide();
+		$("#adsFormDiv").hide();
+	}
+}
+
+
 // function which opens the all cat list
 function openCatList(){
 	$("#adsCategoryContent").slideToggle("fast");
@@ -12,6 +47,7 @@ function openCatList(){
 
 // function to open ads cat form
 function openAddCatForm(){
+	$(".alert").hide();
 	$("#cFormDivAdd").fadeIn();
 	$("#formField").focus();
 	$("body").css("pointer-events","none");
@@ -249,6 +285,7 @@ function closeAds(){
 
 // Beggining of the function to close the ads form
 function showAdsDiv(){
+	resetErrors('addForm');
 	$("#adsFormDiv").fadeToggle("fast");
 }
 // end of the function to close the ads form
@@ -362,7 +399,6 @@ function validateAdsForm(){
 	}
 
 }
-// EO the : function responsible for validating the form after submit
 
 
  // Beggining of th function whihc is responsible to show the image on the screen after beign seleccted
@@ -489,15 +525,19 @@ function closeAdsUpdate(){
 
 // function load data to edit form of advertisemnt
 function loadEditData(id){
+	resetErrors("updateForm");
 	$("#adsUpdateormDiv").fadeIn();
 		$("html,body").animate({
 	scrollTop: $("#adsUpdateormDiv").offset().top-110},"fast");
-
+	$("#updateLoad").show();
+	$("#adsUpdateormDiv").css("pointer-events","none");
 	$.ajax({
 		method: "GET",
 		url:adsEdit,
 		data:{id:id,_token:token}
 	}).done(function(response){
+		$("#updateLoad").hide();
+		$("#adsUpdateormDiv").css("pointer-events","initial");
 		if(!$.isEmptyObject(response.data)){
 			$("#ads_update_title").val(response.data['title']);
 			$("#ads_update_content").val(response.data['content']);
@@ -512,6 +552,8 @@ function loadEditData(id){
 			}
 		}
 	}).fail(function(response){
+		$("#updateLoad").hide();
+		$("#adsUpdateormDiv").css("pointer-events","initial");
 		alert("not done");
 	});
 }
@@ -612,3 +654,59 @@ function removeAdsUpdateImage(){
 	event.preventDefault();
 }
 // Endof of the function which Remove the comment image when click remove image
+
+// EO the : function responsible for validating the form after submit// BO the : function responsible for validating the form after submit
+function validateAdsUpdateForm(){
+	// alert("doone");
+	var title = document.getElementById("ads_update_title");
+	var content = document.getElementById("ads_update_content");
+	var category = document.getElementById("ads_update_category");
+	
+	if(content.value.trim().length > 500){
+		content.style.border = "1px solid red";
+		content.focus();
+		$("#adsContentUpdateError").text("Too long description not allowed ...");
+		event.preventDefault();
+	}else if(content.value.trim().length < 1){
+		content.focus();
+		content.style.border = "1px solid red";
+		$("#adsContentUpdateError").text("The description can not be empty ...");
+		event.preventDefault();
+	}else{
+		content.style.border = "1px solid #ced4da";
+		$("#adsContentUpdateError").text("");
+	}
+
+
+
+	if(category.value.trim().length < 1){
+		category.style.border = "1px solid red";
+		category.focus();
+		$("#adsCategoryUpdateError").text("category must be selected ...");
+		category.style.border = "1px solid red";
+		event.preventDefault();
+	}else{
+		category.style.border = "1px solid #ced4da";
+		$("#adsCategoryUpdateError").text("");
+
+	}
+
+	
+
+	if(title.value.trim().length > 100){
+		title.focus();
+		title.style.border = "1px solid red";
+		$("#adsTitleUpdateError").text("Too long title not allowed ...");
+		event.preventDefault();
+	}else if(title.value.trim().length < 1){
+		title.focus();
+		title.style.border = "1px solid red";
+		$("#adsTitleUpdateError").text("The title can not be empty ...");
+		event.preventDefault();
+	}else{
+		title.style.border = "1px solid #ced4da";
+		$("#adsTitleUpdateError").text("");
+	}
+
+}
+// EO the : function responsible for validating the form after submit
