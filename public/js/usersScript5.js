@@ -1,3 +1,4 @@
+
 // Beggining of the : Function responsible for following the doctors by normal users
 function followDoctor(doctorId){
 
@@ -24,6 +25,19 @@ function followDoctor(doctorId){
 			$("#followBtnIcon-"+doctorId).removeClass("fa-plus");
 			$("#followText-"+doctorId).text("Following");
 			$("#followersCount-"+doctorId).text(parseInt($("#followersCount-"+doctorId).text())+1);
+		}
+	}).fail(function(response){
+		if(response.status == 403){
+			$("#notAllowedDiv").fadeIn("slow");
+			if($("#followBtnIcon-"+doctorId).hasClass("fa-check")){
+				$("#followBtnIcon-"+doctorId).addClass("fa-check");
+				$("#followBtnIcon-"+doctorId).removeClass("fa-plus");
+				$("#followText-"+doctorId).text("Following");
+			}else{
+				$("#followBtnIcon-"+doctorId).removeClass("fa-check");
+				$("#followBtnIcon-"+doctorId).addClass("fa-plus");
+				$("#followText-"+doctorId).text("Follow");		
+			}
 		}
 	});
 }

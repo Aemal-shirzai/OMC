@@ -23,8 +23,8 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $questions = Question::latest()->paginate(20);
-        $mostVotedDoctors = Doctor::orderBy("followers","desc")->get();
+        $questions = Question::join("normal_users","normal_users.id","=","questions.normal_user_id")->where("normal_users.status",1)->orderBy("questions.created_at","desc")->select("questions.*")->paginate(20);
+        $mostVotedDoctors = Doctor::where("status",1)->orderBy("followers","desc")->get();
         // This number is for blade to show how many doctors
         $numberOfDoctors = 1;
         return view("questions.index",compact("questions","mostVotedDoctors","numberOfDoctors"));
@@ -32,7 +32,8 @@ class QuestionController extends Controller
 
 // Beggining of the function which retrn the result of the questions search using ajax
     public function searchResult(Request $req){
-        $questions = Question::where("title","like","%$req->data%")->select("title")->distinct()->get();
+        // $questions = Question::where("title","like","%$req->data%")->select("title")->distinct()->get();
+        $questions = Question::join("normal_users","questions.normal_user_id","=","normal_users.id")->where("normal_users.status",1)->where("questions.title","like","%$req->data%")->select("questions.title")->get();
         if(count($questions) > 0){
             return response()->json(["resultFound"=>$questions]);
         }else{
@@ -47,8 +48,8 @@ class QuestionController extends Controller
             "searchFor" => "bail|required|string|max:60",
         ]);
         // return $req->searchFor;
-        $questions = Question::where("title",'like',"%$req->searchFor%")->paginate(20);
-        $mostVotedDoctors = Doctor::orderBy("followers","desc")->get();
+        $questions = Question::join("normal_users","normal_users.id","=","questions.normal_user_id")->where("normal_users.status",1)->where("questions.title","like","%$req->data%")->orderBy("questions.created_at","desc")->select("questions.*")->paginate(20);
+        $mostVotedDoctors = Doctor::where("status",1)->orderBy("followers","desc")->get();
         // This number is for blade to show how many doctors
         $numberOfDoctors = 1;
         return view("questions.questionsSearch",compact("questions","mostVotedDoctors","numberOfDoctors"));
@@ -59,12 +60,15 @@ class QuestionController extends Controller
     public function sortBy($type){
         if($type == "top"){
             $questions = Question::orderBy("upVotes","desc")->paginate(20);
+            $questions = Question::join("normal_users","normal_users.id","=","questions.normal_user_id")->where("normal_users.status",1)->orderBy("questions.upVotes","desc")->select("questions.*")->paginate(20);
         }else if($type == "down"){
-            $questions = Question::orderBy("downVotes","desc")->paginate(20);   
+            $questions = Question::orderBy("downVotes","desc")->paginate(20);
+            $questions = Question::join("normal_users","normal_users.id","=","questions.normal_user_id")->where("normal_users.status",1)->orderBy("questions.downVotes","desc")->select("questions.*")->paginate(20);   
         }else if($type == "mostFollowed"){
             $questions = Question::orderBy("follower","desc")->paginate(20);
+            $questions = Question::join("normal_users","normal_users.id","=","questions.normal_user_id")->where("normal_users.status",1)->orderBy("questions.follower","desc")->select("questions.*")->paginate(20);
         }
-        $mostVotedDoctors = Doctor::orderBy("followers","desc")->paginate(20);
+        $mostVotedDoctors = Doctor::where("status",1)->orderBy("followers","desc")->get();
         // This number is for blade to show how many doctors
         $numberOfDoctors = 1;
         return view("questions.index",compact("questions","mostVotedDoctors","numberOfDoctors","type"));

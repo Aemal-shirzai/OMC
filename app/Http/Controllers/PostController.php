@@ -25,8 +25,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->paginate(20);
-        $mostVotedDoctors = Doctor::orderBy("followers","desc")->get();
+        // $posts = Post::latest()->paginate(20);
+        $posts = Post::join("doctors","posts.doctor_id","=","doctors.id")->where("doctors.status",1)->orderby("posts.created_at","desc")->select("posts.*")->paginate(20);
+        $mostVotedDoctors = Doctor::where("status",1)->orderBy("followers","desc")->get();
         // This number is for blade to show how many doctors
         $numberOfDoctors = 1;
         return view("posts.index",compact("posts","mostVotedDoctors","numberOfDoctors")); 
@@ -35,7 +36,7 @@ class PostController extends Controller
 
 // Beggining of the function which retrn the result of the posts search using ajax
     public function searchResult(Request $req){
-        $posts = Post::where("title","like","%$req->data%")->select("title")->distinct()->get();
+        $posts = Post::join("doctors","posts.doctor_id","=","doctors.id")->where("doctors.status",1)->where("posts.title","like","%$req->data%")->select("posts.title")->get();
         if(count($posts) > 0){
             return response()->json(["resultFound"=>$posts]);
         }else{
@@ -50,10 +51,10 @@ class PostController extends Controller
             "searchFor" => "bail|required|string|max:200",
         ]);
         // return $req->searchFor;
-        $mostVotedDoctors = Doctor::orderBy("followers","desc")->get();
+        $mostVotedDoctors = Doctor::where("status",1)->orderBy("followers","desc")->get();
         // This number is for blade to show how many doctors
         $numberOfDoctors = 1;
-        $posts = Post::where("title",'like',"%$req->searchFor%")->paginate(20);
+        $posts = Post::join("doctors","posts.doctor_id","=","doctors.id")->where("doctors.status",1)->where("posts.title","like","%$req->data%")->orderby("posts.created_at","desc")->select("posts.*")->paginate(20);
         return view("posts.postsSearch",compact("posts","mostVotedDoctors","numberOfDoctors"));
     }
 // Beggining of the function which search the posts
@@ -61,13 +62,13 @@ class PostController extends Controller
 
     public function sortBy($type){
         if($type == "top"){
-            $posts = Post::orderBy("upVotes","desc")->paginate(20);
+            $posts = Post::join("doctors","posts.doctor_id","=","doctors.id")->where("doctors.status",1)->orderby("posts.upVotes","desc")->select("posts.*")->paginate(20);
         }else if($type == "down"){
-            $posts = Post::orderBy("downVotes","desc")->paginate(20);   
+            $posts = Post::join("doctors","posts.doctor_id","=","doctors.id")->where("doctors.status",1)->orderby("posts.downVotes","desc")->select("posts.*")->paginate(20);  
         }else if($type == "mostFollowed"){
-            $posts = Post::orderBy("follower","desc")->paginate(20);
+             $posts = Post::join("doctors","posts.doctor_id","=","doctors.id")->where("doctors.status",1)->orderby("posts.follower","desc")->select("posts.*")->paginate(20);
         }
-        $mostVotedDoctors = Doctor::orderBy("followers","desc")->paginate(20);
+        $mostVotedDoctors = Doctor::where("status",1)->orderBy("followers","desc")->paginate(20);
         // This number is for blade to show how many doctors
         $numberOfDoctors = 1;
         return view("posts.index",compact("posts","mostVotedDoctors","numberOfDoctors","type"));
