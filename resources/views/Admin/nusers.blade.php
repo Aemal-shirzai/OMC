@@ -22,6 +22,7 @@
 			</h3>
 		</div>
 		<div id="searchFor">
+			<a href="{{route('nusers.index')}}" class="btn  btn-sm mb-2" id="activeDoctorButton">View Active users</a>
 			{!! Form::open(["method"=>"GET","action"=>"Admin\ManageUserController@nuserSearch","id"=>"searchForm"]) !!}
 				<div style="position: relative;">
 					{!! Form::text("searchFor",request()->input('searchFor'),["class"=>"form-control","id"=>"searchForField","placeholder"=>"search users","onkeyup"=>"searchNusers()","autocomplete"=>"off","maxLength"=>"60"]) !!}
@@ -67,11 +68,12 @@
 									<a href="{{route('profile',$nuser->account->username)}}">
 										{{$nuser->fullName}}
 									</a>
-									@can("doctor_related",Auth::user())
-									@if(Auth::user()->owner->followed()->where('normal_users.id',$nuser->id)->first())
-										<span class="userCountry">Your Fan</span>
-									@endif
-									@endcan
+									<a href="javascript:void(0)" class="followBtn btn btn-sms" onclick="activateUser('{{$nuser->id}}','nuser')">
+										<span id="followBtnIcon-{{$nuser->id}}" class="far"></span>
+										<span id="followText-{{$nuser->id}}">
+											{{ ($nuser->status == 1 ? "De-activate User" : "Activate User") }}
+										</span>
+									</a>
 								</span>
 								@if($nuser->country)
 									<span class="userCountry">
@@ -101,6 +103,7 @@
 		var token = '{{ Session::token() }}';
 
 		var nusersSearchResultAdmin = '{{route("admin.searchResult.nusers")}}';
+		var changeStatusUser = '{{route("admin.changestatus.nusers")}}';
 	</script>
 
 @endsection

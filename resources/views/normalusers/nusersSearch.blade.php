@@ -15,6 +15,11 @@
 			</h3>
 		</div>
 		<div id="searchFor">
+			@can("normaluser_related",Auth::user())
+				@can("admin_related",Auth::user())
+					<a href="{{route('nusers.manage.index')}}" class="btn  btn-sm mb-2" id="activeDoctorButton">View De-active users</a>
+				@endcan
+			@endcan
 			{!! Form::open(["method"=>"GET","action"=>"NormalUserController@search","id"=>"searchForm"]) !!}
 				<div style="position: relative;">
 					{!! Form::text("searchFor",request()->input('searchFor'),["class"=>"form-control","id"=>"searchForField","placeholder"=>"search users","onkeyup"=>"searchNusers()","autocomplete"=>"off","maxLength"=>"60"]) !!}
@@ -68,6 +73,18 @@
 									@if(Auth::user()->owner->followed()->where('normal_users.id',$nuser->id)->first())
 										<span class="userCountry">Your Fan</span>
 									@endif
+									@endcan
+									@can("normaluser_related",Auth::user())
+										@can("admin_related",Auth::user())
+										@if(Auth::user()->isNot($nuser->account))
+										<a href="javascript:void(0)" class="followBtn btn btn-sms" onclick="activateUser('{{$nuser->id}}','nuser')">
+											<span id="followBtnIcon-{{$nuser->id}}" class="far"></span>
+											<span id="followText-{{$nuser->id}}">
+												{{ ($nuser->status == 1 ? "De-activate User" : "Activate User") }}
+											</span>
+										</a>
+										@endif
+										@endcan
 									@endcan
 								</span>
 								@if($nuser->country)

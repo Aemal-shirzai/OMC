@@ -93,13 +93,16 @@ Route::get("/admin/doctors/search","Admin\ManageUserController@search")->name("a
 // return the search result using ajax in
 Route::get("/admin/doctors/search/result","Admin\ManageUserController@searchResult")->name("admin.searchResult.doctors");
 // route to activate and dectivate user
-Route::POST("/admin/doctors/changestatus","Admin\ManageUserController@changeStatus")->name("admin.changestatus.doctors");
+Route::PUT("/admin/doctors/changestatus","Admin\ManageUserController@changeStatus")->name("admin.changestatus.doctors");
+
 // normal users part manage
 Route::get("/admin/nusers/manage","Admin\ManageUserController@nusers")->name("nusers.manage.index");
 // return the search result using ajax
 Route::get("admin/nusers/search/result","Admin\ManageUserController@nusersearchResult")->name("admin.searchResult.nusers");
 // Search nusers 
 Route::get("admin/nusers/search","Admin\ManageUserController@nuserSearch")->name("admin.search.nusers");
+// route to activate and dectivate user
+Route::PUT("/admin/nusers/changestatus","Admin\ManageUserController@changeStatus")->name("admin.changestatus.nusers");
 
 // Routes for Auth
 Auth::routes();

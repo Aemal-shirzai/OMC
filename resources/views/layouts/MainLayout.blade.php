@@ -55,7 +55,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/admin/adds.css')}}">
 	@elseif(Route::currentRouteName() == 'doctors.manage.index' || Route::currentRouteName() == 'admin.search.doctors' || Route::currentRouteName() == 'nusers.manage.index' || Route::currentRouteName() == "admin.search.nusers")
 	<!-- Link to local styles for admin users-->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/admin/users1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/admin/users.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -193,9 +193,11 @@
 							@else
 								<a href="{{route('questions.show',$notification->data['toId'])}}" id="notificationLink" onclick="markAsRead('{!! $notification->id !!}')">
 							@endif
+						@elseif($notification->data['type'] == "changeStatus")
+							<a href="{{route('profile',Auth::user()->username)}}" id="notificationLink" onclick="markAsRead('{!! $notification->id !!}')">
 						@endif
 								<div  class="QownerInfo">
-									
+										@if($notification->data['type'] != "changeStatus")
 										@if($notification->data['byPhoto'])
 											@if($notification->data['byAccount'] == 'App\NormalUser')
 												<img src="/storage/images/normalUsers/{{$notification->data['byPhoto']}}" class="notification-img">
@@ -204,6 +206,7 @@
 											@endif
 										@else
 											<span class="fad fa-user-circle" id="no-owner-image-notification"></span>
+										@endif
 										@endif
 										<div class="QownerName">
 											<span class="QfullName">{{$notification->data["by"]}}</span> 
@@ -247,15 +250,14 @@
 		<div class="alert alert-info" id="loginAlert"><a href="{{route('login')}}">Login</a> to add questions, comments, upvote and downvote posts and questions</div>
 	@endguest
 	@auth
-		@if(Auth::user()->owner_type == "App\Doctor" && Auth::user()->owner->status == 0)
+		@if(Auth::user()->owner->status == 0)
 			@if(Auth::user()->owner->gender == 0)
 				<div class="alert alert-info" id="loginAlert">
-					Mr. {{Auth::user()->owner->fullName}}, Your account has been created and your will be contacted soon for confirmation through email or call. 
+					Mr. {{Auth::user()->owner->fullName}}, Your account is deactivated for now, contact us for more inforamation
 				</div>
 			@else
 				 <div class="alert alert-info" id="loginAlert">
-					Mrs./Miss. {{Auth::user()->owner->fullName}}, Your account has been created and your will be contacted soon for confirmation through email or call.
-				</div>
+					Mrs./Miss. {{Auth::user()->owner->fullName}}, Your account is deactivated for now, contact us for more inforamation	</div>
 			@endif
 		@endif
 	@endauth
@@ -336,7 +338,7 @@
 
 @elseif(Route::currentRouteName() == 'doctors.index' || Route::currentRouteName() == 'nusers.index' || Route::currentRouteName() == 'doctorsSortBy' || Route::currentRouteName() == 'nusersSortBy' || Route::currentRouteName() == 'search.doctors' || Route::currentRouteName() == 'search.nusers')
 <!-- Link to local js for doctors and normal users list page -->
-<script type="text/javascript" src="{{asset('js/usersScript11.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/usersScript1212.js')}}"></script>
 
 @elseif(Route::currentRouteName() == 'achEdit')
 <!-- Link to local js for doctors and normal users list page -->
@@ -364,7 +366,7 @@
 <script type="text/javascript" src="{{asset('js/admin/adds1.js')}}"></script>
 @elseif(Route::currentRouteName() == 'doctors.manage.index'|| Route::currentRouteName() == 'admin.search.doctors' || Route::currentRouteName() == 'nusers.manage.index' || Route::currentRouteName() == "admin.search.nusers")
 <!-- Link to local js for admin users-->
-<script type="text/javascript" src="{{asset('js/admin/users.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/admin/users1.js')}}"></script>
 @endif
 
 <script type="text/javascript">

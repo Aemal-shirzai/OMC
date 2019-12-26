@@ -13,8 +13,9 @@ use App\Account;
 use App\DoctorAchievement;
 use App\Post;
 use App\Question;
-
 use App\NormalUser;
+
+use App\Notifications\changeStatus;
 class ManageUserController extends Controller
 {
     public function __construct(){
@@ -88,15 +89,30 @@ class ManageUserController extends Controller
     		$user = Doctor::findOrFail($request->id);
     		if($user->status == 0){
     			$user->update(["status"=>1]);
+                $message = "Your Account has been activated by community.";
+                $user->account->notify(new changeStatus($message));
     			return response()->json(["status"=>"activated"]);
     		}else{
     			$user->update(["status"=>0]);
+                $message = "Your Account has been deactivated by community.";
+                $user->account->notify(new changeStatus($message));
     			return response()->json(["status"=>"deactivated"]);
     		}
 
     	}else{
-
-    	}
+            $user = NormalUser::findOrFail($request->id);
+            if($user->status == 0){
+                $user->update(["status"=>1]);
+                $message = "Your Account has been activated by community.";
+                $user->account->notify(new changeStatus($message));
+                return response()->json(["status"=>"activated"]);
+            }else{
+                $message = "Your Account has been deactivated by community.";
+                $user->update(["status"=>0]);
+                $user->account->notify(new changeStatus($message));
+                return response()->json(["status"=>"deactivated"]);
+            }
+    	}  
     }
 
 
