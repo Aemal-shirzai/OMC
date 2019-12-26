@@ -30,20 +30,20 @@ class DoctorController extends Controller
     public function index()
     {
 
-        $doctors = Doctor::paginate(30);
+        $doctors = Doctor::where("status",1)->paginate(30);
         return view("doctors.index",compact("doctors"));
     }
 
 // Beggining of the function which retrn the result of the user search using ajax
     public function searchResult(Request $req){
         if($req->type === "name"){
-            $doctors = Doctor::where("fullName","like","%$req->data%")->select("fullName")->distinct()->get();
+            $doctors = Doctor::where("fullName","like","%$req->data%")->where('status',1)->select("fullName")->distinct()->get();
         }else if($req->type === "username"){
-            $doctors = Account::where("username","like","%$req->data%")->where('owner_type',"App\Doctor")->select("username")->get();
+            $doctors = Account::join('doctors',"accounts.owner_id","=","doctors.id")->where("accounts.username","like","%$req->data%")->where("accounts.owner_type","App\Doctor")->where("doctors.status",1)->select("accounts.username")->get();
         }else if($req->type === "field"){
              $doctors = Dcategory::where("category","like","%$req->data%")->select("category")->get();
         }else if($req->type === "location"){
-            $doctors = Doctor::where("street","like","%$req->data%")->select("street")->get();
+            $doctors = Doctor::where("street","like","%$req->data%")->where('status',1)->select("street")->get();
         }
         if(count($doctors) > 0){
             return response()->json(["resultFound"=>$doctors]);
@@ -62,14 +62,23 @@ class DoctorController extends Controller
         ]);
         // return $req->searchFor;
         if($req->searchType === "name"){
-            $doctors = Doctor::where("fullName",'like',"%$req->searchFor%")->paginate(30);
+            $doctors = Doctor::where("fullName",'like',"%$req->searchFor%")->where('status',1)->paginate(30);
         }elseif($req->searchType === "username"){
             $account = Account::where("username",'like',"%$req->searchFor%")->first();
-            return redirect()->route("profile",$account->username);
+            if($account){
+                if($account->owner->status != 1){
+                   return view("doctors.doctorsSearch")->with("notFound","Not Found!");
+                }
+                return redirect()->route("profile",$account->username);
+            }else{
+                $notFound = "Not Found!";
+                return view("doctors.doctorsSearch",compact('notFound'));
+            }
+            
         }elseif($req->searchType === "field"){
-            $doctors = Doctor::join("dcategory_doctor","doctors.id","=","dcategory_doctor.doctor_id")->join("dcategories","dcategory_doctor.dcategory_id","=","dcategories.id")->where('dcategories.category',"like","%$req->searchFor%")->groupBy("doctors.id")->select("doctors.*")->paginate(30);
+            $doctors = Doctor::join("dcategory_doctor","doctors.id","=","dcategory_doctor.doctor_id")->join("dcategories","dcategory_doctor.dcategory_id","=","dcategories.id")->where('dcategories.category',"like","%$req->searchFor%")->where("doctors.status",1)->groupBy("doctors.id")->select("doctors.*")->paginate(30);
         }else if($req->searchType === "location"){
-            $doctors = Doctor::where("street",'like',"%$req->searchFor%")->paginate(30);
+            $doctors = Doctor::where("street",'like',"%$req->searchFor%")->where('status',1)->paginate(30);
         }
 
         return view("doctors.doctorsSearch",compact("doctors"));
@@ -86,11 +95,11 @@ class DoctorController extends Controller
     */
     public function sortBy($type){
         if($type == "top"){
-            $doctors = Doctor::orderBy("followers","desc")->paginate(30);
+            $doctors = Doctor::where("status",1)->orderBy("followers","desc")->paginate(30);
         }else if($type == "new"){
-            $doctors = Doctor::orderBy("created_at","desc")->paginate(30);   
+            $doctors = Doctor::where("status",1)->orderBy("created_at","desc")->paginate(30);   
         }else if($type == "mostposts"){
-            $doctors = Doctor::leftJoin("posts","doctors.id","=","posts.doctor_id")->groupBy("doctors.id")->orderBy('posts_count','desc')->selectRaw("doctors.*,count(posts.id) as posts_count")->paginate(30);
+            $doctors = Doctor::leftJoin("posts","doctors.id","=","posts.doctor_id")->where("doctors.status",1)->groupBy("doctors.id")->orderBy('posts_count','desc')->selectRaw("doctors.*,count(posts.id) as posts_count")->paginate(30);
         }
         return view("doctors.index",compact("doctors","type"));
     }

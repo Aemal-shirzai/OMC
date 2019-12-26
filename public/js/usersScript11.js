@@ -46,7 +46,7 @@ function searchDoctors(){
 	var resultsDiv = $("#allResultsDiv");
 	var imageLoad = $("#searchLoad");
 	var searchText = $("#searchText");
-	
+
 	resultBox.show();
 	imageLoad.show();
 	searchText.text("searching");
@@ -193,3 +193,34 @@ $(document).ready(function(e){
 		}
 	});
 });
+
+
+
+// to activate user
+function activateUser(id,type){
+
+	$("#followText-"+id).text("changing status");
+	$("#followBtnIcon-"+id).addClass("fa-spinner");
+	$("#followBtnIcon-"+id).removeClass("fa-check");
+	if(type == "doctor"){
+		$.ajax({
+			method: "POST",
+			url: changeStatus,
+			data:{id:id,type:type,_token:token}
+		}).done(function(response){
+			if(response.status == "activated"){
+				$("#followText-"+id).text("Activated");
+				$("#followBtnIcon-"+id).removeClass("fa-spinner");
+				$("#followBtnIcon-"+id).addClass("fa-check");
+			}else{
+				$("#followText-"+id).text("Active User");
+				$("#followBtnIcon-"+id).removeClass("fa-spinner");
+				$("#followBtnIcon-"+id).removeClass("fa-check");
+			}
+
+		}).fail(function(response){
+			alert("not done");
+		});
+	}
+
+}

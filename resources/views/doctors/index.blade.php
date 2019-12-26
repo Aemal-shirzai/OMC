@@ -22,6 +22,11 @@
 			</h3>
 		</div>
 		<div id="searchFor">
+			@can("normaluser_related",Auth::user())
+				@can("admin_related",Auth::user())
+					<a href="{{route('doctors.manage.index')}}" class="btn  btn-sm mb-2" id="activeDoctorButton">Manage Deactive Doctors</a>
+				@endcan
+			@endcan
 			{!! Form::open(["method"=>"GET","action"=>"DoctorController@search","id"=>"searchForm"]) !!}
 				<div style="position: relative;">
 					{!! Form::text("searchFor",request()->input('searchFor'),["class"=>"form-control","id"=>"searchForField","placeholder"=>"search doctors","onkeyup"=>"searchDoctors()","autocomplete"=>"off","maxLength"=>"60"]) !!}
@@ -83,12 +88,24 @@
 										{{$doctor->fullName}}
 									</a>
 									@can("normalUser_related",Auth::user())
-										<a href="javascript:void(0)" class="followBtn btn btn-sms" onclick="followDoctor('{{$doctor->id}}')">
-											<span id="followBtnIcon-{{$doctor->id}}" class="far {{ (Auth::user()->owner->following()->where('doctors.id',$doctor->id)->first() ? 'fa-check' : 'fa-plus') }}" id="followeIcon-{{$doctor->id}}"></span>
-											<span id="followText-{{$doctor->id}}">
-												{{ (Auth::user()->owner->following()->where('doctors.id',$doctor->id)->first() ? "Following" : "Follow")}}
-											</span>
-										</a>
+										@if(Auth::user()->owner->role->role !== "admin")
+											<a href="javascript:void(0)" class="followBtn btn btn-sms" onclick="followDoctor('{{$doctor->id}}')">
+												<span id="followBtnIcon-{{$doctor->id}}" class="far {{ (Auth::user()->owner->following()->where('doctors.id',$doctor->id)->first() ? 'fa-check' : 'fa-plus') }}" id="followeIcon-{{$doctor->id}}"></span>
+												<span id="followText-{{$doctor->id}}">
+													{{ (Auth::user()->owner->following()->where('doctors.id',$doctor->id)->first() ? "Following" : "Follow")}}
+												</span>
+											</a>
+										@endif
+										@can("normaluser_related",Auth::user())
+											@can("admin_related",Auth::user())
+											<a href="javascript:void(0)" class="followBtn btn btn-sms" onclick="activateUser('{{$doctor->id}}','doctor')">
+												<span id="followBtnIcon-{{$doctor->id}}" class="far"></span>
+												<span id="followText-{{$doctor->id}}">
+													{{ ($doctor->status == 1 ? "De-activate User" : "Activate User") }}
+												</span>
+											</a>
+											@endcan
+										@endcan
 									@endcan
 								</span>
 								@if($doctor->country)
@@ -122,6 +139,7 @@
 
 
 		var doctorsSearchResult = '{{route("searchResult.doctors")}}';
+		var changeStatus = '{{route("admin.changestatus.doctors")}}';
 	</script>
 
 @endsection

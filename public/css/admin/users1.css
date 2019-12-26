@@ -1,11 +1,36 @@
-#allUsersParent{
+#main{
+	padding: 29px 20px;
+	overflow: hidden;
+	background-color: #fdfdfd;
+	position: relative;
+	margin-bottom: 520px;
+	position: relative;
+}
+#usersParentDiv{
+	padding: 12px 12px;
+	position: relative;
+}
+#usersParentDiv h4{
+	text-align: center;
+	font-weight: bold;
+	font-size: 18px;
+
+}
+
+#activeDoctorButton{
+	background-color: #3fbbc0;
+	border-color: #3fbbc0;
+	font-size: 12px;
+	color: white;
+	overflow: hidden;
+
+}
+
+/*#allUsersParent{
 	width: 85%;
 	margin: 0 auto;
 	padding: 12px 12px;
-}
-.orderByOptionParent{
-	float: right;
-}
+}*/
 .title{
 	margin-top: 14px;
 	width: 100%;
@@ -14,31 +39,6 @@
 	font-weight: bold;
 	font-size: 23px;	
 }
-.orderBy{
-	width: 100%;
-	background-color: #fbfbfd;
-	overflow: hidden;
-}
-.orderByOptionParent{
-	border:1px solid gainsboro;
-	border-radius: 4px;
-	margin-left: 8px;
-	margin-bottom: 12px;
-	box-shadow: 1px -1px 7px 1px rgba(59,64,69,0.2);
-}
-.orderBy a{
-	color: #9ba1a7;
-	transition: 0.5s;
-}
-.sortText{
-	color: #9ba1a7;
-	padding-top: 4px;
-}
-.orderBy a:hover{
-	color: white;
-	background-color: #3fbbc0;
-}
-
 #searchFor{
 	position: relative;
 	width: 25%;
@@ -182,7 +182,7 @@
     font-size: 8px;
     display: block;
     color: #bbc0c4;
-    width: 72px;
+    width: 100px;
     padding-top: 3px;
     height: 20px;
     transition: .5s;
@@ -225,9 +225,6 @@
 	.title h3{
 		font-size: 22px;
 	}
-	.orderBy a{
-		font-size: 12px;
-	}
 	#searchFor{
 		width: 40%;
 	}
@@ -260,27 +257,19 @@
 }
 /* ///////////////////////////////////////////////////////////////// Samll sizes rotate /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 767px){
+	#main{
+		padding: 12px;
+	}
+	#usersParentDiv{
+		padding: 0px 0px;
+	}
 	/* Title and order by part */
-	#allUsersParent{
+	/*#allUsersParent{
 		width: 100%;
-	}
-	.orderByOptionParent{
-		float: left !important; 
-		width: 100%;
-		box-shadow: none;
-		padding: 0px;
-		margin: 0;
-		margin-bottom: 5px;
-	}
+	}*/
 	.title h3{
 		font-size: 14px;
 		font-weight: bold;
-	}
-	.orderBy a{
-		font-size: 9px;
-	}
-	.sortText{
-		display: none;
 	}
 	#searchFor{
 		width: 100%;

@@ -1,0 +1,331 @@
+#activeDoctorButton{
+	background-color: #3fbbc0;
+	border-color: #3fbbc0;
+	font-size: 12px;
+	color: white;
+	overflow: hidden;
+
+}
+#allUsersParent{
+	width: 85%;
+	margin: 0 auto;
+	padding: 12px 12px;
+}
+.orderByOptionParent{
+	float: right;
+}
+.title{
+	margin-top: 14px;
+	width: 100%;
+}
+.title h3{
+	font-weight: bold;
+	font-size: 23px;	
+}
+.orderBy{
+	width: 100%;
+	background-color: #fbfbfd;
+	overflow: hidden;
+}
+.orderByOptionParent{
+	border:1px solid gainsboro;
+	border-radius: 4px;
+	margin-left: 8px;
+	margin-bottom: 12px;
+	box-shadow: 1px -1px 7px 1px rgba(59,64,69,0.2);
+}
+.orderBy a{
+	color: #9ba1a7;
+	transition: 0.5s;
+}
+.sortText{
+	color: #9ba1a7;
+	padding-top: 4px;
+}
+.orderBy a:hover{
+	color: white;
+	background-color: #3fbbc0;
+}
+
+#searchFor{
+	position: relative;
+	width: 25%;
+	margin-bottom: 5px;
+}
+#searchForField{
+	padding-left: 30px;
+	padding-right: 75px;
+	color: #bbc0c4;
+	height: 45px;
+	font-size: 14px;
+}
+#searchForField:focus{
+	box-shadow: 0 0 0 1px rgba(52, 144, 220,0.25) !important;
+}
+#searchForField::placeholder{
+	color: #bbc0c4;
+}
+#searchIcon{
+	position: absolute !important;
+	top:15px;
+	left: 7px;
+	font-size: 15px;
+	cursor: pointer;
+	color: #bbc0c4;
+}
+#searchTypeDiv{
+	position: absolute;
+    width: 74px;
+    top: 7px;
+    right: 3px;
+    background: transparent
+}
+#searchType{
+	border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 11px;
+    padding: 0px;
+    color: #757563;
+}
+#searchType:focus{
+	box-shadow: 0 0 0 1px rgba(52, 144, 220,0.25) !important;
+}
+#searchResult{
+	background-color: white;
+    padding: 12px 12px;
+    box-shadow: 0px 0px 3px lightgrey;
+    border-radius: 5px;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    display: none;
+}
+#searchInfo{
+	margin-bottom: 0px;
+	border-bottom: 1px solid #fdfdfb;
+}
+#searchText {
+	color: #bbc0c4;
+	font-size: 11px;
+	margin-bottom: 0px;
+}
+#searchLoad{
+	width: 16px;
+	float: right;
+	display: none;
+}
+#searchResult a{
+	/*border-bottom: 1px solid lightgrey;*/
+	padding:3px 0px;
+	cursor: pointer;
+	font-weight: bold;
+	margin-bottom: 1px;
+	border-radius: 5px;
+	font-size: 12px;
+	display: block;
+	text-decoration: none;
+	color: black;
+}
+#searchResult a:hover{
+	background-color: #fdfdfd;
+	
+}
+/* user info part */
+.fullInfo{
+	width: 33%;
+	margin-bottom: 30px;
+	transition: .5s;
+}
+.fullInfo:hover{
+	background-color: #fdfbfb;
+}
+.userPhoto{
+	/*background-color: green;*/
+	width: 70px;
+	overflow: hidden;
+	display: inline-block;
+	float: left;
+}
+.userPhoto img{
+	width: 65px;
+	height: 65px;
+}
+.noUserImage{
+	width: 65px;
+	height: 65px;
+	border:1px solid #bbc0c4;
+	padding: 8px 13px;
+	font-size: 40px;
+	color: #bbc0c4;
+}
+.userInfo{
+	margin-left: 5px;
+	display: inline-block;
+}
+.userName{
+	color: #3fbbc0;
+	font-size: 13px;
+	word-wrap: break-word;
+}
+.userName a{
+	color: #3fbbc0;
+}
+.userName a:hover{
+	text-decoration: none;
+}
+.userCountry{
+	display: block;
+	font-size: 11px;
+	color: #bbc0c4;
+}
+.followers{
+	font-weight: bold;
+	font-size: 10px;
+	display: block;
+	/*color: #bbc0c4;*/
+}
+.followBtn{
+	border: 1px solid #3fbbc0;
+    font-size: 8px;
+    display: block;
+    color: #bbc0c4;
+    width: 100px;
+    padding-top: 3px;
+    height: 20px;
+    transition: .5s;
+}
+.followBtn:hover{
+	color: white;
+	background-color: #3fbbc0;
+}
+
+/* pagination */
+.page-link{
+	color: #3fbbc0 !important;
+    height: 30px !important;
+    padding-top: 9px;
+    font-size: 11px;
+
+}
+.page-item.active .page-link{
+	background-color: #3fbbc0  !important;
+	border-color:  #3fbbc0 !important;
+	color: white !important; 
+	z-index: 0;
+}
+.page-item{
+}
+
+/* ///////////////////////////////////////////////////////////////// IPHAD PRO /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 1200px) and (min-width: 1024px){
+	.fullInfo{
+		width: 50%;
+		margin-bottom: 7px;
+	}
+	#searchFor{
+		width: 30%;
+	}
+}
+/* ///////////////////////////////////////////////////////////////// IPHAD /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 1023px) and (min-width: 768px){
+	/* Title and order by part */
+	.title h3{
+		font-size: 22px;
+	}
+	.orderBy a{
+		font-size: 12px;
+	}
+	#searchFor{
+		width: 40%;
+	}
+	.fullInfo{
+		width: 50%;
+		margin-bottom: 6px;
+	}
+	.userPhoto{
+		/*background-color: green;*/
+		width: 60px;
+	}
+	.userPhoto img{
+		width: 55px;
+		height: 55px;
+	}
+	.noUserImage{
+		width: 55px;
+		height: 55px;
+		padding: 3px 9px;
+	}
+	.userName{
+		font-size: 12px;
+	}
+	.userCountry{
+		font-size: 10px;
+	}
+	.followers{
+		font-size: 9px;
+	}
+}
+/* ///////////////////////////////////////////////////////////////// Samll sizes rotate /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 767px){
+	/* Title and order by part */
+	#allUsersParent{
+		width: 100%;
+	}
+	.orderByOptionParent{
+		float: left !important; 
+		width: 100%;
+		box-shadow: none;
+		padding: 0px;
+		margin: 0;
+		margin-bottom: 5px;
+	}
+	.title h3{
+		font-size: 14px;
+		font-weight: bold;
+	}
+	.orderBy a{
+		font-size: 9px;
+	}
+	.sortText{
+		display: none;
+	}
+	#searchFor{
+		width: 100%;
+	}
+	#searchForField{
+		height: 37px;
+		font-size: 14px;
+	}
+	#searchIcon{
+		top:13px;
+		font-size: 14px;
+	}
+	#searchTypeDiv{
+	    top: 1px;
+	}
+	#searchResult a{
+		font-size: 11px;
+	}
+
+	/* user info part */
+	#rowContainer{
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+	.fullInfo{
+		width: 100%;
+		margin-bottom: 5px;
+		border-bottom: 1px solid #f9eeee;
+	}
+}
+/* ///////////////////////////////////////////////////////////////// Samll sizes /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 468px){}
+/* ///////////////////////////////////////////////////////////////// Very Samll sizes /////////////////////////////////////////////////////////////////// */
+@media screen and (max-width: 320px){
+	.userName{
+		color: #3fbbc0;
+		font-size: 11px;
+		word-wrap: break-word;
+	}
+}

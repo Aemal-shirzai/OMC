@@ -194,8 +194,12 @@
                 </div>
         </div>
         @endforeach
+        
+         @else
+            <h5 class="text-center">No Advertisements for now!</h5>
         @endif
     </div>
+     <div class="text-center mb-2" title="All advertisements"><a href="#" class="btn btn-primary btn-sm" style="background-color:  #3fbbc0;border:1px solid #3fbbc0;">View All Advertisements</a></div>
         <!-- advertisements readmore div -->
     <div id="readmorediv">
         <div id="closeButtonReadmore"  class="far fa-times float-right" onclick="closeReadMore()"></div>
@@ -208,7 +212,6 @@
         <img src="{{asset('images/load1.gif')}}" id="readmoreLoad">
     </div>
 
-    <div class="text-center mb-2" title="All advertisements"><a href="#" class="btn btn-primary btn-sm" style="background-color:  #3fbbc0;border:1px solid #3fbbc0;">View All Advertisements</a></div>
 </div>
 <!-- latest news part section 4 end-->
 

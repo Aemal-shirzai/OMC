@@ -10,7 +10,7 @@
 			<span class="fal fa-envelope"></span>
 			<span class="adminMunuText">Messages</span>
 		</a>
-		<a href="#">
+		<a href="{{route('doctors.manage.index')}}" class="{{ (Route::currentRouteName() === 'doctors.manage.index' ? 'adminActive' : '' ) }}">
 			<span class="fal fa-user-md"></span> 
 			<span class="adminMunuText">Manage Doctors</span>
 		</a>

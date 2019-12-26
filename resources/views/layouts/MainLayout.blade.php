@@ -35,7 +35,7 @@
 
 	@elseif(Route::currentRouteName() == 'doctors.index' || Route::currentRouteName() == 'nusers.index' || Route::currentRouteName() == 'doctorsSortBy' || Route::currentRouteName() == 'nusersSortBy' || Route::currentRouteName() == 'search.doctors' || Route::currentRouteName() == 'search.nusers')
 	<!-- Link to local styles for doctors and normal users list page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/usersStyle.css')}}">	
+	<link rel="stylesheet" type="text/css" href="{{asset('css/usersStyle1.css')}}">	
 	@elseif(Route::currentRouteName() == 'achEdit')
 	<!-- Link to local styles for doctors and normal users list page -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/achEditStyle11.css')}}">
@@ -53,6 +53,9 @@
 	@elseif(Route::currentRouteName() == 'ads.index')
 	<!-- Link to local styles for admin advertisemnts-->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/admin/adds.css')}}">
+	@elseif(Route::currentRouteName() == 'doctors.manage.index' || Route::currentRouteName() == 'admin.search.doctors')
+	<!-- Link to local styles for admin users-->
+	<link rel="stylesheet" type="text/css" href="{{asset('css/admin/users1.css')}}">
 	@endif
 	
 	<!-- owl carousel plugin -->
@@ -333,7 +336,7 @@
 
 @elseif(Route::currentRouteName() == 'doctors.index' || Route::currentRouteName() == 'nusers.index' || Route::currentRouteName() == 'doctorsSortBy' || Route::currentRouteName() == 'nusersSortBy' || Route::currentRouteName() == 'search.doctors' || Route::currentRouteName() == 'search.nusers')
 <!-- Link to local js for doctors and normal users list page -->
-<script type="text/javascript" src="{{asset('js/usersScript.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/usersScript11.js')}}"></script>
 
 @elseif(Route::currentRouteName() == 'achEdit')
 <!-- Link to local js for doctors and normal users list page -->
@@ -359,6 +362,9 @@
 @elseif(Route::currentRouteName() == 'ads.index')
 <!-- Link to local styles for admin ads-->
 <script type="text/javascript" src="{{asset('js/admin/adds1.js')}}"></script>
+@elseif(Route::currentRouteName() == 'doctors.manage.index'|| Route::currentRouteName() == 'admin.search.doctors')
+<!-- Link to local js for admin users-->
+<script type="text/javascript" src="{{asset('js/admin/users.js')}}"></script>
 @endif
 
 <script type="text/javascript">

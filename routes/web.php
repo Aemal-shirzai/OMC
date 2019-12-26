@@ -75,7 +75,6 @@ Route::get("/admin/advertisements/category/edit","Admin\AdvertisementController@
 Route::PUT("/admin/advertisements/category/update","Admin\AdvertisementController@updateAdsCat")->name("ads.category.update");
 // route to delte the ads category for admin
 Route::DELETE("/admin/advertisements/category/delete","Admin\AdvertisementController@deleteAdsCat")->name("ads.category.delete");
-
 // To add advertisements 
 Route::POST("/admin/advertisements/store","Admin\AdvertisementController@store")->name("ads.store");
 // read ads readmore data using ajax
@@ -86,6 +85,15 @@ Route::DELETE("/admin/advertisements/delete","Admin\AdvertisementController@dele
 Route::get("/admin/advertisements/edit","Admin\AdvertisementController@edit")->name("ads.edit");
 // update the advertiseemnts data
 Route::PUT("/admin/advertisements/update","Admin\AdvertisementController@update")->name("ads.update");
+
+// Manage users
+Route::get("/admin/doctors/manage","Admin\ManageUserController@doctors")->name("doctors.manage.index");
+// Search doctors admin
+Route::get("/admin/doctors/search","Admin\ManageUserController@search")->name("admin.search.doctors");
+// return the search result using ajax in
+Route::get("/admin/doctors/search/result","Admin\ManageUserController@searchResult")->name("admin.searchResult.doctors");
+// route to activate and dectivate user
+Route::POST("/admin/doctors/changestatus","Admin\ManageUserController@changeStatus")->name("admin.changestatus.doctors");
 
 // Routes for Auth
 Auth::routes();

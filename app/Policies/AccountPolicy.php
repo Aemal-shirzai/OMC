@@ -37,6 +37,10 @@ class AccountPolicy
         return $user->owner_type === "App\NormalUser";
     }
 
+    public function admin_related(Account $user){
+        return $user->owner->role->role === 'admin';
+    }
+
 
 
     public function view(Account $user, Account $account)
