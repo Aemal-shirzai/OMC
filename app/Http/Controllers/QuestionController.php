@@ -14,6 +14,7 @@ class QuestionController extends Controller
 {
     public function __construct(){
         $this->middleware("auth")->except(["index","sortBy","show","searchResult","search"]);
+        $this->middleware("activeUsers")->only("create","store","edit","update","vote","delete","favorite");
     }
     /**
      * Display a listing of the resource.
@@ -47,7 +48,10 @@ class QuestionController extends Controller
         ]);
         // return $req->searchFor;
         $questions = Question::where("title",'like',"%$req->searchFor%")->paginate(20);
-        return view("questions.questionsSearch",compact("questions"));
+        $mostVotedDoctors = Doctor::orderBy("followers","desc")->get();
+        // This number is for blade to show how many doctors
+        $numberOfDoctors = 1;
+        return view("questions.questionsSearch",compact("questions","mostVotedDoctors","numberOfDoctors"));
     }
 // Beggining of the function which search the questions
 

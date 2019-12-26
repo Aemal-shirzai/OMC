@@ -15,6 +15,7 @@ class NormalUserController extends Controller
 
     public function __construct(){
         $this->middleware("auth")->except(["index","sortBy","search","searchResult"]);
+        $this->middleware("activeUsers")->only(["removeFollower","DoctorFollow"]);
     }
     /**
      * Display a listing of the resource.

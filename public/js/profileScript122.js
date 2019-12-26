@@ -538,6 +538,17 @@ function vote(postId,type){
 					$("#postOptionsVoteDownCount-"+postId).text(parseInt($("#postOptionsVoteDownCount-"+postId).text())+1); // and add one to the total of the down voted votes
 				}
 			}
+		}).fail(function(response){
+			if(response.status == 403){
+				$("#notAllowedDiv").fadeIn("slow");
+				if(type == "upVote"){
+					$("#postOptionsVoteUpText-"+postId).text("Up-vote");
+				}else{
+					$("#postOptionsDownVoteText-"+postId).text("Down-vote");
+				}
+					
+				return false;
+			}
 		});  // done function end
 }
 //End of : The function which add and update vote to post
@@ -697,6 +708,17 @@ function followPost(postId){
 			$("#favoritesPostCount-"+postId).text(parseInt($("#favoritesPostCount-"+postId).text())+1);
 			$("#followOptionText-"+postId).text("Un-follow");
 		}
+	}).fail(function(response){
+		if(response.status == 403){
+			$("#notAllowedDiv").fadeIn("slow");
+			if($("#favoriteButton-"+postId).hasClass("followed")){
+				$("#followOptionText-"+postId).text("Un-follow");
+			}else{
+				$("#followOptionText-"+postId).text("Follow");
+			}
+		
+			return false;
+		}
 	});
 }
 // End of the : Function responsible for following the posts by normal users
@@ -747,6 +769,35 @@ function followDoctor(doctorId,type){
 				$("#followingButtonTextAll-"+doctorId).text("Following");
 				$("#followingCountSmall").text(parseInt($("#followingCountSmall").text())+1);
 
+			}
+		}
+	}).fail(function(response){
+		if(response.status == 403){
+			$("#notAllowedDiv").fadeIn("slow");
+			
+			if(type == "one"){
+				if($("#followButtonIcon").hasClass("fa-check")){
+					$("#followButtonIcon").addClass("fa-check");
+					$("#followButtonIcon").removeClass("fa-plus");
+					$("#followButtonText").text("Following");
+				}else{
+					$("#followButtonIcon").removeClass("fa-check");
+					$("#followButtonIcon").addClass("fa-plus");
+					$("#followButtonText").text("Follow");
+				}
+			}else if(type == "All"){
+				if($("#followButtonAllIcon-"+doctorId).hasClass("fa-check")){
+					$("#followButtonAllIcon-"+doctorId).addClass("fa-check");
+					$("#followButtonAllIcon-"+doctorId).removeClass("fa-plus");
+				
+					$("#followingButtonTextAll-"+doctorId).text("Following");
+				
+				}else{
+					$("#followButtonAllIcon-"+doctorId).removeClass("fa-check");
+					$("#followButtonAllIcon-"+doctorId).addClass("fa-plus");
+					$("#followingButtonTextAll-"+doctorId).text("Follow");
+
+				}
 			}
 		}
 	});
@@ -859,6 +910,12 @@ function removeFollowers(userId){
 		$("#followerContent-"+userId).slideUp();
 		$("#followerCount").text(parseInt($("#followerCount").text())-1);
 		$("#followerCountSmall").text(parseInt($("#followerCountSmall").text())-1);
+	}).fail(function(response){
+		if(response.status == 403){
+			$("#notAllowedDiv").fadeIn("slow");
+			$("#followerButton-"+userId).text("Remove");
+			$("#followerButton-"+userId).css("color","white");
+		}
 	});
 }
 // End of the function responsible for removing followers by doctors
@@ -890,10 +947,16 @@ function deletePosts(postId){
 		data:{post_id:postId,_token:token}
 	}).done(function(){
 		$("#mainPost-"+postId).slideUp('fast');
+	}).fail(function(response){
+		if(response.status == 403){
+			$("#notAllowedDiv").fadeIn("slow");
+				$("#postDeleteText-"+postId).text("Delete");
+			$("#postDeleteOption-"+postId).css("color","#999");
+			return false;
+		}
 	});
 }
 // End of the function which delete posts in profile
-
 
 
 // Beggining of : the function which open the share options menu
@@ -905,10 +968,13 @@ function openShareQOptions(value){
 
 // deleting question confirmation box 
 function openQuestionConfirmation(value){
+ $("#QshareOptions-"+value).hide();
  $("#questionConfirmationBox-"+value).fadeIn();
+  $("body").css("pointer-events","none");
 }
 function questionClosePermissionBox(value){
  $("#questionConfirmationBox-"+value).fadeOut();
+  $("body").css("pointer-events","initial");
 }
 // deleging question confirmation box
 
@@ -918,6 +984,7 @@ function deleteQuestions(questiontId,type){
 	$("#questionDeleteText-"+questiontId).text("Loading ...");
 	$("#questionDeleteText-"+questiontId).css("color","red");
 	$("#questionConfirmationBox-"+questiontId).fadeOut();
+	$("body").css("pointer-events","initial");
 	$.ajax({
 		method: "DELETE",
 		url: deleteQuestion,
@@ -928,6 +995,13 @@ function deleteQuestions(questiontId,type){
 			$("#favQcount").text(parseInt($("#favQcount").text())-1);
 		}else{
 			$("#allQuestionTextAbove").text(parseInt($("#allQuestionTextAbove").text())-1);
+		}
+	}).fail(function(response){
+		$("#QshareOptions-"+questiontId).hide();
+		if(response.status == 403){
+			$("#notAllowedDiv").fadeIn("slow");
+			$("#questionDeleteText-"+questiontId).text("Delete");
+			$("#questionDeleteText-"+questiontId).css("color","#999");
 		}
 	});
 }
@@ -977,6 +1051,23 @@ function followQuestion(questionId){
 			$("#favQcount").text(parseInt($("#favQcount").text())+1);
 			$("#unfollowText-"+questionId).text("UnFollow");
 		}
+	}).fail(function(response){
+		$("#QshareOptions-"+questionId).hide();
+			if(response.status == 403){
+			$("#notAllowedDiv").fadeIn("slow");
+			if($("#favoriteIcon-"+questionId).hasClass("fa-times")){
+
+				$("#favoriteIcon-"+questionId).removeClass("fa-plus");
+				$("#favoriteIcon-"+questionId).addClass("fa-times");
+				$("#favQcount").text(parseInt($("#favQcount").text())+1);
+				$("#unfollowText-"+questionId).text("UnFollow");
+			}else{
+				$("#favoriteIcon-"+questionId).removeClass("fa-times");
+				$("#favoriteIcon-"+questionId).addClass("fa-plus");
+				$("#favQcount").text(parseInt($("#favQcount").text())-1);
+				$("#unfollowText-"+questionId).text("Follow");
+			}
+		}
 	});
 }
 // End of the : Function responsible for following the posts by normal users
@@ -1008,15 +1099,31 @@ function followQPost(postId){
 			$("#favPcount").text(parseInt($("#favPcount").text())+1);
 			$("#unfollowTextP-"+postId).text("UnFollow");
 		}
+	}).fail(function(response){
+		$("#QshareOptions-"+postId).hide();
+		if(response.status == 403){
+			$("#notAllowedDiv").fadeIn("slow");
+			if($("#favoriteIconP-"+postId).hasClass("fa-times")){
+				$("#favoriteIconP-"+postId).removeClass("fa-plus");
+				$("#favoriteIconP-"+postId).addClass("fa-times");
+				$("#unfollowTextP-"+postId).text("UnFollow");
+			}else{
+				$("#favoriteIconP-"+postId).removeClass("fa-times");
+				$("#favoriteIconP-"+postId).addClass("fa-plus");
+				$("#unfollowTextP-"+postId).text("Follow");
+			}
+		
+		}
 	});
 }
 // End of the : Function responsible for following the posts by normal users
 
 // Beggining of the function which delete posts in profile
 function deleteQPosts(postId){
+	questionClosePermissionBox(postId);
 	$("#postDeleteTextQ-"+postId).text("Loading ...");
 	$("#postDeleteTextQ-"+postId).css("color","red");
-	$("#postConfirmationBox-"+postId).fadeOut();
+	// $("#questionConfirmationBox-"+postId).fadeOut();
 	$.ajax({
 		method: "DELETE",
 		url: deletePost,
@@ -1024,6 +1131,14 @@ function deleteQPosts(postId){
 	}).done(function(){
 		$("#favPcount").text(parseInt($("#favPcount").text())-1);
 		$("#allPosts-"+postId).slideUp('fast');
+	}).fail(function(response){
+		if(response.status == 403){
+			$("#notAllowedDiv").fadeIn("slow");
+			$("#postDeleteTextQ-"+postId).text("Delete");
+			$("#postDeleteTextQ-"+postId).css("color","#999");
+			
+			return false;
+		}
 	});
 }
 // End of the function which delete posts in profile
@@ -1351,6 +1466,12 @@ function deleteAch(value,evt){
 		data:{id:value, _token:token}
 	}).done(function(response){
 		$("#ach-MainContent-"+value).slideUp();
+	}).fail(function(response){
+		if(response.status == 403){
+			$("#notAllowedDiv").fadeIn("slow");				
+		}
+		$("#ach-DeleteLink-"+value).show();
+		$("#ach-DeleteLoading-"+value).hide();
 	});
 	// achDelete
 }
@@ -1377,6 +1498,9 @@ function deleteFields(fieldId){
 		$("#fieldNumber-"+fieldId).slideUp();
 		$("#d-field-"+fieldId).hide();
 	}).fail(function(response){
+		if(response.status == 403){
+			$("#notAllowedDiv").fadeIn("slow");				
+		}
 		$("#removeFieldButton-"+fieldId).show();
 		$("#loadField-"+fieldId).hide();
 		$("#fieldName-"+fieldId).css('opacity',"1");

@@ -107,6 +107,41 @@ function followDoctor(doctorId,type){
 				$("#followCountUp-"+doctorId).text(parseInt($("#followCount-"+doctorId).text())+1);
 			}
 		}
+	}).fail(function(response){
+		if(response.status == 403){
+			$("#notAllowedDiv").fadeIn("slow");
+			if(type == "profile" ){
+				if($("#followButtonIcon").hasClass("fa-check")){
+					$("#followButtonIcon").addClass("fa-check");
+					$("#followButtonIcon").removeClass("fa-plus");
+					$("#followingButtonText").text("Following");
+				}else{
+					$("#followButtonIcon").removeClass("fa-check");
+					$("#followButtonIcon").addClass("fa-plus");
+					$("#followingButtonText").text("Follow");
+				}
+			}else if(type == "mostVoted"){
+				if($("#followButtonIcon-"+doctorId).hasClass("fa-check")){
+					$("#followButtonIcon-"+doctorId).addClass("fa-check");
+					$("#followButtonIcon-"+doctorId).removeClass("fa-plus");
+					$("#followingButtonText-"+doctorId).text("Following");
+				}else{
+					$("#followButtonIcon-"+doctorId).removeClass("fa-check");
+					$("#followButtonIcon-"+doctorId).addClass("fa-plus");
+					$("#followingButtonText-"+doctorId).text("Follow");
+				}	
+			}else{
+				if($("#followButtonIconUp-"+doctorId).hasClass("fa-check")){
+					$("#followButtonIconUp-"+doctorId).addClass("fa-check");
+					$("#followButtonIconUp-"+doctorId).removeClass("fa-plus");
+					$("#followingButtonTextUp-"+doctorId).text("Following");
+				}else{
+					$("#followButtonIconUp-"+doctorId).removeClass("fa-check");
+					$("#followButtonIconUp-"+doctorId).addClass("fa-plus");
+					$("#followingButtonTextUp-"+doctorId).text("Follow");
+				}
+			}
+		}
 	});
 }
 // End of the : Function responsible for following the doctors by normal users
@@ -233,7 +268,17 @@ function vote(postId,type){
 					$("#downVoters").text(parseInt($("#downVoters").text())+1); // and add one to the total of the down voted votes
 				}
 			}
-		});  // done function end
+		}).fail(function(response){
+			if(response.status == 403){
+				$("#notAllowedDiv").fadeIn("slow");
+				if(type == "upVote"){
+					$("#postOptionsVoteUpText").text("Up-vote");
+				}else{
+					$("#postOptionsDownVoteText").text("Down-vote");
+				}
+				return false;
+			}
+		});  
 }
 //End of : The function which add and update vote to post
 
@@ -262,6 +307,16 @@ function followPost(postId){
 			$("#favoritesPostCount").text(parseInt($("#favoritesPostCount").text())+1);
 			$("#follwers").text(parseInt($("#follwers").text())+1);
 			$("#followOptionText").text("Un-follow");
+		}
+	}).fail(function(response){
+		if(response.status == 403){
+			$("#notAllowedDiv").fadeIn("slow");
+			if($("#favoriteButton").hasClass("followed")){
+				$("#followOptionText").text("Un-follow");
+			}else{
+				$("#followOptionText").text("Follow");
+			}
+			return false;
 		}
 	});
 }
@@ -293,6 +348,13 @@ function deletePosts(postId){
 	}).done(function(){
 		$("#mainContent").slideUp('fast');
 		$("#postDeleteMessage").show();
+	}).fail(function(response){
+		if(response.status == 403){
+			$("#notAllowedDiv").fadeIn("slow");
+			$("#postDeleteText").text("Delete");
+			$("#postDeleteText").css("color","#999");
+			return false;
+		}
 	});
 }
 // End of the function which delete question in profile
@@ -961,7 +1023,16 @@ function Qvote(qustionId,type){
 					$("#downVoters").text(parseInt($("#downVoters").text())+1); // and add one to the total of the down voted votes
 				}
 			}
-		});  // done function end
+		}).fail(function(response){
+			if(response.status == 403){
+				$("#notAllowedDiv").fadeIn("slow");
+				if(type == "upVote"){
+					$("#postOptionsVoteUpText").text("Up-vote");
+				}else{
+					$("#postOptionsDownVoteText").text("Down-vote");
+				}
+			}
+		}); 
 }
 //End of : The function which add and update vote to questions
 
@@ -992,8 +1063,20 @@ function followQuestion(questionId){
 			$("#follwers").text(parseInt($("#follwers").text())+1);
 			$("#followOptionText").text("Un-follow");
 		}
+	}).fail(function(response){
+		if(response.status == 403){
+			$("#notAllowedDiv").fadeIn("slow");
+			if($("#favoriteButton").hasClass("followed")){
+				$("#favoriteButton").addClass("followed");
+				$("#followOptionText").text("Un-follow");
+			}else{
+				$("#favoriteButton").removeClass("followed");
+				$("#followOptionText").text("Follow");
+			}	
+		}
 	});
 }
+
 // End of the : Function responsible for following the posts by normal users
 
 // deleting question confirmation box 
@@ -1021,6 +1104,12 @@ function deleteQuestions(questiontId){
 	}).done(function(){
 		$("#mainContent").slideUp('fast');
 		$("#questionDeleteMessage").show();
+	}).fail(function(response){
+		if(response.status == 403){
+			$("#notAllowedDiv").fadeIn("slow");
+			$("#questionDeleteText").text("Delete");
+			$("#questionDeleteText").css("color","#999");
+		}
 	});
 }
 // End of the function which delete question in profile

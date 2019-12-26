@@ -23,6 +23,7 @@ Route::get("/app",function(){
 	return view("layouts.MainLayout");
 });
 
+
 // Admin Layouts
 
 // all doctor fields (dcategories) and form to insert the categories from 

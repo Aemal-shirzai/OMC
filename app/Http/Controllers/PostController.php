@@ -16,6 +16,7 @@ class PostController extends Controller
 {
     public function __construct(){
         $this->middleware("auth")->except(["index","sortBy","show","searchResult","search"]);
+        $this->middleware("activeUsers")->only(["create","store","update","edit","delete","vote","favorite"]);
     }
     /**
      * Display a listing of the resource.
@@ -46,11 +47,14 @@ class PostController extends Controller
 // Beggining of the function which search the posts
     public function search(Request $req){
         $this->validate($req,[
-            "searchFor" => "bail|required|string|max:60",
+            "searchFor" => "bail|required|string|max:200",
         ]);
         // return $req->searchFor;
+        $mostVotedDoctors = Doctor::orderBy("followers","desc")->get();
+        // This number is for blade to show how many doctors
+        $numberOfDoctors = 1;
         $posts = Post::where("title",'like',"%$req->searchFor%")->paginate(20);
-        return view("posts.postsSearch",compact("posts"));
+        return view("posts.postsSearch",compact("posts","mostVotedDoctors","numberOfDoctors"));
     }
 // Beggining of the function which search the posts
 

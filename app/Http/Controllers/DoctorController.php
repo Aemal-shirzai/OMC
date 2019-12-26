@@ -20,6 +20,7 @@ class DoctorController extends Controller
 {
     public function __construct(){
         $this->middleware("auth")->only(["achAdd","achUpdate","achDelete","achEdit"]);
+        $this->middleware("activeUsers")->only("removeFields","achAdd","achEdit","achUpdate","achDelete");
     }
 
     /**

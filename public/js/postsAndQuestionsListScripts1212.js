@@ -29,6 +29,16 @@ function followPost(postId){
 			$("#favoritesPostCount-"+postId).text(parseInt($("#favoritesPostCount-"+postId).text())+1);
 			$("#followOptionText-"+postId).text("Un-follow");
 		}
+	}).fail(function(response){
+		if(response.status == 403){
+			$("#notAllowedDiv").fadeIn("slow");
+			if($("#favoriteButton-"+postId).hasClass("followed")){
+				$("#followOptionText-"+postId).text("Un-follow");
+			}else{
+				$("#followOptionText-"+postId).text("Follow");
+			}
+			return false;
+		}
 	});
 }
 // End of the : Function responsible for following the posts by normal users
@@ -57,6 +67,13 @@ function deletePosts(postId){
 		data:{post_id:postId,_token:token}
 	}).done(function(){
 		$("#mainContent-"+postId).slideUp('fast');
+	}).fail(function(response){
+			if(response.status == 403){
+				$("#notAllowedDiv").fadeIn("slow");
+				$("#postDeleteText-"+postId).text("Delete");
+				$("#postDeleteOption-"+postId).css("color","black");
+				return false;
+			}
 	});
 }
 // End of the function which delete posts in profile
@@ -90,6 +107,17 @@ function followQuestion(questionId){
 			$("#favoritesPostCount-"+questionId).text(parseInt($("#favoritesPostCount-"+questionId).text())+1);
 			$("#followOptionText-"+questionId).text("Un-follow");
 		}
+	}).fail(function(response){
+		if(response.status == 403){
+			$("#notAllowedDiv").fadeIn("slow");
+			if($("#favoriteButton-"+questionId).hasClass("followed")){
+				$("#favoriteButton-"+questionId).addClass("followed");	
+				$("#followOptionText-"+questionId).text("Un-follow");
+			}else{
+				$("#favoriteButton-"+questionId).removeClass("followed");
+				$("#followOptionText-"+questionId).text("Follow");
+			}
+		}
 	});
 }
 // End of the : Function responsible for following the posts by normal users
@@ -119,6 +147,12 @@ function deleteQuestions(questiontId){
 		data:{question_id:questiontId,_token:token}
 	}).done(function(){
 		$("#mainContent-"+questiontId).slideUp('fast');
+	}).fail(function(response){
+		if(response.status == 403){
+			$("#notAllowedDiv").fadeIn("slow");
+			$("#postDeleteText-"+questiontId).text("Delete");
+			$("#postDeleteOption-"+questiontId).css("color","#999");
+		}
 	});
 }
 // End of the function which delete question in profile
@@ -153,6 +187,19 @@ function followDoctor(doctorId){
 			$("#followCount-"+doctorId).text(parseInt($("#followCount-"+doctorId).text())+1);
 		}
 	
+	}).fail(function(response){
+		if(response.status == 403){
+			$("#notAllowedDiv").fadeIn("slow");
+			if($("#followButtonIcon-"+doctorId).hasClass("fa-check")){
+				$("#followButtonIcon-"+doctorId).addClass("fa-check");
+				$("#followButtonIcon-"+doctorId).removeClass("fa-plus");
+				$("#followingButtonText-"+doctorId).text("Following");
+			}else{
+				$("#followButtonIcon-"+doctorId).removeClass("fa-check");
+				$("#followButtonIcon-"+doctorId).addClass("fa-plus");
+				$("#followingButtonText-"+doctorId).text("Follow");
+			}
+		}
 	});
 }
 // End of the : Function responsible for following the doctors by normal users
@@ -271,14 +318,13 @@ function searchQuestions(){
 // EO: This function show the avaibible normal users based on user search
 
 
-
 // this is diffrent from bellow submit this is done when some one click that search icon
 function submitSearchForm(){
 	if($("#searchForField").val().trim().length < 1){
 		$("#searchForField").css("border","1px solid red");
 		$("#searchForField").attr("placeholder","You need to type");
 		event.preventDefault();
-	}else if($("#searchForField").val().trim().length > 60){
+	}else if($("#searchForField").val().trim().length > 200){
 		$("#searchForField").css("border","1px solid red");
 		$("#searchForField").attr("placeholder","Too long search");
 		event.preventDefault();
@@ -293,7 +339,7 @@ $(document).ready(function(e){
 			$("#searchForField").css("border","1px solid red");
 			$("#searchForField").attr("placeholder","You need to type");
 			event.preventDefault();
-		}else if($("#searchForField").val().trim().length > 60){
+		}else if($("#searchForField").val().trim().length > 200){
 			$("#searchForField").css("border","1px solid red");
 			$("#searchForField").attr("placeholder","Too long search");
 			event.preventDefault();

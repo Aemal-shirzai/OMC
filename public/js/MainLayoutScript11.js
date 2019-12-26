@@ -336,3 +336,8 @@ function markAsRead(value){
 	// }
 
 }
+
+
+function closeMessage(){
+	$("#notAllowedDiv").fadeOut("slow");
+}

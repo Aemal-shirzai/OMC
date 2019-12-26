@@ -1,3 +1,29 @@
+#notAllowedDiv{
+	width: 40%;
+	height: 340px;
+	background: white;
+	box-shadow: 0 2px 4px 800px rgba(59,64,69,0.2);
+	border-radius: 10px;
+	position: fixed;
+	z-index: 1;
+	top:30%;
+	left: 30%;
+	
+	overflow: hidden;
+	display: none;
+}
+.notfound{
+	left: 30% !important;
+	top: 25% !important;
+	width: 100% !important;
+}
+#closeNotAllowed{
+	font-size: 40px;
+	position: relative;
+	margin-right: 12px;
+	margin-top: 5px;
+}
+
 @font-face{
 	font-family: "quicksand";
 	src:url("../fonts/Quicksand-Regular.ttf");
@@ -9,8 +35,11 @@
 
 body{
 	background-color: white;
-	padding-top: 118px;
+	padding-top: 118px !important;
 	font-family: quicksand;
+ /*	padding: 2px !important;
+    margin: 0px !important;*/
+
 }
 a#topButton{
 	background-color: white;
@@ -452,7 +481,33 @@ div#social-links a:nth-child(5){
 	color: #3fbbc0;
 	text-decoration: none;
 }
+@media screen and (max-width: 1200px) and (min-width: 1024px){
+	#notAllowedDiv{
+		width: 40%;
+		height: 340px;
+		background: white;
+		box-shadow: 0 2px 4px 800px rgba(59,64,69,0.2);
+		border-radius: 10px;
+		position: fixed;
+		z-index: 1;
+		top:30%;
+		left: 30%;
+		
+		overflow: hidden;
+		/*display: none;*/
+	}
+	.notfound{
+		left: 30% !important;
+		top: 12% !important;
+		width: 100% !important;
+		font-size: 40px !important;
+		padding-left: 120px !important; 
+	}
 
+}
+@media screen and (max-width: 1023px) and (min-width: 768px){
+
+}
 /*///////////////////////////////////////////    ////////////////////////*/ 
 @media screen and (max-width:640px){
 	span#timeAndDate{
@@ -537,6 +592,36 @@ div#social-links a:nth-child(5){
 		font-size: 10px;
 	}
 
+	#notAllowedDiv{
+		width: 79%;
+		height: 300px;
+		background: white;
+		box-shadow: 0 2px 4px 800px rgba(59,64,69,0.2);
+		border-radius: 10px;
+		position: fixed;
+		z-index: 1;
+		top:30%;
+		left: 12%;
+		
+		overflow: hidden;
+		/*display: none;*/
+	}
+	.notfound{
+		left: 30% !important;
+		top: 17% !important;
+		width: 100% !important;
+		font-size: 40px !important;
+		padding-left: 120px !important; 
+	}
+	.notfound h2{
+		font-size: 16px !important;
+	}
+}
+
+@media screen and (max-width:320px){
+	.notfound{
+		top: 24% !important;
+	}
 }
 
 
@@ -598,6 +683,12 @@ div#social-links a:nth-child(5){
 	}
 	#notificationBadge{
 		font-size: 10px;
+	}
+		.notfound{
+		top: 16% !important;
+	}
+	.notfound h2{
+		font-size: 20px !important;
 	}
 }
 @media screen and (max-width:1400px) and (min-width: 1001px){

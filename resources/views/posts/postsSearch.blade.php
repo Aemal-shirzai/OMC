@@ -61,6 +61,7 @@
 		</div> <!-- End of card body -->
 	</div>	<!-- End of card -->
 	@endcan
+
 	<!-- End of : showiing 10 most followed doctors -->
 
 	<!-- Beggingon of : showing some tips and options for doctors-->
@@ -126,7 +127,7 @@
 	<div id="searchFor">
 		{!! Form::open(["method"=>"GET","action"=>"PostController@search","id"=>"searchForm"]) !!}
 			<div style="position: relative;">
-				{!! Form::text("searchFor",request()->input('searchFor'),["class"=>"form-control","id"=>"searchForField","placeholder"=>"search posts ","onkeyup"=>"searchPosts()","autocomplete"=>"off","maxLength"=>"60"]) !!}
+				{!! Form::text("searchFor",request()->input('searchFor'),["class"=>"form-control","id"=>"searchForField","placeholder"=>"search posts ","onkeyup"=>"searchPosts()","autocomplete"=>"off","maxLength"=>"200"]) !!}
 				<a href="javascript:void(0)" id="searchIcon" class="far fa-search" onclick="submitSearchForm()"></a>
 			</div>
 		{!! Form::close() !!}

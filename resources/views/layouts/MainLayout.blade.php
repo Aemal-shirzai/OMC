@@ -8,11 +8,13 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle1.css')}}">	
+	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle.css')}}">	
 
 	<!-- Link to local css file -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/admin/adminLayout.css')}}">
 	
+
+	<link rel="stylesheet" type="text/css" href="{{asset('css/ErrorStyle.css')}}">
 	@if(Route::currentRouteName() == 'main')
 	<!-- Link to local mian css file -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}">
@@ -31,7 +33,7 @@
 
 	@elseif(Route::currentRouteName() == 'posts.show' || Route::currentRouteName() == 'questions.show')
 	<!-- Link to local styles for posts list page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsSingleStyle11.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsSingleStyle.css')}}">
 
 	@elseif(Route::currentRouteName() == 'doctors.index' || Route::currentRouteName() == 'nusers.index' || Route::currentRouteName() == 'doctorsSortBy' || Route::currentRouteName() == 'nusersSortBy' || Route::currentRouteName() == 'search.doctors' || Route::currentRouteName() == 'search.nusers')
 	<!-- Link to local styles for doctors and normal users list page -->
@@ -142,7 +144,7 @@
 	<div id="sidebar-large" style=""> <!-- navbar for large screen div start  -->
 		<div class="container">
 		<div id="logodiv" style="" class="float-left">
-		<a href="{{route('main')}}"><img src="{{asset('images/logo3.png')}}" class="img-fluid"></a>
+		<a href="{{route('main')}}"><img src="{{asset('images/mainLogo.png')}}" class="img-fluid"></a>
 		</div>
 		<a href="javascript:void(0)" class="btn btn-light btn-sm openbtn" onclick="openNav()"><i class="far fa-bars"></i></a>
 		@auth
@@ -253,16 +255,39 @@
 		@if(Auth::user()->owner->status == 0)
 			@if(Auth::user()->owner->gender == 0)
 				<div class="alert alert-info" id="loginAlert">
-					Mr. {{Auth::user()->owner->fullName}}, Your account is deactivated for now, contact us for more inforamation
+					Mr. {{Auth::user()->owner->fullName}}, Your account is deactivated for now, contact us for more inforamation. You may not be able to access some resources.
 				</div>
 			@else
 				 <div class="alert alert-info" id="loginAlert">
-					Mrs./Miss. {{Auth::user()->owner->fullName}}, Your account is deactivated for now, contact us for more inforamation	</div>
+					Mrs./Miss. {{Auth::user()->owner->fullName}}, Your account is deactivated for now, contact us for more inforamation. You may not be able to access some resources.	</div>
 			@endif
 		@endif
 	@endauth
      
     <a href="javascript:void(0)" title="Go to top" id="topButton" onclick="goToTop()" class="btn btn-sm" style=""><b class="far fa-arrow-up"></b></a> 
+
+<!-- to dispaly it using ajax if some one is not authorized for some of the resources -->
+    <div id="notAllowedDiv">
+    	<div id="notfound">
+    		<button class="close" id="closeNotAllowed" onclick="closeMessage()"><span class="far fa-times"></span></button>
+		<div class="notfound">
+			@auth
+			@if(Auth::user()->owner->status != 0)
+				<h2><span id="notfoundCode">403</span> - Not Allowed</h2>
+				<p>You do not have permission to access the document or program that you requested.</p>
+			@else
+				<h2>403 - Not Allowed<br> Your account is not active</h2>
+				<p>You do not have permission to access the document or program that you requested.</p>
+			@endif
+			@endauth
+			@guest
+				<h2>403 - Not Allowed Need an account first</h2>
+				<p>You do not have permission to access the document or program that you requested.</p>
+			@endguest
+	
+		</div>
+		</div>
+    </div>
 
 	@yield("content")
 
@@ -317,13 +342,13 @@
 <script src="{{ asset('js/share.js') }}"></script>
 
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/MainLayoutScript.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/MainLayoutScript11.js')}}"></script>
 
 
 
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
-<script type="text/javascript" src="{{asset('js/profileScript.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/profileScript122.js')}}"></script>
 @elseif(Route::currentRouteName() == 'main')
 <script type="text/javascript" src="{{asset('js/main.js')}}"></script>
 @elseif(Route::currentRouteName() == 'posts.create' || Route::currentRouteName() == 'questions.create' || Route::currentRouteName() == 'posts.edit' || Route::currentRouteName() == 'questions.edit' ||  Route::currentRouteName() == 'comments.edit' || Route::currentRouteName() == 'replies.edit')
@@ -331,10 +356,10 @@
 <script type="text/javascript" src="{{asset('js/postsAndQuestionsScripts.js')}}"></script>
 @elseif(Route::currentRouteName() == 'posts.index' || Route::currentRouteName() == 'postsSortBy' || Route::currentRouteName() == 'questionsSortBy' || Route::currentRouteName() == 'questions.index' || Route::currentRouteName() == 'search.posts' || Route::currentRouteName() == 'search.questions')
 <!-- Link to local  js for posts page -->
-<script type="text/javascript" src="{{asset('js/postsAndQuestionsListScripts.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/postsAndQuestionsListScripts1212.js')}}"></script>
 @elseif(Route::currentRouteName() == 'posts.show' || Route::currentRouteName() == 'questions.show')
 <!-- Link to local  js for singl posts and questions page -->
-<script type="text/javascript" src="{{asset('js/postsAndQuestionsSingleScripts.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/postsAndQuestionsSingleScripts3.js')}}"></script>
 
 @elseif(Route::currentRouteName() == 'doctors.index' || Route::currentRouteName() == 'nusers.index' || Route::currentRouteName() == 'doctorsSortBy' || Route::currentRouteName() == 'nusersSortBy' || Route::currentRouteName() == 'search.doctors' || Route::currentRouteName() == 'search.nusers')
 <!-- Link to local js for doctors and normal users list page -->
@@ -372,6 +397,8 @@
 <script type="text/javascript">
 	var token = '{{ Session::token() }}';
 	var readMark = '{{route("readMark")}}';
+
+	// route to access the 
 
 </script>
 
