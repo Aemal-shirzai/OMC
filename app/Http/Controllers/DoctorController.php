@@ -69,7 +69,9 @@ class DoctorController extends Controller
                 if($account->owner->status != 1){
                    return view("doctors.doctorsSearch")->with("notFound","Not Found!");
                 }
+
                 return redirect()->route("profile",$account->username);
+                
             }else{
                 $notFound = "Not Found!";
                 return view("doctors.doctorsSearch",compact('notFound'));

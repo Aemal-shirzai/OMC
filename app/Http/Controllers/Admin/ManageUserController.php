@@ -14,6 +14,7 @@ use App\DoctorAchievement;
 use App\Post;
 use App\Question;
 
+use App\NormalUser;
 class ManageUserController extends Controller
 {
     public function __construct(){
@@ -59,8 +60,11 @@ class ManageUserController extends Controller
         }elseif($req->searchType === "username"){
             $account = Account::where("username",'like',"%$req->searchFor%")->first();
             if($account){
-                if($account->owner->status != 1){
-                   return view("admin.doctors")->with("notFound","Not Found!");
+                if($account->owner_type == "App\NormalUser"){
+                    return view("admin.doctors")->with("notFound","Not Found!");
+                }
+                if($account->owner->status == 1){
+                return view("admin.doctors")->with("notFound","Not Found!");
                 }
                 return redirect()->route("profile",$account->username);
             }else{
@@ -94,6 +98,61 @@ class ManageUserController extends Controller
 
     	}
     }
+
+
+    // normal user part
+    public function nusers(){
+        $nusers = NormalUser::where("status",0)->latest()->get();
+        return view("admin.nusers",compact("nusers"));
+    }
+
+
+    // Beggining of the function which retrn the result of the user search using ajax
+    public function nusersearchResult(Request $req){
+        if($req->type === "name"){
+            $nusers = NormalUser::where("fullName","like","%$req->data%")->where('status',0)->select("fullName")->distinct()->get();
+        }else if($req->type === "username"){
+            $nusers = Account::join('normal_users',"accounts.owner_id","=","normal_users.id")->where("accounts.username","like","%$req->data%")->where("accounts.owner_type","App\NormalUser")->where("normal_users.status",0)->select("accounts.username")->get();
+        }
+        if(count($nusers) > 0){
+            return response()->json(["resultFound"=>$nusers]);
+        }else{
+            return response()->json(["resultNotFound"=>"Result Not Found"]);
+        }
+    }
+// End of the function which retrn the result of the user search using ajax
+
+// Beggining of the function which search the doctor
+    public function nuserSearch(Request $req){
+        $this->validate($req,[
+            "searchFor" => "bail|required|string|max:60",
+            "searchType" => "bail|required",
+        ]);
+        // return $req->searchFor;
+        if($req->searchType === "name"){
+            $nusers = NormalUser::where("fullName",'like',"%$req->searchFor%")->where("status",)->paginate(30);
+        }elseif($req->searchType === "username"){
+            // $account = Account::where("username",'like',"%$req->searchFor%")->where('owner_type',"App\NormalUser")->first();
+            $account = Account::where("username",'like',"%$req->searchFor%")->first();
+            if($account){
+                if($account->owner_type == "App\Doctor"){
+                    return view("admin.nusers")->with("notFound","Not Found!");
+                }
+                if($account->owner->status == 1){
+                   return view("admin.nusers")->with("notFound","Not Found!");
+                }
+                return redirect()->route("profile",$account->username);
+            }else{
+                $notFound = "Not Found!";
+                return view("admin.nusers",compact('notFound'));
+            }
+        }
+
+        return view("admin.nusers",compact("nusers"));
+    }
+// Beggining of the function which search the doctor
+
+
 
 
 }

@@ -98,8 +98,6 @@
 		</div>
 		@endisset
 	</div>
-
-
 </div>
 
 @endsection

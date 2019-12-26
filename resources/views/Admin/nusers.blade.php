@@ -3,19 +3,26 @@
 @section("title","All Users")
 
 @section("content")
-
-	<div id="allUsersParent">
+@include("../layouts.adminLayout")
+<div id="main">
+	<div id="usersParentDiv">
+		<h4>Manage Normal users</h4>
+		<div class="dropdown-divider"></div>
 		<!-- Begginng of title and sortBy options -->
 		<div class="title">
 			<h3>
-				All users
+				All un-active users 
 				@if(request()->searchType === 'name')
 					for ({{request()->searchFor}})
+				@elseif(request()->searchType === "field")
+					with field ({{request()->searchFor}})
+				@elseif(request()->searchType === "location")
+					in location ({{request()->searchFor}})
 				@endif
 			</h3>
 		</div>
 		<div id="searchFor">
-			{!! Form::open(["method"=>"GET","action"=>"NormalUserController@search","id"=>"searchForm"]) !!}
+			{!! Form::open(["method"=>"GET","action"=>"Admin\ManageUserController@nuserSearch","id"=>"searchForm"]) !!}
 				<div style="position: relative;">
 					{!! Form::text("searchFor",request()->input('searchFor'),["class"=>"form-control","id"=>"searchForField","placeholder"=>"search users","onkeyup"=>"searchNusers()","autocomplete"=>"off","maxLength"=>"60"]) !!}
 					<a href="javascript:void(0)" id="searchIcon" class="far fa-search" onclick="submitSearchForm()"></a>
@@ -30,18 +37,14 @@
 					
 				</div>
 			</div>
-			@isset($notFound)
-				<div class="alert alert-danger alert-sm" style="font-weight: bold;font-size: 12px;text-align: center;">
-					 {{$notFound}}
-				</div>
-			@endisset
-		</div>
-		<div class="orderBy">
-			<div class="orderByOptionParent" style=""></div>
-			<span class="float-right sortText"></span>
+		@isset($notFound)
+			<div class="alert alert-danger alert-sm" style="font-size: 12px;font-weight: bold;text-align: center;">
+				{{$notFound}}
+			</div>
+		@endisset
 		</div>
 		<!-- End of title and sortBy options -->
-
+		<div class="dropdown-divider"></div>
 		<!-- users list part -->
 		@isset($nusers)
 		<div id="usersList" class="mt-2">
@@ -86,10 +89,9 @@
 				<h3>No Users Availible!</h3>
 			@endif			
 		</div>
-
-	{{$nusers->links()}}
-	@endisset
+		@endisset
 	</div>
+</div>
 @endsection
 
 
@@ -97,11 +99,8 @@
 <!-- These variables are for ajax  token and route to which vote the post, comments , replies-->
 	<script type="text/javascript">
 		var token = '{{ Session::token() }}';
-		// This route is to add and remove doctors to follow by normal user
-		var DoctorFollow = '{{route("DoctorFollow")}}';
 
-
-		var nusersSearchResult = '{{route("searchResult.nusers")}}';
+		var nusersSearchResultAdmin = '{{route("admin.searchResult.nusers")}}';
 	</script>
 
 @endsection

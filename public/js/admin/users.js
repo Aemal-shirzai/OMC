@@ -103,3 +103,63 @@ function activateUser(id,type){
 	}
 
 }
+
+
+
+// BO:  function show the avaibible narmal users based on user search 
+function searchNusers(){
+	var value = $("#searchForField").val();
+	var stype = $("#searchType").val();
+	var resultBox = $("#searchResult");
+	var resultsDiv = $("#allResultsDiv");
+	var imageLoad = $("#searchLoad");
+	var searchText = $("#searchText");
+	
+	resultBox.show();
+	imageLoad.show();
+	searchText.text("searching");
+
+	if(value.trim().length < 1){
+		resultBox.hide();
+		resultsDiv.text("");
+		imageLoad.hide();
+		searchText.text("");
+		return false;	
+	}else{
+		$("#searchForField").css("border","1px solid #ced4da");
+		$("#searchForField").attr("placeholder","Search users");
+	}
+
+	$.ajax({
+		method: "GET",
+		url:nusersSearchResultAdmin,
+		data:{data:value,type:stype, _token:token},
+	}).done(function(response){
+		imageLoad.hide();
+		searchText.text("resutls");
+		if(!$.isEmptyObject(response.resultFound)){
+			resultsDiv.text("");
+			if(stype === "name"){
+				$.each(response.resultFound,function(index,value){
+					resultsDiv.append($("<a href='javascript:void(0)' onclick='getdata(" + '"' + value.fullName  + '"' + ")'>").text(value.fullName));
+				});
+			}else if(stype === "username"){
+				$.each(response.resultFound,function(index,value){
+					resultsDiv.append($("<a href='javascript:void(0)' onclick='getdata(" + '"' + value.username  + '"' + ")'>").text(value.username));
+				});
+			}
+		}else{
+			if(!$.isEmptyObject(response.resultNotFound)){
+				resultsDiv.text(response.resultNotFound);
+				resultsDiv.css("font-size","12px");
+			}
+		}
+
+	}).fail(function(response){
+		imageLoad.hide();
+		searchText.text("resutls");
+		resultsDiv.text("oops! Someting went wrong!");
+		resultsDiv.css("font-size","12px");
+	});
+}
+// EO: This function show the avaibible normal users based on user search

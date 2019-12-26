@@ -126,7 +126,7 @@ function searchNusers(){
 		return false;	
 	}else{
 		$("#searchForField").css("border","1px solid #ced4da");
-		$("#searchForField").attr("placeholder","Search doctors");
+		$("#searchForField").attr("placeholder","Search users");
 	}
 
 	$.ajax({

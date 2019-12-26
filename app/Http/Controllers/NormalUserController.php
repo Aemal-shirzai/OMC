@@ -23,7 +23,7 @@ class NormalUserController extends Controller
      */
     public function index()
     {
-        $nusers = NormalUser::paginate(30);
+        $nusers = NormalUser::where("status",1)->paginate(30);
          return view("normalusers.index",compact("nusers"));
 
     }
@@ -31,9 +31,9 @@ class NormalUserController extends Controller
  // Beggining of the function which retrn the result of the user search using ajax
     public function searchResult(Request $req){
         if($req->type === "name"){
-            $nusers = NormalUser::where("fullName","like","%$req->data%")->select("fullName")->distinct()->get();
+            $nusers = NormalUser::where("fullName","like","%$req->data%")->where('status',1)->select("fullName")->distinct()->get();
         }else if($req->type === "username"){
-            $nusers = Account::where("username","like","%$req->data%")->where('owner_type',"App\NormalUser")->select("username")->get();
+            $nusers = Account::join('normal_users',"accounts.owner_id","=","normal_users.id")->where("accounts.username","like","%$req->data%")->where("accounts.owner_type","App\NormalUser")->where("normal_users.status",1)->select("accounts.username")->get();
         }
         if(count($nusers) > 0){
             return response()->json(["resultFound"=>$nusers]);
@@ -51,10 +51,19 @@ class NormalUserController extends Controller
         ]);
         // return $req->searchFor;
         if($req->searchType === "name"){
-            $nusers = NormalUser::where("fullName",'like',"%$req->searchFor%")->paginate(30);
+            $nusers = NormalUser::where("fullName",'like',"%$req->searchFor%")->where("status",1)->paginate(30);
         }elseif($req->searchType === "username"){
-            $account = Account::where("username",'like',"%$req->searchFor%")->where('owner_type',"App\NormalUser")->first();
-            return redirect()->route("profile",$account->username);
+            // $account = Account::where("username",'like',"%$req->searchFor%")->where('owner_type',"App\NormalUser")->first();
+            $account = Account::where("username",'like',"%$req->searchFor%")->first();
+            if($account){
+                if($account->owner->status != 1){
+                   return view("normalusers.nusersSearch")->with("notFound","Not Found!");
+                }
+                return redirect()->route("profile",$account->username);
+            }else{
+                $notFound = "Not Found!";
+                return view("normalusers.nusersSearch",compact('notFound'));
+            }
         }
 
         return view("normalusers.nusersSearch",compact("nusers"));
@@ -69,9 +78,9 @@ class NormalUserController extends Controller
     */
     public function sortBy($type){
         if($type == "mostQuestions"){
-            $nusers = NormalUser::leftJoin("questions","normal_users.id","=","questions.normal_user_id")->groupBy("normal_users.id")->orderBy('questions_count','desc')->selectRaw("normal_users.*,count(questions.id) as questions_count")->paginate(30);
+            $nusers = NormalUser::leftJoin("questions","normal_users.id","=","questions.normal_user_id")->where("normal_users.status",1)->groupBy("normal_users.id")->orderBy('questions_count','desc')->selectRaw("normal_users.*,count(questions.id) as questions_count")->paginate(30);
         }else if($type == "new"){
-            $nusers = NormalUser::orderBy("created_at","desc")->paginate(20);   
+            $nusers = NormalUser::where("status",1)->orderBy("created_at","desc")->paginate(20);   
         }
         return view("normalUsers.index",compact("nusers","type"));
     }

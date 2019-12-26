@@ -14,7 +14,7 @@
 			<span class="fal fa-user-md"></span> 
 			<span class="adminMunuText">Manage Doctors</span>
 		</a>
-		<a href="#">
+		<a href="{{route('nusers.manage.index')}}" class="{{ (Route::currentRouteName() === 'nusers.manage.index' ? 'adminActive' : '' ) }}">
 			<span class="fal fa-user-cog"></span> 
 			<span class="adminMunuText">Manage Normal Users</span>
 		</a>
