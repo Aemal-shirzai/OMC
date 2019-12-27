@@ -138,12 +138,18 @@
 	</div><!-- header div end -->
 
 	<div id="search-box-div"> <!-- search box div start -->
-		{!! Form::open([]) !!}
+		{!! Form::open(["method"=>"GET","action"=>"QuestionController@search","id"=>"searchForm1"]) !!}
 			<div class="d-flex">
 				<div class="btn btn-light search-box-button" id="search-close-button"><i class="far fa-arrow-left"></i></div>
-				{!! Form::text("search",null,["class"=>"form-control  form-control-lg search-box-button","placeholder"=>"Search here ...","id"=>"search-box"]) !!}
+				{!! Form::text("searchFor",null,["class"=>"form-control  form-control-lg search-box-button","placeholder"=>"Search here ...","id"=>"search-box1","onkeyup"=>"searchQuestions1()"]) !!}
 			</div>
 		{!! Form::close() !!}
+		<div id="searchResult1" >
+			<h6 id="searchInfo1"><span id="searchText1">results</span> <img src="{{asset('images/load1.gif')}}" id="searchLoad1"></h6>
+			<div id="allResultsDiv1">
+
+			</div>
+		</div>
 	</div> <!-- search box div end -->
 
 	<div id="sidebar-large" style=""> <!-- navbar for large screen div start  -->
@@ -356,7 +362,7 @@
 <script src="{{ asset('js/share.js') }}"></script>
 
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/MainLayoutScript11.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/MainLayoutScript.js')}}"></script>
 
 
 
@@ -411,6 +417,8 @@
 <script type="text/javascript">
 	var token = '{{ Session::token() }}';
 	var readMark = '{{route("readMark")}}';
+			// retrive search result using ajax
+		var questionsSearchResult = '{{route("searchResults.questions")}}';
 
 	// route to access the 
 

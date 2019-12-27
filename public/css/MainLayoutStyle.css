@@ -116,7 +116,7 @@ div#search-box-div{
 	display:none;
 }
 
-#search-box{
+#search-box1{
 	border-left: none;
 	border-top: none;
 	border-right: none;
@@ -143,6 +143,49 @@ span#timeAndDate{
 	font-weight: bold;
 }
 
+#searchResult1{
+	background-color: white;
+    padding: 16px 16px;
+    box-shadow: 0px 0px 3px lightgrey;
+    border-radius: 5px;
+    width: 100%;
+    position: absolute;
+    z-index: 1 !important;
+    background-color: white;
+    min-height: 50px;
+    top: 40px;
+    display: none;
+}
+#searchInfo1{
+	margin-bottom: 0px;
+	border-bottom: 1px solid #fdfdfb;
+}
+#searchText1 {
+	color: #bbc0c4;
+	font-size: 17px;
+	margin-bottom: 0px;
+}
+#searchLoad1{
+	width: 40px;
+	float: right;
+	display: none;
+}
+#searchResult1 a{
+	/*border-bottom: 1px solid lightgrey;*/
+	padding:3px 0px;
+	cursor: pointer;
+	font-weight: bold;
+	margin-bottom: 1px;
+	border-radius: 5px;
+	font-size: 17px;
+	display: block;
+	text-decoration: none;
+	color: black;
+}
+#searchResult1 a:hover{
+	background-color: #fdfdfd;
+	
+}
 div#sidebar-large{
 	width: 100%;
 	background-color: white;
@@ -328,6 +371,7 @@ a#notificationLink:hover {
 	top: 4px;
 }
 
+/* user info part */
 
 /*div#userProfileParent:hover div#dropdownContent{
 	display: inline-block;
@@ -531,6 +575,8 @@ div#social-links a:nth-child(5){
 	.search-icon1:hover{
 		font-size: 18px !important;
 	}
+
+
 	div#sidebar-large{
 		margin-top: -4px;
 	}

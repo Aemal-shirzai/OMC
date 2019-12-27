@@ -341,3 +341,81 @@ function markAsRead(value){
 function closeMessage(){
 	$("#notAllowedDiv").fadeOut("slow");
 }
+
+
+
+
+//BO: this function get the value from the ajax return search result and put that into the textfield
+function getdata1(value){
+	$("#search-box1").val(value);
+	$("#search-box1").focus();
+	$("#sidebar-large").css("z-index","1");
+	$("#searchResult1").hide();
+}
+//EO: this function get the value from the ajax return search result and put that into the textfield
+// BO:  function show the avaibible questions based on user search 
+function searchQuestions1(){
+	$("#sidebar-large").css("z-index","0");
+	var value = $("#search-box1").val();
+	var resultBox = $("#searchResult1");
+	var resultsDiv = $("#allResultsDiv1");
+	var imageLoad = $("#searchLoad1");
+	var searchText = $("#searchText1");
+	
+	resultBox.show();
+	imageLoad.show();
+	searchText.text("searching");
+
+	if(value.trim().length < 1){
+		resultBox.hide();
+		$("#sidebar-large").css("z-index","1");
+		resultsDiv.text("");
+		imageLoad.hide();
+		searchText.text("");
+		return false;	
+	}else{
+		$("#searchForField1").css("border","1px solid #ced4da");
+		$("#searchForField1").attr("placeholder","Search doctors");
+	}
+
+	$.ajax({
+		method: "GET",
+		url:questionsSearchResult,
+		data:{data:value, _token:token},
+	}).done(function(response){
+		imageLoad.hide();
+		searchText.text("resutls");
+		if(!$.isEmptyObject(response.resultFound)){
+			resultsDiv.text("");
+			$.each(response.resultFound,function(index,value){
+				resultsDiv.append($("<a href='javascript:void(0)' onclick='getdata1(" + '"' + value.title  + '"' + ")'>").text(value.title));
+			});
+		}else{
+			if(!$.isEmptyObject(response.resultNotFound)){
+				resultsDiv.text(response.resultNotFound);
+				resultsDiv.css("font-size","12px");
+			}
+		}
+
+	}).fail(function(response){
+		imageLoad.hide();
+		searchText.text("resutls");
+		resultsDiv.text("oops! Someting went wrong!");
+		resultsDiv.css("font-size","12px");
+	});
+}
+// EO: This function show the avaibible normal users based on user search
+
+$(document).ready(function(e){
+	$("#searchForm1").submit(function(e){
+		if($("#search-box1").val().trim().length < 1){
+			$("#search-box1").css("border","1px solid red");
+			$("#search-box1").attr("placeholder","You need to type");
+			event.preventDefault();
+		}else if($("#search-box1").val().trim().length > 60){
+			$("#search-box1").css("border","1px solid red");
+			$("#search-box1").attr("placeholder","Too long search");
+			event.preventDefault();
+		}
+	});
+});
