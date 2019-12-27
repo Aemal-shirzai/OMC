@@ -1,3 +1,23 @@
+// reset form
+function enableButtonReset(){
+	var email = document.getElementById("email").value.trim().length;
+
+	if(email > 0){
+		document.getElementById("form_button").disabled = false;
+	}else{
+		document.getElementById("form_button").disabled = true;	
+	}
+}
+function enableButtonReset2(){
+	var email = document.getElementById("email").value.trim().length;
+	var pass = document.getElementById("password").value.trim().length;
+	var confirm = document.getElementById("password-confirm").value.trim().length;
+	if(email > 0 &&  confirm > 0 && pass > 0){
+		document.getElementById("form_button").disabled = false;
+	}else{
+		document.getElementById("form_button").disabled = true;	
+	}
+}
 // funtion which enables the login button in login page
 function enableButton(){
 	var user_email = document.getElementById("email_username").value.trim().length;

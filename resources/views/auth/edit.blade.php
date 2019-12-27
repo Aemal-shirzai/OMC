@@ -379,7 +379,7 @@
 				</div>
 				<div class="form-elements input-group">
 					<span class="note">You must provide your new password for authentication and your old password will not be valid anymore, if you change your password</span>
-					<span class="note"><a href="#" style="color: #3fbbc0;">Forgot Password?</a></span>
+					<!-- <span class="note"><a href="{{route('password.request')}}" style="color: #3fbbc0;">Forgot Password?</a></span> -->
 				</div>
 				{!! Form::hidden("userId",$account->id) !!}
 				<div class="form-elements input-group">

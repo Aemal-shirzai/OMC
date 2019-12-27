@@ -2,7 +2,7 @@
 @section("title","Login")
 
 @section("logo")
-<div id="loginSignUp-logo">
+
 
  @if(session("mustLogin"))
 <div class="alert alert-success alert-sm" id="logoutMessage">
@@ -10,11 +10,13 @@
 </div>
 @endif
     <!-- <img src="{{asset('images/logo.png')}}" class="img-fluid"> -->
-   &nbsp; a
+   <div class="text-center" style="border: 1px solid #3fbbc0;border-radius: 50%;margin: 0 auto;width: 150px;height: 150px;padding: 45px 12px;">
+        <img src="{{asset('images/mainLogo.png')}}" style="width: 120px;">
 </div>
+
 @endsection
 
-@section("form-title","Sign in to OMC")
+@section("form-title","Sign in to OnlineTEB")
 @section("form")
      @if(count($errors) > 0)
         @foreach($errors->all() as $error)
@@ -48,7 +50,7 @@
 
 @section("forgot-privacy-part") 
     <br>
-    <a href="#" class="text-center">Forgot Password?</a>
+    <a href="{{route('password.request')}}" class="text-center">Forgot Password?</a>
 @endsection
 
 

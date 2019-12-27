@@ -4,13 +4,14 @@
 @section("title","Sign Up")
 
 @section("logo")
-<div id="loginSignUp-logo">
     <!-- <img src="{{asset('images/logo.png')}}" class="img-fluid"> -->
-   &nbsp; a
+   <div class="text-center" style="border: 1px solid #3fbbc0;border-radius: 50%;margin: 0 auto;width: 150px;height: 150px;padding: 45px 12px;">
+        <img src="{{asset('images/mainLogo.png')}}" style="width: 120px;">
 </div>
+
 @endsection
 
-@section("form-title","Sign up to OMC")
+@section("form-title","Sign up to OnlineTEB")
 @section("form")
     {!! Form::open(["method"=>"POST","action"=>"Auth\RegisterController@register"]) !!}
         {!! Form::text("fullName",null,["class"=>"form-control form_element ". ($errors->has("fullName") ? "registerBackEndErrorInput" : "") ,"id"=>"fullName","placeholder"=>"Full Name * ","onkeyup"=>"enableButtonSignup()","autofocus"]) !!}

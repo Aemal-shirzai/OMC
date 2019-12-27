@@ -1,47 +1,37 @@
-@extends('layouts.app')
+@extends("../layouts.LoginSignUpLayout")
+@section("title","Reset Password")
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+@section("logo")
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="text-center" style="border: 1px solid #3fbbc0;border-radius: 50%;margin: 0 auto;width: 150px;height: 150px;padding: 45px 12px;">
+        <img src="{{asset('images/mainLogo.png')}}" style="width: 120px;">
 </div>
+@endsection
+
+@section("form-title","Reset password")
+@section('form')
+    @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+    @endif   
+    {!! Form::open(["method"=>"post","action"=>"Auth\ForgotPasswordController@sendResetLinkEmail"]) !!}
+        <div class="form-element-parent">
+            {!! Form::text("email",null,["id"=>"email","class"=>"form-control form_element input-in-login ".($errors->has('email') ? 'is-invalid' : '') ,"placeholder"=>"Type of your Email Address","onkeyup"=>"enableButtonReset()","autofocus","autocomplete"=>"email"]) !!}
+            <i class="fad fa-envelope form-element-icon"></i>
+            <p id="email_usernameError">
+                @error("email")
+                        {{$message}}
+                @enderror
+            </p>
+        </div>
+        {!! Form::submit("Send Password Reset Link",["class"=>"btn btn-primary btn-sm btn-block", "id" => "form_button","onclick"=>"validateLogInForm()","disabled"=>"true"]) !!}
+    {!! Form::close() !!}
+@endsection
+
+
+@section("secondOption")
+        <a href="{{route('register')}}">Sign Up</a>
+        - OR -
+        <a href="{{route('login')}}">Log In</a>
 @endsection

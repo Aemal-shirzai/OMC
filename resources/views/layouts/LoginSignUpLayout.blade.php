@@ -7,7 +7,7 @@
     <!-- Link to bootstap app.css -->
     <link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
     <!-- Link to local login style css file -->
-    <link rel="stylesheet" type="text/css" href="{{asset('css/loginSignUpStyle.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/loginSignUpStyle22.css')}}">
 
     <!-- Linkt to fontawesome  -->
     <link rel="stylesheet" type="text/css" href="{{asset('css/all.min.css')}}">
@@ -21,7 +21,7 @@
 
 <!-- Form -->
 
-<div @if(Route::currentRouteName() == 'login') id="loginForm-container" @elseif(Route::currentRouteName() == 'register') id="signUpForm-container"     @elseif(Route::currentRouteName() == 'moreInfo.index') id="moreInfo-container" @endif class="col-lg-4 col-sm-5">
+<div @if(Route::currentRouteName() == 'login') id="loginForm-container" @elseif(Route::currentRouteName() == 'register') id="signUpForm-container"     @elseif(Route::currentRouteName() == 'moreInfo.index') id="moreInfo-container" @elseif(Route::currentRouteName() == 'password.request') id="loginForm-container") @elseif(Route::currentRouteName() == 'password.reset') id="loginForm-container") @endif class="col-lg-4 col-sm-5">
         
         @yield("logo")
 
@@ -42,7 +42,7 @@
 
 <!--login form div -->
 
-<div @if(Route::currentRouteName() == 'login') id="loginButton" @elseif(Route::currentRouteName() == 'register') id="signUpButton" @elseif(            Route::currentRouteName() == 'moreInfo.index') id="skipButton"  @endif  class="col-lg-4 col-sm-5">
+<div @if(Route::currentRouteName() == 'login') id="loginButton" @elseif(Route::currentRouteName() == 'register') id="signUpButton" @elseif(Route::currentRouteName() == 'moreInfo.index') id="skipButton" @elseif(Route::currentRouteName() == 'password.request') id="loginButton") @elseif(Route::currentRouteName() == 'password.reset') id="loginButton") @endif  class="col-lg-4 col-sm-5">
     <div class="text-center">
        @yield("secondOption")
     </div>
@@ -67,6 +67,6 @@
 <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
 
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/loginSignUpScript.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/loginSignUpScript221.js')}}"></script>
 </body>
 </html>
