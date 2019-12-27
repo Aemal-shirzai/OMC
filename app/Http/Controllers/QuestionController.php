@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\QuestionRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+ use App\Notifications\Admin\questionAdd;
 
 class QuestionController extends Controller
 {
@@ -99,6 +100,15 @@ class QuestionController extends Controller
             $user = Auth::user()->owner;
             $question = $user->questions()->create($request->all());
 
+            if(Auth::user()->where("owner_type","App\NormalUser")->count() > 0){
+                foreach(Auth::user()->where("owner_type","App\NormalUser")->get() as $normalUser){
+                    if($normalUser->owner->role->role == "admin"){
+                        $normalUser->notify(new questionAdd($question));
+                    }
+                }
+            }
+
+
             if($request->tags){
                 foreach($request->tags as $tagId){
                     $tag = DiseaseCategory::findOrFail($tagId);
@@ -131,7 +141,7 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        $mostVotedDoctors = Doctor::orderBy("followers","desc")->get();
+        $mostVotedDoctors = Doctor::where("status",1)->orderBy("followers","desc")->get();
         // This number is for blade to show how many doctors
         $numberOfDoctors = 1;
         return view("questions.show",compact('question','mostVotedDoctors','numberOfDoctors'));

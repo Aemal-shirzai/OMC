@@ -88,6 +88,43 @@ a#topButtonP:focus{
 	margin-left: 4px;
 	display: none;
 }
+
+
+/* notifications part */
+.notificationsTab{
+	width: 30%;
+	float: left;
+	background: transparent;
+	overflow: hidden;
+	margin-left: 2px;
+	padding: 5px;
+	text-align: center;
+	position: relative;
+}
+.notificationsTab a{
+	display: block;
+	position: relative;
+	/*background-color: green;*/
+	padding: 12px 12px;
+	background-color: white;
+	margin-top: 4px;
+	color: #999;
+	border-radius: 5px;
+	transition: 0.5s;
+}
+.notificationsTab a:hover{
+	text-decoration: none;
+	box-shadow: 0px 0px 5px 5px #f9f9f9;
+}
+.notRead{
+	background-color: #f9f9f9 !important;
+}
+.newOrNot{
+	position: absolute;
+	top: 9px;
+	right: 3px;
+}
+
 /* ///////////////////////////////////////////////////////////////// IPHAD PRO /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 1200px) and (min-width: 1024px){	
 	div.confirmationBox{
@@ -107,6 +144,14 @@ a#topButtonP:focus{
 	}
 	.date{
 		font-size: 10px
+	}
+
+	/* notifications part */
+	.notificationsTab a{
+		font-size: 11px;
+	}
+	.newOrNot{
+		top: 37px;
 	}
 }
 /* ///////////////////////////////////////////////////////////////// IPHAD /////////////////////////////////////////////////////////////////// */
@@ -128,6 +173,16 @@ a#topButtonP:focus{
 	}
 	.date{
 		font-size: 10px
+	}
+		/* notifications part */
+	.notificationsTab{
+		margin-left: 20px;
+	}
+	.notificationsTab a{
+		font-size: 11px;
+	}
+	.newOrNot{
+		top: 37px;
 	}
 }
 /* ///////////////////////////////////////////////////////////////// Samll sizes rotate /////////////////////////////////////////////////////////////////// */
@@ -155,6 +210,17 @@ a#topButtonP:focus{
 	}
 	.date{
 		font-size: 9px
+	}
+	/* notifications part */
+	.notificationsTab{
+		margin-left: 14px;
+		padding: 2px;
+	}
+	.notificationsTab a{
+		font-size: 10px;
+	}
+	.newOrNot{
+		top: 37px;
 	}
 }
 /* ///////////////////////////////////////////////////////////////// Samll sizes /////////////////////////////////////////////////////////////////// */
@@ -190,7 +256,30 @@ a#topButtonP:focus{
 	.date{
 		font-size: 8px
 	}
+	/* notifications part */
+	.notificationsTab{
+		width: 100%;
+		float: left;
+		background: transparent;
+		overflow: hidden;
+		margin-left: 0px;
+		padding: 5px;
+		text-align: center;
+		position: relative;
+	}
+	.notificationsTab a{
+		font-size: 9px;
 
+	}
+/*	.notRead{
+		background-color: #f9f9f9 !important;
+	}
+	.newOrNot{
+		position: absolute;
+		top: 9px;
+		right: 3px;
+	}
+*/
 }
 /* ///////////////////////////////////////////////////////////////// Very Samll sizes /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 320px){

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\Admin\postAdd;
 use App\Post;
 use App\Doctor;
 use App\NormalUser;
@@ -103,6 +104,14 @@ class PostController extends Controller
 
             $user = Auth::user()->owner;
             $post = $user->posts()->create($request->all());
+
+            if(Auth::user()->where("owner_type","App\NormalUser")->count() > 0){
+                foreach(Auth::user()->where("owner_type","App\NormalUser")->get() as $normalUser){
+                    if($normalUser->owner->role->role == "admin"){
+                        $normalUser->notify(new postAdd($post));
+                    }
+                }
+            }
 
             if($request->tags){
                 foreach($request->tags as $tagId){

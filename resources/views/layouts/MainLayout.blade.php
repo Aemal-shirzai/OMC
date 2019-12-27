@@ -49,9 +49,9 @@
 	@elseif(Route::currentRouteName() == 'dcategories.manage' || Route::currentRouteName() == 'tags.manage' || Route::currentRouteName() == 'roles.manage')
 	<!-- Link to local styles for admin doctor categories -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/admin/dcategories.css')}}">
-	@elseif(Route::currentRouteName() == 'contact.manage')
+	@elseif(Route::currentRouteName() == 'contact.manage' || Route::currentRouteName() == "admin.dashboard")
 	<!-- Link to local styles for messaes-->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/admin/messages1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/admin/messages8.css')}}">
 	@elseif(Route::currentRouteName() == 'ads.index')
 	<!-- Link to local styles for admin advertisemnts-->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/admin/adds.css')}}">
@@ -95,6 +95,11 @@
 		@auth
 			<div class="dropdown-divider"></div>
 			<a href="{{route('profile',Auth::user()->username)}}" class="fal fa-user smallMenuLogin"> Your profile</a>
+			@can("normalUser_related",Auth::user())
+				@can("admin_related",Auth::user())
+					<a href="{{route('admin.dashboard')}}" class="fal fa-tachometer smallMenuLogin"> Dashboard</a>
+				@endcan
+			@endcan
 			<a href="#" class="fal fa-user-cog smallMenuLogin"> Settings</a>
 			<a href="" class="fal fa-lock smallMenuLogin"> Privacy & policy</a>
 			<a href="" class="fal fa-question-circle smallMenuLogin"> Help</a>
@@ -160,6 +165,12 @@
 				<div class="dropdown-divider"></div>
 				<a href="{{route('profile',Auth::user()->username)}}" class="fal fa-user"> Your profile</a>
 				<div class="dropdown-divider"></div>
+				@can("normalUser_related",Auth::user())
+					@can("admin_related",Auth::user())
+						<a href="{{route('admin.dashboard')}}" class="fal fa-tachometer smallMenuLogin"> Dashboard</a>
+					@endcan
+				@endcan
+				<div class="dropdown-divider"></div>
 				<a href="#" class="fal fa-user-cog"> Settings</a>
 				<div class="dropdown-divider"></div>
 				<a href="" class="fal fa-lock"> Privacy & policy</a>
@@ -172,7 +183,7 @@
 		<!-- Beggining of: Notifications part -->
 		<div class="float-right" id="userNotificationsParent">
 			<a href="javascript:void(0)" id="userNotificationIcon">
-				@if(Auth::user()->unreadnotifications()->count() > 0)
+				@if(Auth::user()->unreadnotifications()->where("type","!=","App\Notifications\Admin\postAdd")->where("type","!=","App\Notifications\Admin\questionAdd")->where("type","!=","App\Notifications\Admin\userAdd")->count() > 0)
 					<sup><span class="badge badge-danger" id="notificationBadge">{{Auth::user()->unreadnotifications()->count()}}</span></sup>
 				@endif
 				<i class="fal fa-bell"></i>			
@@ -183,6 +194,7 @@
 				@if(Auth::user(Auth::user()->notifications()->count() > 0))
 					@foreach(Auth::user()->notifications as $notification)
 					<div id="notification-{{$notification->id}}" class="{{$notification->read_at == '' ? 'notRead' : ''}}" style="position: relative;">
+						@if($notification->data['type'] != "admin.postAdd" && $notification->data['type'] != "admin.questionAdd" && $notification->data['type'] != "admin.userAdd" )
 						@if($notification->type == "App\Notifications\commentToPosts")
 							<a href="{{route('posts.show',$notification->data['post'])}}" id="notificationLink" onclick="markAsRead('{!! $notification->id !!}')">
 						@elseif($notification->type == "App\Notifications\commentForQuestion")
@@ -225,8 +237,10 @@
 								@endif
 							</a>
 						<div class="dropdown-divider" style="margin:1px;"></div>
+						@endif
 					</div>
 					@endforeach
+
 				@else
 					No Notifications! 
 				@endif
@@ -383,7 +397,7 @@
 @elseif(Route::currentRouteName() == 'roles.manage')
 <!-- Link to local styles for roles-->
 <script type="text/javascript" src="{{asset('js/admin/roles1.js')}}"></script>
-@elseif(Route::currentRouteName() == 'contact.manage')
+@elseif(Route::currentRouteName() == 'contact.manage' || Route::currentRouteName() == "admin.dashboard")
 <!-- Link to local styles for messages-->
 <script type="text/javascript" src="{{asset('js/admin/messages1.js')}}"></script>
 @elseif(Route::currentRouteName() == 'ads.index')

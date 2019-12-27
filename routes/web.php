@@ -25,7 +25,7 @@ Route::get("/app",function(){
 
 
 // Admin Layouts
-
+Route::GET("/admin/dashboard","Admin\AdminController@index")->name("admin.dashboard");
 // all doctor fields (dcategories) and form to insert the categories from 
 Route::get("/admin/dcategories","Admin\DcategoryController@dcategories")->name("dcategories.manage");
 // all doctor fields (dcategories) and form to insert the categories from 

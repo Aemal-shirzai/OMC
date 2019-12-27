@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\MoreInfoRequest;
-
-
+use App\Notifications\Admin\userAdd;
+use Illuminate\Auth\Events\Registered;
 use App\Account;
 use App\Doctor;
 use App\NormalUser;
@@ -19,7 +19,7 @@ use App\Country;
 use App\Province;
 use App\District;
 use Carbon\Carbon;
-
+  use RedirectsUsers;
 class RegisterController extends Controller
 {
     /*
@@ -32,6 +32,7 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
+  
 
     use RegistersUsers;
 
@@ -57,6 +58,29 @@ class RegisterController extends Controller
         // to check for guest middleware
         $this->middleware('guest')->except(["moreInfoIndex","moreInfoStore"]);
     }
+
+
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        if(Auth::user()->where("owner_type","App\NormalUser")->count() > 0){
+            foreach(Auth::user()->where("owner_type","App\NormalUser")->get() as $normalUser){
+                if($normalUser->owner->role->role == "admin"){
+                    $normalUser->notify(new userAdd($user));
+                }
+            }
+        }
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
+    }
+
 
     /**
      * Get a validator for an incoming registration request.

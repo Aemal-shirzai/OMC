@@ -1,10 +1,18 @@
 <div id="adminSidebar">
 	<h5>Admin Panel</h5>
 	<div id="adminMenus" >
-		<a href="#">
+		<a href="{{route('admin.dashboard')}}" class="{{ (Route::currentRouteName() === 'admin.dashboard' ? 'adminActive' : '' ) }}">
 			<span class="fal fa-bell"></span> 
 			<span class="adminMunuText">Notifications</span> 
-			<span class="badge badge-danger">4</span>
+			<span class="badge badge-danger">
+				{{
+					Auth::user()->unreadnotifications()->where("type","=","App\Notifications\Admin\postAdd")->count() 
+					+ 
+					Auth::user()->unreadnotifications()->where("type","=","App\Notifications\Admin\questionAdd")->count()
+					+ 
+					Auth::user()->unreadnotifications()->where("type","=","App\Notifications\Admin\userAdd")->count()
+				}}
+			</span>
 		</a>
 		<a href="{{route('contact.manage')}}" class="{{ (Route::currentRouteName() === 'contact.manage' ? 'adminActive' : '' ) }}">
 			<span class="fal fa-envelope"></span>
@@ -18,11 +26,11 @@
 			<span class="fal fa-user-cog"></span> 
 			<span class="adminMunuText">Manage Normal Users</span>
 		</a>
-		<a href="#">
+		<a href="{{route('posts.index')}}">
 			<span class="fal fa-th"></span> 
 			<span class="adminMunuText">Manage Posts</span>
 		</a>
-		<a href="#">
+		<a href="{{route('questions.index')}}">
 			<span class="fal fa-question"></span> 
 			<span class="adminMunuText">Manage Questions</span> 
 		</a>
