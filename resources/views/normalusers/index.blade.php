@@ -91,14 +91,31 @@
 									@can("normaluser_related",Auth::user())
 										@can("admin_related",Auth::user())
 										@if(Auth::user()->isNot($nuser->account))
-										<a href="javascript:void(0)" class="followBtn btn btn-sms" onclick="activateUser('{{$nuser->id}}','nuser')">
+										@if($nuser->role->role != "admin")
+										<a href="javascript:void(0)" class="followBtn btn btn-sms" id="changeStatusButton-{{$nuser->id}}" onclick="activateUser('{{$nuser->id}}','nuser')">
 											<span id="followBtnIcon-{{$nuser->id}}" class="far"></span>
 											<span id="followText-{{$nuser->id}}">
 												{{ ($nuser->status == 1 ? "De-activate User" : "Activate User") }}
 											</span>
 										</a>
 										@endif
+										@endif
 										@endcan
+									@endcan
+									<span class="far fa-check" style="color: #3fbbc0;display: none;" id="adminText-{{$nuser->id}}">Admin</span>
+									@can("admin_related",Auth::user())
+										@if(Auth::user()->isNot($nuser->account))
+										@if($nuser->role->role != 'admin' )
+											<a href="javascript:void(0)" class="followBtn btn btn-sms mt-1" id="changeRoleButton-{{$nuser->id}}" onclick="changeRole('{{$nuser->id}}')">
+												<span id="RoleBtnIcon-{{$nuser->id}}" class="far"></span>
+												<span id="RoleText-{{$nuser->id}}">
+													Promote To Admin
+												</span>
+											</a>
+										@else
+											<span class="far fa-check" style="color: #3fbbc0;display: block;" id="adminText-{{$nuser->id}}">Admin</span>
+										@endif
+										@endif
 									@endcan
 								</span>
 								@if($nuser->country)
@@ -131,6 +148,7 @@
 		var DoctorFollow = '{{route("DoctorFollow")}}';
 		var nusersSearchResult = '{{route("searchResult.nusers")}}';
 		var changeStatusUser = '{{route("admin.changestatus.nusers")}}';
+		var roleChange = '{{route("admin.changeRole.nusers")}}';
 	</script>
 
 @endsection

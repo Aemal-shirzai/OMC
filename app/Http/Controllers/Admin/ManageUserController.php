@@ -14,6 +14,7 @@ use App\DoctorAchievement;
 use App\Post;
 use App\Question;
 use App\NormalUser;
+use App\Role;
 
 use App\Notifications\changeStatus;
 class ManageUserController extends Controller
@@ -169,6 +170,16 @@ class ManageUserController extends Controller
 // Beggining of the function which search the doctor
 
 
-
+    // change role
+    public function changeRole(Request $request){
+        $user = NormalUser::findOrFail($request->id);
+        $roleAdmin = Role::where("role","admin")->first();
+        $roleNormal = Role::where("role","normaluser")->first();
+        if($user->role->role == "admin"){
+            $user->update(["role_id"=>$roleNormal->id]);
+        }else{
+            $user->update(["role_id"=>$roleAdmin->id]);
+        }
+    }
 
 }

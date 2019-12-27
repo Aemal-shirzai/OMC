@@ -104,6 +104,8 @@ Route::get("admin/nusers/search/result","Admin\ManageUserController@nusersearchR
 Route::get("admin/nusers/search","Admin\ManageUserController@nuserSearch")->name("admin.search.nusers");
 // route to activate and dectivate user
 Route::PUT("/admin/nusers/changestatus","Admin\ManageUserController@changeStatus")->name("admin.changestatus.nusers");
+// route to change role for user
+Route::PUT("/admin/nusers/changerole","Admin\ManageUserController@changeRole")->name("admin.changeRole.nusers");
 
 // Routes for Auth
 Auth::routes();

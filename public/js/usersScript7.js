@@ -257,3 +257,24 @@ function activateUser(id,type){
 	}
 
 }
+
+
+function changeRole(id){
+	$("#RoleBtnIcon-"+id).addClass("fa-spinner");
+	$("#RoleText-"+id).text("changing....");
+	event.preventDefault();
+	
+	$.ajax({
+		method: "PUT",
+		url:roleChange,
+		data:{id:id, _token:token}
+	}).done(function(response){
+		$("#RoleBtnIcon-"+id).removeClass("fa-spinner");
+		$("#RoleText-"+id).text("changged");
+		$("#adminText-"+id).show();
+		$("#changeStatusButton-"+id).remove();
+		$("#changeRoleButton-"+id).remove();
+	}).fail(function(response){
+
+	});
+}
