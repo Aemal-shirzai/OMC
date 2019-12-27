@@ -549,7 +549,7 @@ function vote(postId,type){
 					
 				return false;
 			}
-		});  // done function end
+		});
 }
 //End of : The function which add and update vote to post
 
@@ -614,10 +614,43 @@ function voteComments(commentId,type){
 				}
 			}
 
-
-
-		});  // done function end
+		}).fail(function(response){
+			if(response.status == 403){
+				$("#notAllowedDiv").fadeIn("slow");
+				if(type == "upVote"){ // if the up voted is clicked
+					if($("#commentVotedUpCheck-"+commentId).hasClass("fa-check")){ // if the up voted button has the class fa-check
+					
+					 	$("#commentVotedUpCheck-"+commentId).addClass("fas fa-check upVotedCheck"); // if there is not class fa-check then add up vote that class
+				 		$("#commentOptionsVoteUpIcon-"+commentId).css("color","#3fbbc0"); //change icon color to green
+				 		$("#commentOptionsLoadingUpText-"+commentId).text("");
+					 	
+					}else{ // if the voted button has no class fa-check it means we vote here not taking our vote back
+						$("#commentVotedUpCheck-"+commentId).removeClass("fas fa-check upVotedCheck"); // then remove that class from it, it means we click up vote for two reason to get our vote back or to vote someting and this is the first case
+				 		$("#commentOptionsVoteUpIcon-"+commentId).css("color","#666"); // change icon color
+				 		$("#commentOptionsLoadingUpText-"+commentId).text("");
+					}
+				}
+				if(type == "downVote"){ // if the user is clicking the down vote button
+				if($("#commentVotedDownCheck-"+commentId).hasClass("fa-check")){ // now if the down voted is already clicked it means it that the user has already down voted the post
+					$("#commentVotedDownCheck-"+commentId).removeClass("fas fa-check upVotedCheck"); // then remove it . because clicking one button for the second time should take the vote back
+			 		$("#commentOptionsVoteDownIcon-"+commentId).css("color","#666"); // change the icon color
+			 		$("#commentOptionsLoadingDownText-"+commentId).text("");
+					
+					$("#commentVotedDownCheck-"+commentId).addClass("fas fa-check upVotedCheck"); // now add the class to down vote button because we are downvoting
+					$("#commentOptionsVoteDownIcon-"+commentId).css("color","#3fbbc0"); //change the icon color
+					$("#commentOptionsLoadingDownText-"+commentId).text("");
+				}else{ // if the user is clickin the down vote for first time
+					
+					$("#commentVotedDownCheck-"+commentId).removeClass("fas fa-check upVotedCheck"); // then remove it . because clicking one button for the second time should take the vote back
+			 		$("#commentOptionsVoteDownIcon-"+commentId).css("color","#666"); // change the icon color
+			 		$("#commentOptionsLoadingDownText-"+commentId).text("");
+					
+				}
+			}
+			}
+		});
 }
+
 //End of : The function which add and update vote to comments
 
 
@@ -677,6 +710,33 @@ function voteReplies(replyId,type)
 					$("#replyOptionsVoteDownIcon-"+replyId).css("color","#3fbbc0"); //change the icon color
 					$("#replyOptionsLoadingDownText-"+replyId).text("");
 					$("#replyOptionsVoteDownCount-"+replyId).text(parseInt($("#replyOptionsVoteDownCount-"+replyId).text())+1); // and add one to the total of the down voted votes
+				}
+			}
+		}).fail(function(response){
+			if(response.status == 403){
+				$("#notAllowedDiv").fadeIn("slow");
+				if(type == "upVote"){ // if the up voted is clicked
+					if($("#replyVotedUpCheck-"+replyId).hasClass("fa-check")){ // if the up voted button has the class fa-check
+						$("#replyVotedUpCheck-"+replyId).addClass("fas fa-check upVotedCheck"); // if there is not class fa-check then add up vote that class
+				 		$("#replyVotedUpCheck-"+replyId).css("color","#3fbbc0"); //change icon color to green
+				 		$("#replyOptionsLoadingUpText-"+replyId).text("");
+					}else{ // if the voted button has no class fa-check it means we vote here not taking our vote back
+						$("#replyVotedUpCheck-"+replyId).removeClass("fas fa-check upVotedCheck"); // then remove that class from it, it means we click up vote for two reason to get our vote back or to vote someting and this is the first case
+				 		$("#replyOptionsVoteUpIcon-"+replyId).css("color","#666"); // change icon color
+				 		$("#replyOptionsLoadingUpText-"+replyId).text("");
+
+					}
+				}if(type == "downVote"){ // if the user is clicking the down vote button
+					if($("#replyVotedDownCheck-"+replyId).hasClass("fa-check")){ // now if the down voted is already clicked it means it that the user has already down voted the post
+						$("#replyVotedDownCheck-"+replyId).addClass("fas fa-check upVotedCheck"); // now add the class to down vote button because we are downvoting
+						$("#replyOptionsVoteDownIcon-"+replyId).css("color","#3fbbc0"); //change the icon color
+						$("#replyOptionsLoadingDownText-"+replyId).text("");			
+					}else{ // if the user is clickin the down vote for first time
+						$("#replyVotedDownCheck-"+replyId).removeClass("fas fa-check upVotedCheck"); // then remove it . because clicking one button for the second time should take the vote back
+				 		$("#replyOptionsVoteDownIcon-"+replyId).css("color","#666"); // change the icon color
+				 		$("#replyOptionsLoadingDownText-"+replyId).text("");
+						
+					}
 				}
 			}
 		});	
@@ -840,6 +900,12 @@ function deleteComments(commentId,postId){
 		$("#commentcounts1-"+postId).text(parseInt($("#commentcounts1-"+postId).text())-1);
 		$("#commentDeleteButton-"+commentId).text(" Delete");
 		$("#commentDeleteButton-"+commentId).css("color","#666");
+	}).fail(function(response){
+		if(response.status == 403){
+			$("#notAllowedDiv").fadeIn("slow");
+			$("#commentDeleteButton-"+commentId).text("Delete");
+			$("#commentDeleteButton-"+commentId).css("color","#999");
+		}
 	});
 }
 // End of the function which delete comment
@@ -877,6 +943,12 @@ function deleteReplies(replyId,commentId){
 		$("#replies-count1-"+commentId).text(parseInt($("#replies-count1-"+commentId).text())-1);
 		$("#deleteReplyButton-"+replyId).text(" Delete");
 		$("#deleteReplyButton-"+replyId).css("color","#666");
+	}).fail(function(response){
+		if(response.status == 403){
+			$("#notAllowedDiv").fadeIn("slow");
+			$("#deleteReplyButton-"+replyId).text("Delete");
+			$("#deleteReplyButton-"+replyId).css("color","#999");
+		}
 	});
 }
 // End of the function which delete replies-count1
