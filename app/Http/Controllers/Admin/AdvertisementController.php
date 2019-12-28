@@ -16,7 +16,7 @@ use App\AdvertisementCategory;
 class AdvertisementController extends Controller
 {
     public function __construct(){
-    	return $this->middleware(["auth","isAdmin"]);
+    	return $this->middleware(["auth","isAdmin"])->except("readMore");
     }
 
     public function index(){

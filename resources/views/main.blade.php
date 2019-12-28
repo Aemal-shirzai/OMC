@@ -17,10 +17,10 @@
 <!-- Secion1 start -->
 <div id="section1" > 
     <div id="slogan" class="col-lg-12 col-sm-12 text-center">
-        <h2>We think harder to make life easy</h2>
+        <h2>We think smarter to make life easy</h2>
     </div> 
     <div id="sloganDetail" class="col-lg-5 col-sm-8 text-center">
-        <p>We think harder to make life easy We think harder to make life easy We think harder to make life easy We think harder to make life easy We think harder to make life easy</p>
+        <p>Online health community is a place where people "medical experts, patients and others" gathers in order to access and share health-related information</p>
     </div>
     <div id="sloganButtons" class="col-lg-4  text-center">
         <a href="javascript:void(0)" id="forUsersBtn" class="btn  userDoctorBtn">For Users</a>
@@ -59,7 +59,7 @@
             </p>
             <div class="text-center"> 
                 <a href="{{route('questions.create')}}" class="btn btn-sm descriptionContentButtons">Ask Question</a>
-                <a href="#" class="btn btn-sm descriptionContentButtons">Find Qustion</a>
+                <a href="{{route('questions.index')}}" class="btn btn-sm descriptionContentButtons">Find Qustion</a>
             </div>
         </div>
          <!-- find and ask question div end -->
@@ -76,7 +76,7 @@
                 Find your medical experts regarding to their location, profession, and publicity. <a href="{{route('register')}}">Sign up</a> for free account.   
             </p>
             <div class="text-center"> 
-                <a href="#" class="btn btn-sm descriptionContentButtons">Find Doctors</a>
+                <a href="{{route('doctors.index')}}" class="btn btn-sm descriptionContentButtons">Find Doctors</a>
             </div>
         </div>
         <!-- Reach Doctors div end -->
@@ -88,13 +88,12 @@
         <!-- view add ads div start -->
         <div id="addAds" class="col-lg-3 text-center">
             <span class="fas fa-ad section2Icons"></span>
-            <h6>View and Add Advertisements</h6>
             <p class="container">
                 Search and find the latest advertisements and share your advertisements through omc. <a href="{{route('register')}}">Sign up</a> for free account.   
             </p>
              <div class="text-center"> 
                 <a href="javascript:void(0)" id="forUsersViewAds" class="btn btn-sm descriptionContentButtons">View ads</a>
-                <a href="#" class="btn btn-sm descriptionContentButtons">Add your ads</a>
+                <a href="{{route('contactus.index')}}" class="btn btn-sm descriptionContentButtons">Add your ads</a>
             </div>
         </div>
         <!-- view add ads div end -->
@@ -133,7 +132,7 @@
             </div>
             <div class="col-10">
                 <p>
-                    Share your knowladege regarding health with other by adding a <a href="#">post</a> to your profile.
+                    Share your knowladege regarding health with other by adding a <a href="{{route('posts.create')}}">post</a> to your profile.
                 </p>
             </div>
         </div>
@@ -146,7 +145,7 @@
             </div>
             <div class="col-10">
                 <p>
-                    Help poeple diffrentiate the right and wrong information by <a href="#">voting</a> others poeple work.
+                    Help poeple diffrentiate the right and wrong information by voting  others poeples' <a href="{{route('posts.index')}}">Posts</a> & <a href="{{route('questions.index')}}">Questions</a>
                 </p>
             </div>
         </div>
@@ -159,7 +158,7 @@
             </div>
             <div class="col-10">
                 <p>
-                    Increase your publicity by accelerating your discovery through omc <a href="#">advertising</a>.
+                    Increase your publicity by accelerating your discovery through omc <a href="{{route('contactus.index')}}">advertising</a>.
                 </p>
             </div>
         </div>
@@ -199,7 +198,7 @@
             <h5 class="text-center">No Advertisements for now!</h5>
         @endif
     </div>
-     <div class="text-center mb-2" title="All advertisements"><a href="#" class="btn btn-primary btn-sm" style="background-color:  #3fbbc0;border:1px solid #3fbbc0;">View All Advertisements</a></div>
+     <!-- <div class="text-center mb-2" title="All advertisements"><a href="#" class="btn btn-primary btn-sm" style="background-color:  #3fbbc0;border:1px solid #3fbbc0;">View All Advertisements</a></div> -->
         <!-- advertisements readmore div -->
     <div id="readmorediv">
         <div id="closeButtonReadmore"  class="far fa-times float-right" onclick="closeReadMore()"></div>

@@ -85,7 +85,7 @@
 		<a href="{{route('posts.index')}}" @if(Route::currentRouteName() == 'posts.index' || Route::currentRouteName() == 'postsSortBy')class="active" @endif><span class="fal fa-th"></span> Posts</a>
 		<a href="{{route('questions.index')}}" @if(Route::currentRouteName() == 'questions.index' || Route::currentRouteName() == 'questionsSortBy')class="active" @endif><span class="fal fa-th"></span> Questions</a>
 		<a href="{{route('doctors.index')}}" @if(Route::currentRouteName() == 'doctors.index')class="active" @endif><span class="fal fa-user-md"></span> Doctors</a>
-		<a href="#"><span class="fal fa-tags"></span> Tags</a>
+		<a href="{{route('nusers.index')}}"><span class="fal fa-tags"></span> Normal Users</a>
 		<a @if(Route::currentRouteName() == 'main') href="javascript:void(0)" class="contactUs" @else href="{{route('contactus.index')}}" @endif><span class="fal fa-envelope"></span> Contact Us</a>
 		@guest
 			<a href="{{route('login')}}"><span class="fal fa-sign-in-alt"></span> Sign In</a>
@@ -256,7 +256,7 @@
 		<!-- End of: Notifications part -->
 		@endauth
 		<a  @if(Route::currentRouteName() == 'main') href="javascript:void(0)" class="contactUs" @else href="{{route('contactus.index')}}" @endif> Contact Us</a>
-		<a href="#">Tags</a>
+		<a href="{{route('nusers.index')}}" @if(Route::currentRouteName() == 'nusers.index')class="active" @endif> Normal Users</a>
 		<a href="{{route('doctors.index')}}" @if(Route::currentRouteName() == 'doctors.index')class="active" @endif></span> Doctors</a>
 		<a href="{{route('questions.index')}}" @if(Route::currentRouteName() == 'questions.index' || Route::currentRouteName() == 'questionsSortBy')class="active" @endif> Questions</a>
 		<a href="{{route('posts.index')}}" @if(Route::currentRouteName() == 'posts.index' || Route::currentRouteName() == 'postsSortBy')class="active" @endif>Posts</a>
@@ -337,10 +337,10 @@
 			</div>
 			<div class="col-lg-3 col-sm-3" id="social-links">
 				<h5>Follow us</h5>
-				<a href="#" class="fab fa-facebook"></a>
-				<a href="#" class="fab fa-twitter"></a>
-				<a href="#" class="fab fa-linkedin"></a>
-				<a href="#" class="fab fa-github"></a>
+				<a href="http://www.facebook.com" class="fab fa-facebook"></a>
+				<a href="http://www.fa-twitter.com" class="fab fa-twitter"></a>
+				<a href="http://www.fa-linkedin.com" class="fab fa-linkedin"></a>
+				<a href="http://www.github.com" class="fab fa-github"></a>
 			</div>
 		</div>
 	</div>
