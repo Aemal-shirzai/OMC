@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle.css')}}">	
+	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle1.css')}}">	
 
 	<!-- Link to local css file -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/admin/adminLayout.css')}}">
@@ -21,9 +21,8 @@
 	
 	@elseif(Route::currentRouteName() == 'profile')
 	<!-- Link to local profile style for profile page -->
-	
 	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle1.css')}}">
-	
+
 	@elseif(Route::currentRouteName() == 'posts.create' || Route::currentRouteName() == 'questions.create' || Route::currentRouteName() == 'posts.edit' || Route::currentRouteName() == 'questions.edit' || Route::currentRouteName() == 'comments.edit' || Route::currentRouteName() == 'replies.edit')
 	<!-- Link to local  style for posts add page -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/postsAndQuestionsStyle11.css')}}">
@@ -87,7 +86,7 @@
 		<a href="{{route('questions.index')}}" @if(Route::currentRouteName() == 'questions.index' || Route::currentRouteName() == 'questionsSortBy')class="active" @endif><span class="fal fa-th"></span> Questions</a>
 		<a href="{{route('doctors.index')}}" @if(Route::currentRouteName() == 'doctors.index')class="active" @endif><span class="fal fa-user-md"></span> Doctors</a>
 		<a href="#"><span class="fal fa-tags"></span> Tags</a>
-		<a href="javascript:void(0)" class="contactUs"><span class="fal fa-envelope"></span> Contact Us</a>
+		<a @if(Route::currentRouteName() == 'main') href="javascript:void(0)" class="contactUs" @else href="{{route('contactus.index')}}" @endif><span class="fal fa-envelope"></span> Contact Us</a>
 		@guest
 			<a href="{{route('login')}}"><span class="fal fa-sign-in-alt"></span> Sign In</a>
 			<a href="{{route('register')}}"><span class="fal fa-plus"></span> Sign Up</a>
@@ -256,7 +255,7 @@
 		</div>	
 		<!-- End of: Notifications part -->
 		@endauth
-		<a href="javascript:void(0)" class="contactUs">Contact Us</a>
+		<a  @if(Route::currentRouteName() == 'main') href="javascript:void(0)" class="contactUs" @else href="{{route('contactus.index')}}" @endif> Contact Us</a>
 		<a href="#">Tags</a>
 		<a href="{{route('doctors.index')}}" @if(Route::currentRouteName() == 'doctors.index')class="active" @endif></span> Doctors</a>
 		<a href="{{route('questions.index')}}" @if(Route::currentRouteName() == 'questions.index' || Route::currentRouteName() == 'questionsSortBy')class="active" @endif> Questions</a>
@@ -321,7 +320,7 @@
 				<h5>omc</h5>
 				<a href="#">About OMC</a>
 				<a href="#">About Developers</a>
-				<a href="#">Contact Us</a>
+				<a @if(Route::currentRouteName() == 'main') href="javascript:void(0)" class="contactUs" @else href="{{route('contactus.index')}}" @endif>Contact Us</a>
 				<a href="#">Privacy and Policy</a>
 			</div>
 			<div class="col-lg-3 col-sm-3" id="general">
@@ -362,7 +361,7 @@
 <script src="{{ asset('js/share.js') }}"></script>
 
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/MainLayoutScript.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/MainLayoutScript1.js')}}"></script>
 
 
 
@@ -417,8 +416,8 @@
 <script type="text/javascript">
 	var token = '{{ Session::token() }}';
 	var readMark = '{{route("readMark")}}';
-			// retrive search result using ajax
-		var questionsSearchResult = '{{route("searchResults.questions")}}';
+	// retrive search result using ajax
+	var questionsSearchResult = '{{route("searchResults.questions")}}';
 
 	// route to access the 
 

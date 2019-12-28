@@ -89,14 +89,29 @@ function enableContactButton(){
 	}
 }
 
+function enableContactButton1(){
+	var fullName = document.getElementById("fullName");
+	var phoneNumber = document.getElementById("phoneNumber");
+	var emailAddress = document.getElementById("emailAddress");
+	var message = document.getElementById("message");
+	var button = document.getElementById("contactButton");
+	if(fullName.value.trim().length > 0 && phoneNumber.value.trim().length > 0 && emailAddress.value.trim().length > 0 && message.value.trim().length > 0){
+		button.disabled = false;
+		
+	}else{
+		button.disabled = true;
+		
+	}
+}
+
 // End of : function which enable the contact us button
 
 // Beggining of : function which validate contact form
 
 function validateContactForm(){
 	var fullName = document.getElementById("fullName");
-	var fullNameError = document.getElementById("fullNameErrorSmall");
-	var fullNameErrorSmall = document.getElementById("fullNameError");
+	var fullNameErrorSmall = document.getElementById("fullNameErrorSmall");
+	var fullNameError = document.getElementById("fullNameError");
 	var phoneNumber = document.getElementById("phoneNumber");
 	var phoneNumberError = document.getElementById("phoneNumberError");
 	var phoneNumberErrorSmall = document.getElementById("phoneNumberErrorSmall");
@@ -132,14 +147,12 @@ function validateContactForm(){
 		emailAddress.style.border = "1px solid red";
 		emailAddressError.innerHTML = "Email field is required....";
 		emailAddressErrorSmall.innerHTML = "Email field is required....";
-		emailAddress.placeholder = "Email field is required....";
 		event.preventDefault();
 	}else if(!emailAddress.value.trim().match(/^[^<>]*$/ig)){
 		emailAddress.focus();
 		emailAddress.style.border = "1px solid red";
 		emailAddressError.innerHTML = "Invalid Email Address..."
 		emailAddressErrorSmall.innerHTML = "Invalid Email Address..."
-		emailAddress.placeholder = "Invalid Email Address...";
 		event.preventDefault();
 	}
 	else{
@@ -155,14 +168,12 @@ function validateContactForm(){
 		phoneNumber.style.border = "1px solid red";
 		phoneNumberError.innerHTML = "Phone number is required...";
 		phoneNumberErrorSmall.innerHTML = "Phone number is required...";
-		phoneNumber.placeholder = "Phone field is required....";
 		event.preventDefault();
 	}else if(!phoneNumber.value.trim().match(/^([0-9+() ]+)-*([ 0-9-]+)$/ig)){
 		phoneNumber.focus();
 		phoneNumber.style.border = "1px solid red";
 		phoneNumberError.innerHTML = "Invalid phone number...";
 		phoneNumberErrorSmall.innerHTML = "Invalid phone number...";
-		phoneNumber.placeholder = "Invalid phone number...";
 		event.preventDefault();
 	}
 	else{
@@ -178,14 +189,18 @@ function validateContactForm(){
 		fullName.style.border = "1px solid red";
 		fullNameError.innerHTML = "Full Name file is required...";
 		fullNameErrorSmall.innerHTML = "Full Name file is required...";
-		fullName.placeholder = "Full name field is required...";
 		event.preventDefault();
 	}else if(!fullName.value.match(/^[^<>]*$/ig)){
 		fullName.focus();
 		fullName.style.border = "1px solid red";
 		fullNameError.innerHTML = "Invalid Name...";
 		fullNameErrorSmall.innerHTML = "Invalid Name...";
-		fullName.placeholder = "Invalid Name...";
+		event.preventDefault();
+	}else if(fullName.value.trim().length < 3){
+		fullName.focus();
+		fullName.style.border = "1px solid red";
+		fullNameError.innerHTML = "Full Name file is must be altleas 3 chars...";
+		fullNameErrorSmall.innerHTML = "Full Name file is must be altleas 3 chars...";
 		event.preventDefault();
 	}
 	else{

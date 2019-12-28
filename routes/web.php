@@ -132,6 +132,8 @@ Route::DELETE('/profile/photo/remove', 'ProfileController@removePhoto')->name('p
 
 // Routes for contuct us
 Route::POST('/contactUs/store','ContactUsController@store')->name("contuctus.store");
+// to loead seperate contact us page
+Route::get("/contactUs","ContactUsController@index")->name("contactus.index");
 
 
 //Search posts route

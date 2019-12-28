@@ -1,3 +1,99 @@
+/*contact us*/
+.panel-heading {
+  padding: 20px;
+  border-bottom: 1px solid transparent;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.panel.panel-skin {
+  border-color: #ddd;
+}
+
+.panel-skin > .panel-heading {
+  color: #fff;
+  background-color: #3fbbc0;
+  border-color: #3fbbc0;
+  box-shadow: none;
+}
+
+.panel-body {
+  padding: 20px;
+}
+
+.form-wrapper h3.panel-title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.form-wrapper h3.panel-title span {
+	font-size: 20px;
+	margin: 0 10px 0 0;
+}
+
+.form-wrapper h3.panel-title small {
+	font-size: 16px;
+	color: #ddd;
+}
+
+form.lead label,form.lead input {
+	font-size: 16px;
+}
+
+.panel-body {
+  background: #fff;
+}
+
+.panel-skin > .panel-heading .badge {
+  background-color: #fff;
+}
+
+.form-control:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+#contactButton{
+	border: 1px solid #3fbbc0;
+	background-color: #3fbbc0;
+	padding:4px 12px;
+	border-radius: 5px;
+	font-size: 12px;
+	color: white;
+
+}
+div.contactErrorMsgs{
+	font-size: 10px;
+	color: red;
+	padding-left: 10px; 
+}
+div.contactErrorMsgsSmallScreen{
+	display: none;
+}
+.ContactBackEndErrorInput{
+		border:1px solid red !important;
+		color: red !important;
+}
+
+.mainPageMsgs{
+	box-shadow: 0px 0px 20px 0px #d7f3e3; 
+}
+#message{
+	resize: none;
+}
+
+/* beggineing of:  This class is for the contact form when it is enabled using javascript */
+.activeContactButton{
+	background-color: white !important;
+	border: 1px solid #3fbbc0 !important;
+
+}
+.activeContactButton:hover{
+	background-color: #3fbbc0 !important;
+	color: white !important;
+}
+/*wnd contact us*/
 #notAllowedDiv{
 	width: 40%;
 	height: 340px;
