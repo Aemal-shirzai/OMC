@@ -300,6 +300,8 @@
 								<a href="{{route('questions.edit',$question->id)}}" class="PostEditDelete"><span class="fas fa-edit"></span> Edit</a>
 							</li>
 						</span>
+						@endif
+						@if(Auth::user()->id === $question->owner->account->id || (Auth::user()->owner_type == "App\NormalUser" && Auth::user()->owner->role->role == "admin"))
 						<span title="Delete Post">
 							<li>
 								<a href="javascript:void(0)" id="postDeleteOption-{{$question->id}}" class="PostEditDelete" onclick="openQuestionConfirmation()"><span class="fas fa-trash"></span> <Span id="questionDeleteText">Delete</Span></a>

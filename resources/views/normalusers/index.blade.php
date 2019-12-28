@@ -103,6 +103,7 @@
 										@endcan
 									@endcan
 									<span class="far fa-check" style="color: #3fbbc0;display: none;" id="adminText-{{$nuser->id}}">Admin</span>
+									@can("normaluser_related",Auth::user())
 									@can("admin_related",Auth::user())
 										@if(Auth::user()->isNot($nuser->account))
 										@if($nuser->role->role != 'admin' )
@@ -116,6 +117,7 @@
 											<span class="far fa-check" style="color: #3fbbc0;display: block;" id="adminText-{{$nuser->id}}">Admin</span>
 										@endif
 										@endif
+									@endcan
 									@endcan
 								</span>
 								@if($nuser->country)

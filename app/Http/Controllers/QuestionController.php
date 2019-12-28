@@ -298,12 +298,11 @@ class QuestionController extends Controller
 // Beggining fo the function wich delete posts using ajax
     public function delete(Request $request){
         
-        if($this->authorize("normalUser_related",Auth::user())){
+        if((Auth::user()->owner_type == "App\NormalUser" && Auth::user()->owner->role->role == "admin" )||$this->authorize("normalUser_related",Auth::user())){
 
             // find question
             $question = Question::findOrFail($request->question_id);
             //  if the user which is requesting to delte the post really has this question or not
-            if(Auth::user()->owner->questions()->where("questions.id",$request->question_id)->first()){
 
                 // To delte the photo for the question
                 if($question->photos()->count() > 0){
@@ -321,7 +320,7 @@ class QuestionController extends Controller
                 // To delte the post
                 $question->delete();
 
-            }
+        
 
         } // End of authorize function
     }
