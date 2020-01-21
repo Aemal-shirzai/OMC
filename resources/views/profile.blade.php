@@ -429,7 +429,6 @@
 								@if(count($post->comments) > 0)
 									<div class="mb-2 ml-2 comments-count" id="countComment-{{$post->id}}" style="font-weight: bold;"><span id="commentsCount-{{$post->id}}">{{count($post->comments)}}</span> Comments</div>
 									@foreach($post->comments()->orderBy("created_at","desc")->get() as $comment)
-
 										<!-- Beggining of: Image part of comment owner -->
 										<div class="allcommentsOwnerImage" id="allcommentsOwnerImage-{{$comment->id}}">
 											@if(count($comment->comment_owner->photos) > 0)							

@@ -239,6 +239,11 @@ $(".commentForm").submit(function(e){
 	var formData = new FormData(this);
 	var post_id = formData.get('post_id');
 	showAllCommentsAjax(post_id);
+	
+	$('#countComment-'+post_id).after(
+		`${showLoad()}
+		`
+	);
 	$.ajax({
 		method: "POST",
 		url:commentAdd,
@@ -247,8 +252,9 @@ $(".commentForm").submit(function(e){
 		cache:false,	
 		processData:false,
 	}).done(function(response){
+		$("#commentAddLoad").remove();
 		if(!$.isEmptyObject(response.comment)){
-			console.log(response.comment);
+			// console.log(response.comment);
 			$('#countComment-'+post_id).after(
 				`
 				<div class="allcommentsOwnerImage" id="allcommentsOwnerImage-${response.comment['id']}">
@@ -280,6 +286,7 @@ $(".commentForm").submit(function(e){
 			$(`#msg-${post_id}`).text(response.overAllError);
 		}
 	}).fail(function(response){
+		$("#commentAddLoad").remove();
 		$(`#fileError-${post_id}`).show();
 		$(`#msg-${post_id}`).text("OOPS! something went wrong please try again");
 	});
@@ -1760,5 +1767,12 @@ var showAllCommentsAjax = (postId) =>{
 	$("#allComments-"+postId).show();
 		$("html,body").animate({
 		scrollTop: $("#addCommentBtn-"+postId).offset().top-200},"slow");
+}
+var showLoad = () =>{
+	return `
+		<div class="text-center" id="commentAddLoad">
+			<img  src="/images/load1.gif" class="mb-3 mt-3 text-center">
+		</div>
+	`;
 }
 
