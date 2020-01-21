@@ -24,6 +24,7 @@ function validateCommentForm(postId){
 	var photoField = document.getElementById("commentPhotoField-"+postId);
 
 	if(field.value.trim().length >= 65500){
+		// 65500
 		field.focus();
 		$("#fileError-"+postId).show();
 		$("#msg-"+postId).text("Too Long Text");
@@ -187,7 +188,6 @@ function closeMsgs(value){
 	}
 // Endof of the function which Remove the comment image when click remove image
 
-
 $(document).ready(function(){
 // Adding comment serverside successs
  if(scroll === "on"){
@@ -232,6 +232,63 @@ $(document).ready(function(){
 		scrollTop: $("#allComments-"+post_id).scrollTop() + $("#allCommentsContent-"+comment_id).position().top},"fast");	
  }
 // End of reply error messsgae scroll
+
+// add comments using ajax
+$(".commentForm").submit(function(e){
+	event.preventDefault();
+	var formData = new FormData(this);
+	var post_id = formData.get('post_id');
+	showAllCommentsAjax(post_id);
+	$.ajax({
+		method: "POST",
+		url:commentAdd,
+		data: formData,
+		contentType:false,
+		cache:false,	
+		processData:false,
+	}).done(function(response){
+		if(!$.isEmptyObject(response.comment)){
+			console.log(response.comment);
+			$('#countComment-'+post_id).after(
+				`
+				<div class="allcommentsOwnerImage" id="allcommentsOwnerImage-${response.comment['id']}">
+					${commentOwnerPhotoShow(response.comment['ownerPhoto'],response.comment['ownerType'])}
+					${commentOwnerInfoShow(response.comment['fullName'],response.comment['username'],response.comment['createTime'])}
+				</div>	
+				<div class="allCommentsContent" id="allCommentsContent-${response.comment['id']}">
+					${commentContentShow(response.comment['id'],response.comment['content'])}
+					${commentImageShow(response.comment['photo'])}
+					${commentOptionsShow(response.comment['id'])}
+				</div>
+				<div class ="reply" id="reply-${response.comment['id']}">
+					${commentRepliesForm(response.comment['id'])}
+				</div>
+
+				<div class="allReplies" id="allReplies-${response.comment['id']}">
+					
+				</div>
+				`
+			);
+			$(`#commentImageDiv-${post_id}`).hide("fast");	
+			$(".commentForm").trigger("reset");	
+			$(`#commentField-${post_id}`).attr("rows",'1');	
+		}else if(!$.isEmptyObject(response.errors)){
+			$(`#fileError-${post_id}`).show();
+			$(`#msg-${post_id}`).text(`${response.errors['content'] ? (0 in response.errors['content'] ? response.errors['content'][0] : '') : ''} , ${response.errors['photo'] ? (0 in response.errors['photo'] ? response.errors['photo'][0] : '')  : ""}`);
+		}else if(!$.isEmptyObject(response.overAllError)){
+			$(`#fileError-${post_id}`).show();
+			$(`#msg-${post_id}`).text(response.overAllError);
+		}
+	}).fail(function(response){
+		$(`#fileError-${post_id}`).show();
+		$(`#msg-${post_id}`).text("OOPS! something went wrong please try again");
+	});
+
+
+});
+
+
+
 
 });
 
@@ -1579,3 +1636,129 @@ function deleteFields(fieldId){
 		$("#fieldMessage").text("SomeThing went wrong!");
 	});
 }
+
+
+
+// functions to show comments and its replies usign ajax
+
+var commentOptionsShow = (id) =>{
+	return `
+		<div class="commetOptions" id="commentOptions-${id}">
+			<button class="btn" title="Reply" onclick="showReplies(${id})">
+				<a href="javascript:void(0)"> 
+					<span class="fal fa-reply commentOptionsIcons"></span>  
+					<span class="commentVotes">. Reply.  <span id="replies-count1-${id}">0</span> </span>
+				</a> 
+			</button>
+			<button class="btn" onclick="voteComments('${id}','upVote')" title="The answer was usefull">
+				<a href="javascript:void(0)">
+					<span id="commentVotedUpCheck-${id}"></span>
+					<span class="fal fa-arrow-alt-up commentOptionsIcons" id="commentOptionsVoteUpIcon-${id}"></span>
+					. <span class="commentVotes" id="commentOptionsVoteUpCount-${id}">0</span>
+				</a>
+			</button>
+			<button class="btn" onclick="voteComments('${id}','downVote')" title="The answer was not usefull">
+				<a href="javascript:void(0)">
+					<span id="commentVotedDownCheck-${id}"></span>
+					<span class="fal fa-arrow-alt-down commentOptionsIcons" id="commentOptionsVoteDownIcon-${id}"></span>
+					. <span class="commentVotes" id="commentOptionsVoteDownCount-${id}">0</span>
+				</a>
+			</button>
+			<a href="/comments/${id}/edit"><button class=" commentManageOptions fal fa-edit float-right"> Edit</button></a>
+			<button class="commentManageOptions fal fa-trash float-right" id="commentDeleteButton-${id}" onclick="deleteCommentPermission('${id}')"> Delete</button>
+			
+			<div class="confirmationBox" id="commentConfirmationBox-${id}">
+				<div id="text">Are You Sure You Want To Delete?</div>
+				<div id="text"><small>Remember: There is no comeback</small></div>
+				<a href="javascript:void(0)" onclick="deleteComments('${id}','{{$post->id}}')" class="btn btn-danger btn-sm">Delete</a>
+				<a href="javascript:void(0)" onclick="closePermissionBox('${id}')" class="btn btn-light btn-sm">Cancel</a>
+			</div>
+		</div>
+	`;
+}
+var commentImageShow = (photo) =>{
+	if(photo === ''){
+		return 	``;
+	}else{
+		return `
+			<div id="commentImage" class="text-center" style="overflow: hidden;">
+				<a href="/storage/images/comments/${photo}" target="__blank">
+					<img src="/storage/images/comments/${photo}" class="">
+				</a>
+			</div>
+		`;
+	}
+}
+var commentContentShow = (id,content) => {
+	if(content != null){
+		if(content.length > 500){
+			return `
+				<p id="halfComment-${id}">${content.substring(0,500)} <a href="javascript:void(0)" class="readMoreLess" onclick="showComplete(${id},'comment')">... Read more...</a></p>
+				<p id="completeComment-${id}" style="display: none;">${content} <a href="javascript:void(0)" class="readMoreLess" onclick="showLess(${id},'comment')"> Read less...</a></p>
+			`;		
+		}else{
+			return `<p>${content}</p>`
+		}
+	}else{
+		return ``;
+	}
+}
+var commentOwnerPhotoShow = (photo,ownerType) =>{
+
+	if(photo === ''){
+		return `<span class="fal fa-user" id="no-image-in-comment"></span>`;
+	}else{
+		if(ownerType === "App\\Doctor"){
+			return `<img src="/storage/images/doctors/${photo}">`;
+
+		}else{
+			return `<img src="/storage/images/normalUsers/${photo}">`;
+		}
+	}
+}
+var commentOwnerInfoShow = (fullName,userName,createTime) => {
+	return `
+		<div class="commentOwnerName">
+			<a href="${userName}"><span>${fullName}</span></a> 
+				<span class="commentcreateTime">Commented:${createTime}</span>
+		</div>
+	`;
+}
+var commentRepliesForm = (commentId) => {
+	return `
+		<div class="alert alert-danger replyImageVideoErrorMsg" id="replyPhotoError-${commentId}" >
+			<button class="close" onclick="closeReplyMsgs(${commentId})">&times;</button>
+			<span id="replymsg-${commentId}">
+			</span>
+		</div>
+		<div class="commentImageDiv" id="replyImageDiv-${commentId}">
+			<button class="close removeImage" onclick="removeReplyImage(${commentId})">&times; 
+				<span class="removeEditCommentPhotoText"> Remove photo</span>
+			</button>
+			<a href="javascript:void(0)" class="fal fa-edit ml-2" onclick="openReplyPhotoField(${commentId})">
+				<span class="removeEditCommentPhotoText">Change photo</span>
+			</a>
+			<div class="text-center" style="overflow: hidden;">
+				<img src="" id="replyImg-${commentId}" >
+			</div>
+		</div>
+		<form method="post" action="/replies" enctype=multipart/form-data>
+			<div class="input-group">
+				<input type="hidden" name="_token" value='${token}'>
+				<input type="file" name="replyPhoto" class="replyPhotoField", accept="image/*" id="replyPhotoField-${commentId}" onchange="showAndValidateReplyFile(${commentId})">
+				<textarea  name="replyContent" class="form-control replyField" placeholder="Add Reply..." id="replyField-${commentId}" rows="1" maxlength="65500" 
+				 onkeyup="do_resize_and_enable_reply_button(this,${commentId})"></textarea>
+				 <input type="hidden" name="comment_id" value="${commentId}">
+				 <input type="submit" name="submit" value="Reply" class="btn btn-sm addReplyBtn" id="addReplyBtn-${commentId}" disabled="true" onclick="validateReplyForm(${commentId})">
+				 <i class="fal fa-camera replyPhotoButton" id="replyPhotoButton-${commentId}" onclick="openReplyPhotoField(${commentId})"></i>
+			</div>
+		</form>
+	`;
+}
+
+var showAllCommentsAjax = (postId) =>{
+	$("#allComments-"+postId).show();
+		$("html,body").animate({
+		scrollTop: $("#addCommentBtn-"+postId).offset().top-200},"slow");
+}
+

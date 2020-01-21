@@ -48,6 +48,7 @@ class commentForQuestion extends Notification
             "byAccount" => $this->comment->comment_owner->owner_type,
             "byPhoto"   => $this->byPhoto,
             'question' => $this->question->id,
+            'type' => "commentToQuestion",
             'message' => "Answered your question",
         ];
     }

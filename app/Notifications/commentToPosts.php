@@ -61,6 +61,7 @@ class commentToPosts extends Notification
             "byAccount" => $this->comment->comment_owner->owner_type,
             "byPhoto"   => $this->byPhoto,
             'post' => $this->post->id,
+            'type' => "commentToPost",
             'message' => "commented on your post",
         ];
     }

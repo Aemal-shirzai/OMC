@@ -1,7 +1,7 @@
 @extends('layouts.MainLayout')
 
 
-@section('title', 'omc')
+@section('title', 'OnlineTEB')
   
 @section('content')
 @if(session("success"))
@@ -33,7 +33,7 @@
 <div id="section2">
     <!-- section 2 heading start -->
     <div id="section2Heading" class="col-lg-12 col-sm-12 text-center">
-        <h2>For users, by online medical community</h2>
+        <h2>For users, by OnlineTEB</h2>
     </div>
     <!-- section 2 heading end -->
 
@@ -44,7 +44,7 @@
     <!-- section 2 description start -->
     <div id="section2Description"  class="col-lg-4 col-sm-8 text-center">
         <p>
-           OMC is an online medical community. We help you get answers to yours medical problems, share information with others , reach your desired medical experts, and share your advertisement through omc. </p>
+           OnlineTEB is an online medical community. We help you get answers to yours medical problems, share information with others , reach your desired medical experts, and share your advertisement through OnlineTEB. </p>
     </div>
     <!-- section 2 description end -->
 
@@ -89,7 +89,7 @@
         <div id="addAds" class="col-lg-3 text-center">
             <span class="fas fa-ad section2Icons"></span>
             <p class="container">
-                Search and find the latest advertisements and share your advertisements through omc. <a href="{{route('register')}}">Sign up</a> for free account.   
+                Search and find the latest advertisements and share your advertisements through OnlineTEB. <a href="{{route('register')}}">Sign up</a> for free account.   
             </p>
              <div class="text-center"> 
                 <a href="javascript:void(0)" id="forUsersViewAds" class="btn btn-sm descriptionContentButtons">View ads</a>
@@ -106,7 +106,7 @@
 <div id="section3">
     <!-- section 3 heading start -->
     <div id="section3Heading" class="col-lg-12 col-sm-12 text-center">
-        <h2>For doctors, by online medical community</h2>
+        <h2>For doctors, by OnlineTEB</h2>
     </div>
     <!-- section 3 heading end -->
 
@@ -117,7 +117,7 @@
     <!-- section 3 description start -->
     <div id="section3Description"  class="col-lg-4 col-sm-8 text-center">
         <p>
-            Our mission is to help medical experts get publicity in short time. This means that other peoples will be able to find medical experts easily through omc.
+            Our mission is to help medical experts get publicity in short time. This means that other peoples will be able to find medical experts easily through OnlineTEB.
         </p>
     </div>
     <!-- section 3 description end -->
@@ -158,7 +158,7 @@
             </div>
             <div class="col-10">
                 <p>
-                    Increase your publicity by accelerating your discovery through omc <a href="{{route('contactus.index')}}">advertising</a>.
+                    Increase your publicity by accelerating your discovery through OnlineTEB <a href="{{route('contactus.index')}}">advertising</a>.
                 </p>
             </div>
         </div>

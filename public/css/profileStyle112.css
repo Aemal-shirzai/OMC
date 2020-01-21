@@ -1,3 +1,6 @@
+.overAllError{
+	border:1px solid red;
+}
 #footer{
 	margin-top: 40px;
 }
@@ -127,6 +130,9 @@ div#posts{
 	padding: 0 20%;
 	margin-bottom: 13px !important;
 }
+.mainPosts{
+
+}
 div.postPic{
 	overflow: hidden;
 	width: 100%;
@@ -150,7 +156,7 @@ div.postPic a:hover span#fullName{
 	text-decoration: underline;
 }
 div#ownerName{
-	color: black;
+	color: #3fbbc0;
 	display: inline-block;
 	padding-left: 12px;
 }
@@ -178,7 +184,7 @@ div.postContent p{
 	word-wrap: break-word;
 	text-align: justify;
 	font-size: 14px;
-	margin-bottom: 0px;
+	margin-bottom: 10px;
 }
 div#postImage{
 	width: 100%;

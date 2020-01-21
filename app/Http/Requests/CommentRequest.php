@@ -3,7 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\ValidationException;
 class CommentRequest extends FormRequest
 {
     /**
@@ -24,14 +25,16 @@ class CommentRequest extends FormRequest
     public function rules()
     {
         return [
+            "content" => "bail|max:6",
             "photo" => "bail|image|max:10240|min:1",
         ];
     }
 
     public function messages(){
         return [
+            "content.max" => "To long comments are not allowed", 
             "photo.image" => "Invalid file. Only photos are allowed...",
-            "photo.max"   => "File too large. max 10MB..."
+            "photo.max"   => "File too large. max 10MB...",
         ];
     }
 }

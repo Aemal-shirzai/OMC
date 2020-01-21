@@ -21,7 +21,7 @@
 	
 	@elseif(Route::currentRouteName() == 'profile')
 	<!-- Link to local profile style for profile page -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle1.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/profileStyle112.css')}}">
 
 	@elseif(Route::currentRouteName() == 'posts.create' || Route::currentRouteName() == 'questions.create' || Route::currentRouteName() == 'posts.edit' || Route::currentRouteName() == 'questions.edit' || Route::currentRouteName() == 'comments.edit' || Route::currentRouteName() == 'replies.edit')
 	<!-- Link to local  style for posts add page -->
@@ -99,9 +99,9 @@
 					<a href="{{route('admin.dashboard')}}" class="fal fa-tachometer smallMenuLogin"> Dashboard</a>
 				@endcan
 			@endcan
-			<a href="#" class="fal fa-user-cog smallMenuLogin"> Settings</a>
-			<a href="" class="fal fa-lock smallMenuLogin"> Privacy & policy</a>
-			<a href="" class="fal fa-question-circle smallMenuLogin"> Help</a>
+			<a href="{{route('profile.edit',Auth::user()->username)}}" class="fal fa-user-cog smallMenuLogin"> Settings</a>
+			<!-- <a href="" class="fal fa-lock smallMenuLogin"> Privacy & policy</a> -->
+			<a href="{{route('contactus.index')}}" class="fal fa-question-circle smallMenuLogin"> Help</a>
 			<a href="#" onclick="document.getElementById('logoutForm').submit();event.preventDefault();" class="fal fa-sign-out-alt smallMenuLogin"> Sign out</a>
 		@endauth
 	</div>
@@ -140,7 +140,7 @@
 		{!! Form::open(["method"=>"GET","action"=>"QuestionController@search","id"=>"searchForm1"]) !!}
 			<div class="d-flex">
 				<div class="btn btn-light search-box-button" id="search-close-button"><i class="far fa-arrow-left"></i></div>
-				{!! Form::text("searchFor",null,["class"=>"form-control  form-control-lg search-box-button","placeholder"=>"Search here ...","id"=>"search-box1","onkeyup"=>"searchQuestions1()"]) !!}
+				{!! Form::text("searchFor",null,["class"=>"form-control  form-control-lg search-box-button","placeholder"=>"Search here ...","id"=>"search-box1","onkeyup"=>"searchQuestions1()","autocomplete"=>"off"]) !!}
 			</div>
 		{!! Form::close() !!}
 		<div id="searchResult1" >
@@ -166,7 +166,7 @@
 			</a>
 			<div id="dropdownContent">
 				Signed in as
-				<a href="#"><b>{{Auth::user()->username}}</b></a>
+				<a href="{{route('profile',Auth::user()->username)}}"><b>{{Auth::user()->username}}</b></a>
 				<div class="dropdown-divider"></div>
 				<a href="{{route('profile',Auth::user()->username)}}" class="fal fa-user"> Your profile</a>
 				<div class="dropdown-divider"></div>
@@ -176,11 +176,9 @@
 					@endcan
 				@endcan
 				<div class="dropdown-divider"></div>
-				<a href="#" class="fal fa-user-cog"> Settings</a>
+				<a href="{{route('profile.edit',Auth::user()->username)}}" class="fal fa-user-cog smallMenuLogin"> Settings</a>
 				<div class="dropdown-divider"></div>
-				<a href="" class="fal fa-lock"> Privacy & policy</a>
-				<div class="dropdown-divider"></div>
-				<a href="" class="fal fa-question-circle"> Help</a>
+				<a href="{{route('contactus.index')}}" class="fal fa-question-circle smallMenuLogin"> Help</a>
 				<div class="dropdown-divider"></div>
 				<a href="#" onclick="document.getElementById('logoutForm').submit();event.preventDefault();" class="fal fa-sign-out-alt"> Sign out</a>
 			</div>
@@ -367,7 +365,7 @@
 
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
-<script type="text/javascript" src="{{asset('js/profileScript7.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/profileScript222.js')}}"></script>
 @elseif(Route::currentRouteName() == 'main')
 <script type="text/javascript" src="{{asset('js/main.js')}}"></script>
 @elseif(Route::currentRouteName() == 'posts.create' || Route::currentRouteName() == 'questions.create' || Route::currentRouteName() == 'posts.edit' || Route::currentRouteName() == 'questions.edit' ||  Route::currentRouteName() == 'comments.edit' || Route::currentRouteName() == 'replies.edit')

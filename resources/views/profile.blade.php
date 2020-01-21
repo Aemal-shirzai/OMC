@@ -147,7 +147,7 @@
 		@if(count($posts) > 0)
 			@foreach($posts as $post)
 
-			<div id="mainPost-{{$post->id}}">
+			<div id="mainPost-{{$post->id}}" class="mainPosts">
 				<!-- Beggining of post owne pic -->
 				<div class="postPic" id="postPic-{{$post->id}}">
 					<div class="dropdown-divider col-10" id="divider"></div>
@@ -219,7 +219,7 @@
 				</div>
 				<!-- End of div of postContent -->
 
-				<div class="clearfix"></div>
+				<div class="clearfix" style="float: left;"></div>
 					<div class="options">
 						<!-- Beggining of the posts options that should be visible only for auth users -->
 						@auth
@@ -358,7 +358,7 @@
 					<div id="commentPart">
 						<!-- Note: this div is used to show the error messages of both client side and serverside NOTE:ids names are confusing here -->
 
-						<div class="alert alert-danger commentImageVideoErrorMsg" id="fileError-{{$post->id}}" >
+						<div class="alert alert-danger commentImageVideoErrorMsg text-center" id="fileError-{{$post->id}}" >
 							<button class="close" onclick="closeMsgs({!! $post->id !!})">&times;</button>
 							<span id="msg-{{$post->id}}">
 								@error('photo')
@@ -409,7 +409,7 @@
 							<!-- Beggining of div: The form for adding comments -->
 							
 							<div id="comment">
-								{!! Form::open(["method"=>"post","action"=>"CommentController@store","files"=>"true"]) !!}		
+								{!! Form::open(["method"=>"post","action"=>"CommentController@store","files"=>"true","class"=>"commentForm"]) !!}		
 									<div class="input-group">
 										{!! Form::file("photo",["class"=>"commentPhotoField","accept"=>"image/*","id"=>"commentPhotoField-$post->id","onchange"=>"showAndValidateFile($post->id)"]) !!}
 										<textarea  name="content" class="form-control commentField" placeholder="Add Comment to post..." id="commentField-{{$post->id}}" rows="1" maxlength="65500" 
@@ -427,8 +427,8 @@
 							<!-- Beggining of all comments part -->
 							<div class="allComments" id="allComments-{{$post->id}}">
 								@if(count($post->comments) > 0)
-									<b><div class="mb-2 ml-2 comments-count"><span id="commentsCount-{{$post->id}}">{{count($post->comments)}}</span> Comments</div></b>
-									@foreach($post->comments as $comment)
+									<div class="mb-2 ml-2 comments-count" id="countComment-{{$post->id}}" style="font-weight: bold;"><span id="commentsCount-{{$post->id}}">{{count($post->comments)}}</span> Comments</div>
+									@foreach($post->comments()->orderBy("created_at","desc")->get() as $comment)
 
 										<!-- Beggining of: Image part of comment owner -->
 										<div class="allcommentsOwnerImage" id="allcommentsOwnerImage-{{$comment->id}}">
@@ -719,7 +719,7 @@
 										<div class="dropdown-divider" id="dividerForComments"></div>
 									@endforeach
 								@else
-									<span class="no-comment">No Comment</span>	
+									<span class="no-comment" id="countComment-{{$post->id}}">No Comment</span>	
 								@endif
 							</div>
 							<!-- End of : all comments content part -->
@@ -730,6 +730,7 @@
 					</div>
 					<!-- ///////////////////////////////////////// End of comment part ////////////////////////////////////////////////////////////////-->
 			</div> <!-- End of main post div  -->
+
 			@endforeach
 		@else
 			<h4 class="mt-2">No Posts To Display!</h4>
@@ -1517,6 +1518,7 @@
 	<script type="text/javascript">
 		var token = '{{ Session::token() }}';
 		var postVote = '{{route("postVote")}}';
+		var commentAdd = '{{route("comments.store")}}';
 		var commentVote = '{{route("commentVote")}}';
 		var replyVote = '{{route("replyVote")}}';
 
