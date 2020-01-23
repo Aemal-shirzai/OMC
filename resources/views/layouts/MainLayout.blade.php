@@ -4,6 +4,8 @@
 	<title>@yield("title")</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
+	<link rel="icon" type="image/png" href="{{asset('images/mainLogo.png')}}">
+
 	<!-- Link to bootstap app.css -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
@@ -349,6 +351,7 @@
 
 
 </div><!-- Parent Div End -->
+
 <!-- link to boootstrap app.js -->
 <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
 
@@ -365,7 +368,7 @@
 
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
-<script type="text/javascript" src="{{asset('js/profileScript1212.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/profileScript.js')}}"></script>
 @elseif(Route::currentRouteName() == 'main')
 <script type="text/javascript" src="{{asset('js/main.js')}}"></script>
 @elseif(Route::currentRouteName() == 'posts.create' || Route::currentRouteName() == 'questions.create' || Route::currentRouteName() == 'posts.edit' || Route::currentRouteName() == 'questions.edit' ||  Route::currentRouteName() == 'comments.edit' || Route::currentRouteName() == 'replies.edit')
@@ -418,8 +421,8 @@
 	var questionsSearchResult = '{{route("searchResults.questions")}}';
 
 	// route to access the 
-
 </script>
+
 
 @yield("scripts")
 

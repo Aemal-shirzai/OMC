@@ -4,6 +4,7 @@
 <head>
     <title>@yield("title")</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="icon" type="image/png" href="{{asset('images/mainLogo.png')}}">
     <!-- Link to bootstap app.css -->
     <link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
     <!-- Link to local login style css file -->
@@ -12,10 +13,7 @@
     <!-- Linkt to fontawesome  -->
     <link rel="stylesheet" type="text/css" href="{{asset('css/all.min.css')}}">
 
-    <script type="text/javascript">
-    
-
-    </script>
+    <script type="text/javascript"></script>
 </head>
 <body>
 

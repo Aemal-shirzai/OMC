@@ -588,7 +588,7 @@
 										<!-- Beggining of form for replies -->
 										@auth
 											<div class ="reply" id="reply-{{$comment->id}}">
-												{!! Form::open(["method"=>"post","action"=>"CommentReplyController@store","files"=>"true"]) !!}		
+												{!! Form::open(["method"=>"post","action"=>"CommentReplyController@store","files"=>"true","id"=>"repliesForm-$comment->id","onsubmit"=>"addReply(event)"]) !!}		
 													<div class="input-group">
 														{!! Form::file("replyPhoto",["class"=>"replyPhotoField","accept"=>"image/*","id"=>"replyPhotoField-$comment->id","onchange"=>"showAndValidateReplyFile($comment->id)"]) !!}
 														<textarea  name="replyContent" class="form-control replyField" placeholder="Add Reply..." id="replyField-{{$comment->id}}" rows="1" maxlength="65500" 
@@ -608,8 +608,8 @@
 										<div class="allReplies" id="allReplies-{{$comment->id}}">
 											
 											@if(count($comment->replies) > 0)
-											<b><div class="mb-2 replies-count"><span id="replies-count-{{$comment->id}}">{{count($comment->replies)}}</span> Replies</div></b>
-													@foreach($comment->replies as $reply)
+											<div class="mb-2 replies-count" id="replyCount-{{$comment->id}}" style="font-weight: bold;"><span id="replies-count-{{$comment->id}}">{{count($comment->replies)}}</span> Replies</div>
+													@foreach($comment->replies()->orderBy("created_at","desc")->get() as $reply)
 														<!-- replied by image -->
 														<div class="allRepliesOwnerImage" id="replyOwnerInfo-{{$reply->id}}">
 															@if(count($reply->owner->photos) > 0)						
@@ -688,7 +688,7 @@
 																<div id="text"><small>Remember: There is no comeback</small></div>
 																<a href="javascript:void(0)" onclick="deleteReplies('{{$reply->id}}','{{$comment->id}}')" class="btn btn-danger btn-sm">Delete</a>
 																<a href="javascript:void(0)" onclick="closeDeleteReplyPermission('{{$reply->id}}')" class="btn btn-light btn-sm">Cancel</a>
-														</div>
+															</div>
 
 
 															@endauth
@@ -711,14 +711,14 @@
 														<div class="dropdown-divider reply-divider"></div>
 													@endforeach
 											@else
-												<div class="no-comment">No Replies</div>
+												<div class="mb-2 replies-count" id="replyCount-{{$comment->id}}" style="font-weight: bold;"><span id="replies-count-{{$comment->id}}">0</span> Replies</div>
 											@endif
 										</div>
 										<!-- End of: of the showing all replies for a comment -->
 										<div class="dropdown-divider" id="dividerForComments"></div>
 									@endforeach
 								@else
-									<span class="no-comment" id="countComment-{{$post->id}}">No Comment</span>	
+									<div class="mb-2 ml-2 comments-count" id="countComment-{{$post->id}}" style="font-weight: bold;"><span id="commentsCount-{{$post->id}}">0</span> Comments</div>	
 								@endif
 							</div>
 							<!-- End of : all comments content part -->
@@ -1520,6 +1520,7 @@
 		var commentAdd = '{{route("comments.store")}}';
 		var commentVote = '{{route("commentVote")}}';
 		var replyVote = '{{route("replyVote")}}';
+		var replyAdd = '{{route("replies.store")}}';
 
 		// This route is to add qiestion to favorite
 		var questionFavorites = '{{route("questionFavorites")}}';

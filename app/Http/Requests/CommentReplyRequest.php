@@ -25,7 +25,7 @@ class CommentReplyRequest extends FormRequest
     {
         return [
             "replyPhoto" => "bail|image|max:10240|min:1",
-            "content"   => "bail|max:65500"
+            "replyContent"   => "bail|max:65500"
         ];
     }
 
@@ -33,7 +33,7 @@ class CommentReplyRequest extends FormRequest
         return [
             "replyPhoto.image" => "Invalid file. Only photos are allowed...",
             "replyPhoto.max"   => "File too large. max 10MB...",
-            "content.max"      => "The length of text entered is too large..."
+            "replyContent.max"      => "The length of text entered is too large..."
         ];
     }
 }

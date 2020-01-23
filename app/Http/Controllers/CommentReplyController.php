@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\CommentReply;
 use Illuminate\Http\Request;
 use App\Http\Requests\CommentReplyRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\replyToComment;
+
+
+use App\CommentReply;
 use App\Comment;
+
+use Validator;
 class CommentReplyController extends Controller
 {
     public function __construct(){
@@ -41,10 +45,32 @@ class CommentReplyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CommentReplyRequest $request)
-    {
+    public function store(Request $request)
+    {   
+        // Validations part start
+        $validator = Validator::make($request->all(),[
+            "replyContent" => "bail|max:6000",
+            "replyPhoto" => "bail|image|max:10240|min:1",
+        ],[
+            "replyContent.max" => "The length of text entered is too large...", 
+            "replyPhoto.image" => "Invalid file. Only photos are allowed...",
+            "replyPhoto.max"   => "File too large. max 10MB...",
+        ]);
+
+        if($validator->fails()){
+            if($request->ajax()){
+                return response()->json(['errors'=>$validator->errors()]);
+            }else{
+                return back()->withInput()->withErrors($validator->errors());
+            }
+        }
+
         if($request->replyContent == "" && !$request->hasFile('replyPhoto')){
-            return back()->withInput()->with("replyError","The reply content can not be null");
+             if($request->ajax()){
+                return response()->json(['overAllError'=>"The reply content can not be null"]);
+            }else{
+                return back()->withInput()->with("replyError","The reply content can not be null");
+            }
         }
 
         $user = Auth::user();
@@ -82,7 +108,6 @@ class CommentReplyController extends Controller
                      }else{
                         $comment->comment_owner_type->owner->account->notify(new replyToComment($reply,$comment,"replied to a comment in your question"));
                      }
-                   
                 }
             }else{
                 if(Auth::user()->isNot($comment->comment_owner_type->owner->account)){
@@ -94,6 +119,16 @@ class CommentReplyController extends Controller
                 }
             }
 
+            if($request->ajax()){
+                $CreateTime = $reply->created_at->diffForHumans();
+                $reply['createTime'] = $CreateTime; 
+                $reply['fullName'] = $reply->owner->owner->fullName;
+                $reply['username'] = $reply->owner->username;
+                $reply['ownerPhoto'] = ($reply->owner->photos()->where("status",1)->first() ? $reply->owner->photos()->where("status",1)->first()->path : "");
+                $reply['ownerType'] = $reply->owner->owner_type;
+                $reply['photo'] = ($reply->photos()->where("status",1)->first() ? $reply->photos()->where("status",1)->first()->path : "");
+                return response()->json(["reply"=>$reply]);
+            }
 
             if(url()->previous() == route('questions.index')){
                  return back()->with(["replySuccess"=>"Your reply has been Added.","comment_id"=>$request->comment_id,"ToScrollTo_id"=>$request->question_id_for_replies]);

@@ -240,7 +240,7 @@ $(".commentForm").submit(function(e){
 	var post_id = formData.get('post_id');
 	showAllCommentsAjax(post_id);
 	
-	$('#countComment-'+post_id).after(
+	$(`#countComment-${post_id}`).after(
 		`${showLoad()}
 		`
 	);
@@ -254,30 +254,27 @@ $(".commentForm").submit(function(e){
 	}).done(function(response){
 		$("#commentAddLoad").remove();
 		if(!$.isEmptyObject(response.comment)){
-			// console.log(response.comment);
-			$('#countComment-'+post_id).after(
+			afterReplyCommentDone(post_id,"comment");
+			$(`#countComment-${post_id}`).after(
 				`
 				<div class="allcommentsOwnerImage" id="allcommentsOwnerImage-${response.comment['id']}">
-					${commentOwnerPhotoShow(response.comment['ownerPhoto'],response.comment['ownerType'])}
+					${commentReplyOwnerPhotoShow(response.comment['ownerPhoto'],response.comment['ownerType'])}
 					${commentOwnerInfoShow(response.comment['fullName'],response.comment['username'],response.comment['createTime'])}
 				</div>	
 				<div class="allCommentsContent" id="allCommentsContent-${response.comment['id']}">
 					${commentContentShow(response.comment['id'],response.comment['content'])}
 					${commentImageShow(response.comment['photo'])}
-					${commentOptionsShow(response.comment['id'])}
+					${commentOptionsShow(response.comment['id'],post_id)}
 				</div>
 				<div class ="reply" id="reply-${response.comment['id']}">
-					${commentRepliesForm(response.comment['id'])}
+					${commentRepliesForm(response.comment['id'],post_id)}
 				</div>
 
 				<div class="allReplies" id="allReplies-${response.comment['id']}">
-					
+					<div class="mb-2 replies-count" id="replyCount-${response.comment['id']}" style="font-weight: bold;"><span id="replies-count-${response.comment['id']}">0</span> Replies</div>
 				</div>
 				`
 			);
-			$(`#commentImageDiv-${post_id}`).hide("fast");	
-			$(".commentForm").trigger("reset");	
-			$(`#commentField-${post_id}`).attr("rows",'1');	
 		}else if(!$.isEmptyObject(response.errors)){
 			$(`#fileError-${post_id}`).show();
 			$(`#msg-${post_id}`).text(`${response.errors['content'] ? (0 in response.errors['content'] ? response.errors['content'][0] : '') : ''} , ${response.errors['photo'] ? (0 in response.errors['photo'] ? response.errors['photo'][0] : '')  : ""}`);
@@ -290,14 +287,63 @@ $(".commentForm").submit(function(e){
 		$(`#fileError-${post_id}`).show();
 		$(`#msg-${post_id}`).text("OOPS! something went wrong please try again");
 	});
-
-
 });
 
 
 
 
 });
+
+// adding replies to comments
+var addReply = (e)=>{
+	event.preventDefault();
+
+	var formData = new FormData(e.target);
+	var comment_id = formData.get('comment_id');
+
+	$(`#replyCount-${comment_id}`).after(
+		`${showLoad()}
+		`
+	);
+	$.ajax({
+		method: "POST",
+		url:replyAdd,
+		data: formData,
+		contentType:false,
+		cache:false,	
+		processData:false,
+	}).done(function(response){
+			$("#commentAddLoad").remove();
+			if(!$.isEmptyObject(response.reply)){
+				afterReplyCommentDone(comment_id,"reply");
+				$(`#replyCount-${comment_id}`).after(
+					`<div class="allRepliesOwnerImage" id="replyOwnerInfo-${response.reply['id']}">
+						${commentReplyOwnerPhotoShow(response.reply['ownerPhoto'],response.reply['ownerType'])}
+						${replyOwnerInfoShow(response.reply['fullName'],response.reply['username'],response.reply['createTime'])}
+				 	 </div>
+				 	 <div class="allRepliessContent" id="allRepliessContent-${response.reply['id']}">
+				 	 	${replyContentShow(response.reply['id'],response.reply['content'])}
+				 	 	${replyImageShow(response.reply['photo'])}
+						${replyOptionsShow(response.reply['id'],comment_id)}
+				 	 </div>
+					`
+				);
+			}else if(!$.isEmptyObject(response.errors)){
+				$(`#replyPhotoError-${comment_id}`).show();
+				$(`#replymsg-${comment_id}`).text(`${response.errors['replyContent'] ? (0 in response.errors['replyContent'] ? response.errors['replyContent'][0] : '') : ''} , ${response.errors['replyPhoto'] ? (0 in response.errors['replyPhoto'] ? response.errors['replyPhoto'][0] : '')  : ""}`);
+			}else if(!$.isEmptyObject(response.overAllError)){
+				$(`#replyPhotoError-${comment_id}`).show();
+				$(`#replyPhotoError-${comment_id}`).text(response.overAllError);
+			}
+	}).fail(function(response){
+			$("#commentAddLoad").remove();
+			$(`#replyPhotoError-${comment_id}`).show();
+			$(`#replyPhotoError-${comment_id}`).text("OOPS! something went wrong please try again");
+			
+	});
+
+}
+
 
 // beggining of: the function which shows all comments
 function showAllComments(value){
@@ -342,7 +388,7 @@ function validateReplyForm(commentId){
 
 
 
-	if(field.value.trim().length >= 65500){
+	if(field.value.trim().length >= 6000){
 		field.focus();
 		$("#replyPhotoError-"+commentId).show();
 		$("#replymsg-"+commentId).text("Too Long Text");
@@ -1648,7 +1694,7 @@ function deleteFields(fieldId){
 
 // functions to show comments and its replies usign ajax
 
-var commentOptionsShow = (id) =>{
+var commentOptionsShow = (id,post_id) =>{
 	return `
 		<div class="commetOptions" id="commentOptions-${id}">
 			<button class="btn" title="Reply" onclick="showReplies(${id})">
@@ -1677,7 +1723,7 @@ var commentOptionsShow = (id) =>{
 			<div class="confirmationBox" id="commentConfirmationBox-${id}">
 				<div id="text">Are You Sure You Want To Delete?</div>
 				<div id="text"><small>Remember: There is no comeback</small></div>
-				<a href="javascript:void(0)" onclick="deleteComments('${id}','{{$post->id}}')" class="btn btn-danger btn-sm">Delete</a>
+				<a href="javascript:void(0)" onclick="deleteComments('${id}','${post_id}')" class="btn btn-danger btn-sm">Delete</a>
 				<a href="javascript:void(0)" onclick="closePermissionBox('${id}')" class="btn btn-light btn-sm">Cancel</a>
 			</div>
 		</div>
@@ -1710,7 +1756,7 @@ var commentContentShow = (id,content) => {
 		return ``;
 	}
 }
-var commentOwnerPhotoShow = (photo,ownerType) =>{
+var commentReplyOwnerPhotoShow = (photo,ownerType) =>{
 
 	if(photo === ''){
 		return `<span class="fal fa-user" id="no-image-in-comment"></span>`;
@@ -1731,7 +1777,7 @@ var commentOwnerInfoShow = (fullName,userName,createTime) => {
 		</div>
 	`;
 }
-var commentRepliesForm = (commentId) => {
+var commentRepliesForm = (commentId,post_id) => {
 	return `
 		<div class="alert alert-danger replyImageVideoErrorMsg" id="replyPhotoError-${commentId}" >
 			<button class="close" onclick="closeReplyMsgs(${commentId})">&times;</button>
@@ -1749,14 +1795,15 @@ var commentRepliesForm = (commentId) => {
 				<img src="" id="replyImg-${commentId}" >
 			</div>
 		</div>
-		<form method="post" action="/replies" enctype=multipart/form-data>
+		<form method="POST" accept-charset="UTF-8" id="repliesForm-${commentId}" action="${replyAdd}" enctype='multipart/form-data' onsubmit='addReply(event)'>
 			<div class="input-group">
 				<input type="hidden" name="_token" value='${token}'>
 				<input type="file" name="replyPhoto" class="replyPhotoField", accept="image/*" id="replyPhotoField-${commentId}" onchange="showAndValidateReplyFile(${commentId})">
 				<textarea  name="replyContent" class="form-control replyField" placeholder="Add Reply..." id="replyField-${commentId}" rows="1" maxlength="65500" 
 				 onkeyup="do_resize_and_enable_reply_button(this,${commentId})"></textarea>
 				 <input type="hidden" name="comment_id" value="${commentId}">
-				 <input type="submit" name="submit" value="Reply" class="btn btn-sm addReplyBtn" id="addReplyBtn-${commentId}" disabled="true" onclick="validateReplyForm(${commentId})">
+				 <input type="hidden" name="post_id_for_replies" value="${post_id}">
+				 <input type="submit" value="Reply" class="btn btn-sm addReplyBtn" id="addReplyBtn-${commentId}" disabled="true" onclick="validateReplyForm(${commentId})">
 				 <i class="fal fa-camera replyPhotoButton" id="replyPhotoButton-${commentId}" onclick="openReplyPhotoField(${commentId})"></i>
 			</div>
 		</form>
@@ -1776,3 +1823,93 @@ var showLoad = () =>{
 	`;
 }
 
+
+// reply part
+
+var replyOwnerInfoShow = (fullName,userName,createTime) => {
+	return `
+		<div class="replyOwnerName">
+			<a href="${userName}"><span>${fullName}</span></a> 
+				<span class="replyCreateTime">Replied:${createTime}</span>
+		</div>
+	`;
+}
+var replyContentShow = (id,content) => {
+	if(content != null){
+		if(content.length > 300){
+			return `
+				<p id="halfReply-${id}">${content.substring(0,300)} <a href="javascript:void(0)" class="readMoreLess" onclick="showComplete(${id},'reply')">... Read more...</a></p>
+				<p id="completeReply-${id}" style="display: none;">${content} <a href="javascript:void(0)" class="readMoreLess" onclick="showLess(${id},'reply')"> Read less...</a></p>
+			`;		
+		}else{
+			return `<p>${content}</p>`
+		}
+	}else{
+		return ``;
+	}
+}
+var replyImageShow = (photo) =>{
+	if(photo === ''){
+		return 	``;
+	}else{
+		return `
+			<div class="replyImage text-center" style="overflow: hidden;">
+				<a href="/storage/images/comment_replies/${photo}" target="__blank">
+					<img src="/storage/images/comment_replies/${photo}" class="">
+				</a>
+			</div>
+		`;
+	}
+}
+
+var replyOptionsShow = (id,comment_id) =>{
+	return `
+		<div class="commetOptions" id="repliesOptions-${id}">
+			<button class="btn" onclick="voteReplies('${id}','upVote')" title="The answer was usefull">
+				<a href="javascript:void(0)">
+					<span id="replyVotedUpCheck-${id}"></span>
+					<span class="fal fa-arrow-alt-up commentOptionsIcons" id="replyOptionsVoteUpIcon-${id}"></span> 
+					<span id="replyOptionsLoadingUpText-${id}"></span>
+					<span class="commentVotes" id="replyOptionsVoteUpCount-${id}">0</span>
+				</a>
+			</button>
+			<button class="btn" onclick="voteReplies('${id}','downVote')" title="The answer was not usefull">
+				<a href="javascript:void(0)">
+					<span id="replyVotedDownCheck-${id}"> </span>
+					<span class="fal fa-arrow-alt-down commentOptionsIcons" id="replyOptionsVoteDownIcon-${id}"></span>
+					<span id="replyOptionsLoadingDownText-${id}"></span>  
+					<span class="commentVotes" id="replyOptionsVoteDownCount-${id}">0</span>
+				</a>
+			</button>
+			<a href="/replies/${id}/edit"><button class=" commentManageOptions fal fa-edit float-right"> Edit</button></a>
+			<button class="commentManageOptions fal fa-trash float-right" id="deleteReplyButton-${id}" onclick="deleteReplyPermission('${id}')"> Delete</button>
+			
+			<div class="confirmationBox" id="replyConfirmationBox-${id}">
+				<div id="text">Are You Sure You Want To Delete?</div>
+				<div id="text"><small>Remember: There is no comeback</small></div>
+				<a href="javascript:void(0)" onclick="deleteReplies('${id}','${comment_id}')" class="btn btn-danger btn-sm">Delete</a>
+				<a href="javascript:void(0)" onclick="closeDeleteReplyPermission('${id}')" class="btn btn-light btn-sm">Cancel</a>
+			</div>
+			<div class="dropdown-divider reply-divider"></div>
+		</div>
+	`;
+}
+
+var afterReplyCommentDone = (id,type) => {
+	if(type == "comment"){
+		$(`#commentsCount-${id}`).text(parseInt($(`#commentsCount-${id}`).text())+1);
+		$(`#commentcounts1-${id}`).text(parseInt($(`#commentcounts1-${id}`).text())+1);
+		$(`#commentImageDiv-${id}`).hide("fast");	
+		$(".commentForm").trigger("reset");	
+		$(`#commentField-${id}`).attr("rows",'1');	
+		$(`#addCommentBtn-${id}`).attr("disabled",'true');
+	}else if(type == "reply"){
+		$(`#replyPhotoError-${id}`).hide();
+		$(`#replies-count-${id}`).text(parseInt($(`#replies-count-${id}`).text())+1);
+		$(`#replies-count1-${id}`).text(parseInt($(`#replies-count1-${id}`).text())+1);
+		$(`#repliesForm-${id}`).trigger("reset");
+		$(`#replyImageDiv-${id}`).hide("fast");	
+		$(`#replyField-${id}`).attr("rows",'1');
+		$(`#addReplyBtn-${id}`).attr("disabled",'true');
+	}
+}
