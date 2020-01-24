@@ -308,6 +308,29 @@
 		</div>
     </div>
 
+    <!-- Delete modal -->
+	<div class="modal fade" id="deleteBox" tabindex="-1" role="dialog" aria-labelledby="deleteBoxTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header justify-content-center">
+	        <h5 class="modal-title" id="deleteBoxTitle" style="font-weight: bold;"></h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <h3>Are you sure?</h3>
+	        <small class="text-muted">Remember: There is no comeback.</small>
+	      </div>
+	      <div class="modal-footer" style="border-top: 0px;">
+	        <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Cancel</button>
+	        <button type="button" class="btn btn-danger btn-sm" id="DeleteButton">Delete</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
 	@yield("content")
 
 </div>
@@ -362,13 +385,13 @@
 <script src="{{ asset('js/share.js') }}"></script>
 
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/MainLayoutScript1.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/MainLayoutScript.js')}}"></script>
 
 
 
 @if(Route::currentRouteName() == 'profile')
 <!-- link to local js file for profile page -->
-<script type="text/javascript" src="{{asset('js/profileScript.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/profileScript112.js')}}"></script>
 @elseif(Route::currentRouteName() == 'main')
 <script type="text/javascript" src="{{asset('js/main.js')}}"></script>
 @elseif(Route::currentRouteName() == 'posts.create' || Route::currentRouteName() == 'questions.create' || Route::currentRouteName() == 'posts.edit' || Route::currentRouteName() == 'questions.edit' ||  Route::currentRouteName() == 'comments.edit' || Route::currentRouteName() == 'replies.edit')

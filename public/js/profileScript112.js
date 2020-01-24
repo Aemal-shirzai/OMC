@@ -974,24 +974,8 @@ function followDoctor(doctorId,type){
 }
 // End of the : Function responsible for following the doctors by normal users
 
-
-
-
-// Beggging of the function which make sure user delete the comment
-function deleteCommentPermission(commentId){
-	$("body").css("pointer-events","none");
-	$("#commentConfirmationBox-"+commentId).fadeIn();
-}
-
-// End of the function which make sure user delete the comment
-function closePermissionBox(commentId){
-	$("#commentConfirmationBox-"+commentId).fadeOut();
-	$("body").css("pointer-events","initial");
-}
-// Beggining of the function which delete comment
-
 function deleteComments(commentId,postId){
-	closePermissionBox(commentId);
+	$('#deleteBox').modal('hide')
 	event.preventDefault();
 	$("#commentDeleteButton-"+commentId).text(" Deleting...");
 	$("#commentDeleteButton-"+commentId).css("color","red");
@@ -1020,24 +1004,9 @@ function deleteComments(commentId,postId){
 }
 // End of the function which delete comment
 
-
-
-
-// Beggging of the function which make sure user delete the reply
-function deleteReplyPermission(replyId){
- $("#replyConfirmationBox-"+replyId).fadeIn();	
-  $("body").css("pointer-events","none");
-}
-// End of the function which make sure user delete the reply
-
-function closeDeleteReplyPermission(replyId){
- $("#replyConfirmationBox-"+replyId).fadeOut();
-  $("body").css("pointer-events","initial");
-}
-
 // Beggining of the function which delete replies
 function deleteReplies(replyId,commentId){
-	closeDeleteReplyPermission(replyId);
+	$('#deleteBox').modal('hide')
 	event.preventDefault();
 	$("#deleteReplyButton-"+replyId).text(" Deleting...");
 	$("#deleteReplyButton-"+replyId).css("color","red");
@@ -1063,23 +1032,9 @@ function deleteReplies(replyId,commentId){
 }
 // End of the function which delete replies-count1
 
-
-
-// removing followers confirmation box 
-function deleteFollowerConfirmation(followerId){
- $("body").css("pointer-events","none");
- $("#followerConfirmationBox-"+followerId).fadeIn();
-}
-function followerClosePermissionBox(followerId){
- $("#followerConfirmationBox-"+followerId).fadeOut();
- $("body").css("pointer-events","initial");
-}
-// removing followers confirmation box
-
-
 // Beggining of the function responsible for removing followers by doctors
 function removeFollowers(userId){
-	followerClosePermissionBox(userId);
+	$('#deleteBox').modal('hide')
 	$("#followerButton-"+userId).text("Removing...");
 	$("#followerButton-"+userId).css("color","red");
 	event.preventDefault();
@@ -1102,24 +1057,9 @@ function removeFollowers(userId){
 }
 // End of the function responsible for removing followers by doctors
 
-
-
-// deleting post confirmation box 
-function openPostConfirmation(postId){
- $("body").css("pointer-events","none");
- $(".shareOptions").hide();
- $("#postConfirmationBox-"+postId).fadeIn();
-}
-function postClosePermissionBox(postId){
- $("#postConfirmationBox-"+postId).fadeOut();
-  $("body").css("pointer-events","initial");
-}
-// deleging posts confirmation box
-
-
 // Beggining of the function which delete posts in profile
 function deletePosts(postId){
-	postClosePermissionBox(postId);
+	$('#deleteBox').modal('hide')	
 	$("#postDeleteText-"+postId).text("Loading ...");
 	$("#postDeleteOption-"+postId).css("color","red");
 	$("#postConfirmationBox-"+postId).fadeOut();
@@ -1148,24 +1088,12 @@ function openShareQOptions(value){
 }
 // End of : the function which open the share options menu
 
-// deleting question confirmation box 
-function openQuestionConfirmation(value){
- $("#QshareOptions-"+value).hide();
- $("#questionConfirmationBox-"+value).fadeIn();
-  $("body").css("pointer-events","none");
-}
-function questionClosePermissionBox(value){
- $("#questionConfirmationBox-"+value).fadeOut();
-  $("body").css("pointer-events","initial");
-}
-// deleging question confirmation box
-
 
 // Beggining of the function which delete question in profile
 function deleteQuestions(questiontId,type){
+	$('#deleteBox').modal('hide')
 	$("#questionDeleteText-"+questiontId).text("Loading ...");
 	$("#questionDeleteText-"+questiontId).css("color","red");
-	$("#questionConfirmationBox-"+questiontId).fadeOut();
 	$("body").css("pointer-events","initial");
 	$.ajax({
 		method: "DELETE",
@@ -1176,6 +1104,7 @@ function deleteQuestions(questiontId,type){
 		if(type == 'fav'){
 			$("#favQcount").text(parseInt($("#favQcount").text())-1);
 		}else{
+
 			$("#allQuestionTextAbove").text(parseInt($("#allQuestionTextAbove").text())-1);
 		}
 	}).fail(function(response){
@@ -1302,10 +1231,9 @@ function followQPost(postId){
 
 // Beggining of the function which delete posts in profile
 function deleteQPosts(postId){
-	questionClosePermissionBox(postId);
+	$('#deleteBox').modal('hide')
 	$("#postDeleteTextQ-"+postId).text("Loading ...");
 	$("#postDeleteTextQ-"+postId).css("color","red");
-	// $("#questionConfirmationBox-"+postId).fadeOut();
 	$.ajax({
 		method: "DELETE",
 		url: deletePost,
@@ -1623,22 +1551,9 @@ function hideDiv(value){
 }
 // end of the function which close the image after its shown
 
-
-function openAchPermission(value){
-	$("#achConfirmationBox-"+value).fadeIn();
-	$("body").css("pointer-events","none");
-	event.preventDefault();
-}
-function achClosePermissionBox(value){
-	$("#achConfirmationBox-"+value).fadeOut();
-	$("body").css("pointer-events","initial");
-}
-
-
-
 // delete achivements using ajax request
 function deleteAch(value,evt){
-	achClosePermissionBox(value);	
+	$('#deleteBox').modal('hide')	
 	$("#ach-DeleteLink-"+value).hide();
 	$("#ach-DeleteLoading-"+value).show();
 	event.preventDefault();
@@ -1718,14 +1633,10 @@ var commentOptionsShow = (id,post_id) =>{
 				</a>
 			</button>
 			<a href="/comments/${id}/edit"><button class=" commentManageOptions fal fa-edit float-right"> Edit</button></a>
-			<button class="commentManageOptions fal fa-trash float-right" id="commentDeleteButton-${id}" onclick="deleteCommentPermission('${id}')"> Delete</button>
-			
-			<div class="confirmationBox" id="commentConfirmationBox-${id}">
-				<div id="text">Are You Sure You Want To Delete?</div>
-				<div id="text"><small>Remember: There is no comeback</small></div>
-				<a href="javascript:void(0)" onclick="deleteComments('${id}','${post_id}')" class="btn btn-danger btn-sm">Delete</a>
-				<a href="javascript:void(0)" onclick="closePermissionBox('${id}')" class="btn btn-light btn-sm">Cancel</a>
-			</div>
+			<button type="button" class="commentManageOptions fal fa-trash float-right" id="commentDeleteButton-${id}" 
+					data-toggle="modal" data-target="#deleteBox"  data-id="${id}" data-type="comment" data-post="${post_id}"> 
+				Delete
+			</button>
 		</div>
 	`;
 }
@@ -1882,14 +1793,10 @@ var replyOptionsShow = (id,comment_id) =>{
 				</a>
 			</button>
 			<a href="/replies/${id}/edit"><button class=" commentManageOptions fal fa-edit float-right"> Edit</button></a>
-			<button class="commentManageOptions fal fa-trash float-right" id="deleteReplyButton-${id}" onclick="deleteReplyPermission('${id}')"> Delete</button>
-			
-			<div class="confirmationBox" id="replyConfirmationBox-${id}">
-				<div id="text">Are You Sure You Want To Delete?</div>
-				<div id="text"><small>Remember: There is no comeback</small></div>
-				<a href="javascript:void(0)" onclick="deleteReplies('${id}','${comment_id}')" class="btn btn-danger btn-sm">Delete</a>
-				<a href="javascript:void(0)" onclick="closeDeleteReplyPermission('${id}')" class="btn btn-light btn-sm">Cancel</a>
-			</div>
+			<button type="button" class="commentManageOptions fal fa-trash float-right" id="deleteReplyButton-${id}" 
+						data-toggle="modal" data-target="#deleteBox"  data-id="${id}" data-type="reply" data-comment="${comment_id}"> 
+				Delete
+			</button>
 			<div class="dropdown-divider reply-divider"></div>
 		</div>
 	`;

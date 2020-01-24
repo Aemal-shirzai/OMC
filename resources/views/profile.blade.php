@@ -5,6 +5,9 @@
 
 @endsection
 @section("content")
+<!-- Button trigger modal -->
+
+
 <div id="profileParent" style="position: relative;">
 	<div style="margin-bottom: 12px;">
 	<div class="container" id="profileHeading">
@@ -271,12 +274,6 @@
 							</a>
 						</button>
 						@endcan
-						<div class="confirmationBox" id="postConfirmationBox-{{$post->id}}">
-							<div id="text">Are You Sure To Delete?</div>
-							<div id="text"><small>Remember: There is no comeback</small></div>
-							<a href="javascript:void(0)" onclick="deletePosts('{{$post->id}}')" class="btn btn-danger btn-sm">Remove</a>
-							<a href="javascript:void(0)" onclick="postClosePermissionBox('{{$post->id}}')" class="btn btn-light btn-sm">Cancel</a>
-						</div>
 						@endauth
 						<!-- End of the posts options that should be visible only for auth users -->
 
@@ -333,7 +330,9 @@
 								@if(Auth::user()->id === $post->owner->account->id || (Auth::user()->owner_type == "App\NormalUser" && Auth::user()->owner->role->role == "admin"))
 								<span title="Delete Post">
 									<li>
-										<a href="javascript:void(0)" id="postDeleteOption-{{$post->id}}" class="PostEditDelete" onclick="openPostConfirmation('{{$post->id}}')"><span class="fas fa-trash"></span> <Span id="postDeleteText-{{$post->id}}">Delete</Span></a>
+										<a href="javascript:void(0)" id="postDeleteOption-{{$post->id}}" class="PostEditDelete" data-toggle="modal" data-target="#deleteBox"  data-id="{{$post->id}}" data-type="post">
+											<span class="fas fa-trash"></span> <Span id="postDeleteText-{{$post->id}}">Delete</Span>
+										</a>
 									</li>
 								</span>
 								@endif
@@ -513,17 +512,9 @@
 											<!-- Beggining of: Comment managing options delete and update -->
 											@if(Auth::user()->id === $comment->comment_owner->id)
 											<a href="{{route('comments.edit',$comment->id)}}"><button class=" commentManageOptions fal fa-edit float-right"> Edit</button></a>
-											<button class="commentManageOptions fal fa-trash float-right" id="commentDeleteButton-{{$comment->id}}" onclick="deleteCommentPermission('{{$comment->id}}')"> Delete</button>
+											<button type="button" class="commentManageOptions fal fa-trash float-right" id="commentDeleteButton-{{$comment->id}}" data-toggle="modal" data-target="#deleteBox"  data-id="{{$comment->id}}" data-type="comment" data-post="{{$post->id}}"> Delete</button>
 											@endif
 											<!-- End of Comment managing options delete and update -->
-
-											<div class="confirmationBox" id="commentConfirmationBox-{{$comment->id}}">
-												<div id="text">Are You Sure You Want To Delete?</div>
-												<div id="text"><small>Remember: There is no comeback</small></div>
-												<a href="javascript:void(0)" onclick="deleteComments('{{$comment->id}}','{{$post->id}}')" class="btn btn-danger btn-sm">Delete</a>
-												<a href="javascript:void(0)" onclick="closePermissionBox('{{$comment->id}}')" class="btn btn-light btn-sm">Cancel</a>
-											</div>
-
 											@endauth
 											@guest
 											<button class="btn OptionsForGuest" title="The answer was usefull. You need to login First">
@@ -679,18 +670,9 @@
 															<!-- Beggining of: Comment managing options delete and update -->
 																@if(Auth::user()->id === $reply->owner->id)
 																<a href="{{route('replies.edit',$reply->id)}}"><button class=" commentManageOptions fal fa-edit float-right"> Edit</button></a>
-																<button class="commentManageOptions fal fa-trash float-right" id="deleteReplyButton-{{$reply->id}}" onclick="deleteReplyPermission('{{$reply->id}}')"> Delete</button>
+																<button type="button" class="commentManageOptions fal fa-trash float-right" id="deleteReplyButton-{{$reply->id}}" data-toggle="modal" data-target="#deleteBox"  data-id="{{$reply->id}}" data-type="reply" data-comment="{{$comment->id}}"> Delete</button>	
 																@endif
 															<!-- End of Comment managing options delete and update -->
-
-															<div class="confirmationBox" id="replyConfirmationBox-{{$reply->id}}">
-																<div id="text">Are You Sure You Want To Delete?</div>
-																<div id="text"><small>Remember: There is no comeback</small></div>
-																<a href="javascript:void(0)" onclick="deleteReplies('{{$reply->id}}','{{$comment->id}}')" class="btn btn-danger btn-sm">Delete</a>
-																<a href="javascript:void(0)" onclick="closeDeleteReplyPermission('{{$reply->id}}')" class="btn btn-light btn-sm">Cancel</a>
-															</div>
-
-
 															@endauth
 															@guest
 															<button class="btn OptionsForGuest" title="The answer was usefull">
@@ -855,13 +837,6 @@
 						</div>
 					@endif
 					@foreach($achievements as $achievement)
-						<div class="confirmationBox" id="achConfirmationBox-{{$achievement->id}}">
-							<div id="text">Are You Sure To Delete?</div>
-							<div id="text"><small>Remember: There is no comeback</small></div>
-							<a href="javascript:void(0)" onclick="deleteAch('{{$achievement->id}}')" class="btn btn-danger btn-sm">Delete</a>
-							<a href="javascript:void(0)" onclick="achClosePermissionBox('{{$achievement->id}}')" class="btn btn-light btn-sm">Cancel</a>
-						</div>
-
 						<div class="achievement-titleAndInfo" id="ach-MainContent-{{$achievement->id}}">
 							<h5 class="">{{$achievement->ach_title}}</h5>
 							<small class="timeAndLocation"><span class="far fa-map-marker-alt"></span> {{$achievement->ach_location}}</small>
@@ -896,8 +871,7 @@
 										<span class="far fa-edit"></span>
 									</a>
 									<span class="ach-options-info" id="relatedEditText-{{$achievement->id}}">Edit the post</span>
-
-									<a href="#" id="ach-DeleteLink-{{$achievement->id}}"  onmouseleave="closeAchTips('{{$achievement->id}}','delete')" onmouseover="showAchTips('{{$achievement->id}}','delete')" onclick="openAchPermission('{{$achievement->id}}')">
+									<a href="#" id="ach-DeleteLink-{{$achievement->id}}"  onmouseleave="closeAchTips('{{$achievement->id}}','delete')" onmouseover="showAchTips('{{$achievement->id}}','delete')" data-toggle="modal" data-target="#deleteBox"  data-id="{{$achievement->id}}" data-type="achievement">
 										<span class="far fa-trash"></span>
 									</a>
 									<img src="{{asset('images/load1.gif')}}" id="ach-DeleteLoading-{{$achievement->id}}" style="display: none;width: 20px;">
@@ -943,18 +917,12 @@
 							<span class="followedBy">Following {{$follower->following()->count()}}</span>
 
 							@can("view",$user)
-							<a href="javascript:void(0)" class="btn btn-sm float-right followingButtonAll" class="" id="followerButton-{{$follower->id}}" onclick="deleteFollowerConfirmation('{{$follower->id}}')">
+							<a href="javascript:void(0)" class="btn btn-sm float-right followingButtonAll" class="" id="followerButton-{{$follower->id}}" data-toggle="modal" data-target="#deleteBox" data-id="{{$follower->id}}" data-type="follower">
 								<i class="fal fa-times" id="followerButtonIcon-{{$follower->id}}"></i>
 								<span class="followingButtonTextAll" id="followerButton-{{$follower->id}}">Remove</span>
 							</a>
 							@endcan
 
-						</div>
-						<div class="confirmationBox" id="followerConfirmationBox-{{$follower->id}}">
-							<div id="text">Are You Sure To Remove?</div>
-							<div id="text"><small>Remember: There is no comeback</small></div>
-							<a href="javascript:void(0)" onclick="removeFollowers('{{$follower->id}}')" class="btn btn-danger btn-sm">Remove</a>
-							<a href="javascript:void(0)" onclick="followerClosePermissionBox('{{$follower->id}}')" class="btn btn-light btn-sm">Cancel</a>
 						</div>
 						<div class="dropdown-divider"></div>
 					</div>
@@ -1004,7 +972,9 @@
 								@if(Auth::user()->id === $favPost->owner->account->id || (Auth::user()->owner_type == "App\NormalUser" && Auth::user()->owner->role->role == "admin"))
 								<span title="Delete Post">
 									<li>
-										<a href="javascript:void(0)" id="postDeleteOption-{{$favPost->id}}" class="PostEditDelete" onclick="openQuestionConfirmation('{{$favPost->id}}')"><span class="fas fa-trash"></span> <Span id="postDeleteTextQ-{{$favPost->id}}">Delete</Span></a>
+										<a href="javascript:void(0)" id="postDeleteOption-{{$favPost->id}}" class="PostEditDelete" data-toggle="modal" data-target="#deleteBox" data-id="{{$favPost->id}}" data-type="favPost">
+											<span class="fas fa-trash"></span> <Span id="postDeleteTextQ-{{$favPost->id}}">Delete</Span>
+										</a>
 									</li>
 								</span>
 								@endif
@@ -1049,12 +1019,6 @@
 								@endif
 							</div>
 						</a>
-					</div>
-					<div class="confirmationBox" id="questionConfirmationBox-{{$favPost->id}}">
-						<div id="text">Are You Sure To Delete?</div>
-						<div id="text"><small>Remember: There is no comeback</small></div>
-						<a href="javascript:void(0)" onclick="deleteQPosts('{{$favPost->id}}')" class="btn btn-danger btn-sm">Remove</a>
-						<a href="javascript:void(0)" onclick="questionClosePermissionBox('{{$favPost->id}}')" class="btn btn-light btn-sm">Cancel</a>
 					</div>
 					<!-- content -->
 					<div class="Qcontent">
@@ -1112,7 +1076,10 @@
 								@if(Auth::user()->id === $favQuestion->owner->account->id || (Auth::user()->owner_type == "App\NormalUser" && Auth::user()->owner->role->role == "admin"))
 								<span title="Delete Post">
 									<li>
-										<a href="javascript:void(0)" id="postDeleteOption-{{$favQuestion->id}}" class="PostEditDelete" onclick="openQuestionConfirmation('{{$favQuestion->id}}')"><span class="fas fa-trash"></span> <Span id="questionDeleteText-{{$favQuestion->id}}">Delete</Span></a>
+										<a href="javascript:void(0)" id="postDeleteOption-{{$favQuestion->id}}" class="PostEditDelete" data-toggle="modal" data-target="#deleteBox" data-id="{{$favQuestion->id}}" data-type="question" data-qType="fav">
+											<span class="fas fa-trash">
+											</span> <Span id="questionDeleteText-{{$favQuestion->id}}">Delete</Span>
+										</a>
 									</li>
 								</span>
 								@endif
@@ -1157,12 +1124,6 @@
 								@endif
 							</div>
 						</a>
-					</div>
-					<div class="confirmationBox" id="questionConfirmationBox-{{$favQuestion->id}}">
-						<div id="text">Are You Sure To Delete?</div>
-						<div id="text"><small>Remember: There is no comeback</small></div>
-						<a href="javascript:void(0)" onclick="deleteQuestions('{{$favQuestion->id}}','fav')" class="btn btn-danger btn-sm">Remove</a>
-						<a href="javascript:void(0)" onclick="questionClosePermissionBox('{{$favQuestion->id}}')" class="btn btn-light btn-sm">Cancel</a>
 					</div>
 					<!-- content -->
 					<div class="Qcontent">
@@ -1223,7 +1184,7 @@
 							@if(Auth::user()->id === $question->owner->account->id || (Auth::user()->owner_type == "App\NormalUser" && Auth::user()->owner->role->role == "admin"))
 							<span title="Delete Post">
 								<li>
-									<a href="javascript:void(0)" id="postDeleteOption-{{$question->id}}" class="PostEditDelete" onclick="openQuestionConfirmation('{{$question->id}}')"><span class="fas fa-trash"></span> <Span id="questionDeleteText-{{$question->id}}">Delete</Span></a>
+									<a href="javascript:void(0)" id="postDeleteOption-{{$question->id}}" class="PostEditDelete" data-toggle="modal" data-target="#deleteBox" data-id="{{$question->id}}" data-type="question" data-qType='asked'><span class="fas fa-trash"></span> <Span id="questionDeleteText-{{$question->id}}">Delete</Span></a>
 								</li>
 							</span>
 							@endif
@@ -1260,12 +1221,6 @@
 							@endif
 						</div>
 					</a>
-				</div>
-				<div class="confirmationBox" id="questionConfirmationBox-{{$question->id}}">
-					<div id="text">Are You Sure To Delete?</div>
-					<div id="text"><small>Remember: There is no comeback</small></div>
-					<a href="javascript:void(0)" onclick="deleteQuestions('{{$question->id}}','asked')" class="btn btn-danger btn-sm">Remove</a>
-					<a href="javascript:void(0)" onclick="questionClosePermissionBox('{{$question->id}}')" class="btn btn-light btn-sm">Cancel</a>
 				</div>
 				<!-- content -->
 				<div class="Qcontent">
@@ -1568,5 +1523,6 @@
       var autocomplete = new google.maps.places.Autocomplete(input);
   }
 </script>
+
 
 @endsection

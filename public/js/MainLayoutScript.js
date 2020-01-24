@@ -433,4 +433,37 @@ $(document).ready(function(e){
 			event.preventDefault();
 		}
 	});
+
+	// delete box
+	$('#deleteBox').on('show.bs.modal', function (event) {
+	  var button = $(event.relatedTarget) // Button that triggered the modal
+	  var id = button.data('id')
+	  var type = button.data('type') 
+	  var modal = $(this)
+	  var title = modal.find('.modal-title').text(`Delete ${type}`)
+	  var formDeleteButton = modal.find('.modal-footer #DeleteButton');
+	  if(type == 'post'){
+	  	formDeleteButton.attr("onclick",`deletePosts(${id})`)
+	  }else if(type == 'comment'){
+	  	var postId = button.data('post');
+	  	formDeleteButton.attr("onclick",`deleteComments(${id}, ${postId})`)
+	  }else if(type == 'reply'){
+	  	var commentId = button.data('comment');
+	  	formDeleteButton.attr("onclick",`deleteReplies(${id}, ${commentId})`)
+	  }else if(type == "achievement"){
+	  	formDeleteButton.attr("onclick",`deleteAch(${id})`)	
+	  }else if(type == "follower"){
+	  	modal.find('.modal-title').text(`Remove ${type}`)
+	  	formDeleteButton.attr("onclick",`removeFollowers(${id})`)
+	  }else if(type == 'question'){	
+	  	var qType = button.data("qtype");
+	  	formDeleteButton.attr("onclick",`deleteQuestions(${id},'${qType}')`)
+	  }else if(type == "favPost"){
+	  	var title = modal.find('.modal-title').text(`Delete post`)
+	  	formDeleteButton.attr("onclick",`deleteQPosts(${id})`)	
+	  }
+	  
+})
+
+
 });
