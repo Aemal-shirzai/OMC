@@ -1,11 +1,20 @@
+body{
+	background: white;
+}
 /* section 1 start */
 div#section1{
 	#background-image: url('../images/aimal.jpg');
-	#background-color: yellow;
-	background-repeat: no-repeat;
-	padding: 90px 12px;
-	background-size: cover;
+	background-color: #f7f6f9;
+	/*background-repeat: no-repeat;*/
+	padding: 120px 12px;
+	/*background-size: cover;*/
+	transform: skew(0deg, 2deg) translateY(-69px);
 	min-height: 350px;
+	position: relative;
+
+}
+#section1ContentParent{
+	transform: skew(0deg, -2deg) translateY(69px);
 }
 div#slogan{
 	word-wrap: break-word;
@@ -38,11 +47,11 @@ div#sloganButtons{
 }
 /* section 1 ends */
 
-
 /* section 2 start */
 div#section2{
 	background-color: white;
 	padding: 46px 12px;
+	position: relative;
 }
 div#section2 h2{
 	font-weight: bold;
@@ -97,6 +106,27 @@ div#findQuestions h6, div#reachDoctors h6, div#addAds h6{
 	background-color: #3fbbc0;
 	color: white;
 }
+
+#section2:after{
+		content: "";
+		position: absolute;
+		width: 50%;
+		bottom: -20px;
+		left: 0;
+		height: 40px;
+		background: inherit;
+		transform: skewY(-3deg);
+}
+#section2:before{
+		content: "";
+		position: absolute;
+		width: 50%;
+		bottom: -20px;
+		right: 0;
+		height: 40px;
+		background: inherit;
+		transform: skewY(3deg);
+}
 /* section 2 end */
 
 
@@ -147,6 +177,7 @@ div#ads:hover, div#posts:hover, div#vote:hover{
 
 
 /* section 4 latest ads start */
+
 div#adsParent{
 	background-color: white;
 	z-index: 0 !important;

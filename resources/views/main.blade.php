@@ -16,6 +16,7 @@
 @endif
 <!-- Secion1 start -->
 <div id="section1" > 
+    <div id="section1ContentParent">
     <div id="slogan" class="col-lg-12 col-sm-12 text-center">
         <h2>We think smarter to make life easy</h2>
     </div> 
@@ -25,6 +26,7 @@
     <div id="sloganButtons" class="col-lg-4  text-center">
         <a href="javascript:void(0)" id="forUsersBtn" class="btn  userDoctorBtn">For Users</a>
         <a href="javascript:void(0)" id="forDoctorsBtn" class="btn  userDoctorBtn">For Doctors</a>   
+    </div>
     </div>
 </div>
 <!-- Secion1 End-->

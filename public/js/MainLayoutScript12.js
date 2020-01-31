@@ -461,6 +461,9 @@ $(document).ready(function(e){
 	  }else if(type == "favPost"){
 	  	var title = modal.find('.modal-title').text(`Delete post`)
 	  	formDeleteButton.attr("onclick",`deleteQPosts(${id})`)	
+	  }else if (type == 'listQuestions'){
+	  	modal.find('.modal-title').text("Delete Question");
+	  	formDeleteButton.attr("onclick",`deleteQuestions(${id})`)
 	  }
 	  
 })

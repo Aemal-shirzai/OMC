@@ -259,12 +259,6 @@
 						</a>
 					</button>
 					@endcan
-					<div class="confirmationBox" id="postConfirmationBox-{{$post->id}}">
-						<div id="text">Are You Sure To Delete?</div>
-						<div id="text"><small>Remember: There is no comeback</small></div>
-						<a href="javascript:void(0)" onclick="deletePosts('{{$post->id}}')" class="btn btn-danger btn-sm">Remove</a>
-						<a href="javascript:void(0)" onclick="postClosePermissionBox('{{$post->id}}')" class="btn btn-light btn-sm">Cancel</a>
-					</div>
 					@endauth
 					<!-- End of the posts options that should be visible only for auth users -->
 
@@ -321,8 +315,7 @@
 							@if(Auth::user()->id === $post->owner->account->id || (Auth::user()->owner_type == "App\NormalUser" && Auth::user()->owner->role->role == "admin"))
 							<span title="Delete Post">
 								<li>
-									<a href="javascript:void(0)" id="postDeleteOption-{{$post->id}}" class="PostEditDelete" onclick="openPostConfirmation('{{$post->id}}')"><span class="fas fa-trash"></span> <Span id="postDeleteText-{{$post->id}}">Delete</Span></a>
-								</li>
+									<a href="javascript:void(0)" id="postDeleteOption-{{$post->id}}" class="PostEditDelete" data-toggle="modal" data-target="#deleteBox" data-id="{{$post->id}}" data-type="post"> <span class="fas fa-trash"></span> <Span id="postDeleteText-{{$post->id}}">Delete</Span></a>
 							</span>
 							@endif
 							@endauth

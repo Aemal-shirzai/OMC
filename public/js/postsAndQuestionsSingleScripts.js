@@ -323,22 +323,9 @@ function followPost(postId){
 // End of the : Function responsible for following the posts by normal users
 
 
-// deleting question confirmation box 
-function openPostConfirmation(){
- $("body").css("pointer-events","none");
- $("#shareOptions").hide();
- $("#postConfirmationBox").fadeIn();
-}
-function postClosePermissionBox(){
- $("body").css("pointer-events","initial");
- $("#postConfirmationBox").fadeOut();
-}
-// deleging question confirmation box
-
-
 // Beggining of the function which delete question in profile
 function deletePosts(postId){
-	postClosePermissionBox();
+	$('#deleteBox').modal('hide')
 	$("#postDeleteText").text("Loading ...");
 	$("#postDeleteText").css("color","red");
 	$.ajax({
@@ -1152,22 +1139,9 @@ function followQuestion(questionId){
 
 // End of the : Function responsible for following the posts by normal users
 
-// deleting question confirmation box 
-function openQuestionConfirmation(){
- $("body").css("pointer-events","none");
- $("#shareOptions").hide();
- $("#questionConfirmationBox").fadeIn();
-}
-function questionClosePermissionBox(){
- $("#questionConfirmationBox").fadeOut();
- $("body").css("pointer-events","initial");
-}
-// deleging question confirmation box
-
-
 // Beggining of the function which delete question in profile
 function deleteQuestions(questiontId){
-	questionClosePermissionBox();
+	$('#deleteBox').modal('hide')
 	$("#questionDeleteText").text("Loading ...");
 	$("#questionDeleteText").css("color","red");
 	$.ajax({

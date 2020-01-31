@@ -836,6 +836,13 @@
 							{{session("achUpdate_success")}}
 						</div>
 					@endif
+					<div class="row">
+					@can("view",$user)
+					<div id="addAchDiv" onclick="showAchDiv()">
+						<span class="fal fa-plus"></span>
+
+					</div>
+					@endcan
 					@foreach($achievements as $achievement)
 						<div class="achievement-titleAndInfo" id="ach-MainContent-{{$achievement->id}}">
 							<h5 class="">{{$achievement->ach_title}}</h5>
@@ -880,6 +887,7 @@
 
 							</div>
 						</div>
+						
 						<div class="ach-pic-div" id="ach-img-div-{{$achievement->id}}">
 							<span class="close far fa-times closeAchImg" onclick="hideDiv('{{$achievement->id}}')"></span>
 							<img class="imgLoad" id="imgLoad-{{$achievement->id}}" src="{{asset('images/load1.gif')}}">
@@ -888,12 +896,14 @@
 							</a>
 						</div>
 					@endforeach
+				</div>
 					
 				@else
 					<h5>No Achievements to display</h5>
 				@endif
 				@endif
 			</div>
+			<div class="clearfix"></div>
 		</div>
 	</div>
 
