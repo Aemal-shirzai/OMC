@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 
 	<!-- Link to local css file -->
-	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle.css')}}">	
+	<link rel="stylesheet" type="text/css" href="{{asset('css/MainLayoutStyle1.css')}}">	
 
 	<!-- Link to local css file -->
 	<link rel="stylesheet" type="text/css" href="{{asset('css/admin/adminLayout.css')}}">
@@ -155,8 +155,8 @@
 
 	<div id="sidebar-large" style=""> <!-- navbar for large screen div start  -->
 		<div class="container">
-		<div id="logodiv" style="" class="float-left">
-		<a href="{{route('main')}}"><img src="{{asset('images/mainLogo.png')}}" class="img-fluid"></a>
+		<div id="logodiv" style="" class="float-left" >
+		<a href="{{route('main')}}"><img src="{{asset('images/mainLogo.png')}}" class="img-fluid" ></a>
 		</div>
 		<a href="javascript:void(0)" class="btn btn-light btn-sm openbtn" onclick="openNav()"><i class="far fa-bars"></i></a>
 		@auth
@@ -375,6 +375,8 @@
 
 </div><!-- Parent Div End -->
 
+<!-- link to  popper.js -->
+<script type="text/javascript" src="{{asset('js/popper/popper.js')}}"></script>
 <!-- link to boootstrap app.js -->
 <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
 
@@ -385,7 +387,7 @@
 <script src="{{ asset('js/share.js') }}"></script>
 
 <!-- link to local js file -->
-<script type="text/javascript" src="{{asset('js/MainLayoutScript12.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/MainLayoutScript.js')}}"></script>
 
 
 
@@ -410,7 +412,7 @@
 
 @elseif(Route::currentRouteName() == 'achEdit')
 <!-- Link to local js for doctors and normal users list page -->
-<script type="text/javascript" src="{{asset('js/achEditScripts12.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/achEditScripts.js')}}"></script>
 
 @elseif(Route::currentRouteName() == 'profile.edit')
 <!-- Link to local js for editing users -->

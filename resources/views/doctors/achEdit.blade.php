@@ -3,15 +3,9 @@
 
 @section("content")
 <div id="achParent">
-	<div class="confirmationBox" id="achConfirmationBox">
-		<div id="text">Are You Sure To Delete?</div>
-		<div id="text"><small>Remember: There is no comeback</small></div>
-		<a href="javascript:void(0)" onclick="deleteAch('{{$ach->id}}')" class="btn btn-danger btn-sm">Delete</a>
-		<a href="javascript:void(0)" onclick="achClosePermissionBox()" class="btn btn-light btn-sm">Cancel</a>
-	</div>
 	<div id="addAchButtonDiv">
 		<a  href="{{route('profile',Auth::user()->username)}}" class="btn btn-sm addAchButton"><span class="far fa-arrow-left"></span> Go Back</a>
-		<a href="javascript:void(0)" id="delAchButton" class="btn btn-sm addAchButton" onclick="openAchPermission()">
+		<a href="javascript:void(0)" id="delAchButton" class="btn btn-sm addAchButton" data-toggle="modal" data-target="#deleteBox" data-id="{{$ach->id}}" data-type="achievement">
 			<span class="far fa-trash" id="delButtonIcon"></span> 
 			<span id="delButtonText">Delete</span>
 			<img src="{{asset('images/load1.gif')}}" style="width: 16px;margin-left: 5px;display: none;" id="achDeleteLoad"> 

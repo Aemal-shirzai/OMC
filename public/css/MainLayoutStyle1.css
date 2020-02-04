@@ -1,3 +1,16 @@
+.tooltip-inner{
+	background-color: #3fbbc0;
+	/*padding: 4px;*/
+	font-size: 12px;
+	/*border-radius: 12px;*/
+}
+
+.tooltip .arrow::before{
+	border-bottom-color: #3fbbc0;
+	border-top-color: #3fbbc0;
+	/*border-left-color: #3fbbc0;*/
+	/*border-right-color: #3fbbc0;*/
+}
 /*contact us*/
 .panel-heading {
   padding: 20px;

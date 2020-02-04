@@ -192,21 +192,8 @@ function loadImage(value){
 }
 // end of the function which load image from db to achiemvents
 
-function openAchPermission(){
-	$("#achConfirmationBox").fadeIn();
-	$("body").css("pointer-events","none");
-	event.preventDefault();
-}
-function achClosePermissionBox(value){
-	$("#achConfirmationBox").fadeOut();
-	$("body").css("pointer-events","initial");
-}
-
-
-
-
 function deleteAch(value){
-	achClosePermissionBox(value);	
+	$('#deleteBox').modal('hide')	
 	$("#delButtonIcon").hide();
 	$("#delButtonText").text("Deleting");
 	$("#achDeleteLoad").show();

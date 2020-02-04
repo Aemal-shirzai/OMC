@@ -1,3 +1,7 @@
+// Enable popper tooltip everywhere
+$(()=>{
+	$("[data-toggle='tooltip']").tooltip();
+})
 // Call the function of which chagne size of search box , large navbar and header when scroll
 window.onscroll = function() {
 	changeMenuSize();

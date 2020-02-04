@@ -57,7 +57,7 @@
             <span class="fad fa-question-circle section2Icons"></span>
             <h6>Find/Ask Q&A</h6>
             <p class="container">
-                Find and ask qustions ralated to medical and share your answers with others. <a href="{{route('register')}}">Sign up</a> for free account.   
+                Find and ask qustions ralated to medical and share your answers with others. <a href="{{route('register')}}" data-toggle="tooltip" title="Create an account" data-placement="bottom">Sign up</a> for free account.   
             </p>
             <div class="text-center"> 
                 <a href="{{route('questions.create')}}" class="btn btn-sm descriptionContentButtons">Ask Question</a>
@@ -75,7 +75,7 @@
             <span class="fad fa-user-md-chat section2Icons"></span>
             <h6>Reach Doctors</h6>
             <p class="container">
-                Find your medical experts regarding to their location, profession, and publicity. <a href="{{route('register')}}">Sign up</a> for free account.   
+                Find your medical experts regarding to their location, profession, and publicity. <a href="{{route('register')}}" data-toggle="tooltip" title="Create an account" data-placement="bottom">Sign up</a> for free account.   
             </p>
             <div class="text-center"> 
                 <a href="{{route('doctors.index')}}" class="btn btn-sm descriptionContentButtons">Find Doctors</a>
@@ -91,7 +91,7 @@
         <div id="addAds" class="col-lg-3 text-center">
             <span class="fas fa-ad section2Icons"></span>
             <p class="container">
-                Search and find the latest advertisements and share your advertisements through OnlineTEB. <a href="{{route('register')}}">Sign up</a> for free account.   
+                Search and find the latest advertisements and share your advertisements through OnlineTEB. <a href="{{route('register')}}" data-toggle="tooltip" title="Create an account" data-placement="bottom">Sign up</a> for free account.   
             </p>
              <div class="text-center"> 
                 <a href="javascript:void(0)" id="forUsersViewAds" class="btn btn-sm descriptionContentButtons">View ads</a>
@@ -134,7 +134,7 @@
             </div>
             <div class="col-10">
                 <p>
-                    Share your knowladege regarding health with other by adding a <a href="{{route('posts.create')}}">post</a> to your profile.
+                    Share your knowladege regarding health with other by adding a <a href="{{route('posts.create')}}" data-toggle="tooltip" title="Add a post" data-placement="bottom">post</a> to your profile.
                 </p>
             </div>
         </div>
@@ -147,7 +147,7 @@
             </div>
             <div class="col-10">
                 <p>
-                    Help poeple diffrentiate the right and wrong information by voting  others poeples' <a href="{{route('posts.index')}}">Posts</a> & <a href="{{route('questions.index')}}">Questions</a>
+                    Help poeple diffrentiate the right and wrong information by voting  others poeples' <a href="{{route('posts.index')}}" data-toggle="tooltip" title="All posts" data-placement="bottom">Posts</a> & <a href="{{route('questions.index')}}" data-toggle="tooltip" title="All questions" data-placement="bottom">Questions</a>
                 </p>
             </div>
         </div>
@@ -160,7 +160,7 @@
             </div>
             <div class="col-10">
                 <p>
-                    Increase your publicity by accelerating your discovery through OnlineTEB <a href="{{route('contactus.index')}}">advertising</a>.
+                    Increase your publicity by accelerating your discovery through OnlineTEB <a href="{{route('contactus.index')}}" data-toggle="tooltip" title="Add advertisements" data-placement="bottom">advertising</a>.
                 </p>
             </div>
         </div>
