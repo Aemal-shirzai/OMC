@@ -23,19 +23,19 @@ function followPost(postId){
 		if($("#favoriteButton-"+postId).hasClass("followed")){
 			$("#favoriteButton-"+postId).removeClass("followed");
 			$("#favoritesPostCount-"+postId).text(parseInt($("#favoritesPostCount-"+postId).text())-1);
-			$("#followOptionText-"+postId).text("Follow");
+			$("#followOptionText-"+postId).text("(follow)");
 		}else{
 			$("#favoriteButton-"+postId).addClass("followed");
 			$("#favoritesPostCount-"+postId).text(parseInt($("#favoritesPostCount-"+postId).text())+1);
-			$("#followOptionText-"+postId).text("Un-follow");
+			$("#followOptionText-"+postId).text("(following)");
 		}
 	}).fail(function(response){
 		if(response.status == 403){
 			$("#notAllowedDiv").fadeIn("slow");
 			if($("#favoriteButton-"+postId).hasClass("followed")){
-				$("#followOptionText-"+postId).text("Un-follow");
+				$("#followOptionText-"+postId).text("(following)");
 			}else{
-				$("#followOptionText-"+postId).text("Follow");
+				$("#followOptionText-"+postId).text("(follow)");
 			}
 			return false;
 		}
@@ -88,21 +88,21 @@ function followQuestion(questionId){
 		if($("#favoriteButton-"+questionId).hasClass("followed")){
 			$("#favoriteButton-"+questionId).removeClass("followed");
 			$("#favoritesPostCount-"+questionId).text(parseInt($("#favoritesPostCount-"+questionId).text())-1);
-			$("#followOptionText-"+questionId).text("Follow");
+			$("#followOptionText-"+questionId).text("(follow)");
 		}else{
 			$("#favoriteButton-"+questionId).addClass("followed");
 			$("#favoritesPostCount-"+questionId).text(parseInt($("#favoritesPostCount-"+questionId).text())+1);
-			$("#followOptionText-"+questionId).text("Un-follow");
+			$("#followOptionText-"+questionId).text("(following)");
 		}
 	}).fail(function(response){
 		if(response.status == 403){
 			$("#notAllowedDiv").fadeIn("slow");
 			if($("#favoriteButton-"+questionId).hasClass("followed")){
 				$("#favoriteButton-"+questionId).addClass("followed");	
-				$("#followOptionText-"+questionId).text("Un-follow");
+				$("#followOptionText-"+questionId).text("(following)");
 			}else{
 				$("#favoriteButton-"+questionId).removeClass("followed");
-				$("#followOptionText-"+questionId).text("Follow");
+				$("#followOptionText-"+questionId).text("(follow)");
 			}
 		}
 	});

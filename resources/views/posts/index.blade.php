@@ -193,16 +193,29 @@
 			
 			<!-- Beggingin of the content part -->
 			<div id="content-{{$post->id}}" class="content col-12">
-				<a href="{{route('posts.show',$post->id)}}"><h5 style="color: #3fbbc0;">{{$post->title}}</h5></a>
+				<a href="{{route('posts.show',$post->id)}}">
+					<h5 style="color: #949494;" class="d-inline-block mb-0">{{$post->title}}</h5>
+					@auth 
+						@can("normalUser_related",Auth::user())
+							<button class="btn  p-0 {{ Auth::user()->owner->favoritePosts()->where(['fav_type'=>'App\Post','fav_id'=>$post->id])->first() ? 'followed' : '' }}" onclick="followPost('{{$post->id}}')" id="favoriteButton-{{$post->id}}" data-toggle="tooltip" title="Follow the post for lates update">
+								<a href="javascript:void(0)" style="font-size: 9px;"> 
+									<span class="optionsText" id="followOptionText-{{$post->id}}">
+										{{ Auth::user()->owner->favoritePosts()->where(['fav_type'=>'App\Post','fav_id'=>$post->id])->first() ? '(following)' : '(follow)' }}
+									</span> 
+								</a>
+							</button>
+						@endcan
+					@endauth
+				</a>
 				<div class="tags">
 					@if($post->tags()->count() > 0)
 						@foreach($post->tags as $tag)
-							<span><a href="#">{{$tag->category}}</a></span>
+							<span>{{$tag->category}}</span>
 						@endforeach
 					@endif
 				</div>
 				@if($post->content)
-					<a href="{{route('posts.show',$post->id)}}" style="color: black;"><p>{{ Str::limit($post->content,300) }} <span class="readMoreLess" style="display: block;">View Full</span></a></p>
+					<a href="{{route('posts.show',$post->id)}}" style="color: black;"><p>{{ Str::limit($post->content,300) }} <span class="readMoreLess">view full</span></a></p>
 				@endif
 			</div>
 			<div class="clearfix"></div>
@@ -210,95 +223,21 @@
 
 			<!-- Beggining of opstions for posts -->
 				<div class="options">
-					<!-- Beggining of the posts options that should be visible only for auth users -->
-					@auth
-					<button class="btn OptionsForGuest"  title="The answer was usefull">
-						<a href="javascript:void(0)">
-							<span id="upVotedCheck-{{$post->id}}" @if(Auth::user()->postsVotes()->where(["type"=>1,"to_type"=>"App\Post","to_id"=>$post->id])->first())
-								class = "fas fa-check upVotedCheck"
-							 @endif ></span>
 
-							<span class="fal fa-arrow-alt-up optionsIcons" id="postOptionsVoteUpIcon-{{$post->id}}" {{ Auth::user()->postsVotes()->where(["type"=>1,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "style=color:#3fbbc0;" : "" }}></span> 
-
-							<span class="optionsText" id="postOptionsVoteUpText-{{$post->id}}" {{ Auth::user()->postsVotes()->where(["type"=>1,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "style=color:#3fbbc0;" : "" }}>Up-Votes</span>
-
-							. <b><span class="votes" id="postOptionsVoteUpCount-{{$post->id}}">{{$post->votedBy()->where("type",1)->count()}}</span></b>
-						</a>
+					<button class="btn OptionsForGuest" data-toggle="tooltip" title="up votes">
+						usefull (<span class="votes font-weight-bold" id="postOptionsVoteUpCount-{{$post->id}}">{{$post->votedBy()->where("type",1)->count()}}</span>)
 					</button>
-					<button class="btn OptionsForGuest" title="The answer was not usefull">
-						<a href="javascript:void(0)">
-
-							<span id="downVotedCheck-{{$post->id}}" @if(Auth::user()->postsVotes()->where(["type"=>0,"to_type"=>"App\Post","to_id"=>$post->id])->first())
-								class = "fas fa-check upVotedCheck"
-							 @endif></span>
-
-							<span class="fal fa-arrow-alt-down optionsIcons" id="postOptionsDownVoteUpIcon-{{$post->id}}" {{ Auth::user()->postsVotes()->where(["type"=>0,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "style=color:#3fbbc0;" : "" }}></span> 
-
-							<span class="optionsText" id="postOptionsDownVoteText-{{$post->id}}" {{ Auth::user()->postsVotes()->where(["type"=>0,"to_type"=>"App\Post","to_id"=>$post->id])->first() ? "style=color:#3fbbc0;" : "" }}>Down-Votes</span>  
-
-							. <b><span class="votes" id="postOptionsVoteDownCount-{{$post->id}}">{{$post->votedBy()->where("type",0)->count()}}</span></b>
-						</a>
+					<button class="btn OptionsForGuest" data-toggle="tooltip" title="down votes">
+						un-usefull (<span class="votes font-weight-bold" id="postOptionsVoteDownCount-{{$post->id}}">{{$post->votedBy()->where("type",0)->count()}}</span>)
+					</button>					
+					<button class="btn OptionsForGuest"  data-toggle="tooltip" title="followers">
+						followers (<span class="votes font-weight-bold" id="favoritesPostCount-{{$post->id}}">{{$post->favoritedBy()->count()}}</span>)
 					</button>
-					@can("normalUser_related",Auth::user())
-					<button class="btn {{ Auth::user()->owner->favoritePosts()->where(['fav_type'=>'App\Post','fav_id'=>$post->id])->first() ? 'followed' : '' }}" onclick="followPost('{{$post->id}}')" id="favoriteButton-{{$post->id}}" title="Follow the post for lates update">
-						<a href="javascript:void(0)">
-							<span class="fal fa-wifi optionsIcons"></span> 
-							<span class="optionsText" id="followOptionText-{{$post->id}}">
-								{{ Auth::user()->owner->favoritePosts()->where(['fav_type'=>'App\Post','fav_id'=>$post->id])->first() ? 'Un-follow' : 'Follow' }}
-							</span> 
-							. <b><span class="votes" id="favoritesPostCount-{{$post->id}}"> {{$post->favoritedBy()->count()}}</span></b>
-						</a>
+					<button class="btn OptionsForGuest" data-toggle="tooltip" title="comments">
+						comments (<span class="votes font-weight-bold" id="commentcounts1-{{$post->id}}"> {{count($post->comments)}}</span>)
 					</button>
-					@endcan
-					@can("Doctor_related",Auth::user())
-					<button class="btn OptionsForGuest" title="Follow the post for lates update">
-						<a href="javascript:void(0)">
-							<span class="fal fa-wifi optionsIcons"></span> 
-							<span class="optionsText">Followers</span> 
-							<b><span class="votes">. {{$post->favoritedBy()->count()}}</span></b>
-						</a>
-					</button>
-					@endcan
-					@endauth
-					<!-- End of the posts options that should be visible only for auth users -->
-
-					<!-- Beggining of the posts options that should be visible only for gues users -->
-					@guest
-					<button class="btn OptionsForGuest" title="The answer was usefull. You have to Login First">
-						<a href="javascript:void(0)">
-							<span class="far fa-arrow-alt-up optionsIcons"></span> 
-							<span class="optionsText">Up-votes</span> 
-							<b><span class="votes">. {{$post->votedBy()->where("type",1)->count()}}</span></b>
-						</a>
-					</button>
-					<button class="btn OptionsForGuest" title="The answer was not usefull. You have to Login First">
-						<a href="javascript:void(0)">
-							<span class="fal fa-arrow-alt-down optionsIcons"></span> 
-							<span class="optionsText">Down-votes</span>  
-							<span class="votes">. {{$post->votedBy()->where("type",0)->count()}}</span>
-						</a>
-					</button>
-					<button class="btn OptionsForGuest" title="Follow the post for lates update. You have to Login First">
-						<a href="javascript:void(0)">
-							<span class="fal fa-wifi optionsIcons"></span> 
-							<span class="optionsText">Followers</span> 
-							<span class="votes">. {{$post->favoritedBy()->count()}}</span>
-						</a>
-					</button>
-					@endguest
-					<!-- End of the posts options that should be visible only for guest users -->
-
-					<!-- Beggining of the posts options that should be visible for both the  auth users and guest users -->
-					<button class="btn" title="All comments for this post">
-						<a href="{{route('posts.show',$post->id)}}">
-							<span class="fal fa-comment optionsIcons"></span> 
-							<span class="optionsText">All comments</span> 
-							.<b><span class="votes" id="commentcounts1-{{$post->id}}"> {{count($post->comments)}}</span></b>
-						</a>
-					</button>
-					<!-- End of the posts options that should be visible for both the  auth users and guest users -->
-
-					<div class="btn float-right" id="shareBtn" title="All share options">
+	
+					<div class="btn float-right" id="shareBtn" data-toggle="tooltip" title="more options">
 						<a href="#" onclick="openShareOptions({{$post->id}})">
 							<span class="far fa-ellipsis-v optionsIcons"></span> 
 						</a>

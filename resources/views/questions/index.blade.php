@@ -190,7 +190,20 @@
 			
 			<!-- Beggingin of the content part -->
 			<div id="content-{{$question->id}}" class="content col-12">
-				<a href="{{route('questions.show',$question->id)}}"><h5 style="color: #3fbbc0">{{$question->title}}</h5></a>
+				<a href="{{route('questions.show',$question->id)}}">
+					<h5 style="color: #949494;" class="d-inline-block mb-0">{{$question->title}}</h5>
+					@auth 
+						@can("normalUser_related",Auth::user())
+							<button class="btn p-0 {{ Auth::user()->owner->favoriteQuestions()->where(['fav_type'=>'App\Question','fav_id'=>$question->id])->first() ? 'followed' : '' }}" onclick="followQuestion('{{$question->id}}')" id="favoriteButton-{{$question->id}}" data-toggle="tooltip"  title="Follow the question for lates update">
+								<a href="javascript:void(0)" style="font-size: 9px;">
+									<span class="optionsText" id="followOptionText-{{$question->id}}">
+										{{ Auth::user()->owner->favoriteQuestions()->where(['fav_type'=>'App\Question','fav_id'=>$question->id])->first() ? '(following)' : '(follow)' }}
+									</span> 
+								</a>
+							</button>
+						@endcan
+					@endauth
+				</a>
 				<div class="tags ">
 					@if($question->tags()->count() > 0)
 						@foreach($question->tags as $tag)
@@ -199,7 +212,7 @@
 					@endif
 				</div>
 				@if($question->content)
-					<a href="{{route('questions.show',$question->id)}}" style="color: black;"><p>{{ Str::limit($question->content,300) }} <span class="readMoreLess" style="display: block;">View Full</span></a></p>
+					<a href="{{route('questions.show',$question->id)}}" style="color: black;"><p>{{ Str::limit($question->content,300) }} <span class="readMoreLess">view full</span></a></p>
 				@endif
 			</div>
 			<div class="clearfix"></div>
@@ -207,94 +220,22 @@
 
 			<!-- Beggining of opstions for posts -->
 				<div class="options">
-					<!-- Beggining of the posts options that should be visible only for auth users -->
-					@auth
-					<button class="btn OptionsForGuest" title="The answer was usefull">
-						<a href="javascript:void(0)">
-							<span id="upVotedCheck-{{$question->id}}" @if(Auth::user()->questionsVotes()->where(["type"=>1,"to_type"=>"App\Question","to_id"=>$question->id])->first())
-								class = "fas fa-check upVotedCheck"
-							 @endif ></span>
 
-							<span class="fal fa-arrow-alt-up optionsIcons" id="postOptionsVoteUpIcon-{{$question->id}}" {{ Auth::user()->questionsVotes()->where(["type"=>1,"to_type"=>"App\Question","to_id"=>$question->id])->first() ? "style=color:#3fbbc0;" : "" }}></span> 
-
-							<span class="optionsText" id="postOptionsVoteUpText-{{$question->id}}" {{ Auth::user()->questionsVotes()->where(["type"=>1,"to_type"=>"App\Question","to_id"=>$question->id])->first() ? "style=color:#3fbbc0;" : "" }}>Up-votes</span>
-
-							. <b><span class="votes" id="postOptionsVoteUpCount-{{$question->id}}">{{$question->votedBy()->where("type",1)->count()}}</span></b>
-						</a>
+					<button class="btn OptionsForGuest" data-toggle="tooltip" title="up votes">
+						usefull (<span class="votes font-weight-bold" id="postOptionsVoteUpCount-{{$question->id}}">{{$question->votedBy()->where("type",1)->count()}}</span>)
 					</button>
-					<button class="btn OptionsForGuest" title="The answer was not usefull">
-						<a href="javascript:void(0)">
-
-							<span id="downVotedCheck-{{$question->id}}" @if(Auth::user()->questionsVotes()->where(["type"=>0,"to_type"=>"App\Question","to_id"=>$question->id])->first())
-								class = "fas fa-check upVotedCheck"
-							 @endif></span>
-
-							<span class="fal fa-arrow-alt-down optionsIcons" id="postOptionsDownVoteUpIcon-{{$question->id}}" {{ Auth::user()->questionsVotes()->where(["type"=>0,"to_type"=>"App\Question","to_id"=>$question->id])->first() ? "style=color:#3fbbc0;" : "" }}></span> 
-
-							<span class="optionsText" id="postOptionsDownVoteText-{{$question->id}}" {{ Auth::user()->questionsVotes()->where(["type"=>0,"to_type"=>"App\Question","to_id"=>$question->id])->first() ? "style=color:#3fbbc0;" : "" }}>Down-votes</span>  
-
-							. <b><span class="votes" id="postOptionsVoteDownCount-{{$question->id}}">{{$question->votedBy()->where("type",0)->count()}}</span></b>
-						</a>
+					<button class="btn OptionsForGuest" data-toggle="tooltip" title="down votes">
+						un-usefull (<span class="votes font-weight-bold" id="postOptionsVoteDownCount-{{$question->id}}">{{$question->votedBy()->where("type",0)->count()}}</span>)
+					</button>	
+					<button class="btn OptionsForGuest" data-toggle="tooltip" title="followers">
+						followers (<span class="votes font-weight-bold" id="favoritesPostCount-{{$question->id}}"> {{$question->favoritedBy()->count()}}</span>)
 					</button>
-					@can("normalUser_related",Auth::user())
-					<button class="btn {{ Auth::user()->owner->favoriteQuestions()->where(['fav_type'=>'App\Question','fav_id'=>$question->id])->first() ? 'followed' : '' }}" onclick="followQuestion('{{$question->id}}')" id="favoriteButton-{{$question->id}}" title="Follow the question for lates update">
-						<a href="javascript:void(0)">
-							<span class="fal fa-wifi optionsIcons"></span> 
-							<span class="optionsText" id="followOptionText-{{$question->id}}">
-								{{ Auth::user()->owner->favoriteQuestions()->where(['fav_type'=>'App\Question','fav_id'=>$question->id])->first() ? 'Un-follow' : 'Follow' }}
-							</span> 
-							. <b><span class="votes" id="favoritesPostCount-{{$question->id}}"> {{$question->favoritedBy()->count()}}</span></b>
-						</a>
+					<button class="btn OptionsForGuest" data-toggle="tooltip" title="comments">
+						comments (<span class="votes font-weight-bold" id="commentcounts1-{{$question->id}}"> {{count($question->comments)}}</span>)
 					</button>
-					@endcan
-					@can("Doctor_related",Auth::user())
-					<button class="btn OptionsForGuest" title="Follow the post for lates update">
-						<a href="javascript:void(0)">
-							<span class="fal fa-wifi optionsIcons"></span> 
-							<span class="optionsText">Followers</span> 
-							<b><span class="votes">. {{$question->favoritedBy()->count()}}</span></b>
-						</a>
-					</button>
-					@endcan
-					@endauth
-					<!-- End of the posts options that should be visible only for auth users -->
 
-					<!-- Beggining of the posts options that should be visible only for gues users -->
-					@guest
-					<button class="btn OptionsForGuest" title="The answer was usefull. You have to Login First">
-						<a href="javascript:void(0)">
-							<span class="far fa-arrow-alt-up optionsIcons"></span> 
-							<span class="optionsText">Up-votes</span> 
-							<b><span class="votes">. {{$question->votedBy()->where("type",1)->count()}}</span></b>
-						</a>
-					</button>
-					<button class="btn OptionsForGuest" title="The answer was not usefull. You have to Login First">
-						<a href="javascript:void(0)">
-							<span class="fal fa-arrow-alt-down optionsIcons"></span> 
-							<span class="optionsText">Down-votes</span>  
-							<b><span class="votes">. {{$question->votedBy()->where("type",0)->count()}}</span></b>
-						</a>
-					</button>
-					<button class="btn OptionsForGuest" title="Follow the post for lates update. You have to Login First">
-						<a href="javascript:void(0)">
-							<span class="fal fa-wifi optionsIcons"></span> 
-							<span class="optionsText">Followers</span> 
-							<b><span class="votes">. {{$question->favoritedBy()->count()}}</span></b>
-						</a>
-					</button>
-					@endguest
-					<!-- End of the posts options that should be visible only for guest users -->
 
-					<!-- Beggining of the posts options that should be visible for both the  auth users and guest users -->
-					<button class="btn" title="All comments for this post">
-						<a href="{{route('questions.show',$question->id)}}">	<span class="fal fa-comment optionsIcons"></span> 
-							<span class="optionsText">All comments</span> 
-							.<b><span class="votes" id="commentcounts1-{{$question->id}}"> {{count($question->comments)}}</span></b>
-						</a>
-					</button>
-					<!-- End of the posts options that should be visible for both the  auth users and guest users -->
-
-					<div class="btn float-right" id="shareBtn" title="All share options">
+					<div class="btn float-right" id="shareBtn" data-toggle="tooltip" title="more options">
 						<a href="#" onclick="openShareOptions({{$question->id}})">
 							<span class="far fa-ellipsis-v optionsIcons"></span> 
 						</a>

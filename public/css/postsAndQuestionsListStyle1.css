@@ -241,12 +241,12 @@ div.content{
 }
 div.content h5{
 	font-weight: bold;
-	font-size: 13px;
+	font-size: 16px;
 }
 div.content p{
 	word-wrap: break-word;
 	text-align: justify;
-	font-size: 14px;
+	font-size: 13px;
 	margin-bottom: 0px;
 }
 div.contentImage{
@@ -279,6 +279,8 @@ div.tags span{
 	background-color: #efefef;
 	border-radius: 4px;
 	padding: 0 5px;
+	font-size: 10px;
+	color: #3fbbc0;
 }
 div.tags span a{
 	font-size: 10px;
@@ -287,7 +289,6 @@ div.tags span a{
 div.options{
 	width: 85%;
 	margin: 0 auto;
-	text-align: center;
 }
 div.options button{
 	border-radius: 15px;
@@ -296,6 +297,7 @@ div.options button{
 	height: 35px;
 	margin-bottom: 4px;
 	transition: .5s;
+	padding: 3px;
 }
 div#shareBtn{
 	position: relative;
@@ -304,7 +306,8 @@ div.shareBtnForGuest{
 	margin-top: -35px;
 }
 div.options button a{
-	color: #666;
+	/*color: #666;*/
+	color: #949494;
 	text-decoration: none;
 }
 div#shareBtn a{
@@ -422,6 +425,8 @@ div.shareOptions p{
 }
 button.OptionsForGuest{
 	cursor:default;
+	/*background: #fbfbfd;*/
+	color: #949494;
 }
 button.OptionsForGuest a{
 	cursor: default;
@@ -556,10 +561,6 @@ textarea::-webkit-scrollbar {
 		margin-bottom: 12px;
 	}
 
-	div.options button{
-		font-size: 9px;
-	}
-
 	div#followDoctorParent{
 		right: 70px;
 	}
@@ -634,13 +635,13 @@ textarea::-webkit-scrollbar {
 	div.content h5{
 		margin-bottom:2px;
 		margin-top:5px;
-		font-size: 13px;
+		/*font-size: 13px;*/
 	}
 	div#commentImage img{
 		max-height: 170px !important
 	}
 	div.content p{
-		font-size: 13px;
+		font-size: 12px;
 	}
 	div.contentImage img{
 		max-width: 100%;
@@ -651,7 +652,7 @@ textarea::-webkit-scrollbar {
 		font-size: 8px;
 	}
 	div.options button{
-		font-size: 8px;
+		margin-left: 10px;
 	}
 	span.optionsIcons{
 		font-size: 13px;
@@ -762,7 +763,8 @@ textarea::-webkit-scrollbar {
 	div.content h5{
 		margin-bottom:0;
 		margin-top:5px;
-		font-size: 11px;
+
+		/*font-size: 11px;*/
 	}
 	div.content p{
 		font-size: 12px;
@@ -782,11 +784,10 @@ textarea::-webkit-scrollbar {
 		width: 100%;
 		text-align: left;
 	}
-	span.optionsText{
-		display:none;
-	}
+
 	div.options button{
 		font-size: 9px;
+		padding: 4px;
 	}
 	span.optionsIcons{
 		font-size: 12px;
@@ -848,26 +849,19 @@ textarea::-webkit-scrollbar {
 
 /* ///////////////////////////////////////////////////////////////// Samll sizes /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 468px){
-	div.confirmationBox{
-	width: 227px;
-	height: 140px;
-	top:41%;
-	left: 17%;
-	font-size: 12px;
-	padding: 20px 20px;
+	a#topButtonP:focus{
+		box-shadow: none;
+	}
 
-}
-div.confirmationBox a{
-	margin: 27px 17px;
-	font-size: 9px;
-}
-a#topButtonP:focus{
-	box-shadow: none;
-}
+	div.options button {
+		font-size: 9px;
+	}
 }
 
 
 /* ///////////////////////////////////////////////////////////////// Very Samll sizes /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 320px){
-
+	div.options button {
+		font-size: 7px;
+	}
 }

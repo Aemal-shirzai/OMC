@@ -15,7 +15,7 @@ function changeMenuSize(){
 		document.getElementById("sidebar-large").style.height = "65x";
 		document.getElementById("logodiv").style.width = "150px";
 		document.getElementById("logodiv").style.marginTop= "6px";
-		document.getElementById("search-box").style.height= "36px";
+		document.getElementById("search-box1").style.height= "36px";
 		document.getElementById("search-close-button").style.height= "36px";
 		document.getElementById("search-close-button").style.paddingTop= "5px";
 		if($(window).width() > 1000){
@@ -30,7 +30,7 @@ function changeMenuSize(){
 		document.getElementById("sidebar-large").style.marginTop = "-2px";
 		document.getElementById("sidebar-large").style.height = "70x";
 		document.getElementById("logodiv").style.width = "140px";
-		document.getElementById("search-box").style.height= "46px";
+		document.getElementById("search-box1").style.height= "46px";
 		document.getElementById("search-close-button").style.height= "46px";
 		document.getElementById("search-close-button").style.paddingTop= "9px";
 		if($(window).width() > 1000){
