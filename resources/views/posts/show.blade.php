@@ -719,7 +719,6 @@
 							<!-- Beggining of: of the showing all replies for a comment -->
 							<div class="allReplies" id="allReplies-{{$comment->id}}">
 								@if(count($comment->replies) > 0)
-								<!-- <b><div class="mb-2 replies-count"><span id="replies-count-{{$comment->id}}">{{count($comment->replies)}}</span> Replies</div></b> -->
 								<div class="mb-2 replies-count" id="replyCount-{{$comment->id}}" style="font-weight: bold;"><span id="replies-count-{{$comment->id}}">{{count($comment->replies)}}</span> Replies</div>
 										@foreach($comment->replies()->orderBy("created_at","desc")->get() as $reply)
 											<!-- replied by image -->

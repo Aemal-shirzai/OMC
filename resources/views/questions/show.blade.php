@@ -525,13 +525,13 @@
 
 					<!-- Beggining of div: The form for adding comments -->
 					<div id="comment">
-						{!! Form::open(["method"=>"POST","action"=>"CommentController@storeQuestion","files"=>"true"]) !!}		
+						{!! Form::open(["method"=>"POST","action"=>"CommentController@storeQuestion","files"=>"true","class"=>"commentForm"]) !!}		
 							<div class="input-group">
 								{!! Form::file("photo",["class"=>"commentPhotoField","id"=>"commentPhotoField","onchange"=>"showAndValidateFile($question->id)"]) !!}
 								<!-- <textarea  name="content" class="form-control commentField" placeholder="Add Comment to post..." id="commentField" rows="1" maxlength="65500" 
 								onkeyup="do_resize_and_enable_button(this,{!! $question->id !!})">@if(old("post_id") == $question->id) {{old("content")}} @endif</textarea> -->
 								{!! Form::textarea("content",null,["class"=>"form-control commentField","placeholder"=>"Add Comment to question...","id"=>"commentField","onkeyup"=>"do_resize_and_enable_button(this)","maxlength"=>"65500","rows"=>"1"]) !!}
-								<!-- <input type="hidden" name="post_id" value= @if(old("post_id") == $question->id) {{old("post_id")}} @else {{$question->id}} @endif > -->
+								<input type="hidden" name="post_id" value="{{$question->id}}">
 								{!! Form::hidden("question_id",$question->id) !!}
 								{!! Form::submit("Add Comment",["class"=>"btn  btn-sm addCommentBtn","id"=>"addCommentBtn","disabled"=>"true","onclick"=>"validateCommentForm()"]) !!}
 								<i class="fal fa-camera commentPhotoButton" id="commentPhotoButton-$question->id" onclick="openCommentPhotoField()"></i>
@@ -544,7 +544,8 @@
 				<!-- Beggining of all comments part -->
 				<div class="allComments" id="allComments">
 					@if(count($question->comments) > 0)
-						<b><div class="mb-2 ml-2 comments-count"><span id="commentsCount">{{count($question->comments)}}</span> Comments</div></b>
+					    <div class="mb-2 ml-2 comments-count" id="countComment" style="font-weight: bold;"><span id="commentsCount">{{count($question->comments)}}</span> Comments</div>
+						<!-- <b><div class="mb-2 ml-2 comments-count"><span id="commentsCount">{{count($question->comments)}}</span> Comments</div></b> -->
 						@foreach($question->comments()->orderBy("created_at","desc")->get() as $comment)
 
 							<!-- Beggining of: Image part of comment owner -->
@@ -698,12 +699,12 @@
 							<!-- Beggining of form for replies -->
 							@auth
 								<div class ="reply" id="reply-{{$comment->id}}">
-									{!! Form::open(["method"=>"post","action"=>"CommentReplyController@store","files"=>"true"]) !!}		
+									{!! Form::open(["method"=>"post","action"=>"CommentReplyController@store","files"=>"true","id"=>"repliesForm-$comment->id","onsubmit"=>"addReply(event)"]) !!}		
 										<div class="input-group">
 											{!! Form::file("replyPhoto",["class"=>"replyPhotoField","id"=>"replyPhotoField-$comment->id","onchange"=>"showAndValidateReplyFile($comment->id)"]) !!}
 											<textarea  name="replyContent" class="form-control replyField" placeholder="Add Reply..." id="replyField-{{$comment->id}}" rows="1" maxlength="65500" 
 											onkeyup="do_resize_and_enable_reply_button(this,{!! $comment->id !!})">@if(old("comment_id") == $comment->id) {{old("replyContent")}} @endif</textarea>
-											<input type="hidden" name="comment_id" value= @if(old("comment_id") == $comment->id) {{old("comment_id")}} @else {{$comment->id}} @endif >
+											<input type="hidden" name="comment_id" value="{{$comment->id}}">
 											{!! Form::submit("Reply",["class"=>"btn  btn-sm addReplyBtn","id"=>"addReplyBtn-$comment->id","disabled"=>"true","onclick"=>"validateReplyForm($comment->id)"]) !!}
 											<i class="fal fa-camera replyPhotoButton" id="replyPhotoButton-{{$comment->id}}" onclick="openReplyPhotoField({!!$comment->id!!})"></i>
 										</div>
@@ -715,7 +716,7 @@
 							<!-- Beggining of: of the showing all replies for a comment -->
 							<div class="allReplies" id="allReplies-{{$comment->id}}">
 								@if(count($comment->replies) > 0)
-								<b><div class="mb-2 replies-count"><span id="replies-count-{{$comment->id}}">{{count($comment->replies)}}</span> Replies</div></b>
+								<div class="mb-2 replies-count" id="replyCount-{{$comment->id}}" style="font-weight: bold;"><span id="replies-count-{{$comment->id}}">{{count($comment->replies)}}</span> Replies</div>
 										@foreach($comment->replies()->orderBy("created_at","desc")->get() as $reply)
 											<!-- replied by image -->
 											<div class="allRepliesOwnerImage" id="replyOwnerInfo-{{$reply->id}}">
@@ -809,14 +810,14 @@
 											<div class="dropdown-divider reply-divider"></div>
 										@endforeach
 								@else
-									<div class="no-comment">No Replies</div>
+									<div class="mb-2 replies-count" id="replyCount-{{$comment->id}}" style="font-weight: bold;"><span id="replies-count-{{$comment->id}}">{{count($comment->replies)}}</span> Replies</div>
 								@endif
 							</div>
 							<!-- End of: of the showing all replies for a comment -->
 							<div class="dropdown-divider" id="dividerForComments"></div>
 						@endforeach
 					@else
-						<span class="no-comment">No Comment</span>	
+						<div class="mb-2 ml-2 comments-count" id="countComment" style="font-weight: bold;"><span id="commentsCount">{{count($question->comments)}}</span> Comments</div>
 					@endif
 				</div>
 				<!-- End of : all comments content part -->
@@ -871,6 +872,8 @@ var token = '{{ Session::token() }}';
 		var questionVote = '{{route("questionVote")}}';
 		var commentVote = '{{route("commentVote")}}';
 		var replyVote = '{{route("replyVote")}}';
+		var commentAdd = '{{route("storeQuestion")}}';
+		var replyAdd = '{{route("replies.store")}}';
 
 		// This route is to add qiestion to favorite
 		var questionFavorites = '{{route("questionFavorites")}}';

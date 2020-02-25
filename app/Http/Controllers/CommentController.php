@@ -124,10 +124,36 @@ class CommentController extends Controller
         }
     }
 
-    public function storeQuestion(CommentRequest $request){
-        if($request->content == "" && !$request->hasFile("photo")){
-            return back()->withInput()->with("error","The comment content can not be null");
+    public function storeQuestion(Request $request){
+
+        // Validations part start
+        $validator = Validator::make($request->all(),[
+            "content" => "bail|max:65500",
+            "photo" => "bail|image|max:10240|min:1",
+        ],[
+            "content.max" => "Too long comment is not allowed", 
+            "photo.image" => "Invalid file. Only photos are allowed...",
+            "photo.max"   => "File too large. max 10MB...",
+        ]);
+
+        if($validator->fails()){
+            if($request->ajax()){
+                return response()->json(['errors'=>$validator->errors()]);
+            }else{
+                return back()->withInput()->withErrors($validator->errors());
+            }
         }
+
+        if($request->content == "" && !$request->hasFile("photo")){
+            if($request->ajax()){
+                return response()->json(['overAllError'=>"The comment content can not be null"]);
+            }else{
+                return back()->withInput()->with("error","The comment content can not be null");
+            }
+        }
+
+        // Validation part End
+
         $user = Auth::user();
         // in order to store the correct account_id column in the commments table we need to know the current account_id the is stroed in the id column of the current loged in user account table
         $account_id  = $user->id;
@@ -156,6 +182,16 @@ class CommentController extends Controller
             $question->owner->account->notify(new commentForQuestion($comment,$question));
         }
         if($comment){
+            if($request->ajax()){
+                $CreateTime = $comment->created_at->diffForHumans();
+                $comment['createTime'] = $CreateTime; 
+                $comment['fullName'] = $comment->comment_owner->owner->fullName;
+                $comment['username'] = $comment->comment_owner->username;
+                $comment['ownerPhoto'] = ($comment->comment_owner->photos()->where("status",1)->first() ? $comment->comment_owner->photos()->where("status",1)->first()->path : "");
+                $comment['ownerType'] = $comment->comment_owner->owner_type;
+                $comment['photo'] = ($comment->photos()->where("status",1)->first() ? $comment->photos()->where("status",1)->first()->path : "");
+                return response()->json(["comment"=>$comment]);
+            }
             return back()->with(["commentSuccess"=>"Your Comment has been Added.","question_id"=>$request->question_id]);
         }else{
             return back()->with(["error"=>"Comment Not"]);
