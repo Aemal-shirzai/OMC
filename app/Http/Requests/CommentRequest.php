@@ -25,7 +25,7 @@ class CommentRequest extends FormRequest
     public function rules()
     {
         return [
-            "content" => "bail|max:6",
+            "content" => "bail|max:65500",
             "photo" => "bail|image|max:10240|min:1",
         ];
     }

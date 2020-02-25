@@ -530,13 +530,13 @@
 
 					<!-- Beggining of div: The form for adding comments -->
 					<div id="comment">
-						{!! Form::open(["method"=>"post","action"=>"CommentController@store","files"=>"true"]) !!}		
+						{!! Form::open(["method"=>"post","action"=>"CommentController@store","files"=>"true","class"=>"commentForm"]) !!}		
 							<div class="input-group">
 								{!! Form::file("photo",["class"=>"commentPhotoField","id"=>"commentPhotoField","onchange"=>"showAndValidateFile($post->id)"]) !!}
 								<!-- <textarea  name="content" class="form-control commentField" placeholder="Add Comment to post..." id="commentField" rows="1" maxlength="65500" 
 								onkeyup="do_resize_and_enable_button(this,{!! $post->id !!})">@if(old("post_id") == $post->id) {{old("content")}} @endif</textarea> -->
 								{!! Form::textarea("content",null,["class"=>"form-control commentField","placeholder"=>"Add Comment to post...","id"=>"commentField","onkeyup"=>"do_resize_and_enable_button(this)","maxlength"=>"65500","rows"=>"1"]) !!}
-								<!-- <input type="hidden" name="post_id" value= @if(old("post_id") == $post->id) {{old("post_id")}} @else {{$post->id}} @endif > -->
+								<input type="hidden" name="post_id" value="{{$post->id}}">
 								{!! Form::hidden("post_id",$post->id) !!}
 								{!! Form::submit("Add Comment",["class"=>"btn  btn-sm addCommentBtn","id"=>"addCommentBtn","disabled"=>"true","onclick"=>"validateCommentForm()"]) !!}
 								<i class="fal fa-camera commentPhotoButton" id="commentPhotoButton-$post->id" onclick="openCommentPhotoField()"></i>
@@ -549,9 +549,8 @@
 				<!-- Beggining of all comments part -->
 				<div class="allComments" id="allComments">
 					@if(count($post->comments) > 0)
-						<b><div class="mb-2 ml-2 comments-count"><span id="commentsCount">{{count($post->comments)}}</span> Comments</div></b>
+						<div class="mb-2 ml-2 comments-count" id="countComment" style="font-weight: bold;"><span id="commentsCount">{{count($post->comments)}}</span> Comments</div>
 						@foreach($post->comments()->orderBy("created_at","desc")->get() as $comment)
-
 							<!-- Beggining of: Image part of comment owner -->
 							<div class="allcommentsOwnerImage" id="allcommentsOwnerImage-{{$comment->id}}">
 								@if(count($comment->comment_owner->photos) > 0)							
@@ -636,17 +635,9 @@
 								<!-- Beggining of: Comment managing options delete and update -->
 								@if(Auth::user()->id === $comment->comment_owner->id)
 								<a href="{{route('comments.edit',$comment->id)}}"><button class=" commentManageOptions fal fa-edit float-right">Edit</button></a>
-								<button class="commentManageOptions fal fa-trash float-right" id="commentDeleteButton-{{$comment->id}}" onclick="deleteCommentPermission('{{$comment->id}}')"> Delete</button>
+								<button class="commentManageOptions fal fa-trash float-right" id="commentDeleteButton-{{$comment->id}}" data-toggle="modal" data-target="#deleteBox" data-id="{{$comment->id}}" data-type="comment" data-post="{{$post->id}}"> Delete</button>
 								@endif
 								<!-- End of Comment managing options delete and update -->
-
-								<div class="confirmationBox" id="commentConfirmationBox-{{$comment->id}}">
-									<div id="text">Are You Sure You Want To Delete?</div>
-									<div id="text"><small>Remember: There is no comeback</small></div>
-									<a href="javascript:void(0)" onclick="deleteComments('{{$comment->id}}','{{$post->id}}')" class="btn btn-danger btn-sm">Delete</a>
-									<a href="javascript:void(0)" onclick="closePermissionBox('{{$comment->id}}')" class="btn btn-light btn-sm">Cancel</a>
-								</div>
-
 								@endauth
 								@guest
 								<button class="btn OptionsForGuest" title="The answer was usefull. You need to login First">
@@ -711,12 +702,12 @@
 							<!-- Beggining of form for replies -->
 							@auth
 								<div class ="reply" id="reply-{{$comment->id}}">
-									{!! Form::open(["method"=>"post","action"=>"CommentReplyController@store","files"=>"true"]) !!}		
+									{!! Form::open(["method"=>"post","action"=>"CommentReplyController@store","files"=>"true","id"=>"repliesForm-$comment->id","onsubmit"=>"addReply(event)"]) !!}		
 										<div class="input-group">
 											{!! Form::file("replyPhoto",["class"=>"replyPhotoField","id"=>"replyPhotoField-$comment->id","onchange"=>"showAndValidateReplyFile($comment->id)"]) !!}
 											<textarea  name="replyContent" class="form-control replyField" placeholder="Add Reply..." id="replyField-{{$comment->id}}" rows="1" maxlength="65500" 
 											onkeyup="do_resize_and_enable_reply_button(this,{!! $comment->id !!})">@if(old("comment_id") == $comment->id) {{old("replyContent")}} @endif</textarea>
-											<input type="hidden" name="comment_id" value= @if(old("comment_id") == $comment->id) {{old("comment_id")}} @else {{$comment->id}} @endif >
+											<input type="hidden" name="comment_id" value="{{$comment->id}}" >
 											{!! Form::submit("Reply",["class"=>"btn  btn-sm addReplyBtn","id"=>"addReplyBtn-$comment->id","disabled"=>"true","onclick"=>"validateReplyForm($comment->id)"]) !!}
 											<i class="fal fa-camera replyPhotoButton" id="replyPhotoButton-{{$comment->id}}" onclick="openReplyPhotoField({!!$comment->id!!})"></i>
 										</div>
@@ -728,7 +719,8 @@
 							<!-- Beggining of: of the showing all replies for a comment -->
 							<div class="allReplies" id="allReplies-{{$comment->id}}">
 								@if(count($comment->replies) > 0)
-								<b><div class="mb-2 replies-count"><span id="replies-count-{{$comment->id}}">{{count($comment->replies)}}</span> Replies</div></b>
+								<!-- <b><div class="mb-2 replies-count"><span id="replies-count-{{$comment->id}}">{{count($comment->replies)}}</span> Replies</div></b> -->
+								<div class="mb-2 replies-count" id="replyCount-{{$comment->id}}" style="font-weight: bold;"><span id="replies-count-{{$comment->id}}">{{count($comment->replies)}}</span> Replies</div>
 										@foreach($comment->replies()->orderBy("created_at","desc")->get() as $reply)
 											<!-- replied by image -->
 											<div class="allRepliesOwnerImage" id="replyOwnerInfo-{{$reply->id}}">
@@ -753,8 +745,8 @@
 											<!-- Beggining of : all replies content part -->
 											<div class="allRepliessContent" id="allRepliessContent-{{$reply->id}}">
 												@if($reply->content)
-													@if(strlen($reply->content) > 400)
-														<p id="halfReply-{{$reply->id}}">{{Str::limit($reply->content,400)}} <a href="javascript:void(0)" class="readMoreLess" onclick="showComplete({!! $reply->id !!},'reply')">Read more...</a></p>	
+													@if(strlen($reply->content) > 300)
+														<p id="halfReply-{{$reply->id}}">{{Str::limit($reply->content,300)}} <a href="javascript:void(0)" class="readMoreLess" onclick="showComplete({!! $reply->id !!},'reply')">Read more...</a></p>	
 														<p id="completeReply-{{$reply->id}}" style="display: none;">{{$reply->content}} <a href="javascript:void(0)" class="readMoreLess" onclick="showLess({!! $reply->id !!},'reply')">Read less...</a></p>
 													@else
 														<p>{{ $reply->content }}</p>
@@ -799,18 +791,9 @@
 												<!-- Beggining of: Comment managing options delete and update -->
 													@if(Auth::user()->id === $reply->owner->id)
 													<a href="{{route('replies.edit',$reply->id)}}"><button class=" commentManageOptions fal fa-edit float-right"> Edit</button></a>
-													<button class="commentManageOptions fal fa-trash float-right" id="deleteReplyButton-{{$reply->id}}" onclick="deleteReplyPermission('{{$reply->id}}')"> Delete</button>
+													<button class="commentManageOptions fal fa-trash float-right" id="deleteReplyButton-{{$reply->id}}" data-toggle="modal" data-target="#deleteBox" data-id="{{$reply->id}}" data-type="reply" data-comment="{{$comment->id}}"> Delete</button>
 													@endif
 												<!-- End of Comment managing options delete and update -->
-
-												<div class="confirmationBox" id="replyConfirmationBox-{{$reply->id}}">
-													<div id="text">Are You Sure You Want To Delete?</div>
-													<div id="text"><small>Remember: There is no comeback</small></div>
-													<a href="javascript:void(0)" onclick="deleteReplies('{{$reply->id}}','{{$comment->id}}')" class="btn btn-danger btn-sm">Delete</a>
-													<a href="javascript:void(0)" onclick="closeDeleteReplyPermission('{{$reply->id}}')" class="btn btn-light btn-sm">Cancel</a>
-											</div>
-
-
 												@endauth
 												@guest
 												<button class="btn OptionsForGuest" title="The answer was usefull. you need to login first">
@@ -831,14 +814,15 @@
 											<div class="dropdown-divider reply-divider"></div>
 										@endforeach
 								@else
-									<div class="no-comment">No Replies</div>
+									<div class="mb-2 ml-2 comments-count" id="countComment-{{$comment->id}}" style="font-weight: bold;"><span id="commentsCount-{{$comment->id}}">0</span> Replies</div>	
 								@endif
 							</div>
 							<!-- End of: of the showing all replies for a comment -->
 							<div class="dropdown-divider" id="dividerForComments"></div>
 						@endforeach
 					@else
-						<span class="no-comment">No Comment</span>	
+						<div class="mb-2 ml-2 comments-count" id="countComment" style="font-weight: bold;"><span id="commentsCount">0</span> Comments</div>
+						<!-- <span class="no-comment">No Comment</span>	 -->
 					@endif
 				</div>
 				<!-- End of : all comments content part -->
@@ -893,6 +877,8 @@
 		var postVote = '{{route("postVote")}}';
 		var commentVote = '{{route("commentVote")}}';
 		var replyVote = '{{route("replyVote")}}';	
+		var commentAdd = '{{route("comments.store")}}';
+		var replyAdd = '{{route("replies.store")}}';
 
 		// This route is to add post to favorite
 		var postFavorites = '{{route("postFavorites")}}';

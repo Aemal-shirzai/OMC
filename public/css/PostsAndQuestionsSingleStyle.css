@@ -78,25 +78,6 @@ div.relatedInfoList h4{
 	font-size: 9px;
 }
 
-
-div.confirmationBox{
-	width: 273px;
-	height: 160px;
-	background: white;
-	box-shadow: 0 2px 4px 800px rgba(59,64,69,0.2);
-	border-radius: 10px;
-	position: fixed;
-	z-index: 1;
-	top:42%;
-	left: 39%;
-	padding: 20px 20px;
-	overflow: hidden;
-	display: none;
-}
-div.confirmationBox a{
-	margin: 37px 25px;
-	pointer-events: initial !important;
-}
 a#topButtonP:focus{
 	box-shadow: none;
 }
@@ -878,9 +859,6 @@ textarea::-webkit-scrollbar {
 	    top: 21%;
 	    left: 16%;
 	}
-	div.confirmationBox{
-		left: 18%;
-	}
 	div#followDoctorParent{
 		right: 80px;
 	}
@@ -966,9 +944,6 @@ textarea::-webkit-scrollbar {
 	div.relatedInfoList{
 	    top: 33%;
 	    left: 12%;
-	}
-	div.confirmationBox{
-		left: 15%;
 	}
 	div#followDoctorParent{
 		right: 41px;width: 30%;
@@ -1228,9 +1203,6 @@ textarea::-webkit-scrollbar {
 		font-size: 8px;
 	}
 
-	div.confirmationBox{
-	    left: 31%;
-	}
 	div#followDoctorParent{
 		display: none;
 	}
@@ -1465,18 +1437,7 @@ textarea::-webkit-scrollbar {
 }
 /* ///////////////////////////////////////////////////////////////// Samll sizes /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 468px){
-	div.confirmationBox{
-		width: 222px;
-		height: 117px;
-	    top: 41%;
-	    left: 20%;
-	    font-size: 12px;
-	    padding: 12px 7px;
-	}
-	div.confirmationBox a{
-		margin: 24px 23px;
-   		 font-size: 11px;
-	}
+
 }
 /* ///////////////////////////////////////////////////////////////// Very Samll sizes /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 320px){
@@ -1488,8 +1449,5 @@ textarea::-webkit-scrollbar {
 	}
 	#followButton{
 	    font-size: 9px;
-	}
-	div.confirmationBox{
-	    left: 17%;
 	}
 }

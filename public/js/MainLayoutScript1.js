@@ -470,7 +470,7 @@ $(document).ready(function(e){
 	  	formDeleteButton.attr("onclick",`deleteQuestions(${id})`)
 	  }
 	  
-})
+	})
 
 
 });

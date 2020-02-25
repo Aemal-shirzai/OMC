@@ -4,6 +4,7 @@
 
 @section("content")
 
+@include("../layouts.messages")
 <div class="container" id="listParent" style="">
 
 	<!-- Up voters list -->
@@ -630,17 +631,9 @@
 								<!-- Beggining of: Comment managing options delete and update -->
 								@if(Auth::user()->id === $comment->comment_owner->id)
 								<a href="{{route('comments.edit',$comment->id)}}"><button class=" commentManageOptions fal fa-edit float-right"> Edit</button></a>
-								<button class="commentManageOptions fal fa-trash float-right" id="commentDeleteButton-{{$comment->id}}" onclick="deleteCommentPermission('{{$comment->id}}')"> Delete</button>
+								<button class="commentManageOptions fal fa-trash float-right" id="commentDeleteButton-{{$comment->id}}" data-toggle="modal" data-target="#deleteBox" data-id="{{$comment->id}}" data-type="comment" > Delete</button>
 								@endif
 								<!-- End of Comment managing options delete and update -->
-
-								<div class="confirmationBox" id="commentConfirmationBox-{{$comment->id}}">
-									<div id="text">Are You Sure You Want To Delete?</div>
-									<div id="text"><small>Remember: There is no comeback</small></div>
-									<a href="javascript:void(0)" onclick="deleteComments('{{$comment->id}}','{{$question->id}}')" class="btn btn-danger btn-sm">Delete</a>
-									<a href="javascript:void(0)" onclick="closePermissionBox('{{$comment->id}}')" class="btn btn-light btn-sm">Cancel</a>
-								</div>
-
 								@endauth
 								@guest
 								<button class="btn OptionsForGuest" title="The answer was usefull. You need to login First">
@@ -793,18 +786,9 @@
 												<!-- Beggining of: Comment managing options delete and update -->
 													@if(Auth::user()->id === $reply->owner->id)
 													<a href="{{route('replies.edit',$reply->id)}}"><button class=" commentManageOptions fal fa-edit float-right"> Edit</button></a>
-													<button class="commentManageOptions fal fa-trash float-right" id="deleteReplyButton-{{$reply->id}}" onclick="deleteReplyPermission('{{$reply->id}}')"> Delete</button>
+													<button class="commentManageOptions fal fa-trash float-right" id="deleteReplyButton-{{$reply->id}}" data-toggle="modal" data-target="#deleteBox" data-type="reply" data-id="{{$reply->id}}" data-comment="{{$comment->id}}"> Delete</button>
 													@endif
 												<!-- End of Comment managing options delete and update -->
-
-												<div class="confirmationBox" id="replyConfirmationBox-{{$reply->id}}">
-													<div id="text">Are You Sure You Want To Delete?</div>
-													<div id="text"><small>Remember: There is no comeback</small></div>
-													<a href="javascript:void(0)" onclick="deleteReplies('{{$reply->id}}','{{$comment->id}}')" class="btn btn-danger btn-sm">Delete</a>
-													<a href="javascript:void(0)" onclick="closeDeleteReplyPermission('{{$reply->id}}')" class="btn btn-light btn-sm">Cancel</a>
-											</div>
-
-
 												@endauth
 												@guest
 												<button class="btn OptionsForGuest" title="The answer was usefull. you need to login first">
