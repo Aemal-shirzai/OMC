@@ -840,7 +840,6 @@
 					@can("view",$user)
 					<div id="addAchDiv" onclick="showAchDiv()">
 						<span class="fal fa-plus"></span>
-
 					</div>
 					@endcan
 					@foreach($achievements as $achievement)
@@ -899,7 +898,13 @@
 				</div>
 					
 				@else
-					<h5>No Achievements to display</h5>
+					<h5 class="font-weight-bold d-block ml-2">No Achievements to display</h5>
+					@can("view",$user)
+					<div id="addAchDiv" onclick="showAchDiv()">
+						<span class="fal fa-plus"></span>
+					</div>
+					@endcan
+					
 				@endif
 				@endif
 			</div>

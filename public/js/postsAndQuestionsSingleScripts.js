@@ -5,52 +5,6 @@ function openShareOptions(){
 }
 // End of : the function which open the share options menu
 
-// Beggingon of the function which open the upvoter list
-function openUpVotersList(){
-	$("#upVotersList").fadeToggle();
-	$("#DownVotersList").hide("fast");
-	$("#follwersList").hide("fast");
-}
-
-//End of the function which open the upvoter list
-
-// Beggingon of the function which close the upvoter list
-function closeUpVotersList(){
-	$("#upVotersList").fadeOut();
-}
-//End of the function which clse the upvoter lis
-
-
-// Beggingon of the function which open the down list
-function openDownVotersList(){
-	$("#DownVotersList").fadeToggle();
-	$("#upVotersList").hide("fast");
-	$("#follwersList").hide("fast");
-}
-//End of the function which open the down list
-
-// Beggingon of the function which close the Down list
-function closeDownVotersList(){
-	$("#DownVotersList").fadeOut();
-}
-//End of the function which clse the down list
-
-// Beggingon of the function which open the upvoter list
-function openFollowersList(){
-	$("#follwersList").fadeToggle();
-	$("#upVotersList").hide("fast");
-	$("#DownVotersList").hide("fast");
-}
-//End of the function which open the upvoter list
-// Beggingon of the function which close the upvoter list
-function closeFollowersList(){
-	$("#follwersList").fadeOut();
-}
-//End of the function which clse the upvoter list
-
-
-
-
 // Beggining of the : Function responsible for following the doctors by normal users
 function followDoctor(doctorId,type){
 	if(type == "profile"){

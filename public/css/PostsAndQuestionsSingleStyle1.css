@@ -1,71 +1,6 @@
 div#footer{
 	margin-top: 500px;
 }
-
-div.relatedInfoList{
-	width: 360px;
-    background: white;
-    box-shadow: 0px 0px 10px 3px #eaeaea;
-    border-radius: 10px;
-    position: fixed;
-    z-index: 1;
-    top: 42%;
-    left: 24%;
-    overflow: hidden;
-	display: none;
-}
-.relatedInfoHeader{
-    width: 100%;
-   	max-height: 40px;
-    box-shadow: 0 1px 3px rgba(59,64,69,0.2);
-    overflow: hidden;
-    text-align: center;
-}
-.relatedInfoBody{
-	padding: 5px 12px;
-	height: 311px;
-	overflow: auto;
-}
-div.relatedInfoHeader button.close{
-	margin-right: 5px;
-    font-size: 44px;
-    margin-top: -7px;
-    font-weight: lighter;
-}
-div.relatedInfoHeader h6{
-	font-weight: bold;
-    font-size: 14px;
-    padding-top: 11px;
-    color: #9ba1a7;
-}
-div.relatedInfoList h4{
-	font-weight: bold;
-    font-size: 14px;
-    padding-top: 11px;
-    text-align: center;
-    color: #9ba1a7;
-}
-.voterFollowerImage{
-	width: 14%;
-	overflow: hidden;
-	float: left;
-	display: inline-block;
-}
-.voterFollowerImage img{
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-}
-.no-image-in-relatedInfo{
-	padding: 8px 10px;
-    border-radius: 50%;
-	border: 1px solid #3fbbc0;
- 	color: #3fbbc0;
-    font-size: 16px;
-    height: 35px;
-    width: 35px;
-}
-
 .fullNameRelatedInfo{
 	margin-left: 1px;
 	font-size: 11px;
@@ -855,10 +790,6 @@ textarea::-webkit-scrollbar {
 
 /* ///////////////////////////////////////////////////////////////// IPHAD PRO /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 1200px) and (min-width: 1024px){
-	div.relatedInfoList{
-	    top: 21%;
-	    left: 16%;
-	}
 	div#followDoctorParent{
 		right: 80px;
 	}
@@ -878,15 +809,6 @@ textarea::-webkit-scrollbar {
 	}
 	.followingButton{
 		font-size: 9px;
-	}
-	.no-image-in-following{
-		padding: 8px 9px;
-	    border-radius: 50%;
-		border: 1px solid #3fbbc0;
-	 	color: #3fbbc0;
-	    font-size: 15px;
-	    height: 32px;
-	    width: 32px;
 	}
 	div#forDoctors{
 	    font-size: 12px;
@@ -941,10 +863,6 @@ textarea::-webkit-scrollbar {
 
 /* ///////////////////////////////////////////////////////////////// IPHAD /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 1023px) and (min-width: 768px){
-	div.relatedInfoList{
-	    top: 33%;
-	    left: 12%;
-	}
 	div#followDoctorParent{
 		right: 41px;width: 30%;
 	}
@@ -964,9 +882,9 @@ textarea::-webkit-scrollbar {
 	.followingButton{
 		font-size: 7px;
 	}
-	.no-image-in-following{
+	/*.no-image-in-following{
 		padding: 7px 8px;font-size: 14px;height: 30px;width: 30px;
-	}
+	}*/
 	div#forDoctors{
 		width: 26%;right: 59px;font-size: 10px;
 	}
@@ -1152,47 +1070,6 @@ textarea::-webkit-scrollbar {
 }
 /* ///////////////////////////////////////////////////////////////// Samll sizes rotate /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 767px){
-	div.relatedInfoList{
-	    width: 252px;
-	    background: white;
-	    box-shadow: 0px 0px 10px 3px #eaeaea;
-	    border-radius: 10px;
-	    position: fixed;
-	    z-index: 1;
-	    top: 33%;
-	    left: 10%;
-	    left: 14%;
-	}
-	.relatedInfoHeader{
-    width: 100%;
-   	max-height: 40px;
-    box-shadow: 0 1px 3px rgba(59,64,69,0.2);
-    overflow: hidden;
-    text-align: center;
-	}
-	div.relatedInfoHeader button.close{
-	    font-size: 40px;
-	}
-	div.relatedInfoHeader h6{
-	    font-size: 13px;
-	}
-	div.relatedInfoList h4{
-	    font-size: 13px;
-	}
-	.voterFollowerImage{
-		width: 13%;
-	}
-	.voterFollowerImage img{
-		width: 30px;
-		height: 30px;
-	}
-	.no-image-in-relatedInfo{
-		padding: 7px 8px;
-	    font-size: 14px;
-	    height: 30px;
-	    width: 30px;
-	}
-
 	.fullNameRelatedInfo{
 		margin-left: 6px;
 		font-size: 10px;
@@ -1441,12 +1318,6 @@ textarea::-webkit-scrollbar {
 }
 /* ///////////////////////////////////////////////////////////////// Very Samll sizes /////////////////////////////////////////////////////////////////// */
 @media screen and (max-width: 320px){
-	#relatedInfo a{
-		font-size: 5px;
-	}
-	#relatedInfo a:hover{
-		font-size: 5px;
-	}
 	#followButton{
 	    font-size: 9px;
 	}

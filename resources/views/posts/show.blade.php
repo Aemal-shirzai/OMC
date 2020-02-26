@@ -7,153 +7,150 @@
 <div class="container" id="listParent" style="">
 
 	<!-- Up voters list -->
-	<div class="relatedInfoList" id="upVotersList">
-		<div class="relatedInfoHeader">
-			<button class="close" onclick="closeUpVotersList()">&times;</button>
-			<h6>Up-voters</h6>
-		</div>
-		@if($post->votedBy()->where("type",1)->count() > 0)
-			<div class="relatedInfoBody" >
-			@foreach($post->votedBy()->where("type",1)->get() as $voter)
-				<div class="voterFollowerImage" id="voterFollowerImage">
-					@if($voter->photos()->where('status',1)->first())
-						@if($voter->owner_type == "App\Doctor")
-							<img src="/storage/images/doctors/{{$voter->photos()->where('status',1)->first()->path}}" class="img-fluid">
-						@else
-							<img src="/storage/images/normalUsers/{{$voter->photos()->where('status',1)->first()->path}}" class="img-fluid">
-						@endif
-					@else
-						<span class="fal fa-user no-image-in-relatedInfo"></span>
-					@endif
-				</div>
-
-				<div class="followDoctor" id="followDoctor">
-					<a href="{{route('profile',$voter->username)}}" class="fullNameRelatedInfo">
-						<span>{{$voter->owner->fullName}}</span>
-					</a>
-					@if($voter->owner_type == "App\Doctor")
-						<span class="ByRelatedInfo">Followed By 
-							<span id="followCount-{{$voter->id}}">{{$voter->owner->followed()->count()}} </span>
-						</span>
-					@else
-						<span class="ByRelatedInfo">
-							<span id="username-{{$voter->id}}">{{$voter->username}} </span>
-						</span>
-					@endif
-					@can("normalUser_related",Auth::user())
-					@if($voter->owner_type == "App\Doctor")
-					<a href="javascript:void(0)" class="btn btn-sm float-right followingButton" class="" id="followingButtonup-{{$voter->id}}" onclick="followDoctor('{{$voter->id}}','fromUpvoters')">
-						<i class="{{ Auth::user()->owner->following()->where('doctors.id',$voter->id)->first() ? 'fad fa-check' : 'fad fa-plus' }}" id="followButtonIconUp-{{$voter->id}}"></i>
-						<span class="followingButtonText" id="followingButtonTextUp-{{$voter->id}}">
-							@if(Auth::user()->owner->following()->where("doctors.id",$voter->id)->first())
-								Following
+	<div class="modal fade " id="upVoterBox" tabindex="-1" role="dialog" aria-labelledby="upvotersTitle" aria-hidden="true">
+	  <div class="modal-dialog  modal-dialog-centered modal-sm" role="document">
+	    <div class="modal-content pl-0 pr-0">
+	      <div class="modal-header justify-content-center">
+	        <h6 class="modal-title" id="upvotersTitle" style="font-weight: bold;">UP VOTERS</h6>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      		@if($post->votedBy()->where("type",1)->count() > 0)
+	      			@foreach($post->votedBy()->where("type",1)->get() as $voter)
+	      			<div class="row">
+	      				<div class="col-3">
+	      					@if($voter->photos()->where('status',1)->first())
+								@if($voter->owner_type == "App\Doctor")
+									<img src="/storage/images/doctors/{{$voter->photos()->where('status',1)->first()->path}}" class="img-fluid rounded-circle">
+								@else
+									<img src="/storage/images/normalUsers/{{$voter->photos()->where('status',1)->first()->path}}" class="img-fluid rounded-circle">
+								@endif
 							@else
-								Follow
+								<!-- <span class="fal fa-user no-image-in-relatedInfo"></span> -->
+								<span class="fal fa-user rounded-circle p-3" style="border:1px solid #3fbbc0;color: #3fbbc0;font-size: 14px;"></span>
 							@endif
-						</span>
-					</a>
-					@endif
-					@endcan
-				</div>	
-				<div class="dropdown-divider"></div>
-			@endforeach
-			</div>
-		@else
-			<h4>No Voters</h4>
-		@endif
+	      				</div>
+	      				<div class="col-9 pl-0">
+	      					<a href="{{route('profile',$voter->username)}}" class="fullNameRelatedInfo">
+								<span>{{$voter->owner->fullName}}</span>
+							</a>
+							@if($voter->owner_type == "App\Doctor")
+								<span class="ByRelatedInfo">Followed By 
+									<span id="followCount-{{$voter->id}}">{{$voter->owner->followed()->count()}} </span>
+									<span class="d-block">Doctor</span>
+								</span>
+							@else
+								<span class="ByRelatedInfo">
+									<span id="username-{{$voter->id}}">{{$voter->username}} </span>
+								</span>
+							@endif
+	      				</div>
+	      			</div>
+	      			<div class="dropdown-divider"></div>
+	      			@endforeach
+	      		@else
+	      			<h4>No Voters</h4>
+	      		@endif
+	      </div>
+	    </div>
+	  </div>
 	</div>
 
 	<!-- Down voters list -->
-	<div class="relatedInfoList" id="DownVotersList">
-		<div class="relatedInfoHeader">
-			<button class="close" onclick="closeDownVotersList()">&times;</button>
-			<h6>Down-voters</h6>
-		</div>
-		@if($post->votedBy()->where("type",0)->count() > 0)
-			<div class="relatedInfoBody" >
-			@foreach($post->votedBy()->where("type",0)->get() as $voter)
-				<div class="voterFollowerImage" id="voterFollowerImage">
-					@if($voter->photos()->where('status',1)->first())
-						@if($voter->owner_type == "App\Doctor")
-							<img src="/storage/images/doctors/{{$voter->photos()->where('status',1)->first()->path}}" class="img-fluid">
-						@else
-							<img src="/storage/images/normalUsers/{{$voter->photos()->where('status',1)->first()->path}}" class="img-fluid">
-						@endif
-					@else
-						<span class="fal fa-user no-image-in-relatedInfo"></span>
-					@endif
-				</div>
-
-				<div class="followDoctor" id="followDoctor">
-					<a href="{{route('profile',$voter->username)}}" class="fullNameRelatedInfo">
-						<span>{{$voter->owner->fullName}}</span>
-					</a>
-					@if($voter->owner_type == "App\Doctor")
-						<span class="ByRelatedInfo">Followed By 
-							<span id="followCount-{{$voter->id}}">{{$voter->owner->followed()->count()}} </span>
-						</span>
-					@else
-						<span class="ByRelatedInfo">
-							<span id="username-{{$voter->id}}">{{$voter->username}} </span>
-						</span>
-					@endif
-					@can("normalUser_related",Auth::user())
-					@if($voter->owner_type == "App\Doctor")
-					<a href="javascript:void(0)" class="btn btn-sm float-right followingButton" class="" id="followingButtonup-{{$voter->id}}" onclick="followDoctor('{{$voter->id}}','fromUpvoters')">
-						<i class="{{ Auth::user()->owner->following()->where('doctors.id',$voter->id)->first() ? 'fad fa-check' : 'fad fa-plus' }}" id="followButtonIconUp-{{$voter->id}}"></i>
-						<span class="followingButtonText" id="followingButtonTextUp-{{$voter->id}}">
-							@if(Auth::user()->owner->following()->where("doctors.id",$voter->id)->first())
-								Following
+	<div class="modal fade " id="downVoterBox" tabindex="-1" role="dialog" aria-labelledby="downvotersTitle" aria-hidden="true">
+	  <div class="modal-dialog  modal-dialog-centered modal-sm" role="document">
+	    <div class="modal-content pl-0 pr-0">
+	      <div class="modal-header justify-content-center">
+	        <h6 class="modal-title" id="downvotersTitle" style="font-weight: bold;">DOWN VOTERS</h6>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      		@if($post->votedBy()->where("type",0)->count() > 0)
+	      			@foreach($post->votedBy()->where("type",0)->get() as $voter)
+	    	     	<div class="row">
+	      				<div class="col-3">
+	      					@if($voter->photos()->where('status',1)->first())
+								@if($voter->owner_type == "App\Doctor")
+									<img src="/storage/images/doctors/{{$voter->photos()->where('status',1)->first()->path}}" class="img-fluid rounded-circle">
+								@else
+									<img src="/storage/images/normalUsers/{{$voter->photos()->where('status',1)->first()->path}}" class="img-fluid rounded-circle">
+								@endif
 							@else
-								Follow
+								<!-- <span class="fal fa-user no-image-in-relatedInfo"></span> -->
+								<span class="fal fa-user rounded-circle p-3" style="border:1px solid #3fbbc0;color: #3fbbc0;font-size: 14px;"></span>
 							@endif
-						</span>
-					</a>
-					@endif
-					@endcan
-				</div>	
-				<div class="dropdown-divider"></div>
-			@endforeach
-			</div>
-		@else
-			<h4>No Voters</h4>
-		@endif
-	</div>
-	<!-- Folowers list -->
-	<div class="relatedInfoList" id="follwersList">
-		<div class="relatedInfoHeader">
-			<button class="close" onclick="closeFollowersList()">&times;</button>
-			<h6>Followers</h6>
-		</div>
-		@if($post->favoritedBy()->count() > 0)
-			<div class="relatedInfoBody" >
-			@foreach($post->favoritedBy as $follower)
-				<div class="voterFollowerImage" id="voterFollowerImage">
-					@if($follower->account->photos()->where('status',1)->first())
-						<img src="/storage/images/normalUsers/{{$follower->account->photos()->where('status',1)->first()->path}}" class="img-fluid">
-					@else
-						<span class="fal fa-user no-image-in-relatedInfo"></span>
-					@endif
-				</div>
+	      				</div>
+	      				<div class="col-9 pl-0">
+	      					<a href="{{route('profile',$voter->username)}}" class="fullNameRelatedInfo">
+								<span>{{$voter->owner->fullName}}</span>
+							</a>
+							@if($voter->owner_type == "App\Doctor")
+								<span class="ByRelatedInfo">Followed By 
+									<span id="followCount-{{$voter->id}}">{{$voter->owner->followed()->count()}} </span>
 
-				<div class="followDoctor" id="followDoctor">
-					
-					<a href="{{route('profile',$follower->account->username)}}" class="fullNameRelatedInfo">
-						<span>{{$follower->fullName}}</span>
-					</a>
-	
-					<span class="ByRelatedInfo">
-						<span id="username-{{$follower->id}}">{{$follower->account->username}} </span>
-					</span>
-				</div>	
-				<div class="dropdown-divider"></div>
-			@endforeach
-			</div>
-		@else
-			<h4>No followers</h4>
-		@endif
+									<span class="d-block">Doctor</span>
+								</span>
+							@else
+								<span class="ByRelatedInfo">
+									<span id="username-{{$voter->id}}">{{$voter->username}} </span>
+								</span>
+							@endif
+	      				</div>
+	      			</div>
+	      			<div class="dropdown-divider"></div>
+	      			@endforeach
+	      		@else
+	      			<h4>No Voters</h4>
+	      		@endif
+	      </div>
+	    </div>
+	  </div>
 	</div>
 
+	<!-- Followers List -->
+	<div class="modal fade " id="followersBox" tabindex="-1" role="dialog" aria-labelledby="followersTitle" aria-hidden="true">
+	  <div class="modal-dialog  modal-dialog-centered modal-sm" role="document">
+	    <div class="modal-content pl-0 pr-0">
+	      <div class="modal-header justify-content-center">
+	        <h6 class="modal-title" id="followersTitle" style="font-weight: bold;">FOLLOWERS</h6>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      		@if($post->favoritedBy()->count() > 0)
+					@foreach($post->favoritedBy as $follower)
+	    	     	<div class="row">
+	      				<div class="col-3">
+	      					@if($follower->account->photos()->where('status',1)->first())
+								<img src="/storage/images/normalUsers/{{$follower->account->photos()->where('status',1)->first()->path}}" class="img-fluid rounded-circle">
+							@else
+								<!-- <span class="fal fa-user no-image-in-relatedInfo"></span> -->
+								<span class="fal fa-user rounded-circle p-3" style="border:1px solid #3fbbc0;color: #3fbbc0;font-size: 14px;"></span>
+							@endif
+	      				</div>
+	      				<div class="col-9 pl-0">
+	      					<a href="{{route('profile',$follower->account->username)}}" class="fullNameRelatedInfo">
+								<span>{{$follower->fullName}}</span>
+							</a>
+							<span class="ByRelatedInfo">
+								<span id="username-{{$follower->id}}">{{$follower->account->username}} </span>
+							</span>
+			      		</div>
+	      			</div>
+	      			<div class="dropdown-divider"></div>
+	      			@endforeach
+	      		@else
+	      			<h4>No Followers</h4>
+	      		@endif
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
 	<!-- Beggingon of : showiing 10 most followed doctors for normal users-->
 	@can("normalUser_related",Auth::user())
@@ -280,9 +277,9 @@
 			@endif
 				<h2>{{$post->title}}</h2>
 				<div id="relatedInfo">
-					<a href="javascript:void(0)" onclick="openUpVotersList()" class="btn btn-sm">View Up Voters <span class="count" id="upVoters">{{$post->votedBy()->where("type",1)->count()}}</span></a>
-					<a href="javascript:void(0)" onclick="openDownVotersList()" class="btn btn-sm">View Down Voters <span class="count" id="downVoters">{{$post->votedBy()->where("type",0)->count()}}</span></a>
-					<a href="javascript:void(0)" onclick="openFollowersList()" class="btn btn-sm">View Followers <span class="count" id="follwers">{{$post->favoritedBy()->count()}}</span></a>
+					<a href="javascript:void(0)" data-toggle="modal" data-target="#upVoterBox" class="btn btn-sm">View Up Voters <span class="count" id="upVoters">{{$post->votedBy()->where("type",1)->count()}}</span></a>
+					<a href="javascript:void(0)" data-toggle="modal" data-target="#downVoterBox" class="btn btn-sm">View Down Voters <span class="count" id="downVoters">{{$post->votedBy()->where("type",0)->count()}}</span></a>
+					<a href="javascript:void(0)" data-toggle="modal" data-target="#followersBox" class="btn btn-sm">View Followers <span class="count" id="follwers">{{$post->favoritedBy()->count()}}</span></a>
 					<a href="javascript:void(0)" class="btn btn-sm" onclick="showAllComments()" >View Comments <span class="count" id="">{{$post->comments()->count()}}</a>
 				</div>
 
@@ -424,43 +421,8 @@
 					</a>
 				</button>
 				@endcan
-				@can("Doctor_related",Auth::user())
-				<button class="btn OptionsForGuest" title="Follow the post for lates update">
-					<a href="javascript:void(0)">
-						<span class="fal fa-wifi optionsIcons"></span> 
-						<span class="ContentOptionsText">Followed by</span> 
-						<span class="votes">. {{$post->favoritedBy()->count()}}</span>
-					</a>
-				</button>
-				@endcan
 				@endauth
 				<!-- End of the posts options that should be visible only for auth users -->
-
-				<!-- Beggining of the posts options that should be visible only for gues users -->
-				@guest
-				<button class="btn OptionsForGuest" title="The answer was usefull. You have to Login First">
-					<a href="javascript:void(0)">
-						<span class="far fa-arrow-alt-up optionsIcons"></span> 
-						<span class="ContentOptionsText">Up-votes</span> 
-						<span class="votes">. {{$post->votedBy()->where("type",1)->count()}}</span>
-					</a>
-				</button>
-				<button class="btn OptionsForGuest" title="The answer was not usefull. You have to Login First">
-					<a href="javascript:void(0)">
-						<span class="fal fa-arrow-alt-down optionsIcons"></span> 
-						<span class="ContentOptionsText">Down-votes</span>  
-						<span class="votes">. {{$post->votedBy()->where("type",0)->count()}}</span>
-					</a>
-				</button>
-				<button class="btn OptionsForGuest" title="Follow the post for lates update. You have to Login First">
-					<a href="javascript:void(0)">
-						<span class="fal fa-wifi optionsIcons"></span> 
-						<span class="ContentOptionsText">Followers</span> 
-						<span class="votes">. {{$post->favoritedBy()->count()}}</span>
-					</a>
-				</button>
-				@endguest
-				<!-- End of the posts options that should be visible only for guest users -->
 
 				<!-- Beggining of the posts options that should be visible for both the  auth users and guest users -->
 				<button class="btn" title="All comments for this post" onclick="showAllComments()">
