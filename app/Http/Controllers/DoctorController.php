@@ -16,6 +16,8 @@ use App\Http\Requests\DoctorAchievementsRequest;
 use App\Http\Requests\DoctorAchievementsUpdateRequest;
 use Carbon\Carbon;
 
+use Validator;
+
 class DoctorController extends Controller
 {
     public function __construct(){
@@ -176,8 +178,44 @@ class DoctorController extends Controller
 
 
     //  To add achievemnts to docotrs
-    public function achAdd(DoctorAchievementsRequest $request)
+    public function achAdd(Request $request)
     {
+        // return response()->json(["abc"=>$request->all()]);
+        $validator = Validator::make($request->all(),[
+            'ach_title' => "bail|required|max:100",
+            'ach_content' => "bail|required|max:500",
+            'ach_location' => "bail|required|max:100",
+            'ach_photo' => "bail|required|image|max:10240",
+            'ach_year' => "bail|required|regex:/^[0-9]+$/i",
+            'ach_month' => "bail|required|regex:/^[0-9]+$/i",
+            'ach_day' => "bail|required|regex:/^[0-9]+$/i",
+        ],[
+            'ach_title.required' => "The title can  not be empty...",
+            'ach_title.max' => "Long title not allowed ...",
+            'ach_content.required' => "The description can not be empty...",
+            'ach_content.max' => "Long description  not  allowed ...",
+            'ach_location.required' => "The location field can not be empty ...",
+            'ach_location.max' => "Long location  not  allowed ...",
+            'ach_photo.required' => "The photo is required",
+            'ach_photo.image' => "Invalid file. Only photos are allowed...",
+            'ach_photo.max' => "File too large. max 10MB...",
+            'ach_year.required' => "The year can not be empty ...",
+            'ach_year.regex' => "Invalid data for year...",
+            'ach_month.required' => "The month can not be empty ...",
+            'ach_month.regex' => "Invalid data from month ...",
+            'ach_day.required' => "The day can not be empty ...",
+            'ach_day.regex' => "Invalid data from day ...",
+        ]);
+
+        if($validator->fails()){
+            if($request->ajax()){
+                return response()->json(["validationErrors"=>$validator->errors()]);
+            }else{
+                return back()->withInput()->withErrors($validator->errors());
+            }
+        }
+
+
         // achievements
         if($this->authorize("Doctor_related",Auth::user()))
         {
@@ -207,8 +245,22 @@ class DoctorController extends Controller
             }
 
             if($achievement){
+                if($request->ajax()){
+                    $date = explode("-",$achievement->ach_date);
+                    $year = $date[0];
+                    $month = $date[1];
+                    $day = explode(" ",$date[2])[0];
+                    $mainDate = Carbon::createFromDate($year,$month,$day)->format("d-M-Y");
+                    $photoPath = $achievement->photos()->where('status',1)->first()->path;
+                    $achievement["mainDate"] = $mainDate;
+                    $achievement["photoPath"] = $photoPath;
+                    return response()->json(["ach"=>$achievement]);
+                }
                 return redirect()->route("profile",Auth::user()->username)->with("ach_success","Achievement Added");
             }else{
+                 if($request->ajax()){
+                    return response()->json(["ach_error"=>"OOps something went wrong try again"]);
+                }
                 return back()->withInput()->with("ach_error","OOps something went wrong try again");;
             }
 

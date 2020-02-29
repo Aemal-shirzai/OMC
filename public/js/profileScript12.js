@@ -290,6 +290,88 @@ $(".commentForm").submit(function(e){
 });
 
 
+$(".achAddForm").submit(function(e){
+	$("#resetAchForm").attr("disabled","true");
+	$("#ach_submit").attr("disabled","true");
+	$("#ach_submit").attr("value","Adding...");
+	$("#achievementsBoxTitle").text("Adding...");
+	event.preventDefault();
+	var formData = new FormData(this);
+	$.ajax({
+		method:"POST",
+		url:achAddUrl,
+		data:formData,
+		contentType:false,
+		cache:false,	
+		processData:false,
+	}).done(function(response){
+		$("#resetAchForm").removeAttr("disabled");
+		$("#ach_submit").removeAttr("disabled");
+		$("#ach_submit").attr("value","Add achievement");
+		$("#achievementsBoxTitle").text("Add Achievement");
+		if('ach' in response){
+			$("#achievementsFormBox").modal("hide");
+			$("#addAchDiv").after(`
+				<div class="achievement-titleAndInfo" id="ach-MainContent-${response.ach['id']}">
+					<h5 class="">${response.ach['ach_title']}</h5>
+					<small class="timeAndLocation"><span class="far fa-map-marker-alt"></span> ${response.ach['ach_location']}</small>
+					<small class="timeAndLocation">
+						<span class="far fa-clock"></span>
+						${response.ach['mainDate']}				
+					</small>
+					
+					<div class="ach-fulllContent">
+						<p>${response.ach['ach_content']}</p>
+					</div>
+					<div class="ach-image-options">
+						<a href="#" onclick="loadImage('${response.ach['id']}')" target="__blank" onmouseleave ="closeAchTips('${response.ach['id']}','view')" onmouseover="showAchTips('${response.ach['id']}','view')">
+							<span class="far fa-file-certificate"></span>
+						</a>
+						<span class="ach-options-info" id="relatedViewText-${response.ach['id']}">View related file</span>
+
+						<a href="/Storage/images/achievements/${response.ach['photoPath']}" download=""  onmouseleave="closeAchTips('${response.ach['id']}','download')" onmouseover="showAchTips('${response.ach['id']}','download')">
+							<span class="far fa-download"></span>
+						</a>
+						<span class="ach-options-info" id="relatedDownloadText-${response.ach['id']}">Download related file</span>
+						<a href="/ach/${response.ach['id']}/edit"  onmouseleave="closeAchTips('${response.ach['id']}','edit')" onmouseover="showAchTips('${response.ach['id']}','edit')">
+							<span class="far fa-edit"></span>
+						</a>
+						<span class="ach-options-info" id="relatedEditText-${response.ach['id']}">Edit the post</span>
+						<a href="#" id="ach-DeleteLink-${response.ach['id']}"  onmouseleave="closeAchTips('${response.ach['id']}','delete')" onmouseover="showAchTips('${response.ach['id']}','delete')" data-toggle="modal" data-target="#deleteBox"  data-id="${response.ach['id']}" data-type="achievement">
+							<span class="far fa-trash"></span>
+						</a>
+						<img src="/images/load1.gif" id="ach-DeleteLoading-${response.ach['id']}" style="display: none;width: 20px;">
+						<span class="ach-options-info" id="relatedDeleteText-${response.ach['id']}">Delete Post </span>
+					</div>
+				</div>
+				<div class="ach-pic-div" id="ach-img-div-${response.ach['id']}">
+					<span class="close far fa-times closeAchImg" onclick="hideDiv('${response.ach['id']}')"></span>
+					<img class="imgLoad" id="imgLoad-${response.ach['id']}" src="/images/load1.gif">
+					<a href="/Storage/images/achievements/${response.ach['photoPath']}" class="ach-img-links" target="__blank">
+						<img src="" class="ach-img" id="img-${response.ach['id']}" alt="not showen" >
+					</a>
+				</div>
+			`);
+		}else if('validationErrors' in response){
+			$(`#achTitleError`).text(`${response.validationErrors['ach_title'] ? response.validationErrors['ach_title'][0]  : ""}`);
+			$(`#achContentError`).text(`${response.validationErrors['ach_content'] ? response.validationErrors['ach_content'] : ""}`);
+			$(`#achLocationError`).text(`${response.validationErrors['ach_location'] ? response.validationErrors['ach_location'] : ""}`);
+			$(`#achPhotoError`).text(`${response.validationErrors['ach_photo'] ? response.validationErrors['ach_photo'] : ""}`);
+			$(`#achDateError`).text(`${response.validationErrors['ach_year'] ? response.validationErrors['ach_year'] : ""}`);
+			$(`#achDateError`).append(`${response.validationErrors['ach_month'] ? response.validationErrors['ach_month'] : ""}`);
+			$(`#achDateError`).append(`${response.validationErrors['ach_day'] ? response.validationErrors['ach_day'] : ""}`);
+		}
+	
+		
+	}).fail(function(response){
+		$("#resetAchForm").removeAttr("disabled");
+		$("#ach_submit").removeAttr("disabled");
+		$("#ach_submit").attr("value","Add achievement");
+		$("#achievementsBoxTitle").text("Add Achievement");
+		$("#ajaxAchError").show();
+	})
+});
+
 
 
 });
@@ -1820,3 +1902,11 @@ var afterReplyCommentDone = (id,type) => {
 		$(`#addReplyBtn-${id}`).attr("disabled",'true');
 	}
 }
+
+	$('#achievementsFormBox').on('hide.bs.modal', function (event) {
+		if($("#achievementsBoxTitle").text() !== "Adding..." ){
+		  document.getElementsByClassName("achAddForm")[0].reset();
+		  $("#achFormDiv").fadeOut("fast");
+		  $("#ach-imageDiv").hide();
+		}
+	})
